@@ -1,0 +1,1 @@
+int pathMaker(int n, POSICAO path[]);
