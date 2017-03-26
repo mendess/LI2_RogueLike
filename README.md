@@ -1,13 +1,16 @@
 # LI2
 
 HP = 100
+
 Mana = 50
+
 Inventory Slots = 4
 
 Classes:
 	Warrior
 	Archer
 	Mage
+
 Monster Types:
 	Bat
 	Wolf
