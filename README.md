@@ -1,9 +1,7 @@
 # LI2
 
 HP = 100
-
 Mana = 50
-
 Inventory Slots = 4
 
 Classes:
@@ -16,7 +14,6 @@ Monster Types:
 	Wolf
 	Ogre
 	Dragon
-
 Items:
 	Health Potion (gives +1HP)
 	Mana Potion (gives +1MP)
