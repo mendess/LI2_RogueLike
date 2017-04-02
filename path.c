@@ -4,14 +4,12 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "estado.h"
-
-#define MAP_SIZE	10
-
+#include "jogo.h"
+#include "path.h"
 
 /* Creates a path to be avoided when generating the map to make sure there is at least one path to the exit.
 This also sets the players starting position and the exit*/
-int pathMaker(int n, POSICAO path[]){
+int pathMaker(POSICAO path[]){
 	int plrX;
 	srand(time(NULL));
 	plrX=rand() % 10;
@@ -20,7 +18,7 @@ int pathMaker(int n, POSICAO path[]){
 
 	int decision,i=0;
 	decision=2;
-	while(path[i].y!=(char) 0 && i<n){
+	while(path[i].y!=(char) 0 && i<MAX_CAMINHO){
 		i++;
 		srand(time(NULL));
 		switch(decision){
@@ -119,9 +117,9 @@ void printPath(int n, POSICAO path[]){
 	printf("%d\n", i);
 }
 int main(){
-	POSICAO path[20];
+	POSICAO path[MAX_CAMINHO];
 	int n;
-	n=pathMaker(20,path);
+	n=pathMaker(path);
 	printPath(n,path);
 	return 0;
 }

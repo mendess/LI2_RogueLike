@@ -1,1 +1,3 @@
-int pathMaker(int n, POSICAO path[]);
+#define MAX_CAMINHO   30
+
+int pathMaker(POSICAO path[]);
