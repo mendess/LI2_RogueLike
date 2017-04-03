@@ -129,13 +129,14 @@ int com_jogador (ESTADO e,POSICAO p){
 @param p Posição a verificar
 */
 int com_pedras (ESTADO e, POSICAO p){
-	int i;
-	for(i=0;i<MAX_PEDRAS;i++){
+	int i,flag;
+	flag=0;
+	for(i=0;i<MAX_PEDRAS && !flag;i++){
 		if (e.pedras[i].x == p.x && e.pedras[i].y == p.y){
-			return 1;
+			flag=1;
 		}
 	}
-	return 0;
+	return flag;
 }
 /**
 \brief Verifica se existem monstros nas coordenadas dadas
