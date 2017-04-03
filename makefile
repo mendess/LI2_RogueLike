@@ -3,6 +3,7 @@ FICHEIROS=cgi.h estado.c estado.h exemplo.c Makefile
 
 install: exemplo
 	sudo cp exemplo /usr/lib/cgi-bin
+	sudo cp images/* /var/www/html/
 	touch install
 
 exemplo: jogo.o parser.o path.o estado.o

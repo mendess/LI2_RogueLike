@@ -21,7 +21,7 @@ void print_footer () {
 @param p Posição a verficar
 */
 int outOfBounds(POSICAO p){
-	if (p.x<0 || p.x> SIZE || p.y<0 || p.y>SIZE){
+	if (p.x<0 || p.x>= SIZE || p.y<0 || p.y>=SIZE){
 		return 1;
 	}
 	return 0;
@@ -31,9 +31,9 @@ int outOfBounds(POSICAO p){
 @param p Posição a verficar
 */
 void imprime_movimento (POSICAO p){
-	printf("<image x=%d y=%d width= %d height= %d xlink:href=\"http://127.0.0.1/cgi-bin/border.png\">\n",
-		TAM*p.x,
-		TAM*p.y,
+	printf("<image x=%d y=%d width= %d height= %d xlink:href=\"http://127.0.0.1/cgi-bin/border.png\"/>\n",
+		TAM*(p.x+1),
+		TAM*(p.y+1),
 		TAM,
 		TAM);
 }
@@ -79,9 +79,9 @@ void imprime_jogadas(ESTADO e){
 @param e Estado do jogo
 */
 void imprime_jogador (ESTADO e){
-	printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/cgi-bin/Viking.png\">\n",
-			TAM*(e.jog.x),
-			TAM*(e.jog.y),
+	printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/cgi-bin/Viking.png\"/>\n",
+			TAM*(e.jog.x+1),
+			TAM*(e.jog.y+1),
 			TAM,
 			TAM);
 	imprime_jogadas(e);
@@ -93,9 +93,9 @@ void imprime_jogador (ESTADO e){
 void imprime_monstros (ESTADO e){
 	int i;
 	for(i=0;i<MAX_MONSTROS;i++){
-		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/cgi-bin/dragao.png\">\n",
-				TAM*(e.monstros[i].x),
-				TAM*(e.monstros[i].y),
+		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/cgi-bin/dragao.png\"/>\n",
+				TAM*(e.monstros[i].x+1),
+				TAM*(e.monstros[i].y+1),
 				TAM,
 				TAM);
 	}
@@ -107,9 +107,9 @@ void imprime_monstros (ESTADO e){
 void imprime_pedras (ESTADO e){
 	int i;
 	for (i=0;i<MAX_PEDRAS;i++){
-		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/cgi-bin/rock.png\">\n",
-			TAM*(e.pedras[i].x),
-			TAM*(e.pedras[i].y),
+		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/cgi-bin/rock.png\"/>\n",
+			TAM*(e.pedras[i].x+1),
+			TAM*(e.pedras[i].y+1),
 			TAM,
 			TAM);
 	}
@@ -119,9 +119,9 @@ void imprime_pedras (ESTADO e){
 @param p Posição a imprimir
 */
 void imprime_casa (POSICAO p){
-	printf("<image x=%d y=%d width=%d height=%d href=\"http://127.0.0.1/cgi-bin/floor.png\">\n",
-		TAM*p.x,
-		TAM*p.y,
+	printf("<image x=%d y=%d width=%d height=%d href=\"http://127.0.0.1/cgi-bin/floor.png\"/>\n",
+		TAM*(p.x+1),
+		TAM*(p.y+1),
 		TAM,
 		TAM); 
 	/*

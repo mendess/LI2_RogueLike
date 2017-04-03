@@ -18,7 +18,6 @@ int pathMaker(POSICAO path[]){
 	decision=2;
 	while(path[i].y!=(char) 0 && i<MAX_CAMINHO){
 		i++;
-		srand(time(NULL));
 		switch(decision){
 			//esquerda
 			case 0: if(path[i-1].x!=(char) 0){
@@ -39,7 +38,7 @@ int pathMaker(POSICAO path[]){
 					}
 					break;
 			//direita
-			case 1: if(path[i-1].x!=(char) MAP_SIZE-1){
+			case 1: if(path[i-1].x!=(char) SIZE-1){
 						decision=rand() % 2;
 						switch(decision){
 							//direita
@@ -71,7 +70,7 @@ int pathMaker(POSICAO path[]){
 						}
 						break;
 					}
-					if(path[i-1].x==(char) MAP_SIZE-1){
+					if(path[i-1].x==(char) SIZE-1){
 						decision=rand() % 2;
 						switch(decision){
 							//esquerda

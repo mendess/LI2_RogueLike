@@ -157,7 +157,7 @@ int com_monstros (ESTADO e, POSICAO p){
 @param args QUERY_STRING
 */
 ESTADO ler_estado (char *args){
-	if(strlen(args) == 0){
+	if(!args){
 		return inicializar();
 	}
 	return str2estado(args);
