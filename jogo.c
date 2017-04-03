@@ -41,8 +41,10 @@ int pos_ocupada (ESTADO e, POSICAO p){
 ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]){
 	POSICAO p;
 	for(e.num_pedras=0; e.num_pedras < 20; e.num_pedras++){
-		p.x=(char) random() % SIZE;
-		p.y=(char) random() % SIZE;
+		int testx=rand() % SIZE;
+		int testy=rand() % SIZE;
+		p.x=(char) testx;
+		p.y=(char) testy;
 		if (pos_ocupada(e,p) || isOnPath(e,p,pathSize,path)){
 			e.num_pedras--;
 		}else{
@@ -59,8 +61,10 @@ ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]){
 ESTADO colocar_monstro (ESTADO e){
 	POSICAO p;
 	for(e.num_monstros=0;e.num_monstros<10;e.num_monstros++){
-		p.x=(char) random() % SIZE;
-		p.y=(char) random() % SIZE;
+		int testx=rand() % SIZE;
+		int testy=rand() % SIZE;
+		p.x=(char) testx;
+		p.y=(char) testy;
 		if (pos_ocupada(e,p)){
 			e.num_monstros--;
 		}else{
@@ -110,8 +114,8 @@ ESTADO inicializar(){
 	e.saida.x=path[n-1].x;
 	e.saida.y=path[n-1].y;
 	
-	e=colocar_monstros(e);
 	e=colocar_pedras(e,n,path);
+	e=colocar_monstros(e);
 	
 	return e;
 }
@@ -144,13 +148,14 @@ int com_pedras (ESTADO e, POSICAO p){
 @param p Posição a verificar
 */
 int com_monstros (ESTADO e, POSICAO p){
-	int i;
-	for (i=0;i<MAX_MONSTROS;i++){
+	int i,flag;
+	flag=0;
+	for (i=0;i<MAX_MONSTROS && !flag;i++){
 		if (e.monstros[i].x == p.x && e.monstros[i].y == p.y){
-			return 1;
+			flag=1;
 		}
 	}
-	return 0;
+	return flag;
 } 
 /**
 \brief Verifica se tem de se criar um estado novo (QUERY_STRING vazia) 
