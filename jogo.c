@@ -17,8 +17,8 @@
 int isOnPath(ESTADO e, POSICAO p, int pathSize, POSICAO path[]){ 
 	int i, flag;
 	flag=0;
-	for (i=1;i<MAX_CAMINHO && !flag;i++){
-		if (path[i].x == p.x || path[i].y == p.y){
+	for (i=1;i<pathSize && !flag;i++){
+		if (path[i].x == p.x && path[i].y == p.y){
 			flag=1;
 		}
 	}
@@ -40,16 +40,18 @@ int pos_ocupada (ESTADO e, POSICAO p){
 */
 ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]){
 	POSICAO p;
-	for(e.num_pedras=0; e.num_pedras < 20; e.num_pedras++){
-		int testx=rand() % SIZE;
-		int testy=rand() % SIZE;
-		p.x=(char) testx;
-		p.y=(char) testy;
-		if (pos_ocupada(e,p) || isOnPath(e,p,pathSize,path)){
-			e.num_pedras--;
-		}else{
+	int placed=0;
+	//for(i=0; e.num_pedras == 0 || i < e.num_pedras; i++){
+	while(!placed){
+		int x=rand() % SIZE;
+		int y=rand() % SIZE;
+		p.x=(char) x;
+		p.y=(char) y;
+		if (!pos_ocupada(e,p) && !isOnPath(e,p,pathSize,path)){
+			placed=1;
 			e.pedras[(int) e.num_pedras].x=p.x;
 			e.pedras[(int) e.num_pedras].y=p.y;
+			e.num_pedras++;
 		}
 	}
 	return e;
@@ -60,16 +62,18 @@ ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]){
 */
 ESTADO colocar_monstro (ESTADO e){
 	POSICAO p;
-	for(e.num_monstros=0;e.num_monstros<10;e.num_monstros++){
-		int testx=rand() % SIZE;
-		int testy=rand() % SIZE;
-		p.x=(char) testx;
-		p.y=(char) testy;
-		if (pos_ocupada(e,p)){
-			e.num_monstros--;
-		}else{
+	int placed=0;
+	//for(i=0; e.num_monstros == 0 || i < e.num_monstros; i++){
+	while(!placed){
+		int x=rand() % SIZE;
+		int y=rand() % SIZE;
+		p.x=(char) x;
+		p.y=(char) y;
+		if (!pos_ocupada(e,p)){
+			placed=1;
 			e.monstros [(int) e.num_monstros].x=p.x;
 			e.monstros [(int) e.num_monstros].y=p.y;
+			e.num_monstros++;
 		}
 	}
 	return e;
@@ -111,9 +115,14 @@ ESTADO inicializar(){
 	
 	e.jog.x=path[0].x;
 	e.jog.y=path[0].y;
+	
 	e.saida.x=path[n-1].x;
 	e.saida.y=path[n-1].y;
 	
+	e.num_monstros=0;
+	
+	e.num_pedras=0;
+
 	e=colocar_pedras(e,n,path);
 	e=colocar_monstros(e);
 	
