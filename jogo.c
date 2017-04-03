@@ -2,11 +2,18 @@
 #include <string.h>
 #include <time.h>
 
-#include "jogo.h"
-#include "browser.h"
+#include "estado.h"
 #include "path.h"
+#include "parser.h"
+#include "jogo.h"
 
-/* Verifica se esta posição está em cima do caminho entre o heroi e a saida */
+/**
+\brief Verifica se esta posição está em cima do caminho entre o heroi e a saida
+@param e Estado do jogo
+@param p Posição a verificar
+@param pathSize Tamanho do caminho
+@param path Array de posições do caminho
+*/
 int isOnPath(ESTADO e, POSICAO p, int pathSize, POSICAO path[]){ 
 	int i, flag;
 	flag=0;
@@ -17,13 +24,20 @@ int isOnPath(ESTADO e, POSICAO p, int pathSize, POSICAO path[]){
 	}
 	return flag;
 }
-
-/* verifica se esta algum monstro, pedra ou jogador nesta posição*/
+/**
+\brief Verifica se esta algum monstro, pedra ou jogador na posição dada
+@param e Estado do jogo
+@param p Posição a verificar
+*/
 int pos_ocupada (ESTADO e, POSICAO p){
 	return com_jogador(e,p) || com_pedras(e,p) || com_monstros(e,p);
 }
-
-/* Coloca uma pedra numa posição aleatoria */
+/**
+\brief Coloca uma pedra numa posição aleatoria válida
+@param e Estado do jogo
+@param pathSize Tamanho do caminho
+@param path Caminho a evitar
+*/
 ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]){
 	POSICAO p;
 	for(e.num_pedras=0; e.num_pedras < 20; e.num_pedras++){
@@ -38,8 +52,10 @@ ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]){
 	}
 	return e;
 }
-
-/* Coloca um monstro numa posição aleatoria */
+/**
+\brief Coloca um monstro numa posição aleatoria válida
+@param e Estado do jogo
+*/
 ESTADO colocar_monstro (ESTADO e){
 	POSICAO p;
 	for(e.num_monstros=0;e.num_monstros<10;e.num_monstros++){
@@ -54,8 +70,12 @@ ESTADO colocar_monstro (ESTADO e){
 	}
 	return e;
 }
-
-/* Coloca todas as pedras para inicializar o estado */
+/**
+\brief Coloca todas as pedras para inicializar o estado
+@param e Estado do jogo
+@param pathSize Tamanho do caminho a evitar
+@param path Array de coordenadas do caminho a evitar
+*/
 ESTADO colocar_pedras (ESTADO e, int pathSize, POSICAO path[]){
 	int i;
 	for(i=0;i<MAX_PEDRAS;i++){
@@ -64,16 +84,20 @@ ESTADO colocar_pedras (ESTADO e, int pathSize, POSICAO path[]){
 	return e;
 }
 
-/* Coloca todas os monstros para inicializar o estado */
-ESTADO colocar_monstros (ESTADO e, int pathSize, POSICAO path[]){
+/**
+\brief Coloca todas os monstros para inicializar o estado
+@param e Estado do jogo
+*/
+ESTADO colocar_monstros (ESTADO e){
 	int i;
 	for (i=0;i<MAX_MONSTROS;i++){
-		e=colocar_monstro(e,pathSize,path);
+		e=colocar_monstro(e);
 	}
 	return e;
 }
-
-/* Inicializa o estado do jogo */
+/**
+\brief Inicializa o estado do jogo
+*/
 ESTADO inicializar(){
 
 	ESTADO e;
@@ -86,18 +110,24 @@ ESTADO inicializar(){
 	e.saida.x=path[n-1].x;
 	e.saida.y=path[n-1].y;
 	
-	e=colocar_monstros(e,n,path,MAX_MONSTROS);
-	e=colocar_pedras(e,n,path,MAX_PEDRAS);
+	e=colocar_monstros(e);
+	e=colocar_pedras(e,n,path);
 	
 	return e;
 }
-
-/* Verifica se o jogador esta num certo par de coordenadas */
+/**
+\brief Verifica se o jogador esta num certo par de coordenadas
+@param e Estado do jogo
+@param p Posição a verificar
+*/
 int com_jogador (ESTADO e,POSICAO p){
 	return (e.jog.x == p.x) && (e.jog.y == p.y);
 }
-
-/* Verifica se existem pedras nas Coordenadas dadas */
+/**
+\brief Verifica se existem pedras nas coordenadas dadas
+@param e Estado do jogo
+@param p Posição a verificar
+*/
 int com_pedras (ESTADO e, POSICAO p){
 	int i;
 	for(i=0;i<MAX_PEDRAS;i++){
@@ -107,8 +137,11 @@ int com_pedras (ESTADO e, POSICAO p){
 	}
 	return 0;
 }
-
-/* Verifica se existem monstros nas coordenadas dadas */
+/**
+\brief Verifica se existem monstros nas coordenadas dadas
+@param e Estado do jogo
+@param p Posição a verificar
+*/
 int com_monstros (ESTADO e, POSICAO p){
 	int i;
 	for (i=0;i<MAX_MONSTROS;i++){
@@ -118,14 +151,20 @@ int com_monstros (ESTADO e, POSICAO p){
 	}
 	return 0;
 } 
-
+/**
+\brief Verifica se tem de se criar um estado novo (QUERY_STRING vazia) 
+	   ou se já existe ler a query e convertela no estado do jogo
+@param args QUERY_STRING
+*/
 ESTADO ler_estado (char *args){
 	if(strlen(args) == 0){
 		return inicializar();
 	}
 	return str2estado(args);
 }
-
+/**
+\brief Main
+*/
 int main(){
 	print_header ();
 	srandom(time(NULL));
@@ -143,7 +182,7 @@ int main(){
 	imprime_jogador(e);
 	imprime_monstros(e);
 	imprime_pedras(e);
-	print_footer ();
+	print_footer();
 
 	return 0;
 }

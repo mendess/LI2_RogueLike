@@ -1,14 +1,12 @@
 //#define DEBUG
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
-
-#include "jogo.h"
 #include "path.h"
 
-/* Creates a path to be avoided when generating the map to make sure there is at least one path to the exit.
-This also sets the players starting position and the exit*/
+/**
+\brief Cria um caminho a ser evitado quando o mapa está a ser gerado 
+	   para garantir que há pelo menos um caminho possivel para chegar a saida.
+	   Esta função também define a posição inicial do jogador e de saida
+@param Array de posições do caminho a ser evitado
+*/
 int pathMaker(POSICAO path[]){
 	int plrX;
 	srand(time(NULL));

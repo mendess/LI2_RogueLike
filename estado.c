@@ -1,7 +1,9 @@
-#include <stdio.h>
-#include "jogo.h"
-#include "browser.h"
+#include "estado.h"
 
+/**
+\brief Converto o estado numa string para ser usado no url 
+@param e O estado do jogo
+*/
 char *estado2str(ESTADO e) {
 	static char buffer[MAX_BUFFER];
 	char *p = (char *) &e;
@@ -15,6 +17,10 @@ char *estado2str(ESTADO e) {
 	return buffer;
 }
 
+/**
+\brief Converte uma query num estado
+@param argumentos Query a ser convertida
+*/
 ESTADO str2estado(char *argumentos) {
 	ESTADO e;
 	char *p = (char *) &e;

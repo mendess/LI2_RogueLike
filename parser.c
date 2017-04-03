@@ -1,29 +1,35 @@
-#include <stdio.h>
 #include "parser.h"
-#include "jogo.h"
-#include "browser.h"
 
+/**
+\brief Imprime o inicio do html
+*/
 void print_header (){
 	printf ("Content-Type: text/html; charset=utf-81\n\n");
 	printf ("<header><title> Rogue Like </title></header>\n");
 	printf ("<body>\n");
 	printf ("<svg width=800 height = 600>\n");
 }
-
+/**
+\brief Imprime o fim do html
+*/
 void print_footer () {
 	printf ("</svg>\n");
 	printf("</body>\n");
 }
-
-/* Verifica se um par de coordenadas esta fora dos limites do mapa */
+/**
+\brief Verifica se um par de coordenadas esta fora dos limites do mapa
+@param p Posição a verficar
+*/
 int outOfBounds(POSICAO p){
 	if (p.x<0 || p.x> SIZE || p.y<0 || p.y>SIZE){
 		return 1;
 	}
 	return 0;
 }
-
-/* Imprime um movimento */
+/**
+\brief Imprime um movimento (link)
+@param p Posição a verficar
+*/
 void imprime_movimento (POSICAO p){
 	printf("<image x=%d y=%d width= %d height= %d xlink:href=\"http://127.0.0.1/cgi-bin/border.png\">\n",
 		TAM*p.x,
@@ -31,27 +37,33 @@ void imprime_movimento (POSICAO p){
 		TAM,
 		TAM);
 }
-
-/* Imprime todos os movimentos possiveis */
+/**
+\brief Cria um movimento para as coordenadas dadas
+@param e Estado do jogo
+@param p Posição onde criar o movimento
+*/
 void criar_movimento(ESTADO e, POSICAO p){
 	ESTADO novo;
 	novo = e;
 	p.x += e.jog.x;
 	p.y += e.jog.y;
 	if (!outOfBounds(p) && !pos_ocupada(e,p) ){	
-		novo.jog.x = x;
-		novo.jog.y = y;
+		novo.jog.x = p.x;
+		novo.jog.y = p.y;
 		char str[MAX_BUFFER+33]="http://localhost/cgi-bin/exemplo?";
-		strcat(str,estado2str(novo));)
+		strcat(str,estado2str(novo));
 		ABRIR_LINK(str);
 		FECHAR_LINK;
 		/*printf("http://localhost/cgi-bin/exemplo?%s",
 				estado2str(novo));
 		*/
-		imprime_mov(p);
+		imprime_movimento(p);
 	}
 }
-/* Imprime */
+/**
+\brief Imprime as jogadas possiveis
+@param e Estado do jogo
+*/
 void imprime_jogadas(ESTADO e){
 	POSICAO p;
 	for(p.x=-1;p.x<=1;p.x++){
@@ -62,16 +74,22 @@ void imprime_jogadas(ESTADO e){
 		}
 	}
 }
-
+/**
+\brief Imprime o jogador
+@param e Estado do jogo
+*/
 void imprime_jogador (ESTADO e){
 	printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/cgi-bin/Viking.png\">\n",
 			TAM*(e.jog.x),
 			TAM*(e.jog.y),
 			TAM,
 			TAM);
-	imprime_movimentos(e);
+	imprime_jogadas(e);
 }
-
+/**
+\brief Imprime os monstros
+@param e Estado do jogo
+*/
 void imprime_monstros (ESTADO e){
 	int i;
 	for(i=0;i<MAX_MONSTROS;i++){
@@ -82,7 +100,10 @@ void imprime_monstros (ESTADO e){
 				TAM);
 	}
 }
-
+/**
+\brief Imprime as pedras
+@param e Estado do jogo
+*/
 void imprime_pedras (ESTADO e){
 	int i;
 	for (i=0;i<MAX_PEDRAS;i++){
@@ -93,11 +114,19 @@ void imprime_pedras (ESTADO e){
 			TAM);
 	}
 }
-
+/**
+\brief Imprime uma casa
+@param p Posição a imprimir
+*/
 void imprime_casa (POSICAO p){
-	printf("<image x=%d y=%d width=%d height=%d href=\"http://127.0.0.1/cgi-bin/floor.png\">\n", TAM*x, TAM*y, TAM, TAM); 
-/*	if (p.x == 0 || p.x == SIZE || p.y == 0 || p.y == SIZE){
+	printf("<image x=%d y=%d width=%d height=%d href=\"http://127.0.0.1/cgi-bin/floor.png\">\n",
+		TAM*p.x,
+		TAM*p.y,
+		TAM,
+		TAM); 
+	/*
+	if (p.x == 0 || p.x == SIZE || p.y == 0 || p.y == SIZE){
 		printf("<image x=%d y=%d width=%d height=%d href=\"http://127.0.0.1/cgi-bin/rock.png\">\n", TAM*x, TAM*y, TAM, TAM);
 	}
-*/
+	*/
 }
