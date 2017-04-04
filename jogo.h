@@ -4,7 +4,7 @@
 #define TAM           50
 #define MAX_MONSTROS  10
 #define MAX_PEDRAS    20
-#define SIZE          11
+#define SIZE          10
 
 typedef struct posicao{
 	char x;

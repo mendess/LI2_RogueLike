@@ -40,9 +40,9 @@ int pos_ocupada (ESTADO e, POSICAO p){
 */
 ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]){
 	POSICAO p;
-	int placed=0;
-	//for(i=0; e.num_pedras == 0 || i < e.num_pedras; i++){
-	while(!placed){
+	int placed=0, i=0;
+	while(!placed && i<20){
+		i++;
 		int x=rand() % SIZE;
 		int y=rand() % SIZE;
 		p.x=(char) x;
@@ -62,9 +62,9 @@ ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]){
 */
 ESTADO colocar_monstro (ESTADO e){
 	POSICAO p;
-	int placed=0;
-	//for(i=0; e.num_monstros == 0 || i < e.num_monstros; i++){
-	while(!placed){
+	int placed=0, i=0;
+	while(!placed && i<20){
+		i++;
 		int x=rand() % SIZE;
 		int y=rand() % SIZE;
 		p.x=(char) x;
@@ -172,7 +172,7 @@ int com_monstros (ESTADO e, POSICAO p){
 @param args QUERY_STRING
 */
 ESTADO ler_estado (char *args){
-	if(!args){
+	if(strlen(args)==0){
 		return inicializar();
 	}
 	return str2estado(args);
@@ -187,16 +187,20 @@ int main(){
 	POSICAO p;
 
 	ESTADO e = ler_estado(getenv("QUERY_STRING"));
-	for(y = 0; y < 10; y++){
-		for(x = 0; x < 10; x++){
-			p.x=(char) x;
-			p.y=(char) y;
+
+	for(y = 0; y < SIZE; y++){
+		for(x = 0; x < SIZE; x++){
+			p.x= x;
+			p.y= y;
 			imprime_casa(p);
 		}
 	}
+
 	imprime_jogador(e);
+	imprime_saida(e.saida);
 	imprime_monstros(e);
 	imprime_pedras(e);
+
 	print_footer();
 
 	return 0;

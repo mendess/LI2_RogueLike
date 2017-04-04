@@ -32,6 +32,7 @@ void imprime_jogadas (ESTADO e);
 void imprime_jogador (ESTADO e);
 void imprime_monstros (ESTADO e);
 void imprime_pedras (ESTADO e);
+void imprime_saida (POSICAO p);
 int outOfBounds(POSICAO p);
 
 #endif
