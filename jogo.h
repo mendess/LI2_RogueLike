@@ -12,6 +12,8 @@ typedef struct posicao{
 }POSICAO;
 
 typedef struct estado {
+    //Action
+    char action;
 	// Posição do jogador
     POSICAO jog;
     // Posição da saida
