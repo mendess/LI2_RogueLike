@@ -89,6 +89,8 @@ void criar_movimento(ESTADO e, POSICAO p){
 	}else{
 		e.action=(char) getDirection(p.x,p.y);
 	}
+	p.x += e.jog.x;
+	p.y += e.jog.y;
 	if (!outOfBounds(p) && !pos_ocupada(e,p) ){	
 		char str[MAX_BUFFER+33]="http://localhost/cgi-bin/roguel?";
 		strcat(str,estado2str(e));

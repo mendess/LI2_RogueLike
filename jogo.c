@@ -1,4 +1,4 @@
-#define DEBUG
+//#define DEBUG
 
 #include <stdlib.h>
 #include <string.h>
@@ -179,38 +179,38 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act){
 	switch(act){
 		case 0: return jog;
 	 
-		case 1: jog.x=-1;
-				jog.y=1;
+		case 1: jog.x+=-1;
+				jog.y+=1;
 				return jog;
 	
-		case 2: jog.x=0;
-				jog.y=1;
+		case 2: jog.x+=0;
+				jog.y+=1;
 				return jog;
 
-		case 3: jog.x=1;
-				jog.y=1;
+		case 3: jog.x+=1;
+				jog.y+=1;
 				return jog;
 	
-		case 4: jog.x=-1;
-				jog.y=0;
+		case 4: jog.x+=-1;
+				jog.y+=0;
 				return jog;
 		
 		case 5: return jog;
 	
-		case 6: jog.x=1;
-				jog.y=0;
+		case 6: jog.x+=1;
+				jog.y+=0;
 				return jog;
 	
-		case 7: jog.x=-1;
-				jog.y=-1;
+		case 7: jog.x+=-1;
+				jog.y+=-1;
 				return jog;
 
-		case 8: jog.x=0;
-				jog.y=-1;
+		case 8: jog.x+=0;
+				jog.y+=-1;
 				return jog;
 
-		case 9: jog.x=1;
-				jog.y=-1;
+		case 9: jog.x+=1;
+				jog.y+=-1;
 				return jog;
 	}
 	return jog;
