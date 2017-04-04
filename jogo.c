@@ -1,3 +1,5 @@
+//#define DEBUG
+
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -172,9 +174,16 @@ int com_monstros (ESTADO e, POSICAO p){
 @param args QUERY_STRING
 */
 ESTADO ler_estado (char *args){
+	#ifdef DEBUG
+	if(!args){
+		return inicializar();
+	}
+	#endif
+	#ifndef DEBUG
 	if(strlen(args)==0){
 		return inicializar();
 	}
+	#endif
 	return str2estado(args);
 }
 /**
@@ -196,10 +205,10 @@ int main(){
 		}
 	}
 
-	imprime_jogador(e);
 	imprime_saida(e.saida);
 	imprime_monstros(e);
 	imprime_pedras(e);
+	imprime_jogador(e);
 
 	print_footer();
 

@@ -55,9 +55,6 @@ void criar_movimento(ESTADO e, POSICAO p){
 		ABRIR_LINK(str);
 		imprime_movimento(p);
 		FECHAR_LINK;
-		/*printf("http://localhost/cgi-bin/exemplo?%s",
-				estado2str(novo));
-		*/
 	}
 }
 /**
@@ -68,7 +65,7 @@ void imprime_jogadas(ESTADO e){
 	POSICAO p;
 	for(p.x=-1;p.x<=1;p.x++){
 		for(p.y=-1;p.y<=1;p.y++){
-			if (p.x != 0 && p.y != 0){
+			if (p.x != 0 || p.y != 0){
 				criar_movimento(e,p);
 			}
 		}
