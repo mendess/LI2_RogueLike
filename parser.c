@@ -31,7 +31,7 @@ int outOfBounds(POSICAO p){
 @param p Posição a verficar
 */
 void imprime_movimento (POSICAO p){
-	printf("<image x=%d y=%d width=%d height=%d xlink:href=\"http://127.0.0.1/border.png\"/>\n",
+	printf("<image x=%d y=%d width=%d height=%d xlink:href=\"http://127.0.0.1/Moldura_Movimento.png\"/>\n",
 		TAM*(p.x+1),
 		TAM*(p.y+1),
 		TAM,
@@ -104,7 +104,7 @@ void imprime_monstros (ESTADO e){
 void imprime_pedras (ESTADO e){
 	int i;
 	for (i=0;i<MAX_PEDRAS;i++){
-		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/rock.png\"/>\n",
+		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/Obstacle1.png\"/>\n",
 			TAM*(e.pedras[i].x+1),
 			TAM*(e.pedras[i].y+1),
 			TAM,
@@ -116,7 +116,7 @@ void imprime_pedras (ESTADO e){
 @param p Posição da saida
 */
 void imprime_saida (POSICAO p){
-	printf("<image x=%d y=%d width=%d height=%d href=\"http://127.0.0.1/exit.png\"/>\n",
+	printf("<image x=%d y=%d width=%d height=%d href=\"http://127.0.0.1/Exit_Tile.png\"/>\n",
 			TAM*(p.x+1),
 			TAM*(p.y+1),
 			TAM,
@@ -127,9 +127,15 @@ void imprime_saida (POSICAO p){
 @param p Posição a imprimir
 */
 void imprime_casa (POSICAO p){
-	printf("<image x=%d y=%d width=%d height=%d href=\"http://127.0.0.1/floor.png\"/>\n",
+	printf("<image x=%d y=%d width=%d height=%d href=\"http://127.0.0.1/Tile1.png\"/>\n",
 			TAM*(p.x+1),
 			TAM*(p.y+1),
 			TAM,
 			TAM);
+}
+/**
+\brief Imprime a imagem de fundo
+*/
+void imprime_background (){
+	printf("<image x=0 y=0 width=800 height=600 href=\"http://127.0.0.1/Ingame_Viking.png\"/>\n");
 }

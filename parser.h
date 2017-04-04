@@ -25,6 +25,7 @@
 
 void print_header();
 void print_footer();
+void imprime_background ();
 void imprime_casa (POSICAO p);
 void imprime_movimento (POSICAO p);
 void criar_movimento (ESTADO e, POSICAO p);

@@ -191,6 +191,7 @@ ESTADO ler_estado (char *args){
 */
 int main(){
 	print_header ();
+	imprime_background();
 	srandom(time(NULL));
 	int x,y;
 	POSICAO p;
