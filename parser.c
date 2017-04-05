@@ -118,11 +118,20 @@ void imprime_jogadas(ESTADO e){
 @param e Estado do jogo
 */
 void imprime_jogador (ESTADO e){
-	printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/Viking.png\"/>\n",
-			TAM*(e.jog.x+1),
-			TAM*(e.jog.y+1),
-			TAM,
-			TAM);
+	if(e.direcion==0){
+		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/Icon_Viking_Right.png\"/>\n",
+				TAM*(e.jog.x+1),
+				TAM*(e.jog.y+1),
+				TAM,
+				TAM);
+	}else{
+		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/Icon_Viking_Left.png\"/>\n",
+				TAM*(e.jog.x+1),
+				TAM*(e.jog.y+1),
+				TAM,
+				TAM);
+	}
+			
 	imprime_jogadas(e);
 }
 /**

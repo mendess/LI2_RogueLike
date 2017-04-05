@@ -225,6 +225,14 @@ ESTADO calcularNovoEstado(ESTADO e){
 	if(e.action==5){
 		return inicializar();
 	}
+	//set direction
+	if(e.action==9 || e.action==6 || e.action==3){
+		e.direction=0;
+	}
+	if(e.action==7 || e.action==4 || e.action==1){
+		e.direction=1;
+	}
+	
 	if(e.action>0 && e.action<10){
 		e.jog=calculaNovaPosicao(e.jog,e.action);
 		return e;
