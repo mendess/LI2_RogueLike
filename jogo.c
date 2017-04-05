@@ -117,6 +117,8 @@ ESTADO inicializar(){
 	
 	e.action=0;
 
+	e.direction=0;
+
 	e.jog.x=path[0].x;
 	e.jog.y=path[0].y;
 	
@@ -232,7 +234,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 	if(e.action==7 || e.action==4 || e.action==1){
 		e.direction=1;
 	}
-	
+
 	if(e.action>0 && e.action<10){
 		e.jog=calculaNovaPosicao(e.jog,e.action);
 		return e;
