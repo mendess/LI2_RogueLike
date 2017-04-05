@@ -38,20 +38,62 @@ void imprime_movimento (POSICAO p){
 		TAM);
 }
 /**
+\brief Retorna a direção em que o jogador vai andar
+1- SW	x==-1 ; y==1
+2- S	x==0  ; y==1
+3- SE	x==1  ; y==1
+4- W	x==-1 ; y==0
+5- --	(saida, esta função nunca retorna este valor)
+6- E	x==1  ; y==0
+7- NW	x==-1 ; y==-1
+8- N	x==0  ; y==-1
+9- NE	x==1  ; y==-1
+@param x Quanto no eixo dos x o jogador vai andar
+@param y Quanto no eixo dos x o jogador vai andar
+*/
+int getDirection(int x, int y){
+	if(x==-1 && y==1){
+		return 1;
+	}
+	if(x==0  && y==1){
+		return 2;
+	}
+	if(x==1  && y==1){
+		return 3;
+	}
+	if(x==-1 && y==0){
+		return 4;
+	}
+	if(x==1  && y==0){
+		return 6;
+	}
+	if(x==-1 && y==-1){
+		return 7;
+	}
+	if(x==0 && y==-1){
+		return 8;
+	}
+	if(x==1 && y==-1){
+		return 9;
+	}
+	return -1;
+}
+/**
 \brief Cria um movimento para as coordenadas dadas
 @param e Estado do jogo
 @param p Posição onde criar o movimento
 */
 void criar_movimento(ESTADO e, POSICAO p){
-	ESTADO novo;
-	novo = e;
+	if(e.saida.x==(p.x+e.jog.x) && e.saida.y==(p.y+e.jog.y)){
+		e.action=5;
+	}else{
+		e.action=(char) getDirection(p.x,p.y);
+	}
 	p.x += e.jog.x;
 	p.y += e.jog.y;
 	if (!outOfBounds(p) && !pos_ocupada(e,p) ){	
-		novo.jog.x = p.x;
-		novo.jog.y = p.y;
 		char str[MAX_BUFFER+33]="http://localhost/cgi-bin/roguel?";
-		strcat(str,estado2str(novo));
+		strcat(str,estado2str(e));
 		ABRIR_LINK(str);
 		imprime_movimento(p);
 		FECHAR_LINK;
@@ -76,11 +118,20 @@ void imprime_jogadas(ESTADO e){
 @param e Estado do jogo
 */
 void imprime_jogador (ESTADO e){
-	printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/Viking.png\"/>\n",
-			TAM*(e.jog.x+1),
-			TAM*(e.jog.y+1),
-			TAM,
-			TAM);
+	if(e.direcion==0){
+		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/Icon_Viking_Right.png\"/>\n",
+				TAM*(e.jog.x+1),
+				TAM*(e.jog.y+1),
+				TAM,
+				TAM);
+	}else{
+		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/Icon_Viking_Left.png\"/>\n",
+				TAM*(e.jog.x+1),
+				TAM*(e.jog.y+1),
+				TAM,
+				TAM);
+	}
+			
 	imprime_jogadas(e);
 }
 /**

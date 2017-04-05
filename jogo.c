@@ -115,6 +115,10 @@ ESTADO inicializar(){
 	POSICAO path[MAX_CAMINHO];
 	int n=pathMaker(path);
 	
+	e.action=0;
+
+	e.direction=0;
+
 	e.jog.x=path[0].x;
 	e.jog.y=path[0].y;
 	
@@ -167,7 +171,76 @@ int com_monstros (ESTADO e, POSICAO p){
 		}
 	}
 	return flag;
-} 
+}
+/**
+\brief Calcula a nova posição do jogador
+@param jog A posição antiga do jogador
+@param act Ação selecionada
+*/
+POSICAO calculaNovaPosicao(POSICAO jog, int act){
+	switch(act){
+		case 0: return jog;
+	 
+		case 1: jog.x+=-1;
+				jog.y+=1;
+				return jog;
+	
+		case 2: jog.x+=0;
+				jog.y+=1;
+				return jog;
+
+		case 3: jog.x+=1;
+				jog.y+=1;
+				return jog;
+	
+		case 4: jog.x+=-1;
+				jog.y+=0;
+				return jog;
+		
+		case 5: return jog;
+	
+		case 6: jog.x+=1;
+				jog.y+=0;
+				return jog;
+	
+		case 7: jog.x+=-1;
+				jog.y+=-1;
+				return jog;
+
+		case 8: jog.x+=0;
+				jog.y+=-1;
+				return jog;
+
+		case 9: jog.x+=1;
+				jog.y+=-1;
+				return jog;
+	}
+	return jog;
+}
+
+/**
+\brief Calcula um novo estado conforme a ação que esteja no estado que recebe
+@param e Estado do jogo
+*/
+ESTADO calcularNovoEstado(ESTADO e){
+	//saida
+	if(e.action==5){
+		return inicializar();
+	}
+	//set direction
+	if(e.action==9 || e.action==6 || e.action==3){
+		e.direction=0;
+	}
+	if(e.action==7 || e.action==4 || e.action==1){
+		e.direction=1;
+	}
+
+	if(e.action>0 && e.action<10){
+		e.jog=calculaNovaPosicao(e.jog,e.action);
+		return e;
+	}
+	return e;
+}
 /**
 \brief Verifica se tem de se criar um estado novo (QUERY_STRING vazia) 
 	   ou se já existe ler a query e convertela no estado do jogo
@@ -184,7 +257,7 @@ ESTADO ler_estado (char *args){
 		return inicializar();
 	}
 	#endif
-	return str2estado(args);
+	return calcularNovoEstado(str2estado(args));
 }
 /**
 \brief Main
@@ -215,3 +288,5 @@ int main(){
 
 	return 0;
 }
+
+//commentario para testar branching
