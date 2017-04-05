@@ -140,12 +140,16 @@ void imprime_jogador (ESTADO e){
 */
 void imprime_monstros (ESTADO e){
 	int i;
+	srand(time(NULL));
+	char *wolfs[]={"Icon_Lobo_Lateral_3.png","Icon_Lobo_Lateral_4.png"};
 	for(i=0;i<MAX_MONSTROS;i++){
-		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/dragao.png\"/>\n",
+		int r = rand() % 2;
+		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/%s\"/>\n",
 				TAM*(e.monstros[i].x+1),
 				TAM*(e.monstros[i].y+1),
 				TAM,
-				TAM);
+				TAM,
+				wolfs[r]);
 	}
 }
 /**
