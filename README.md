@@ -1,22 +1,29 @@
 # LI2
 
 HP = 100
+
 Mana = 50
+
 Inventory Slots = 4
 
 Classes:
+
 	Warrior
 	Archer
 	Mage
 
+
 Monster Types:
+
 	Bat
 	Wolf
 	Ogre
 	Ranged enemy
 	Dragon
 
+
 Items:
+	
 	Health Potion (gives +30HP)
 	Mana Potion (gives +8MP)
 	Scroll of.. (takes 1 turn to use)
