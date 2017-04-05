@@ -13,7 +13,7 @@ typedef struct posicao{
 
 typedef struct estado {
     //Lado para que o jogador esta a olhar 0:direita e 1:esquerda
-    char direction
+    char direction;
     //Action
     char action;
 	// Posição do jogador

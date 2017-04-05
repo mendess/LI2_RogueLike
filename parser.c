@@ -118,7 +118,7 @@ void imprime_jogadas(ESTADO e){
 @param e Estado do jogo
 */
 void imprime_jogador (ESTADO e){
-	if(e.direcion==0){
+	if(e.direction==0){
 		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/Icon_Viking_Right.png\"/>\n",
 				TAM*(e.jog.x+1),
 				TAM*(e.jog.y+1),
