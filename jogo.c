@@ -111,7 +111,8 @@ ESTADO colocar_monstros (ESTADO e){
 ESTADO inicializar(){
 
 	ESTADO e;
-
+	srandom(time(NULL));
+	
 	POSICAO path[MAX_CAMINHO];
 	int n=pathMaker(path);
 	
@@ -265,17 +266,18 @@ ESTADO ler_estado (char *args){
 int main(){
 	print_header ();
 	imprime_background();
-	srandom(time(NULL));
 	int x,y;
 	POSICAO p;
 
 	ESTADO e = ler_estado(getenv("QUERY_STRING"));
 
+	srand(e.pedras[0].x);
 	for(y = 0; y < SIZE; y++){
 		for(x = 0; x < SIZE; x++){
+			int r = rand() % 4;
 			p.x= x;
 			p.y= y;
-			imprime_casa(p);
+			imprime_casa(r,p);
 		}
 	}
 

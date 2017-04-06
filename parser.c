@@ -181,12 +181,14 @@ void imprime_saida (POSICAO p){
 \brief Imprime uma casa
 @param p Posição a imprimir
 */
-void imprime_casa (POSICAO p){
-	printf("<image x=%d y=%d width=%d height=%d href=\"http://127.0.0.1/Tile1.png\"/>\n",
+void imprime_casa (int r,POSICAO p){
+	char *tiles[]={"Tile1.png","Tile2.png","Tile3.png","Tile4.png"};
+	printf("<image x=%d y=%d width=%d height=%d href=\"http://127.0.0.1/%s\"/>\n",
 			TAM*(p.x+1),
 			TAM*(p.y+1),
 			TAM,
-			TAM);
+			TAM,
+			tiles[r]);
 }
 /**
 \brief Imprime a imagem de fundo
