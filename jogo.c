@@ -13,18 +13,7 @@
 \brief Verifica se esta posição está em cima do caminho entre o heroi e a saida
 @param e Estado do jogo
 @param p Posição a verificar
-@param pathSize Tamanho do caminho
-@param path Array de posições do caminho
-*/
-int isOnPath(ESTADO e, POSICAO p, int pathSize, POSICAO path[]){ 
-	int i, flag;
-	flag=0;
-	for (i=1;i<pathSize && !flag;i++){
-		if (path[i].x == p.x && path[i].y == p.y){
-			flag=1;
-		}
-	}
-	return flag;
+@param pathSize Tamanho do caminhoss
 }
 /**
 \brief Verifica se esta algum monstro, pedra ou jogador na posição dada
