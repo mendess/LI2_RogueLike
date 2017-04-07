@@ -278,7 +278,7 @@ ESTADO ler_estado (char *args){
 	#endif
 	#ifndef DEBUG
 	if(strlen(args)==0){
-		return inicializar();
+		return inicializar()
 	}
 	#endif
 	return calcularNovoEstado(str2estado(args));
