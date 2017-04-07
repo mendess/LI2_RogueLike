@@ -89,7 +89,7 @@ ESTADO colocar_monstro (ESTADO e){
 ESTADO colocar_pedras (ESTADO e, int pathSize, POSICAO path[]){
 	int i;
 	for(i=0;i<MAX_PEDRAS;i++){
-		e=colocar_pedra (e,pathSize,path);
+		e=colocar_pedra(e,pathSize,path);
 	}
 	return e;
 }
@@ -104,6 +104,20 @@ ESTADO colocar_monstros (ESTADO e){
 		e=colocar_monstro(e);
 	}
 	return e;
+}
+char getClassHp(char type){
+	switch(type){
+		case 0: return HP_WARRIOR;
+		case 1: return HP_ARCHER;
+		case 2: return HP_MAGE;
+	}
+}
+char getClassMp(char type){
+	switch(type){
+		case 0: return MP_WARRIOR;
+		case 1: return MP_ARCHER;
+		case 2: return MP_MAGE;
+	}
 }
 /**
 \brief Inicializa o estado do jogo
@@ -133,6 +147,12 @@ ESTADO inicializar(){
 	e=colocar_pedras(e,n,path);
 	e=colocar_monstros(e);
 	
+	e.hp=getClassHp(e.classe);
+	e.mp=getClassMp(e.classe);
+	e.world_lvl=0;
+	e.score=0;
+	e.turn=0;
+
 	return e;
 }
 /**
@@ -235,11 +255,14 @@ ESTADO calcularNovoEstado(ESTADO e){
 	if(e.action==7 || e.action==4 || e.action==1){
 		e.direction=1;
 	}
-
 	if(e.action>0 && e.action<10){
 		e.jog=calculaNovaPosicao(e.jog,e.action);
 		return e;
 	}
+	if(e.action>10 && e.action>20){
+		e=calcularCombate(e);
+	}
+	e=movemonstros(e);
 	return e;
 }
 /**
