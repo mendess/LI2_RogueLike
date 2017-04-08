@@ -83,9 +83,9 @@ void criar_movimento(ESTADO e, POSICAO p){
 	}
 	p.x += e.jog.x;
 	p.y += e.jog.y;
-	if (!outOfBounds(p) && !com_pedras(e,p)){	
-		char str[MAX_BUFFER+33]="http://localhost/cgi-bin/roguel?";
-		strcat(str,estado2str(e));
+	if (!outOfBounds(p) && !com_pedras(e,p)){
+		char str[34];
+		sprintf(str,"http://localhost/cgi-bin/roguel?%d",e.action);
 		ABRIR_LINK(str);
 		imprime_movimento(e,p);
 		FECHAR_LINK;
