@@ -297,7 +297,7 @@ ESTADO ler_estado (char *args,FILE *gamestate){
 	ESTADO e = str2estado(str);
 	sscanf(args,"%d",&act);
 	e.action = act;
-	return calcularNovoEstado(e);
+	return e;
 }
 /**
 \brief Main
@@ -308,7 +308,10 @@ int main(){
 	int x,y;
 	POSICAO p;
 	FILE *gamestateFile = fopen("gamestate","w+");
-	ESTADO e = ler_estado(getenv("QUERY_STRING"),gamestateFile);
+	ESTADO e;
+
+	e = ler_estado(getenv("QUERY_STRING"),gamestateFile);
+	e = calcularNovoEstado(e);
 
 	srand(e.pedras[0].x);
 	for(y = 0; y < SIZE; y++){
