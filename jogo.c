@@ -288,13 +288,16 @@ ESTADO ler_estado (char *args,FILE *gamestate){
 	}
 	#endif
 	#ifndef DEBUG
-	char str[MAX_BUFFER];
-	fscanf(gamestate,"%s",str);
-	if(strlen(str)==0){
+	if(strlen(args)==0){
 		return inicializar();
 	}
 	#endif
-	return calcularNovoEstado(str2estado(str));
+	char str[MAX_BUFFER];
+	fscanf(gamestate,"%s",str);
+	ESTADO e = str2estado(str);
+	sscanf(args,"%d",&act);
+	e.action = act;
+	return calcularNovoEstado(e);
 }
 /**
 \brief Main
