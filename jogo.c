@@ -3,9 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 
 #include "estado.h"
 #include "path.h"
@@ -293,6 +290,7 @@ ESTADO ler_estado (char *args,FILE *gamestate){
 	}
 	#endif
 	char str[MAX_BUFFER];
+	int act;
 	fscanf(gamestate,"%s",str);
 	ESTADO e = str2estado(str);
 	sscanf(args,"%d",&act);
