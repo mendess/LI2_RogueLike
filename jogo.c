@@ -204,11 +204,11 @@ int com_monstros (ESTADO e, POSICAO p){
 POSICAO calculaNovaPosicao(POSICAO jog, int act){
 	switch(act){
 		case 0: return jog;
-	 
+
 		case 1: jog.x+=-1;
 				jog.y+=1;
 				return jog;
-	
+
 		case 2: jog.x+=0;
 				jog.y+=1;
 				return jog;
@@ -216,17 +216,17 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act){
 		case 3: jog.x+=1;
 				jog.y+=1;
 				return jog;
-	
+
 		case 4: jog.x+=-1;
 				jog.y+=0;
 				return jog;
-		
+
 		case 5: return jog;
-	
+
 		case 6: jog.x+=1;
 				jog.y+=0;
 				return jog;
-	
+
 		case 7: jog.x+=-1;
 				jog.y+=-1;
 				return jog;
@@ -295,7 +295,7 @@ ESTADO ler_estado (char *args){
 \brief Main
 */
 int main(){
-	print_header ();
+	print_header();
 	imprime_background();
 	int x,y;
 	POSICAO p;

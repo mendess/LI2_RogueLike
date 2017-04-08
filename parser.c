@@ -97,13 +97,21 @@ void criar_movimento(ESTADO e, POSICAO p){
 */
 void imprime_jogadas(ESTADO e){
 	POSICAO p;
-	for(p.x=-1;p.x<=1;p.x++){
+	p.x=0;p.y=1;
+	criar_movimento(e,p);
+	p.x=1;p.y=0;
+	criar_movimento(e,p);
+	p.x=-1;p.y=0;
+	criar_movimento(e,p);
+	p.x=0;p.y=-1;
+	criar_movimento(e,p);
+	/*for(p.x=-1;p.x<=1;p.x++){
 		for(p.y=-1;p.y<=1;p.y++){
 			if (p.x != 0 || p.y != 0){
 				criar_movimento(e,p);
 			}
 		}
-	}
+	}*/
 }
 /**
 \brief Imprime o jogador
