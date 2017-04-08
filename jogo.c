@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #include "estado.h"
 #include "path.h"
@@ -278,18 +281,20 @@ ESTADO calcularNovoEstado(ESTADO e){
 	   ou se já existe ler a query e convertela no estado do jogo
 @param args QUERY_STRING
 */
-ESTADO ler_estado (char *args){
+ESTADO ler_estado (char *args,FILE *gamestate){
 	#ifdef DEBUG
 	if(!args){
 		return inicializar();
 	}
 	#endif
 	#ifndef DEBUG
-	if(strlen(args)==0){
+	char str[MAX_BUFFER];
+	fscanf(gamestate,"%s",str);
+	if(strlen(str)==0){
 		return inicializar();
 	}
 	#endif
-	return calcularNovoEstado(str2estado(args));
+	return calcularNovoEstado(str2estado(str));
 }
 /**
 \brief Main
@@ -299,8 +304,8 @@ int main(){
 	imprime_background();
 	int x,y;
 	POSICAO p;
-
-	ESTADO e = ler_estado(getenv("QUERY_STRING"));
+	FILE *gamestateFile = fopen("gamestate","w+");
+	ESTADO e = ler_estado(getenv("QUERY_STRING"),gamestateFile);
 
 	srand(e.pedras[0].x);
 	for(y = 0; y < SIZE; y++){
