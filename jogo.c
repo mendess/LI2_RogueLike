@@ -111,6 +111,7 @@ char getClassHp(char type){
 		case 1: return HP_ARCHER;
 		case 2: return HP_MAGE;
 	}
+	return -1;
 }
 char getClassMp(char type){
 	switch(type){
@@ -118,6 +119,7 @@ char getClassMp(char type){
 		case 1: return MP_ARCHER;
 		case 2: return MP_MAGE;
 	}
+	return -1;
 }
 /**
 \brief Inicializa o estado do jogo
@@ -147,6 +149,7 @@ ESTADO inicializar(){
 	e=colocar_pedras(e,n,path);
 	e=colocar_monstros(e);
 	
+	e.classe=0;
 	e.hp=getClassHp(e.classe);
 	e.mp=getClassMp(e.classe);
 	e.world_lvl=0;
@@ -238,7 +241,12 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act){
 	}
 	return jog;
 }
-
+ESTADO calcularCombate(ESTADO e){
+	return e;
+}
+ESTADO movemonstros(ESTADO e){
+	return e;
+}
 /**
 \brief Calcula um novo estado conforme a ação que esteja no estado que recebe
 @param e Estado do jogo
@@ -313,5 +321,3 @@ int main(){
 
 	return 0;
 }
-
-//commentario para testar branching

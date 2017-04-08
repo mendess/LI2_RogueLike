@@ -12,7 +12,7 @@
 
 #define MP_WARRIOR    50
 #define MP_ARCHER     70
-#define MP_ARCHER     100
+#define MP_MAGE     100
 
 
 #define WOLF_DMG      10
@@ -55,7 +55,7 @@ typedef struct monster{
     char y;
     char monType;
     char hp;
-}MSTR
+}MSTR;
 
 typedef struct inventory{
     char gold;
