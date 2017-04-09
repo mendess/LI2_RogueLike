@@ -39,5 +39,6 @@ void imprime_saida (POSICAO p);
 int getDirection(ESTADO e,POSICAO p);
 int isMonster(ESTADO e, POSICAO p);
 int outOfBounds(POSICAO p);
+void imprime(ESTADO e);
 
 #endif
