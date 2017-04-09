@@ -1,1 +1,2 @@
-#include "jogo.h"
+#include <stdio.h>
+//#include "jogo.h"
