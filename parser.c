@@ -202,5 +202,30 @@ void imprime_casa (int r,POSICAO p){
 \brief Imprime a imagem de fundo
 */
 void imprime_background (){
-	printf("<image x=0 y=0 width=800 height=600 href=\"%sIngame_Viking.png\"/>\n",IMAGE_PATH);
+
+	printf("<image x=0 y=0 width=800 height=600 href=\"%sIngame_Viking.png\"/>\n",IMAGE_PATH);	
+}
+
+void imprime(ESTADO e){
+	print_header();
+	imprime_background();
+
+	int x,y;
+	POSICAO p;
+	srand(e.pedras[0].x);
+	for(y = 0; y < SIZE; y++){
+		for(x = 0; x < SIZE; x++){
+			int r = rand() % 4;
+			p.x= x;
+			p.y= y;
+			imprime_casa(r,p);
+		}
+	}
+
+	imprime_saida(e.saida);
+	imprime_pedras(e);
+	imprime_monstros(e);
+	imprime_jogador(e);
+
+	print_footer();
 }

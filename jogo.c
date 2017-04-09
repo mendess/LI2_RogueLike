@@ -1,5 +1,3 @@
-
-
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -287,32 +285,13 @@ ESTADO runGame(){
 \brief Main
 */
 int main(){
-	print_header();
-	imprime_background();
-
+  
 	ESTADO e = runGame();
 	if(e.hp<=0){
 		updateScoreBoard(e.score);
 	}
-	//set game to gameover
-	int x,y;
-	POSICAO p;	
-	srand(e.pedras[0].x);
-	for(y = 0; y < SIZE; y++){
-		for(x = 0; x < SIZE; x++){
-			int r = rand() % 4;
-			p.x= x;
-			p.y= y;
-			imprime_casa(r,p);
-		}
-	}
 
-	imprime_saida(e.saida);
-	imprime_monstros(e);
-	imprime_pedras(e);
-	imprime_jogador(e);
-
-	print_footer();
+	imprime(e);
 
 	return 0;
 }
