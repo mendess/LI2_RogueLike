@@ -7,6 +7,7 @@
 #include "estado.h"
 #include "path.h"
 #include "parser.h"
+#include "score.h"
 #include "jogo.h"
 
 /**
@@ -263,14 +264,7 @@ ESTADO ler_estado (char *args,FILE *gamestateFile){
 	e.action = act;
 	return e;
 }
-/**
-\brief Main
-*/
-int main(){
-	print_header();
-	imprime_background();
-	int x,y;
-	POSICAO p;
+ESTADO runGame(){
 	char *args = getenv("QUERY_STRING");
 	FILE *gamestateFile;
 	ESTADO e;
@@ -286,7 +280,23 @@ int main(){
 	}
 	fprintf(gamestateFile,"%s",estado2str(e));
 	fclose(gamestateFile);
+	return e;
+}
 
+/**
+\brief Main
+*/
+int main(){
+	print_header();
+	imprime_background();
+
+	ESTADO e = runGame();
+	if(e.hp<=0){
+		updateScoreBoard(e.score);
+	}
+	//set game to gameover
+	int x,y;
+	POSICAO p;	
 	srand(e.pedras[0].x);
 	for(y = 0; y < SIZE; y++){
 		for(x = 0; x < SIZE; x++){

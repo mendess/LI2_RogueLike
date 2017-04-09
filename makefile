@@ -6,8 +6,8 @@ install: roguel
 	sudo cp imagens/* /var/www/html/imagens
 	touch install
 
-roguel: jogo.o parser.o path.o estado.o
-	cc -o roguel jogo.o estado.o path.o parser.o
+roguel: jogo.o parser.o path.o estado.o score.o
+	cc -o roguel jogo.o estado.o path.o parser.o score.o
 
 exemplo.zip: $(FICHEIROS)
 	zip -9 exemplo.zip $(FICHEIROS)

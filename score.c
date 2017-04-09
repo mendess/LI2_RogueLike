@@ -1,4 +1,4 @@
-#define DEBUG
+//#define DEBUG
 
 #include "score.h"
 
@@ -66,15 +66,6 @@ void printSB(int scoreBoard[], int num_scores){
 	}
 }
 int main(){
-	/*
-	FILE *scoreFile;
-	scoreFile = fopen("score/scoreBoard","w+");
-	int i;
-	for(i=0;i<SB_SIZE-2;i++){
-		fprintf(scoreFile,"%d\n", 15-i);		
-	}
-	fclose(scoreFile);
-*/
 	srand(time(NULL));
 	int x = rand() % 20;
 	printf("%d\n",x);
