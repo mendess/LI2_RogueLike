@@ -273,11 +273,11 @@ ESTADO ler_estado (char *args){
 int main(){
 	print_header();
 	imprime_background();
-	int x,y;
-	POSICAO p;
 
 	ESTADO e = ler_estado(getenv("QUERY_STRING"));
 
+	int x,y;
+	POSICAO p;
 	srand(e.pedras[0].x);
 	for(y = 0; y < SIZE; y++){
 		for(x = 0; x < SIZE; x++){
