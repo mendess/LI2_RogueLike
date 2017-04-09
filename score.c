@@ -1,8 +1,10 @@
 #include "score.h"
 
-int updateScoreBoard(int score, int scoreBoard[]){
-
-	
+int updateScoreBoard(int score, int scoreBoard[], int num_scores){
+	int i=0;
+	while(i<num_scores && score<scoreBoard[i]){
+		i++;
+	}
 	while(0 < i--){
 		printf("%d\n", scoreBoard[i]);		
 	}
@@ -14,6 +16,7 @@ int importScoreBoard(int scoreBoard[]){
 	scoreFile=fopen("score/scoreBoard","r+");
 	if(!scoreFile){
 		scoreFile=fopen("score/scoreBoard","w+");
+		return 0;
 	}
 	int i=0, flag=0;
 	do{
@@ -34,7 +37,7 @@ int main(){
 	fclose(fp);
 
 	int scoreBoard[SB_SIZE];
-	int sb_size = importScoreBoard(scoreBoard);
+	int num_scores = importScoreBoard(scoreBoard);
 	updateScoreBoard('0', scoreBoard);
 	return 0;
 }
