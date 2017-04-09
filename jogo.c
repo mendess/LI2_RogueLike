@@ -1,4 +1,4 @@
-//#define DEBUG
+
 
 #include <stdlib.h>
 #include <string.h>
@@ -33,6 +33,44 @@ int isOnPath(ESTADO e, POSICAO p, int pathSize, POSICAO path[]){
 */
 int pos_ocupada (ESTADO e, POSICAO p){
 	return com_jogador(e,p) || com_pedras(e,p) || com_monstros(e,p);
+}
+/**
+\brief Verifica se o jogador esta num certo par de coordenadas
+@param e Estado do jogo
+@param p Posição a verificar
+*/
+int com_jogador (ESTADO e,POSICAO p){
+	return (e.jog.x == p.x) && (e.jog.y == p.y);
+}
+/**
+\brief Verifica se existem pedras nas coordenadas dadas
+@param e Estado do jogo
+@param p Posição a verificar
+*/
+int com_pedras (ESTADO e, POSICAO p){
+	int i,flag;
+	flag=0;
+	for(i=0;i<MAX_PEDRAS && !flag;i++){
+		if (e.pedras[i].x == p.x && e.pedras[i].y == p.y){
+			flag=1;
+		}
+	}
+	return flag;
+}
+/**
+\brief Verifica se existem monstros nas coordenadas dadas
+@param e Estado do jogo
+@param p Posição a verificar
+*/
+int com_monstros (ESTADO e, POSICAO p){
+	int i,flag;
+	flag=0;
+	for (i=0;i<MAX_MONSTROS && !flag;i++){
+		if (e.monstros[i].x == p.x && e.monstros[i].y == p.y){
+			flag=1;
+		}
+	}
+	return flag;
 }
 /**
 \brief Coloca uma pedra numa posição aleatoria válida
@@ -127,74 +165,41 @@ char getClassMp(char type){
 ESTADO inicializar(){
 
 	ESTADO e;
-	srandom(time(NULL));
-	
 	POSICAO path[MAX_CAMINHO];
 	int n=pathMaker(path);
-	
-	e.action=0;
-
+	srandom(time(NULL));
+	//Classe {Warrior=0, Archer=1, Mage=2}
+	e.classe=0;
+	//Vida do jogador
+	e.hp=getClassHp(e.classe);
+	//Mana do jogador
+	e.mp=getClassMp(e.classe);
+	//Nivel
+	e.world_lvl=0;
+	//Score
+	e.score=0;
+	//Turno
+	e.turn=0;
+	//Lado para que o jogador esta a olhar 0:direita e 1:esquerda
 	e.direction=0;
-
+	//Action
+	e.action=0;
+	// Posição do jogador
 	e.jog.x=path[0].x;
 	e.jog.y=path[0].y;
-	
+	// Posição da saida
 	e.saida.x=path[n-1].x;
 	e.saida.y=path[n-1].y;
-	
+	// Numero de Monstros
 	e.num_monstros=0;
-	
+	// Numero de pedras
 	e.num_pedras=0;
-
+	// Posições da pedras
 	e=colocar_pedras(e,n,path);
+	// Posições dos monstros
 	e=colocar_monstros(e);
-	
-	e.classe=0;
-	e.hp=getClassHp(e.classe);
-	e.mp=getClassMp(e.classe);
-	e.world_lvl=0;
-	e.score=0;
-	e.turn=0;
 
 	return e;
-}
-/**
-\brief Verifica se o jogador esta num certo par de coordenadas
-@param e Estado do jogo
-@param p Posição a verificar
-*/
-int com_jogador (ESTADO e,POSICAO p){
-	return (e.jog.x == p.x) && (e.jog.y == p.y);
-}
-/**
-\brief Verifica se existem pedras nas coordenadas dadas
-@param e Estado do jogo
-@param p Posição a verificar
-*/
-int com_pedras (ESTADO e, POSICAO p){
-	int i,flag;
-	flag=0;
-	for(i=0;i<MAX_PEDRAS && !flag;i++){
-		if (e.pedras[i].x == p.x && e.pedras[i].y == p.y){
-			flag=1;
-		}
-	}
-	return flag;
-}
-/**
-\brief Verifica se existem monstros nas coordenadas dadas
-@param e Estado do jogo
-@param p Posição a verificar
-*/
-int com_monstros (ESTADO e, POSICAO p){
-	int i,flag;
-	flag=0;
-	for (i=0;i<MAX_MONSTROS && !flag;i++){
-		if (e.monstros[i].x == p.x && e.monstros[i].y == p.y){
-			flag=1;
-		}
-	}
-	return flag;
 }
 /**
 \brief Calcula a nova posição do jogador
@@ -202,44 +207,56 @@ int com_monstros (ESTADO e, POSICAO p){
 @param act Ação selecionada
 */
 POSICAO calculaNovaPosicao(POSICAO jog, int act){
+	int x[10]={5,-1, 0, 1,-1, 5, 1,-1, 0, 1}
+//             0  1  2  3  4  5  6  7  8  9
+	int y[10]={5, 1, 1, 1, 0, 5, 0,-1,-1,-1}
+	
+	if(act!=0 && act!=5){
+		jog.x+=x[act];
+		jog.y+=y[act];
+	}
+	return jog;
+	
+	/*
 	switch(act){
-		case 0: return jog;
+		case 0: break;
 
 		case 1: jog.x+=-1;
 				jog.y+=1;
-				return jog;
+				break;
 
 		case 2: jog.x+=0;
 				jog.y+=1;
-				return jog;
+				break;
 
 		case 3: jog.x+=1;
 				jog.y+=1;
-				return jog;
+				break;
 
 		case 4: jog.x+=-1;
 				jog.y+=0;
-				return jog;
+				break;
 
-		case 5: return jog;
+		case 5: break;
 
 		case 6: jog.x+=1;
 				jog.y+=0;
-				return jog;
+				break;
 
 		case 7: jog.x+=-1;
 				jog.y+=-1;
-				return jog;
+				break;
 
 		case 8: jog.x+=0;
 				jog.y+=-1;
-				return jog;
+				break;
 
 		case 9: jog.x+=1;
 				jog.y+=-1;
-				return jog;
+				break;
 	}
 	return jog;
+	*/
 }
 ESTADO calcularCombate(ESTADO e){
 	return e;
@@ -306,6 +323,7 @@ int main(){
 		gamestateFile = fopen("gamestate","r+");
 		e = ler_estado(args,gamestateFile);
 		e = calcularNovoEstado(e);
+		gamestateFile = freopen("gamestate","w",gamestateFile);
 	}
 	fprintf(gamestateFile,"%s",estado2str(e));
 	fclose(gamestateFile);
