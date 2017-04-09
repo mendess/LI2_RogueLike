@@ -30,26 +30,6 @@ int isMonster(ESTADO e, POSICAO p){
 	return 0;
 }
 /**
-\brief Imprime um movimento (link)
-@param p Posição a verficar
-*/
-void imprime_movimento (ESTADO e, POSICAO p){
-	if(isMonster(e,p)){
-		printf("<image x=%d y=%d width=%d height=%d xlink:href=\"http://127.0.0.1/Moldura_Movimento.png\"/>\n",
-				TAM*(p.x+1),
-				TAM*(p.y+1),
-				TAM,
-				TAM);
-	}else{
-		printf("<image x=%d y=%d width=%d height=%d xlink:href=\"http://127.0.0.1/Moldura_Movimento.png\"/>\n",
-				TAM*(p.x+1),
-				TAM*(p.y+1),
-				TAM,
-				TAM);
-		
-	}
-}
-/**
 \brief Retorna a direção em que o jogador vai andar
 1- SW	x==-1 ; y==1
 2- S	x==0  ; y==1
@@ -69,6 +49,26 @@ int getDirection(ESTADO e,POSICAO p){
 		type=10;
 	}
 	return 7-3*(p.y+1)+p.x+1+type;
+}
+/**
+\brief Imprime um movimento (link)
+@param p Posição a verficar
+*/
+void imprime_movimento(ESTADO e, POSICAO p){
+	if(isMonster(e,p)){
+		printf("<image x=%d y=%d width=%d height=%d xlink:href=\"http://127.0.0.1/Moldura_Movimento.png\"/>\n",
+				TAM*(p.x+1),
+				TAM*(p.y+1),
+				TAM,
+				TAM);
+	}else{
+		printf("<image x=%d y=%d width=%d height=%d xlink:href=\"http://127.0.0.1/Moldura_Movimento.png\"/>\n",
+				TAM*(p.x+1),
+				TAM*(p.y+1),
+				TAM,
+				TAM);
+		
+	}
 }
 /**
 \brief Cria um movimento para as coordenadas dadas

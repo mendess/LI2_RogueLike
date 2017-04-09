@@ -278,20 +278,10 @@ ESTADO calcularNovoEstado(ESTADO e){
 	   ou se já existe ler a query e convertela no estado do jogo
 @param args QUERY_STRING
 */
-ESTADO ler_estado (char *args,FILE *gamestate){
-	#ifdef DEBUG
-	if(!args){
-		return inicializar();
-	}
-	#endif
-	#ifndef DEBUG
-	if(strlen(args)==0){
-		return inicializar();
-	}
-	#endif
+ESTADO ler_estado (char *args,FILE *gamestateFile){
 	char str[MAX_BUFFER];
 	int act;
-	fscanf(gamestate,"%s",str);
+	fscanf(gamestateFile,"%s",str);
 	ESTADO e = str2estado(str);
 	sscanf(args,"%d",&act);
 	e.action = act;
@@ -305,11 +295,20 @@ int main(){
 	imprime_background();
 	int x,y;
 	POSICAO p;
-	FILE *gamestateFile = fopen("gamestate","w+");
+	char *args = getenv("QUERY_STRING");
+	FILE *gamestateFile;
 	ESTADO e;
 
-	e = ler_estado(getenv("QUERY_STRING"),gamestateFile);
-	e = calcularNovoEstado(e);
+	if(strlen(args)==0){
+		gamestateFile = fopen("gamestate","w");
+		e = inicializar();
+	}else{
+		gamestateFile = fopen("gamestate","r+");
+		e = ler_estado(args,gamestateFile);
+		e = calcularNovoEstado(e);
+	}
+	fprintf(gamestateFile,"%s",estado2str(e));
+	fclose(gamestateFile);
 
 	srand(e.pedras[0].x);
 	for(y = 0; y < SIZE; y++){

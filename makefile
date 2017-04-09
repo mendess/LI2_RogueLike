@@ -18,4 +18,4 @@ doc:
 
 clean:
 	rm -rf *.o roguel Doxyfile latex html install
-
+	rm -rf gamestate
