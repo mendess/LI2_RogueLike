@@ -202,44 +202,15 @@ int com_monstros (ESTADO e, POSICAO p){
 @param act Ação selecionada
 */
 POSICAO calculaNovaPosicao(POSICAO jog, int act){
-	switch(act){
-		case 0: return jog;
-
-		case 1: jog.x+=-1;
-				jog.y+=1;
-				return jog;
-
-		case 2: jog.x+=0;
-				jog.y+=1;
-				return jog;
-
-		case 3: jog.x+=1;
-				jog.y+=1;
-				return jog;
-
-		case 4: jog.x+=-1;
-				jog.y+=0;
-				return jog;
-
-		case 5: return jog;
-
-		case 6: jog.x+=1;
-				jog.y+=0;
-				return jog;
-
-		case 7: jog.x+=-1;
-				jog.y+=-1;
-				return jog;
-
-		case 8: jog.x+=0;
-				jog.y+=-1;
-				return jog;
-
-		case 9: jog.x+=1;
-				jog.y+=-1;
-				return jog;
-	}
-	return jog;
+    int x[10]={5,-1, 0, 1,-1, 5, 1,-1, 0, 1}
+//             0  1  2  3  4  5  6  7  8  9
+    int y[10]={5, 1, 1, 1, 0, 5, 0,-1,-1,-1}
+    
+    if(act!=0 && act!=5){
+        jog.x+=x[act];
+        jog.y+=y[act];
+    }
+    return jog;
 }
 ESTADO calcularCombate(ESTADO e){
 	return e;
