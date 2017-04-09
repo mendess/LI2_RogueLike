@@ -207,9 +207,9 @@ ESTADO inicializar(){
 @param act Ação selecionada
 */
 POSICAO calculaNovaPosicao(POSICAO jog, int act){
-    int x[10]={5,-1, 0, 1,-1, 5, 1,-1, 0, 1}
+    int x[10]={5,-1, 0, 1,-1, 5, 1,-1, 0, 1};
 //             0  1  2  3  4  5  6  7  8  9
-    int y[10]={5, 1, 1, 1, 0, 5, 0,-1,-1,-1}
+    int y[10]={5, 1, 1, 1, 0, 5, 0,-1,-1,-1};
     
     if(act!=0 && act!=5){
         jog.x+=x[act];
