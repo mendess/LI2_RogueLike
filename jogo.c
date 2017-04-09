@@ -289,8 +289,8 @@ int main(){
 	}
 
 	imprime_saida(e.saida);
-	imprime_monstros(e);
 	imprime_pedras(e);
+	imprime_monstros(e);
 	imprime_jogador(e);
 
 	print_footer();
