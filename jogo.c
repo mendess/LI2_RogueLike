@@ -207,9 +207,9 @@ ESTADO inicializar(){
 @param act Ação selecionada
 */
 POSICAO calculaNovaPosicao(POSICAO jog, int act){
-	int x[10]={5,-1, 0, 1,-1, 5, 1,-1, 0, 1}
+	int x[10]={5,-1, 0, 1,-1, 5, 1,-1, 0, 1};
 //             0  1  2  3  4  5  6  7  8  9
-	int y[10]={5, 1, 1, 1, 0, 5, 0,-1,-1,-1}
+	int y[10]={5, 1, 1, 1, 0, 5, 0,-1,-1,-1};
 	
 	if(act!=0 && act!=5){
 		jog.x+=x[act];
@@ -276,13 +276,13 @@ int main(){
 	ESTADO e;
 
 	if(strlen(args)==0){
-		gamestateFile = fopen("gamestate","w");
+		gamestateFile = fopen("/tmp/gamestate","w");
 		e = inicializar();
 	}else{
-		gamestateFile = fopen("gamestate","r+");
+		gamestateFile = fopen("/tmp/gamestate","r+");
 		e = ler_estado(args,gamestateFile);
 		e = calcularNovoEstado(e);
-		gamestateFile = freopen("gamestate","w",gamestateFile);
+		gamestateFile = freopen("/tmp/gamestate","w",gamestateFile);
 	}
 	fprintf(gamestateFile,"%s",estado2str(e));
 	fclose(gamestateFile);

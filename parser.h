@@ -19,8 +19,9 @@
 #define FECHAR_SVG							printf("</svg>\n")
 */
 
-#define ABRIR_LINK(link)					printf("<a xlink:href=%s>\n", link)
+#define IMAGE_PATH							"http://127.0.0.1/imagens/"
 
+#define ABRIR_LINK(link)					printf("<a xlink:href=%s>\n", link)
 
 #define FECHAR_LINK							printf("</a>\n")
 
