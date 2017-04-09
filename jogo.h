@@ -72,7 +72,7 @@ typedef struct estado{
     //Nivel
     char world_lvl;
     //Score
-    char score;
+    int score;
     //Turno
     char turn;
     //Lado para que o jogador esta a olhar 0:direita e 1:esquerda
