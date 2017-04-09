@@ -30,26 +30,6 @@ int isMonster(ESTADO e, POSICAO p){
 	return 0;
 }
 /**
-\brief Imprime um movimento (link)
-@param p Posição a verficar
-*/
-void imprime_movimento (ESTADO e, POSICAO p){
-	if(isMonster(e,p)){
-		printf("<image x=%d y=%d width=%d height=%d xlink:href=\"http://127.0.0.1/Moldura_Movimento.png\"/>\n",
-				TAM*(p.x+1),
-				TAM*(p.y+1),
-				TAM,
-				TAM);
-	}else{
-		printf("<image x=%d y=%d width=%d height=%d xlink:href=\"http://127.0.0.1/Moldura_Movimento.png\"/>\n",
-				TAM*(p.x+1),
-				TAM*(p.y+1),
-				TAM,
-				TAM);
-		
-	}
-}
-/**
 \brief Retorna a direção em que o jogador vai andar
 1- SW	x==-1 ; y==1
 2- S	x==0  ; y==1
@@ -71,6 +51,28 @@ int getDirection(ESTADO e,POSICAO p){
 	return 7-3*(p.y+1)+p.x+1+type;
 }
 /**
+\brief Imprime um movimento (link)
+@param p Posição a verficar
+*/
+void imprime_movimento(ESTADO e, POSICAO p){
+	if(isMonster(e,p)){
+		printf("<image x=%d y=%d width=%d height=%d xlink:href=\"%sMoldura_Movimento.png\"/>\n",
+				TAM*(p.x+1),
+				TAM*(p.y+1),
+				TAM,
+				TAM,
+				IMAGE_PATH);
+	}else{
+		printf("<image x=%d y=%d width=%d height=%d xlink:href=\"%sMoldura_Movimento.png\"/>\n",
+				TAM*(p.x+1),
+				TAM*(p.y+1),
+				TAM,
+				TAM,
+				IMAGE_PATH);
+		
+	}
+}
+/**
 \brief Cria um movimento para as coordenadas dadas
 @param e Estado do jogo
 @param p Posição onde criar o movimento
@@ -83,9 +85,9 @@ void criar_movimento(ESTADO e, POSICAO p){
 	}
 	p.x += e.jog.x;
 	p.y += e.jog.y;
-	if (!outOfBounds(p) && !com_pedras(e,p)){	
-		char str[MAX_BUFFER+33]="http://localhost/cgi-bin/roguel?";
-		strcat(str,estado2str(e));
+	if (!outOfBounds(p) && !com_pedras(e,p)){
+		char str[34];
+		sprintf(str,"http://localhost/cgi-bin/roguel?%d",e.action);
 		ABRIR_LINK(str);
 		imprime_movimento(e,p);
 		FECHAR_LINK;
@@ -119,17 +121,19 @@ void imprime_jogadas(ESTADO e){
 */
 void imprime_jogador (ESTADO e){
 	if(e.direction==0){
-		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/Icon_Viking_Right.png\"/>\n",
+		printf("<image x=%d y=%d width= %d height= %d href=\"%sIcon_Viking_Right.png\"/>\n",
 				TAM*(e.jog.x+1),
 				TAM*(e.jog.y+1),
 				TAM,
-				TAM);
+				TAM,
+				IMAGE_PATH);
 	}else{
-		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/Icon_Viking_Left.png\"/>\n",
+		printf("<image x=%d y=%d width= %d height= %d href=\"%sIcon_Viking_Left.png\"/>\n",
 				TAM*(e.jog.x+1),
 				TAM*(e.jog.y+1),
 				TAM,
-				TAM);
+				TAM,
+				IMAGE_PATH);
 	}
 			
 	imprime_jogadas(e);
@@ -144,11 +148,12 @@ void imprime_monstros (ESTADO e){
 	char *wolfs[]={"Icon_Lobo_Lateral_3.png","Icon_Lobo_Lateral_4.png"};
 	for(i=0;i<MAX_MONSTROS;i++){
 		int r = rand() % 2;
-		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/%s\"/>\n",
+		printf("<image x=%d y=%d width= %d height= %d href=\"%s%s\"/>\n",
 				TAM*(e.monstros[i].x+1),
 				TAM*(e.monstros[i].y+1),
 				TAM,
 				TAM,
+				IMAGE_PATH,
 				wolfs[r]);
 	}
 }
@@ -159,11 +164,12 @@ void imprime_monstros (ESTADO e){
 void imprime_pedras (ESTADO e){
 	int i;
 	for (i=0;i<MAX_PEDRAS;i++){
-		printf("<image x=%d y=%d width= %d height= %d href=\"http://127.0.0.1/Obstacle1.png\"/>\n",
-			TAM*(e.pedras[i].x+1),
-			TAM*(e.pedras[i].y+1),
-			TAM,
-			TAM);
+		printf("<image x=%d y=%d width= %d height= %d href=\"%sObstacle1.png\"/>\n",
+				TAM*(e.pedras[i].x+1),
+				TAM*(e.pedras[i].y+1),
+				TAM,
+				TAM,
+				IMAGE_PATH);
 	}
 }
 /**
@@ -171,11 +177,12 @@ void imprime_pedras (ESTADO e){
 @param p Posição da saida
 */
 void imprime_saida (POSICAO p){
-	printf("<image x=%d y=%d width=%d height=%d href=\"http://127.0.0.1/Exit_Tile.png\"/>\n",
+	printf("<image x=%d y=%d width=%d height=%d href=\"%sExit_Tile.png\"/>\n",
 			TAM*(p.x+1),
 			TAM*(p.y+1),
 			TAM,
-			TAM);
+			TAM,
+			IMAGE_PATH);
 }
 /**
 \brief Imprime uma casa
@@ -183,18 +190,20 @@ void imprime_saida (POSICAO p){
 */
 void imprime_casa (int r,POSICAO p){
 	char *tiles[]={"Tile1.png","Tile2.png","Tile3.png","Tile4.png"};
-	printf("<image x=%d y=%d width=%d height=%d href=\"http://127.0.0.1/%s\"/>\n",
+	printf("<image x=%d y=%d width=%d height=%d href=\"%s%s\"/>\n",
 			TAM*(p.x+1),
 			TAM*(p.y+1),
 			TAM,
 			TAM,
+			IMAGE_PATH,
 			tiles[r]);
 }
 /**
 \brief Imprime a imagem de fundo
 */
 void imprime_background (){
-	printf("<image x=0 y=0 width=800 height=600 href=\"http://127.0.0.1/Ingame_Viking.png\"/>\n");
+
+	printf("<image x=0 y=0 width=800 height=600 href=\"%sIngame_Viking.png\"/>\n",IMAGE_PATH);	
 }
 
 void imprime(ESTADO e){

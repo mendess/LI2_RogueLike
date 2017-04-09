@@ -103,6 +103,6 @@ ESTADO inicializar();
 int com_jogador (ESTADO e,POSICAO p);
 int com_pedras (ESTADO e, POSICAO p);
 int com_monstros (ESTADO e, POSICAO p);
-ESTADO ler_estado (char *args);
+ESTADO ler_estado (char *args,FILE *e);
 
 #endif

@@ -1,5 +1,3 @@
-//#define DEBUG
-
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -7,6 +5,7 @@
 #include "estado.h"
 #include "path.h"
 #include "parser.h"
+#include "score.h"
 #include "jogo.h"
 
 /**
@@ -207,15 +206,15 @@ ESTADO inicializar(){
 @param act Ação selecionada
 */
 POSICAO calculaNovaPosicao(POSICAO jog, int act){
-    int x[10]={5,-1, 0, 1,-1, 5, 1,-1, 0, 1};
+	int x[10]={5,-1, 0, 1,-1, 5, 1,-1, 0, 1};
 //             0  1  2  3  4  5  6  7  8  9
-    int y[10]={5, 1, 1, 1, 0, 5, 0,-1,-1,-1};
-    
-    if(act!=0 && act!=5){
-        jog.x+=x[act];
-        jog.y+=y[act];
-    }
-    return jog;
+	int y[10]={5, 1, 1, 1, 0, 5, 0,-1,-1,-1};
+	
+	if(act!=0 && act!=5){
+		jog.x+=x[act];
+		jog.y+=y[act];
+	}
+	return jog;
 }
 ESTADO calcularCombate(ESTADO e){
 	return e;
@@ -254,25 +253,43 @@ ESTADO calcularNovoEstado(ESTADO e){
 	   ou se já existe ler a query e convertela no estado do jogo
 @param args QUERY_STRING
 */
-ESTADO ler_estado (char *args){
-	#ifdef DEBUG
-	if(!args){
-		return inicializar();
-	}
-	#endif
-	#ifndef DEBUG
-	if(strlen(args)==0){
-		return inicializar();
-	}
-	#endif
-	return calcularNovoEstado(str2estado(args));
+ESTADO ler_estado (char *args,FILE *gamestateFile){
+	char str[MAX_BUFFER];
+	int act;
+	fscanf(gamestateFile,"%s",str);
+	ESTADO e = str2estado(str);
+	sscanf(args,"%d",&act);
+	e.action = act;
+	return e;
 }
+ESTADO runGame(){
+	char *args = getenv("QUERY_STRING");
+	FILE *gamestateFile;
+	ESTADO e;
+
+	if(strlen(args)==0){
+		gamestateFile = fopen("/tmp/gamestate","w");
+		e = inicializar();
+	}else{
+		gamestateFile = fopen("/tmp/gamestate","r+");
+		e = ler_estado(args,gamestateFile);
+		e = calcularNovoEstado(e);
+		gamestateFile = freopen("/tmp/gamestate","w",gamestateFile);
+	}
+	fprintf(gamestateFile,"%s",estado2str(e));
+	fclose(gamestateFile);
+	return e;
+}
+
 /**
 \brief Main
 */
 int main(){
-
-	ESTADO e = ler_estado(getenv("QUERY_STRING"));
+  
+	ESTADO e = runGame();
+	if(e.hp<=0){
+		updateScoreBoard(e.score);
+	}
 
 	imprime(e);
 
