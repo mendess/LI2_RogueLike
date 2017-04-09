@@ -216,47 +216,6 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act){
 		jog.y+=y[act];
 	}
 	return jog;
-	
-	/*
-	switch(act){
-		case 0: break;
-
-		case 1: jog.x+=-1;
-				jog.y+=1;
-				break;
-
-		case 2: jog.x+=0;
-				jog.y+=1;
-				break;
-
-		case 3: jog.x+=1;
-				jog.y+=1;
-				break;
-
-		case 4: jog.x+=-1;
-				jog.y+=0;
-				break;
-
-		case 5: break;
-
-		case 6: jog.x+=1;
-				jog.y+=0;
-				break;
-
-		case 7: jog.x+=-1;
-				jog.y+=-1;
-				break;
-
-		case 8: jog.x+=0;
-				jog.y+=-1;
-				break;
-
-		case 9: jog.x+=1;
-				jog.y+=-1;
-				break;
-	}
-	return jog;
-	*/
 }
 ESTADO calcularCombate(ESTADO e){
 	return e;
