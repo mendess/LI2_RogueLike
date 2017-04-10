@@ -209,7 +209,7 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act){
 	int x[10]={5,-1, 0, 1,-1, 5, 1,-1, 0, 1};
 //             0  1  2  3  4  5  6  7  8  9
 	int y[10]={5, 1, 1, 1, 0, 5, 0,-1,-1,-1};
-	
+
 	if(act!=0 && act!=5){
 		jog.x+=x[act];
 		jog.y+=y[act];
@@ -249,7 +249,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 	return e;
 }
 /**
-\brief Verifica se tem de se criar um estado novo (QUERY_STRING vazia) 
+\brief Verifica se tem de se criar um estado novo (QUERY_STRING vazia)
 	   ou se já existe ler a query e convertela no estado do jogo
 @param args QUERY_STRING
 */

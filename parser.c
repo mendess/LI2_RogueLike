@@ -69,7 +69,6 @@ void imprime_movimento(ESTADO e, POSICAO p){
 				TAM,
 				TAM,
 				IMAGE_PATH);
-		
 	}
 }
 /**
@@ -135,7 +134,6 @@ void imprime_jogador (ESTADO e){
 				TAM,
 				IMAGE_PATH);
 	}
-			
 	imprime_jogadas(e);
 }
 /**

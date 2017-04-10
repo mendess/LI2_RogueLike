@@ -45,7 +45,7 @@ void exportScoreBoard(int scoreBoard[], int num_scores){
 	scoreFile=fopen("score/scoreBoard","w+");
 	int i;
 	for(i=0;i<num_scores;i++){
-		fprintf(scoreFile,"%d\n", scoreBoard[i]);		
+		fprintf(scoreFile,"%d\n", scoreBoard[i]);
 	}
 	fclose(scoreFile);
 }
