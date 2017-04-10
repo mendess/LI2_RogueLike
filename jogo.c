@@ -5,6 +5,7 @@
 #include "parser.h"
 #include "score.h"
 #include "levelMaker.h"
+#include "move_monst.h"
 #include "jogo.h"
 /**
 \brief Inicializa o estado do jogo
@@ -111,9 +112,9 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act){
 ESTADO calcularCombate(ESTADO e){
 	return e;
 }
-ESTADO movemonstros(ESTADO e){
+/*ESTADO movemonstros(ESTADO e){
 	return e;
-}
+}*/
 /**
 \brief Calcula um novo estado conforme a ação que esteja no estado que recebe
 @param e Estado do jogo
@@ -137,7 +138,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 	if(e.action>10 && e.action>20){
 		e=calcularCombate(e);
 	}
-	e=movemonstros(e);
+	e=move_monstros(e);
 
 	e.turn+=1;
 
