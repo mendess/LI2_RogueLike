@@ -1,163 +1,11 @@
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
+//#define DEBUG
 
 #include "estado.h"
 #include "path.h"
 #include "parser.h"
 #include "score.h"
+#include "levelMaker.h"
 #include "jogo.h"
-
-/**
-\brief Verifica se esta posição está em cima do caminho entre o heroi e a saida
-@param e Estado do jogo
-@param p Posição a verificar
-@param pathSize Tamanho do caminho
-@param path Array de posições do caminho
-*/
-int isOnPath(ESTADO e, POSICAO p, int pathSize, POSICAO path[]){ 
-	int i, flag;
-	flag=0;
-	for (i=1;i<pathSize && !flag;i++){
-		if (path[i].x == p.x && path[i].y == p.y){
-			flag=1;
-		}
-	}
-	return flag;
-}
-/**
-\brief Verifica se esta algum monstro, pedra ou jogador na posição dada
-@param e Estado do jogo
-@param p Posição a verificar
-*/
-int pos_ocupada (ESTADO e, POSICAO p){
-	return com_jogador(e,p) || com_pedras(e,p) || com_monstros(e,p);
-}
-/**
-\brief Verifica se o jogador esta num certo par de coordenadas
-@param e Estado do jogo
-@param p Posição a verificar
-*/
-int com_jogador (ESTADO e,POSICAO p){
-	return (e.jog.x == p.x) && (e.jog.y == p.y);
-}
-/**
-\brief Verifica se existem pedras nas coordenadas dadas
-@param e Estado do jogo
-@param p Posição a verificar
-*/
-int com_pedras (ESTADO e, POSICAO p){
-	int i,flag;
-	flag=0;
-	for(i=0;i<MAX_PEDRAS && !flag;i++){
-		if (e.pedras[i].x == p.x && e.pedras[i].y == p.y){
-			flag=1;
-		}
-	}
-	return flag;
-}
-/**
-\brief Verifica se existem monstros nas coordenadas dadas
-@param e Estado do jogo
-@param p Posição a verificar
-*/
-int com_monstros (ESTADO e, POSICAO p){
-	int i,flag;
-	flag=0;
-	for (i=0;i<MAX_MONSTROS && !flag;i++){
-		if (e.monstros[i].x == p.x && e.monstros[i].y == p.y){
-			flag=1;
-		}
-	}
-	return flag;
-}
-/**
-\brief Coloca uma pedra numa posição aleatoria válida
-@param e Estado do jogo
-@param pathSize Tamanho do caminho
-@param path Caminho a evitar
-*/
-ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]){
-	POSICAO p;
-	int placed=0, i=0;
-	while(!placed && i<20){
-		i++;
-		int x=rand() % SIZE;
-		int y=rand() % SIZE;
-		p.x=(char) x;
-		p.y=(char) y;
-		if (!pos_ocupada(e,p) && !isOnPath(e,p,pathSize,path)){
-			placed=1;
-			e.pedras[(int) e.num_pedras].x=p.x;
-			e.pedras[(int) e.num_pedras].y=p.y;
-			e.num_pedras++;
-		}
-	}
-	return e;
-}
-/**
-\brief Coloca um monstro numa posição aleatoria válida
-@param e Estado do jogo
-*/
-ESTADO colocar_monstro (ESTADO e){
-	POSICAO p;
-	int placed=0, i=0;
-	while(!placed && i<20){
-		i++;
-		int x=rand() % SIZE;
-		int y=rand() % SIZE;
-		p.x=(char) x;
-		p.y=(char) y;
-		if (!pos_ocupada(e,p)){
-			placed=1;
-			e.monstros [(int) e.num_monstros].x=p.x;
-			e.monstros [(int) e.num_monstros].y=p.y;
-			e.num_monstros++;
-		}
-	}
-	return e;
-}
-/**
-\brief Coloca todas as pedras para inicializar o estado
-@param e Estado do jogo
-@param pathSize Tamanho do caminho a evitar
-@param path Array de coordenadas do caminho a evitar
-*/
-ESTADO colocar_pedras (ESTADO e, int pathSize, POSICAO path[]){
-	int i;
-	for(i=0;i<MAX_PEDRAS;i++){
-		e=colocar_pedra(e,pathSize,path);
-	}
-	return e;
-}
-
-/**
-\brief Coloca todas os monstros para inicializar o estado
-@param e Estado do jogo
-*/
-ESTADO colocar_monstros (ESTADO e){
-	int i;
-	for (i=0;i<MAX_MONSTROS;i++){
-		e=colocar_monstro(e);
-	}
-	return e;
-}
-char getClassHp(char type){
-	switch(type){
-		case 0: return HP_WARRIOR;
-		case 1: return HP_ARCHER;
-		case 2: return HP_MAGE;
-	}
-	return -1;
-}
-char getClassMp(char type){
-	switch(type){
-		case 0: return MP_WARRIOR;
-		case 1: return MP_ARCHER;
-		case 2: return MP_MAGE;
-	}
-	return -1;
-}
 /**
 \brief Inicializa o estado do jogo
 */
@@ -177,6 +25,50 @@ ESTADO inicializar(){
 	e.world_lvl=0;
 	//Score
 	e.score=0;
+	//Turno
+	e.turn=0;
+	//Lado para que o jogador esta a olhar 0:direita e 1:esquerda
+	e.direction=0;
+	//Action
+	e.action=0;
+	// Posição do jogador
+	e.jog.x=path[0].x;
+	e.jog.y=path[0].y;
+	// Posição da saida
+	e.saida.x=path[n-1].x;
+	e.saida.y=path[n-1].y;
+	// Numero de Monstros
+	e.num_monstros=0;
+	// Numero de pedras
+	e.num_pedras=0;
+	// Posições da pedras
+	e=colocar_pedras(e,n,path);
+	// Posições dos monstros
+	e=colocar_monstros(e);
+
+	return e;
+}
+ESTADO newLevel(ESTADO e){
+
+	POSICAO path[MAX_CAMINHO];
+	int n=pathMaker(path);
+	srandom(time(NULL));
+	//Vida do jogador
+	if(e.hp>(getClassHp(e.classe)-NEW_LEVEL_HP_BONUS)){
+		e.hp=getClassHp(e.classe);
+	}else{
+		e.hp+=NEW_LEVEL_HP_BONUS;
+	}
+	//Mana do jogador
+	if(e.mp>(getClassMp(e.classe)-NEW_LEVEL_MP_BONUS)){
+		e.mp=getClassMp(e.classe);
+	}else{
+		e.mp+=NEW_LEVEL_MP_BONUS;
+	}
+	//Nivel
+	e.world_lvl+=1;
+	//Score
+	e.score+=NEW_LEVEL_SC_BONUS;
 	//Turno
 	e.turn=0;
 	//Lado para que o jogador esta a olhar 0:direita e 1:esquerda
@@ -229,7 +121,7 @@ ESTADO movemonstros(ESTADO e){
 ESTADO calcularNovoEstado(ESTADO e){
 	//saida
 	if(e.action==5){
-		return inicializar();
+		return newLevel(e);
 	}
 	//set direction
 	if(e.action==9 || e.action==6 || e.action==3){
@@ -246,6 +138,9 @@ ESTADO calcularNovoEstado(ESTADO e){
 		e=calcularCombate(e);
 	}
 	e=movemonstros(e);
+
+	e.turn+=1;
+
 	return e;
 }
 /**
@@ -268,13 +163,25 @@ ESTADO runGame(){
 	ESTADO e;
 
 	if(strlen(args)==0){
+		#ifdef DEBUG
+		gamestateFile = fopen("tmp/gamestate","w");
+		#else
 		gamestateFile = fopen("/tmp/gamestate","w");
+		#endif
 		e = inicializar();
 	}else{
+		#ifdef DEBUG
+		gamestateFile = fopen("tmp/gamestate","r+");
+		#else
 		gamestateFile = fopen("/tmp/gamestate","r+");
+		#endif
 		e = ler_estado(args,gamestateFile);
 		e = calcularNovoEstado(e);
+		#ifdef DEBUG
+		gamestateFile = freopen("tmp/gamestate","w",gamestateFile);
+		#else
 		gamestateFile = freopen("/tmp/gamestate","w",gamestateFile);
+		#endif
 	}
 	fprintf(gamestateFile,"%s",estado2str(e));
 	fclose(gamestateFile);
