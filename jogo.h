@@ -73,7 +73,7 @@ typedef struct estado{
     // Numero de pedras
     char num_pedras;
     // Posições dos monstros
-    POSICAO monstros [MAX_MONSTROS];
+   MSTR monstros [MAX_MONSTROS];
     // Posições da pedras
     POSICAO pedras [MAX_PEDRAS];
 }ESTADO;

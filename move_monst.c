@@ -2,25 +2,26 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-# include "jogo.h"
+#include "jogo.h"
+#include "movemonstros.h" 
 
 // ataca_jogador
 //existe_jogador (estado, pos monstro)
 
 // estado -> turn (nº de jogadas)
 // mover montros
-int posocupada3(ESTADO e, int x, int y){
-	POS p;
-	p.x=x;
-	p.y=y;
+int posocupada3(ESTADO e, int q, int w){
+	POSICAO p;
+	p.x=q;
+	p.y=w;
 	if (com_jogador(e,p) || com_monstro(e,p)) return 0;
 	return 1;
 }
 
-int posocupada2(ESTADO e, int x, int y){
-	POS p;
-	p.x=x;
-	p.y=y;
+int posocupada2(ESTADO e, int q, int w){
+	POSICAO p;
+	p.x=q;
+	p.y=w;
 	if (posocupada(e,p)) return 0;
 	return 1;
 }
@@ -30,7 +31,7 @@ void ataca_jogador(ESTADO e,int i){
 }
 
 
-int existe_jogador(ESTADO e,Pos p){
+int existe_jogador(ESTADO e,POSICAO p){
    int q,w;
    for(q=-1;q<=1;q++){
    	for(w=-1;w<=1;w++){
@@ -40,7 +41,7 @@ int existe_jogador(ESTADO e,Pos p){
    return 0;
 }
 
-int  ve_jogador (ESTADO e,POS p){
+int  ve_jogador (ESTADO e,POSICAO p){
 	int p1,p2;
 	p1=abs(p.x-e.jog.x);
 	p2=abs(p.y-e.jog.y);
@@ -48,7 +49,7 @@ int  ve_jogador (ESTADO e,POS p){
    return 0;
 }
 
-int mov_bat(Estado e,int i,POS p){
+int mov_bat(Estado e,int i,POSICAO p){
     int q,flag;
     flag=1;
 	q= rand () % 7;
@@ -95,7 +96,7 @@ int mov_bat(Estado e,int i,POS p){
 	return flag;
 
 }
-int mov_ogre(Estado e,int i,POS p){
+int mov_ogre(Estado e,int i,POSICAO p){
 	int q,flag;
 	flag=1;
     q= rand () % 3;
@@ -122,7 +123,7 @@ int mov_ogre(Estado e,int i,POS p){
     return flag;
 }
 // ataca se a dferença de posições for de 3 quadriculas x+y <=3
-int mov_archer(Estado e,int i,POS p){
+int mov_archer(Estado e,int i,POSICAO p){
 	int q,flag;
 	flag=1;
 	q=rand () % 3;
@@ -149,7 +150,7 @@ int mov_archer(Estado e,int i,POS p){
     return flag;
 
 }
-int mov_wolf (ESTADO e,int i,POS p){
+int mov_wolf (ESTADO e,int i,POSICAO p){
 	int q,flag;
 	flag=1;
 	q=rand () % 7;
@@ -199,20 +200,20 @@ int mov_wolf (ESTADO e,int i,POS p){
 void move_monstros (ESTADO e){
    int i;
    for (i=0;i<MAX_MONSTROS;i++){
-   	POS p;
+   	POSICAO p;
 	p.x=e.monstros[i].x;
-    p.y=e-monstros[i].y;
+    p.y=e.monstros[i].y;
     srandom(time(NULL));
-   	if(e.monstros[i].z == 1){
+   	if(e.monstros[i].monType == 1){
    		if(mov_bat(e,i,p)) i--;
    	}
-   	if(e.monstros[i].z == 2){
+   	if(e.monstros[i].monType == 2){
    		if(mov_wolf(e,i,p)) i--;
    	} 
-    if(e.monstros[i].z == 3 && (e.turn%2 == 0){
+    if(e.monstros[i].monType == 3 && (e.turn%2 == 0){
    		if(mov_ogre(e,i,p)) i--;
    	}
-   	if(e.monstros[i].z == 4){
+   	if(e.monstros[i].monType == 4){
    		if(mov_archer(e,i,p)) i--;
    	}
   }
