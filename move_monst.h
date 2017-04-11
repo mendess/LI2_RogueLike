@@ -13,8 +13,7 @@
 #define OGRE_HP       15
 
 
-int posocupada3(ESTADO e, int q, int w);
-int posocupada2(ESTADO e, int q, int w);
+int posocupada3(ESTADO e,POSICAO p);
 void ataca_jogador(ESTADO e,int i);
 int existe_jogador(ESTADO e,POSICAO p);
 int blocked0 (ESTADO e, POSICAO p);

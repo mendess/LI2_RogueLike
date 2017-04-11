@@ -11,12 +11,10 @@
 
 // estado -> turn (nº de jogadas)
 // mover montros
-int posocupada3(ESTADO e, int q, int w){
-	POSICAO p;
-	p.x=q;
-	p.y=w;
-	if (com_jogador(e,p) || com_monstros(e,p)) return 0;
-	return 1;
+int posocupada3(ESTADO e, POSICAO p){
+    int flag=1; 
+	if (com_jogador(e,p) || com_monstros(e,p)) flag=0;
+	return flag;
 }
 void ataca_jogador(ESTADO e,int i){
 	e.hp-=i;
@@ -85,24 +83,20 @@ int mov_bat(ESTADO e,int i,POSICAO p){
 		ataca_jogador(e,BAT_DMG);
 		return 0;
 	}
-<<<<<<< HEAD
-    if (posscupada3(e,p1){
+    if (posocupada3(e,p1)){
        e.monstros[i].x+=q;
        e.monstros[i].y+=w;
        flag=0;
      }
 	return flag;
-}
+ }
 int mov_ogre(ESTADO e,int i,POSICAO p){
-<<<<<<< HEAD
 	int q,w,flag;
     POSICAO p1;
-    w=0;
-	flag=1;
+    w=0; flag=1;
     q= (rand () % 2)-1;
     if (existe_jogador(e,p)){
     	ataca_jogador(e,OGRE_DMG);
-<<<<<<< HEAD
     	flag=0;
     }
     if (blocked0(e,p)) 
@@ -119,36 +113,31 @@ int mov_ogre(ESTADO e,int i,POSICAO p){
     return flag;
 }
 // ataca se a dferença de posições for de 3 quadriculas x+y <=3
+
 int mov_archer(ESTADO e,int i,POSICAO p){
-	int q,flag;
-	flag=1;
-	q=rand () % 3;
+	int q,w,flag;
+    POSICAO p1;
+    w=0; flag=1;
+	q=(rand () % 2)-1;
 	if (ve_jogador(e,p)){
         ataca_jogador(e,ARCHER_DMG);
-    	return 0;
+    	flag=0;
     }
-    if (blocked0(e,p)) return 0;
-<<<<<<< HEAD
-    if (q=0 && posocupada2(e,p.x+1,p.y)){
-    	e.monstros[i].x+=1;
-		flag=0;
-    }
-     if (q=1 && posocupada2(e,p.x,p.y+1)){
-    	e.monstros[i].y+=1;
-		flag=0;
-    }
-     if (q=2 && posocupada2(e,p.x-1,p.y)){
-    	e.monstros[i].x-=1;
-		flag=0;
-    }
-     if (q=3 && posocupada2(e,p.x,p.y-1)){
-    	e.monstros[i].y-=1;
+    if (blocked0(e,p)) 
+        flag=0;
+    if (q==0)
+    	w=(rand () % 2)-1;
+    p1.x=p.x+q;
+    p1.y=p.y+w;
+     if (!pos_ocupada(e,p1) && flag){
+    	e.monstros[i].y+=q;
+        e.monstros[i].y+=w;
 		flag=0;
     }
     return flag;
 }
 int mov_wolf (ESTADO e,int i,POSICAO p){
-	int q,flag;
+	int q,w,flag;
     POSICAO p1;
 	flag=1;
 	q=(rand () % 2)-1;
@@ -160,7 +149,7 @@ int mov_wolf (ESTADO e,int i,POSICAO p){
 	    flag=0;
 	}
     if (blocked1(e,p)) flag=0;
-	if (!posocupada(e,p1) && flag){
+	if (!pos_ocupada(e,p1) && flag){
 		e.monstros[i].x+=q;
         e.monstros[i].y+=w;
 		flag=0;
