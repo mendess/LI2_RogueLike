@@ -8,14 +8,11 @@
 
 #include "jogo.h"
 #include "estado.h"
+#include "levelMaker.h"
 
 /*
 #define COMECAR_HTML						printf("Content-Type: text/html\n\n")
-
-
 #define ABRIR_SVG(tamx, tamy)				printf("<svg width=%d height=%d>\n", tamx, tamy)
-
-
 #define FECHAR_SVG							printf("</svg>\n")
 */
 

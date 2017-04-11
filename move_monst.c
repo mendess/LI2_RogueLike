@@ -18,11 +18,9 @@ int posocupada3(ESTADO e, int q, int w){
 	if (com_jogador(e,p) || com_monstros(e,p)) return 0;
 	return 1;
 }
-
 void ataca_jogador(ESTADO e,int i){
 	e.hp-=i;
 }
-
 
 int existe_jogador(ESTADO e,POSICAO p){
    int q,w;
@@ -50,8 +48,8 @@ int blocked0 (ESTADO e, POSICAO p){
      if(p3.x==e.pedras[i].x && p3.y==e.pedras[i].y) e3=1;
      if(p4.x==e.pedras[i].x && p4.y==e.pedras[i].y) e4=1;
    }
-  return (e1 && e2 && e3 && e4);    
-  }
+  return (e1 && e2 && e3 && e4);
+}
 // indica se há posições livres para o monstro se mover.
 int blocked1 (ESTADO e, POSICAO p){
   POSICAO p1;
@@ -67,7 +65,7 @@ int blocked1 (ESTADO e, POSICAO p){
   return u; 
 }
 
-int  ve_jogador (ESTADO e,POSICAO p){
+int ve_jogador (ESTADO e,POSICAO p){
 	int p1,p2;
 	p1=abs(p.x-e.jog.x);
 	p2=abs(p.y-e.jog.y);
@@ -87,16 +85,16 @@ int mov_bat(ESTADO e,int i,POSICAO p){
 		ataca_jogador(e,BAT_DMG);
 		return 0;
 	}
+<<<<<<< HEAD
     if (posscupada3(e,p1){
        e.monstros[i].x+=q;
        e.monstros[i].y+=w;
        flag=0;
      }
-
 	return flag;
-
 }
 int mov_ogre(ESTADO e,int i,POSICAO p){
+<<<<<<< HEAD
 	int q,w,flag;
     POSICAO p1;
     w=0;
@@ -104,6 +102,7 @@ int mov_ogre(ESTADO e,int i,POSICAO p){
     q= (rand () % 2)-1;
     if (existe_jogador(e,p)){
     	ataca_jogador(e,OGRE_DMG);
+<<<<<<< HEAD
     	flag=0;
     }
     if (blocked0(e,p)) 
@@ -115,7 +114,7 @@ int mov_ogre(ESTADO e,int i,POSICAO p){
     if (!pos_ocupada(e,p1) && flag){
     	e.monstros[i].x+=q;
         e.monstros[i].y+=w;
-		flag=0;
+        flag=0;
     }
     return flag;
 }
@@ -129,6 +128,7 @@ int mov_archer(ESTADO e,int i,POSICAO p){
     	return 0;
     }
     if (blocked0(e,p)) return 0;
+<<<<<<< HEAD
     if (q=0 && posocupada2(e,p.x+1,p.y)){
     	e.monstros[i].x+=1;
 		flag=0;
@@ -146,7 +146,6 @@ int mov_archer(ESTADO e,int i,POSICAO p){
 		flag=0;
     }
     return flag;
-
 }
 int mov_wolf (ESTADO e,int i,POSICAO p){
 	int q,flag;
@@ -168,9 +167,8 @@ int mov_wolf (ESTADO e,int i,POSICAO p){
 	}
 	return flag;
 }
-
- // (pos1,pos2,tipo,hp) ->(x,y,z,d,v)
-void move_monstros (ESTADO e){
+// (pos1,pos2,tipo,hp) ->(x,y,z,d,v)
+ESTADO move_monstros (ESTADO e){
    int i;
    for (i=0;i<MAX_MONSTROS;i++){
    	POSICAO p;
@@ -183,6 +181,7 @@ void move_monstros (ESTADO e){
    	if(e.monstros[i].monType == 2){
    		if(mov_wolf(e,i,p)) i--;
    	} 
+
     if(e.monstros[i].monType == 3 && (e.turn%2 == 0)){
    		if(mov_ogre(e,i,p)) i--;
    	}
@@ -190,11 +189,5 @@ void move_monstros (ESTADO e){
    		if(mov_archer(e,i,p)) i--;
    	}
   }
+  return e;
 }
- 
-
-  
-
-
-
-
