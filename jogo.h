@@ -1,33 +1,19 @@
 #ifndef ___JOGO_H___
 #define ___JOGO_H___
 
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <stdio.h>
+
 #define TAM           50
 #define MAX_MONSTROS  5
 #define MAX_PEDRAS    25
 #define SIZE          10
 
-#define HP_WARRIOR    100
-#define HP_ARCHER     90
-#define HP_MAGE       70
-
-#define MP_WARRIOR    50
-#define MP_ARCHER     70
-#define MP_ARCHER     100
-
-
-#define WOLF_DMG      10
-#define WOLF_HP       10
-#define WOLF_SCORE    10
-#define BAT_DMG       7
-#define BAT_HP        10
-#define BAT_SCORE     10
-#define ARCHER_DMG    8
-#define ARCHER_HP     8
-#define ARCHER_SCORE  8
-#define OGRE_DMG      15
-#define OGRE_HP       15
-#define OGRE_SCORE    15
-
+#define NEW_LEVEL_HP_BONUS  30
+#define NEW_LEVEL_MP_BONUS  10
+#define NEW_LEVEL_SC_BONUS  60
 
 /*
 HelhPotion      0
@@ -55,7 +41,7 @@ typedef struct monster{
     char y;
     char monType;
     char hp;
-}MSTR
+}MSTR;
 
 typedef struct inventory{
     char gold;
@@ -72,7 +58,7 @@ typedef struct estado{
     //Nivel
     char world_lvl;
     //Score
-    char score;
+    int score;
     //Turno
     char turn;
     //Lado para que o jogador esta a olhar 0:direita e 1:esquerda
@@ -88,21 +74,16 @@ typedef struct estado{
     // Numero de pedras
     char num_pedras;
     // Posições dos monstros
-    POSICAO monstros [MAX_MONSTROS];
+    MSTR monstros [MAX_MONSTROS];
     // Posições da pedras
     POSICAO pedras [MAX_PEDRAS];
 }ESTADO;
 
-int isOnPath(ESTADO e, POSICAO p, int pathSize, POSICAO path[]);
-int pos_ocupada (ESTADO e, POSICAO p);
-ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]);
-ESTADO colocar_monstro (ESTADO e);
-ESTADO colocar_pedras (ESTADO e, int pathSize, POSICAO path[]);
-ESTADO colocar_monstros (ESTADO e);
 ESTADO inicializar();
-int com_jogador (ESTADO e,POSICAO p);
-int com_pedras (ESTADO e, POSICAO p);
-int com_monstros (ESTADO e, POSICAO p);
-ESTADO ler_estado (char *args);
+ESTADO newLevel();
+POSICAO calculaNovaPosicao(POSICAO jog, int act);
+ESTADO calcularNovaEstado(ESTADO e);
+ESTADO ler_estado (char *args,FILE *gamestateFile);
+ESTADO runGame();
 
 #endif
