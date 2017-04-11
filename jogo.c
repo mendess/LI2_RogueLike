@@ -138,6 +138,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 	if(e.action>10 && e.action>20){
 		e=calcularCombate(e);
 	}
+
 	e=move_monstros(e);
 
 	e.turn+=1;

@@ -80,6 +80,10 @@ typedef struct estado{
 }ESTADO;
 
 ESTADO inicializar();
+ESTADO newLevel();
+POSICAO calculaNovaPosicao(POSICAO jog, int act);
+ESTADO calcularNovaEstado(ESTADO e);
 ESTADO ler_estado (char *args,FILE *gamestateFile);
+ESTADO runGame();
 
 #endif
