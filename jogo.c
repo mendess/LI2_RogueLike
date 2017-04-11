@@ -1,5 +1,3 @@
-//#define DEBUG
-
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -7,7 +5,19 @@
 #include "estado.h"
 #include "path.h"
 #include "parser.h"
+#include "score.h"
+ #include "levelMaker.h"
+#include "move_monst.h"
 #include "jogo.h"
+
+ESTADO calcularCombate(ESTADO e){
+ 	return e;
+ }
+-ESTADO movemonstros(ESTADO e){
++/*ESTADO movemonstros(ESTADO e){
+ 	return e;
+-}
++}*/
 
 /**
 \brief Verifica se esta posição está em cima do caminho entre o heroi e a saida
@@ -33,6 +43,44 @@ int isOnPath(ESTADO e, POSICAO p, int pathSize, POSICAO path[]){
 */
 int pos_ocupada (ESTADO e, POSICAO p){
 	return com_jogador(e,p) || com_pedras(e,p) || com_monstros(e,p);
+}
+/**
+\brief Verifica se o jogador esta num certo par de coordenadas
+@param e Estado do jogo
+@param p Posição a verificar
+*/
+int com_jogador (ESTADO e,POSICAO p){
+	return (e.jog.x == p.x) && (e.jog.y == p.y);
+}
+/**
+\brief Verifica se existem pedras nas coordenadas dadas
+@param e Estado do jogo
+@param p Posição a verificar
+*/
+int com_pedras (ESTADO e, POSICAO p){
+	int i,flag;
+	flag=0;
+	for(i=0;i<MAX_PEDRAS && !flag;i++){
+		if (e.pedras[i].x == p.x && e.pedras[i].y == p.y){
+			flag=1;
+		}
+	}
+	return flag;
+}
+/**
+\brief Verifica se existem monstros nas coordenadas dadas
+@param e Estado do jogo
+@param p Posição a verificar
+*/
+int com_monstros (ESTADO e, POSICAO p){
+	int i,flag;
+	flag=0;
+	for (i=0;i<MAX_MONSTROS && !flag;i++){
+		if (e.monstros[i].x == p.x && e.monstros[i].y == p.y){
+			flag=1;
+		}
+	}
+	return flag;
 }
 /**
 \brief Coloca uma pedra numa posição aleatoria válida
@@ -89,7 +137,7 @@ ESTADO colocar_monstro (ESTADO e){
 ESTADO colocar_pedras (ESTADO e, int pathSize, POSICAO path[]){
 	int i;
 	for(i=0;i<MAX_PEDRAS;i++){
-		e=colocar_pedra (e,pathSize,path);
+		e=colocar_pedra(e,pathSize,path);
 	}
 	return e;
 }
@@ -105,72 +153,63 @@ ESTADO colocar_monstros (ESTADO e){
 	}
 	return e;
 }
+char getClassHp(char type){
+	switch(type){
+		case 0: return HP_WARRIOR;
+		case 1: return HP_ARCHER;
+		case 2: return HP_MAGE;
+	}
+	return -1;
+}
+char getClassMp(char type){
+	switch(type){
+		case 0: return MP_WARRIOR;
+		case 1: return MP_ARCHER;
+		case 2: return MP_MAGE;
+	}
+	return -1;
+}
 /**
 \brief Inicializa o estado do jogo
 */
 ESTADO inicializar(){
 
 	ESTADO e;
-
 	POSICAO path[MAX_CAMINHO];
 	int n=pathMaker(path);
-	
-	e.action=0;
-
+	srandom(time(NULL));
+	//Classe {Warrior=0, Archer=1, Mage=2}
+	e.classe=0;
+	//Vida do jogador
+	e.hp=getClassHp(e.classe);
+	//Mana do jogador
+	e.mp=getClassMp(e.classe);
+	//Nivel
+	e.world_lvl=0;
+	//Score
+	e.score=0;
+	//Turno
+	e.turn=0;
+	//Lado para que o jogador esta a olhar 0:direita e 1:esquerda
 	e.direction=0;
-
+	//Action
+	e.action=0;
+	// Posição do jogador
 	e.jog.x=path[0].x;
 	e.jog.y=path[0].y;
-	
+	// Posição da saida
 	e.saida.x=path[n-1].x;
 	e.saida.y=path[n-1].y;
-	
+	// Numero de Monstros
 	e.num_monstros=0;
-	
+	// Numero de pedras
 	e.num_pedras=0;
-
+	// Posições da pedras
 	e=colocar_pedras(e,n,path);
+	// Posições dos monstros
 	e=colocar_monstros(e);
-	
+
 	return e;
-}
-/**
-\brief Verifica se o jogador esta num certo par de coordenadas
-@param e Estado do jogo
-@param p Posição a verificar
-*/
-int com_jogador (ESTADO e,POSICAO p){
-	return (e.jog.x == p.x) && (e.jog.y == p.y);
-}
-/**
-\brief Verifica se existem pedras nas coordenadas dadas
-@param e Estado do jogo
-@param p Posição a verificar
-*/
-int com_pedras (ESTADO e, POSICAO p){
-	int i,flag;
-	flag=0;
-	for(i=0;i<MAX_PEDRAS && !flag;i++){
-		if (e.pedras[i].x == p.x && e.pedras[i].y == p.y){
-			flag=1;
-		}
-	}
-	return flag;
-}
-/**
-\brief Verifica se existem monstros nas coordenadas dadas
-@param e Estado do jogo
-@param p Posição a verificar
-*/
-int com_monstros (ESTADO e, POSICAO p){
-	int i,flag;
-	flag=0;
-	for (i=0;i<MAX_MONSTROS && !flag;i++){
-		if (e.monstros[i].x == p.x && e.monstros[i].y == p.y){
-			flag=1;
-		}
-	}
-	return flag;
 }
 /**
 \brief Calcula a nova posição do jogador
@@ -178,46 +217,22 @@ int com_monstros (ESTADO e, POSICAO p){
 @param act Ação selecionada
 */
 POSICAO calculaNovaPosicao(POSICAO jog, int act){
-	switch(act){
-		case 0: return jog;
-	 
-		case 1: jog.x+=-1;
-				jog.y+=1;
-				return jog;
-	
-		case 2: jog.x+=0;
-				jog.y+=1;
-				return jog;
+	int x[10]={5,-1, 0, 1,-1, 5, 1,-1, 0, 1};
+//             0  1  2  3  4  5  6  7  8  9
+	int y[10]={5, 1, 1, 1, 0, 5, 0,-1,-1,-1};
 
-		case 3: jog.x+=1;
-				jog.y+=1;
-				return jog;
-	
-		case 4: jog.x+=-1;
-				jog.y+=0;
-				return jog;
-		
-		case 5: return jog;
-	
-		case 6: jog.x+=1;
-				jog.y+=0;
-				return jog;
-	
-		case 7: jog.x+=-1;
-				jog.y+=-1;
-				return jog;
-
-		case 8: jog.x+=0;
-				jog.y+=-1;
-				return jog;
-
-		case 9: jog.x+=1;
-				jog.y+=-1;
-				return jog;
+	if(act!=0 && act!=5){
+		jog.x+=x[act];
+		jog.y+=y[act];
 	}
 	return jog;
 }
-
+ESTADO calcularCombate(ESTADO e){
+	return e;
+}
+ESTADO movemonstros(ESTADO e){
+	return e;
+}
 /**
 \brief Calcula um novo estado conforme a ação que esteja no estado que recebe
 @param e Estado do jogo
@@ -234,59 +249,65 @@ ESTADO calcularNovoEstado(ESTADO e){
 	if(e.action==7 || e.action==4 || e.action==1){
 		e.direction=1;
 	}
-
 	if(e.action>0 && e.action<10){
 		e.jog=calculaNovaPosicao(e.jog,e.action);
 		return e;
 	}
+	if(e.action>10 && e.action>20){
+		e=calcularCombate(e);
+	}
+	e=movemonstros(e);
 	return e;
 }
 /**
-\brief Verifica se tem de se criar um estado novo (QUERY_STRING vazia) 
+\brief Verifica se tem de se criar um estado novo (QUERY_STRING vazia)
 	   ou se já existe ler a query e convertela no estado do jogo
 @param args QUERY_STRING
 */
-ESTADO ler_estado (char *args){
-	#ifdef DEBUG
-	if(!args){
-		return inicializar();
-	}
-	#endif
-	#ifndef DEBUG
-	if(strlen(args)==0){
-		return inicializar();
-	}
-	#endif
-	return calcularNovoEstado(str2estado(args));
+ESTADO ler_estado (char *args,FILE *gamestateFile){
+	char str[MAX_BUFFER];
+	int act;
+	fscanf(gamestateFile,"%s",str);
+	ESTADO e = str2estado(str);
+	sscanf(args,"%d",&act);
+	e.action = act;
+	return e;
 }
+ESTADO runGame(){
+	char *args = getenv("QUERY_STRING");
+	FILE *gamestateFile;
+	ESTADO e;
+
+	if(strlen(args)==0){
+		gamestateFile = fopen("/tmp/gamestate","w");
+		e = inicializar();
+	}else{
+		gamestateFile = fopen("/tmp/gamestate","r+");
+		e = ler_estado(args,gamestateFile);
+		e = calcularNovoEstado(e);
+		gamestateFile = freopen("/tmp/gamestate","w",gamestateFile);
+	}
+	fprintf(gamestateFile,"%s",estado2str(e));
+	fclose(gamestateFile);
+	return e;
+}
+
 /**
 \brief Main
 */
 int main(){
-	print_header ();
-	imprime_background();
-	srandom(time(NULL));
-	int x,y;
-	POSICAO p;
-
-	ESTADO e = ler_estado(getenv("QUERY_STRING"));
-
-	for(y = 0; y < SIZE; y++){
-		for(x = 0; x < SIZE; x++){
-			p.x= x;
-			p.y= y;
-			imprime_casa(p);
-		}
+  
+	ESTADO e = runGame();
+	if(e.hp<=0){
+		updateScoreBoard(e.score);
 	}
 
-	imprime_saida(e.saida);
-	imprime_monstros(e);
-	imprime_pedras(e);
-	imprime_jogador(e);
-
-	print_footer();
+	imprime(e);
 
 	return 0;
 }
+<<<<<<< HEAD
 
 //commentario para testar branching
+=======
+>>>>>>> master

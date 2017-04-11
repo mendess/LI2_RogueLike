@@ -19,23 +19,27 @@
 #define FECHAR_SVG							printf("</svg>\n")
 */
 
-#define ABRIR_LINK(link)					printf("<a xlink:href=%s>\n", link)
+#define IMAGE_PATH							"http://127.0.0.1/imagens/"
 
+#define ABRIR_LINK(link)					printf("<a xlink:href=%s>\n", link)
 
 #define FECHAR_LINK							printf("</a>\n")
 
 
 void print_header();
 void print_footer();
+int outOfBounds(POSICAO p);
+int isMonster(ESTADO e, POSICAO p);
+int getDirection(ESTADO e,POSICAO p);
 void imprime_background ();
-void imprime_casa (POSICAO p);
-void imprime_movimento (POSICAO p);
-void criar_movimento (ESTADO e, POSICAO p);
-void imprime_jogadas (ESTADO e);
+void imprime_casa (int r,POSICAO p);
 void imprime_jogador (ESTADO e);
+ void imprime_jogadas (ESTADO e);
+  void criar_movimento (ESTADO e, POSICAO p);
+   void imprime_movimento (ESTADO e,POSICAO p);
 void imprime_monstros (ESTADO e);
 void imprime_pedras (ESTADO e);
 void imprime_saida (POSICAO p);
-int outOfBounds(POSICAO p);
+void imprime(ESTADO e);
 
 #endif
