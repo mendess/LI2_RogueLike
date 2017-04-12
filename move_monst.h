@@ -13,16 +13,16 @@
 #define OGRE_HP       15
 
 
-int posocupada3(ESTADO e,POSICAO p);
+int poslivre(ESTADO e, POSICAO p);
 void ataca_jogador(ESTADO e,int i);
 int existe_jogador(ESTADO e,POSICAO p);
 int blocked0 (ESTADO e, POSICAO p);
 int blocked1 (ESTADO e, POSICAO p);
 int ve_jogador (ESTADO e,POSICAO p);
-int mov_bat(ESTADO e,int i,POSICAO p);
-int mov_ogre(ESTADO e,int i,POSICAO p);
-int mov_archer(ESTADO e,int i,POSICAO p);
-int mov_wolf (ESTADO e,int i,POSICAO p);
+ESTADO mov_bat(ESTADO e,int i,POSICAO p);
+ESTADO mov_ogre(ESTADO e,int i,POSICAO p);
+ESTADO mov_archer(ESTADO e,int i,POSICAO p);
+ESTADO mov_wolf (ESTADO e,int i,POSICAO p);
 ESTADO move_monstros(ESTADO e);
 
 #endif

@@ -5,13 +5,14 @@
 #include "jogo.h"
 #include "move_monst.h" 
 #include "levelMaker.h"
+#include "parser.h"
 
 // ataca_jogador
 //existe_jogador (estado, pos monstro)
 
 // estado -> turn (nº de jogadas)
 // mover montros
-int posocupada3(ESTADO e, POSICAO p){
+int poslivre(ESTADO e, POSICAO p){
     int flag=1; 
 	if (com_jogador(e,p) || com_monstros(e,p)) flag=0;
 	return flag;
@@ -71,62 +72,62 @@ int ve_jogador (ESTADO e,POSICAO p){
    return 0;
 }
 
-int mov_bat(ESTADO e,int i,POSICAO p){
+ESTADO mov_bat(ESTADO e,int i,POSICAO p){
     int q,w,flag;
     POSICAO p1;
     flag=1;
-    q= (rand () % 2)-1;
-    w= (rand () % 2)-1;
+    q= (rand () % 3)-1;
+    w= (rand () % 3)-1;
     p1.x=p.x+q;
-    p1.y=p.x+w;
+    p1.y=p.y+w;
 	if (existe_jogador(e,p)){
-		ataca_jogador(e,BAT_DMG);
-		return 0;
+		e.hp-=BAT_DMG;
+		flag=0;
 	}
-    if (posocupada3(e,p1)){
+    if (flag && poslivre(e,p1) && !outOfBounds(p1)){
        e.monstros[i].x+=q;
        e.monstros[i].y+=w;
        flag=0;
      }
-	return flag;
+	return e;
  }
-int mov_ogre(ESTADO e,int i,POSICAO p){
+ESTADO mov_ogre(ESTADO e,int i,POSICAO p){
 	int q,w,flag;
     POSICAO p1;
     w=0; flag=1;
-    q= (rand () % 2)-1;
+    q= (rand () % 3)-1;
     if (existe_jogador(e,p)){
-    	ataca_jogador(e,OGRE_DMG);
+    	e.hp-=OGRE_DMG;
     	flag=0;
     }
     if (blocked0(e,p)) 
         flag=0;
     if (q==0) 
-        w=(rand () % 2)-1;
+        w=(rand () % 3)-1;
     p1.x=p.x+q;
     p1.y=p.y+w;    
-    if (!pos_ocupada(e,p1) && flag){
+    if (flag && !pos_ocupada(e,p1)){
     	e.monstros[i].x+=q;
         e.monstros[i].y+=w;
         flag=0;
     }
-    return flag;
+    return e;
 }
 // ataca se a dferença de posições for de 3 quadriculas x+y <=3
 
-int mov_archer(ESTADO e,int i,POSICAO p){
+ESTADO mov_archer(ESTADO e,int i,POSICAO p){
 	int q,w,flag;
     POSICAO p1;
     w=0; flag=1;
-	q=(rand () % 2)-1;
+	q=(rand () % 3)-1;
 	if (ve_jogador(e,p)){
-        ataca_jogador(e,ARCHER_DMG);
+        e.hp-=ARCHER_DMG;
     	flag=0;
     }
     if (blocked0(e,p)) 
         flag=0;
     if (q==0)
-    	w=(rand () % 2)-1;
+    	w=(rand () % 3)-1;
     p1.x=p.x+q;
     p1.y=p.y+w;
      if (!pos_ocupada(e,p1) && flag){
@@ -134,18 +135,18 @@ int mov_archer(ESTADO e,int i,POSICAO p){
         e.monstros[i].y+=w;
 		flag=0;
     }
-    return flag;
+    return e;
 }
-int mov_wolf (ESTADO e,int i,POSICAO p){
+ESTADO mov_wolf (ESTADO e,int i,POSICAO p){
 	int q,w,flag;
     POSICAO p1;
 	flag=1;
-	q=(rand () % 2)-1;
-    w=(rand () % 2)-1;
+	q=(rand () % 3)-1;
+    w=(rand () % 3)-1;
     p1.x=p.x+q;
     p1.y=p.x+w;
 	if (existe_jogador(e,p)){
-		ataca_jogador(e,WOLF_DMG);
+		e.hp-=WOLF_DMG;
 	    flag=0;
 	}
     if (blocked1(e,p)) flag=0;
@@ -154,10 +155,11 @@ int mov_wolf (ESTADO e,int i,POSICAO p){
         e.monstros[i].y+=w;
 		flag=0;
 	}
-	return flag;
+	return e;
 }
 // (pos1,pos2,tipo,hp) ->(x,y,z,d,v)
 ESTADO move_monstros (ESTADO e){
+   ESTADO n=e;
    int i;
    for (i=0;i<MAX_MONSTROS;i++){
    	POSICAO p;
@@ -165,18 +167,19 @@ ESTADO move_monstros (ESTADO e){
     p.y=e.monstros[i].y;
     srandom(time(NULL));
    	if(e.monstros[i].monType == 1){
-   		if(mov_bat(e,i,p)) i--;
+   	   mov_bat(e,i,p);
    	}
    	if(e.monstros[i].monType == 2){
-   		if(mov_wolf(e,i,p)) i--;
+   	   mov_wolf(e,i,p);
    	} 
 
     if(e.monstros[i].monType == 3 && (e.turn%2 == 0)){
-   		if(mov_ogre(e,i,p)) i--;
+   		mov_ogre(e,i,p);
    	}
    	if(e.monstros[i].monType == 4){
-   		if(mov_archer(e,i,p)) i--;
+   		mov_archer(e,i,p);
    	}
+    e=n;
   }
   return e;
 }
