@@ -85,8 +85,8 @@ ESTADO mov_bat(ESTADO e,int i,POSICAO p){
 		flag=0;
 	}
     if (flag && poslivre(e,p1) && !outOfBounds(p1)){
-       e.monstros[i].x+=q;
-       e.monstros[i].y+=w;
+       e.monstros[i].x=p1.x;
+       e.monstros[i].y=p1.y;
        flag=0;
      }
 	return e;
@@ -106,9 +106,10 @@ ESTADO mov_ogre(ESTADO e,int i,POSICAO p){
         w=(rand () % 3)-1;
     p1.x=p.x+q;
     p1.y=p.y+w;    
-    if (flag && !pos_ocupada(e,p1)){
-    	e.monstros[i].x+=q;
-        e.monstros[i].y+=w;
+    if (flag && !pos_ocupada(e,p1) && !outOfBounds(p1)){
+    	e.monstros[i].x=p1.x;
+        e.monstros[i].y=p1.y;
+        e.monstros[i].monType=3;
         flag=0;
     }
     return e;
@@ -130,9 +131,9 @@ ESTADO mov_archer(ESTADO e,int i,POSICAO p){
     	w=(rand () % 3)-1;
     p1.x=p.x+q;
     p1.y=p.y+w;
-     if (!pos_ocupada(e,p1) && flag){
-    	e.monstros[i].y+=q;
-        e.monstros[i].y+=w;
+     if (flag && !pos_ocupada(e,p1) && !outOfBounds(p1)){
+    	e.monstros[i].x=p1.x;
+        e.monstros[i].y=p1.y;
 		flag=0;
     }
     return e;
@@ -144,42 +145,41 @@ ESTADO mov_wolf (ESTADO e,int i,POSICAO p){
 	q=(rand () % 3)-1;
     w=(rand () % 3)-1;
     p1.x=p.x+q;
-    p1.y=p.x+w;
+    p1.y=p.y+w;
 	if (existe_jogador(e,p)){
 		e.hp-=WOLF_DMG;
 	    flag=0;
 	}
-    if (blocked1(e,p)) flag=0;
-	if (!pos_ocupada(e,p1) && flag){
-		e.monstros[i].x+=q;
-        e.monstros[i].y+=w;
+    if (flag && blocked1(e,p)) flag=0;
+	if (flag && !pos_ocupada(e,p1) && !outOfBounds(p1)){
+		e.monstros[i].x=p1.x;
+        e.monstros[i].y=p1.y;
 		flag=0;
 	}
 	return e;
 }
 // (pos1,pos2,tipo,hp) ->(x,y,z,d,v)
 ESTADO move_monstros (ESTADO e){
-   ESTADO n=e;
+   ESTADO n;
+   POSICAO p;
    int i;
-   for (i=0;i<MAX_MONSTROS;i++){
-   	POSICAO p;
-	p.x=e.monstros[i].x;
-    p.y=e.monstros[i].y;
     srandom(time(NULL));
-   	if(e.monstros[i].monType == 1){
-   	   mov_bat(e,i,p);
-   	}
-   	if(e.monstros[i].monType == 2){
-   	   mov_wolf(e,i,p);
-   	} 
-
-    if(e.monstros[i].monType == 3 && (e.turn%2 == 0)){
-   		mov_ogre(e,i,p);
-   	}
-   	if(e.monstros[i].monType == 4){
-   		mov_archer(e,i,p);
-   	}
-    e=n;
+   for (i=0;i<MAX_MONSTROS;i++){
+	    p.x=e.monstros[i].x;
+        p.y=e.monstros[i].y;
+      	if(e.monstros[i].monType == 1){
+   	        n=mov_bat(e,i,p);
+        }
+    	if(e.monstros[i].monType == 2){
+   	        n=mov_wolf(e,i,p);
+      	} 
+        if(e.monstros[i].monType == 3 && (e.turn%2 == 0)){
+   		    n=mov_ogre(e,i,p);
+      	}
+   	    if(e.monstros[i].monType == 4){
+   		    n=mov_archer(e,i,p);
+     	}
+        e=n;
   }
-  return e;
+  return n;
 }
