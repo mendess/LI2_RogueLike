@@ -146,7 +146,7 @@ void imprime_monstros (ESTADO e){
 	char *wolfs[]={"Icon_Lobo_Lateral_3.png","Icon_Lobo_Lateral_4.png"};
 	for(i=0;i<MAX_MONSTROS;i++){
 		int r = rand() % 2;
-		printf("<image x=%d y=%d width= %d height= %d href=\"%s%s\"/>\n",
+		printf("<image onmouseouver=wolfDescription x=%d y=%d width= %d height= %d href=\"%s%s\"/>\n",
 				TAM*(e.monstros[i].x+1),
 				TAM*(e.monstros[i].y+1),
 				TAM,
@@ -224,6 +224,6 @@ void imprime(ESTADO e){
 	imprime_pedras(e);
 	imprime_monstros(e);
 	imprime_jogador(e);
-
+	imprime_scripts();
 	print_footer();
 }

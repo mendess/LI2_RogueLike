@@ -6,8 +6,8 @@ install: roguel
 	sudo cp imagens/* /var/www/html/imagens
 	touch install
 
-roguel: jogo.o parser.o path.o estado.o score.o levelMaker.o
-	cc -o roguel jogo.o estado.o path.o parser.o score.o levelMaker.o
+roguel: jogo.o parser.o path.o estado.o score.o levelMaker.o scripts.o
+	cc -o roguel jogo.o estado.o path.o parser.o score.o levelMaker.o scripts.o
 
 exemplo.zip: $(FICHEIROS)
 	zip -9 exemplo.zip $(FICHEIROS)

@@ -9,6 +9,7 @@
 #include "jogo.h"
 #include "estado.h"
 #include "levelMaker.h"
+#include "scripts.h"
 
 /*
 #define COMECAR_HTML						printf("Content-Type: text/html\n\n")
