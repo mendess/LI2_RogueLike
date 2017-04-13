@@ -247,36 +247,3 @@ ESTADO move_monstros (ESTADO e){
   return e;
 }
 
-ESTADO criaestado(ESTADO e){
-  int i,q,w;
-  srandom(time(NULL));
-  for (i=0;i<MAX_MONSTROS;i++){
-    q=rand () % 10;
-    w=rand () % 10;
-    e.monstros[i].x=q;
-    e.monstros[i].y=w;
-    e.monstros[i].monType=3;
-    e.monstros[i].hp=30;
-  }
-  e.jog.x=7;
-  e.jog.y=7;
-  return e;
-}
-
-int main (){
-  ESTADO e,n;
-  int i,m;
-  e=criaestado (e);
-  for (i=0;i<MAX_MONSTROS;i++){
-      printf("(%d,%d)",e.monstros[i].x,e.monstros[i].y);
-   }
-  printf("  hp:%d\n",e.hp);
-  n=move_monstros(e);
-  for (i=0;i<MAX_MONSTROS;i++){
-     printf("(%d,%d)",n.monstros[i].x,n.monstros[i].y);
-   }
-  printf("   hp:%d",e.hp);
-  return 0;
-}
-
- 
