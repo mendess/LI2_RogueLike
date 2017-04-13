@@ -133,7 +133,6 @@ ESTADO calcularNovoEstado(ESTADO e){
 	}
 	if(e.action>0 && e.action<10){
 		e.jog=calculaNovaPosicao(e.jog,e.action);
-		return e;
 	}
 	if(e.action>10 && e.action>20){
 		e=calcularCombate(e);
@@ -166,21 +165,21 @@ ESTADO runGame(){
 
 	if(strlen(args)==0){
 		#ifdef DEBUG
-		gamestateFile = fopen("tmp/gamestate","w");
+		gamestateFile = fopen("gamestate","w");
 		#else
 		gamestateFile = fopen("/tmp/gamestate","w");
 		#endif
 		e = inicializar();
 	}else{
 		#ifdef DEBUG
-		gamestateFile = fopen("tmp/gamestate","r+");
+		gamestateFile = fopen("gamestate","r+");
 		#else
 		gamestateFile = fopen("/tmp/gamestate","r+");
 		#endif
 		e = ler_estado(args,gamestateFile);
 		e = calcularNovoEstado(e);
 		#ifdef DEBUG
-		gamestateFile = freopen("tmp/gamestate","w",gamestateFile);
+		gamestateFile = freopen("gamestate","w",gamestateFile);
 		#else
 		gamestateFile = freopen("/tmp/gamestate","w",gamestateFile);
 		#endif
