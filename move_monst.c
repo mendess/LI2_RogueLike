@@ -12,9 +12,49 @@
 
 // estado -> turn (nº de jogadas)
 // mover montros
+
+int inBounds(POSICAO p){
+	if (p.x>=0 || p.x< SIZE || p.y>=0 || p.y<SIZE){
+		return 1;
+	}
+	return 0;
+}
+int com_jogador (ESTADO e,POSICAO p){
+	int com_jogador (ESTADO e,POSICAO p){
+    int flag=0;
+	if((e.jog.x == p.x) && (e.jog.y == p.y)) flag=1;
+    return flag;
+}
+}
+int com_monstros (ESTADO e, POSICAO p){
+	int i,flag;
+	flag=0;
+	for (i=0;i<MAX_MONSTROS && !flag;i++){
+		if (e.monstros[i].x == p.x && e.monstros[i].y == p.y){
+			flag=1;
+		}
+	}
+	return flag;
+}
+int com_pedras (ESTADO e, POSICAO p){
+	int i,flag;
+	flag=0;
+	for(i=0;i<MAX_PEDRAS && !flag;i++){
+		if (e.pedras[i].x == p.x && e.pedras[i].y == p.y){
+			flag=1;
+		}
+	}
+    return flag;
+}
+
+int pos_ocupada (ESTADO e, POSICAO p){
+	return (com_jogador(e,p) || com_pedras(e,p) || com_monstros(e,p));
+}
+
+
 int poslivre(ESTADO e, POSICAO p){
     int flag=1; 
-	if (com_jogador(e,p) || com_monstros(e,p)) flag=0;
+	if (com_monstros(e,p)) flag=0;
 	return flag;
 }
 void ataca_jogador(ESTADO e,int i){
@@ -30,6 +70,7 @@ int existe_jogador(ESTADO e,POSICAO p){
    }
    return 0;
 }
+/*
 // impede que os monstros presos ao procurarem mover-se entrem em ciclos infinitos
 int blocked0 (ESTADO e, POSICAO p){
   POSICAO p1,p2,p3,p4;
@@ -63,6 +104,7 @@ int blocked1 (ESTADO e, POSICAO p){
   }
   return u; 
 }
+*/
 
 int ve_jogador (ESTADO e,POSICAO p){
 	int p1,p2;
@@ -73,94 +115,116 @@ int ve_jogador (ESTADO e,POSICAO p){
 }
 
 ESTADO mov_bat(ESTADO e,int i,POSICAO p){
-    int q,w,flag;
+   int q,w;
     POSICAO p1;
-    flag=1;
-    q= (rand () % 3)-1;
-    w= (rand () % 3)-1;
+     srandom(time(NULL));
+    do{
+    q=(rand () % 3) -1;
+    w=(rand () % 3) -1;
+    }while(q==0 && w==0);
     p1.x=p.x+q;
     p1.y=p.y+w;
-	if (existe_jogador(e,p)){
-		e.hp-=BAT_DMG;
-		flag=0;
-	}
-    if (flag && poslivre(e,p1) && !outOfBounds(p1)){
-       e.monstros[i].x=p1.x;
-       e.monstros[i].y=p1.y;
-       flag=0;
-     }
-	return e;
- }
-ESTADO mov_ogre(ESTADO e,int i,POSICAO p){
-	int q,w,flag;
-    POSICAO p1;
-    w=0; flag=1;
-    q= (rand () % 3)-1;
-    if (existe_jogador(e,p)){
-    	e.hp-=OGRE_DMG;
-    	flag=0;
+    if (!pos_ocupada(e,p1) && inBounds(p1)){
+      e.monstros[i].x=p1.x;
+      e.monstros[i].y=p1.y;
     }
-    if (blocked0(e,p)) 
-        flag=0;
-    if (q==0) 
-        w=(rand () % 3)-1;
+    return e;
+}
+
+ESTADO mov_ogre(ESTADO e,int i,POSICAO p){
+	int q,w;
+    POSICAO p1;
+    do{
+    q=(rand () % 3) -1;
+    w=(rand () % 3) -1;
+    }while((q==0 && w==0) || (q!=0 && w!=0));
     p1.x=p.x+q;
     p1.y=p.y+w;    
-    if (flag && !pos_ocupada(e,p1) && !outOfBounds(p1)){
+    if (!pos_ocupada(e,p1) && inBounds(p1)){
     	e.monstros[i].x=p1.x;
         e.monstros[i].y=p1.y;
-        e.monstros[i].monType=3;
-        flag=0;
     }
     return e;
 }
 // ataca se a dferença de posições for de 3 quadriculas x+y <=3
 
 ESTADO mov_archer(ESTADO e,int i,POSICAO p){
-	int q,w,flag;
+	int q,w;
     POSICAO p1;
-    w=0; flag=1;
+    w=0;
 	q=(rand () % 3)-1;
-	if (ve_jogador(e,p)){
-        e.hp-=ARCHER_DMG;
-    	flag=0;
-    }
-    if (blocked0(e,p)) 
-        flag=0;
     if (q==0)
     	w=(rand () % 3)-1;
     p1.x=p.x+q;
     p1.y=p.y+w;
-     if (flag && !pos_ocupada(e,p1) && !outOfBounds(p1)){
+     if (!pos_ocupada(e,p1) && inBounds(p1)){
     	e.monstros[i].x=p1.x;
         e.monstros[i].y=p1.y;
-		flag=0;
     }
     return e;
 }
 ESTADO mov_wolf (ESTADO e,int i,POSICAO p){
-	int q,w,flag;
+	int q,w;
     POSICAO p1;
-	flag=1;
-	q=(rand () % 3)-1;
-    w=(rand () % 3)-1;
+	 do{
+    q=(rand () % 3) -1;
+    w=(rand () % 3) -1;
+    }while(q==0 && w==0);
     p1.x=p.x+q;
     p1.y=p.y+w;
-	if (existe_jogador(e,p)){
-		e.hp-=WOLF_DMG;
-	    flag=0;
-	}
-    if (flag && blocked1(e,p)) flag=0;
-	if (flag && !pos_ocupada(e,p1) && !outOfBounds(p1)){
+	if (!pos_ocupada(e,p1) && inBounds(p1)){
 		e.monstros[i].x=p1.x;
         e.monstros[i].y=p1.y;
-		flag=0;
 	}
 	return e;
 }
+
+ESTADO acao_bat(ESTADO e, int i, POSICAO p){
+   int flag=1;
+   if (existe_jogador(e,p)){
+       	e.hp-=BAT_DMG;
+   		flag=0;
+   }
+   if(flag){
+         e=mov_bat(e,i,p);
+   }
+   return e;
+}
+ESTADO acao_wolf (ESTADO e,int i, POSICAO p){
+    int flag=1;
+    if (existe_jogador(e,p)){
+        e.hp-=WOLF_DMG;
+        flag=0;
+    }
+    if(flag){
+        e=mov_wolf(e,i,p);
+    }
+    return e;
+}
+ESTADO acao_ogre(ESTADO e,int i,POSICAO p){
+    int flag=1;
+    if (existe_jogador(e,p)){
+        e.hp-=OGRE_DMG;
+        flag=0;
+    }
+    if(flag){
+        e=mov_ogre(e,i,p);
+    }
+    return e;
+}
+ESTADO acao_archer(ESTADO e, int i, POSICAO p){
+    int flag=1;
+    if (ve_jogador(e,p)){
+        e.hp-=ARCHER_DMG;
+        flag=0;
+    }
+    if(flag){
+   	    e=mov_archer(e,i,p);
+    }
+    return e;
+}
 // (pos1,pos2,tipo,hp) ->(x,y,z,d,v)
 ESTADO move_monstros (ESTADO e){
-   ESTADO n;
    POSICAO p;
    int i;
     srandom(time(NULL));
@@ -168,18 +232,51 @@ ESTADO move_monstros (ESTADO e){
 	    p.x=e.monstros[i].x;
         p.y=e.monstros[i].y;
       	if(e.monstros[i].monType == 1){
-   	        n=mov_bat(e,i,p);
+            e=acao_bat(e,i,p);
         }
     	if(e.monstros[i].monType == 2){
-   	        n=mov_wolf(e,i,p);
+            e=acao_wolf(e,i,p);
       	} 
         if(e.monstros[i].monType == 3 && (e.turn%2 == 0)){
-   		    n=mov_ogre(e,i,p);
+   		    e=acao_ogre(e,i,p);
       	}
    	    if(e.monstros[i].monType == 4){
-   		    n=mov_archer(e,i,p);
+             e=acao_archer(e,i,p);
      	}
-        e=n;
   }
-  return n;
+  return e;
 }
+
+ESTADO criaestado(ESTADO e){
+  int i,q,w;
+  srandom(time(NULL));
+  for (i=0;i<MAX_MONSTROS;i++){
+    q=rand () % 10;
+    w=rand () % 10;
+    e.monstros[i].x=q;
+    e.monstros[i].y=w;
+    e.monstros[i].monType=3;
+    e.monstros[i].hp=30;
+  }
+  e.jog.x=7;
+  e.jog.y=7;
+  return e;
+}
+
+int main (){
+  ESTADO e,n;
+  int i,m;
+  e=criaestado (e);
+  for (i=0;i<MAX_MONSTROS;i++){
+      printf("(%d,%d)",e.monstros[i].x,e.monstros[i].y);
+   }
+  printf("  hp:%d\n",e.hp);
+  n=move_monstros(e);
+  for (i=0;i<MAX_MONSTROS;i++){
+     printf("(%d,%d)",n.monstros[i].x,n.monstros[i].y);
+   }
+  printf("   hp:%d",e.hp);
+  return 0;
+}
+
+ 
