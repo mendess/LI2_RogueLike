@@ -19,38 +19,6 @@ int inBounds(POSICAO p){
 	}
 	return 0;
 }
-int com_jogador (ESTADO e,POSICAO p){
-	int com_jogador (ESTADO e,POSICAO p){
-    int flag=0;
-	if((e.jog.x == p.x) && (e.jog.y == p.y)) flag=1;
-    return flag;
-}
-}
-int com_monstros (ESTADO e, POSICAO p){
-	int i,flag;
-	flag=0;
-	for (i=0;i<MAX_MONSTROS && !flag;i++){
-		if (e.monstros[i].x == p.x && e.monstros[i].y == p.y){
-			flag=1;
-		}
-	}
-	return flag;
-}
-int com_pedras (ESTADO e, POSICAO p){
-	int i,flag;
-	flag=0;
-	for(i=0;i<MAX_PEDRAS && !flag;i++){
-		if (e.pedras[i].x == p.x && e.pedras[i].y == p.y){
-			flag=1;
-		}
-	}
-    return flag;
-}
-
-int pos_ocupada (ESTADO e, POSICAO p){
-	return (com_jogador(e,p) || com_pedras(e,p) || com_monstros(e,p));
-}
-
 
 int poslivre(ESTADO e, POSICAO p){
     int flag=1; 
