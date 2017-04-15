@@ -5,7 +5,7 @@
 @param p Posição a verficar
 */
 int outOfBounds(POSICAO p){
-	return p.x>0 && p.x< SIZE && p.y>0 && p.y<SIZE;
+	return p.x<0 || p.x>= SIZE || p.y<0 || p.y>=SIZE;
 }
 /**
 \brief Verifica se esta posição está em cima do caminho entre o heroi e a saida

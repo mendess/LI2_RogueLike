@@ -1,25 +1,5 @@
-#include "parser.h"
+#include "html4Playing.h"
 
-/**
-\brief Imprime o inicio do html
-*/
-void print_header (){
-	printf ("Content-Type: text/html; charset=utf-8\n\n");
-	printf ("<!DOCTYPE html>\n");
-	printf ("<html>\n");
-	printf ("<head><title> Rogue Like </title></head>\n");
-	printf ("<body>\n");
-	printf ("<svg width=800 height = 600>\n");
-}
-/**
-\brief Imprime o fim do html
-*/
-void print_footer () {
-	printf ("</svg>\n");
-	imprime_scripts();
-	printf("</body>\n");
-	printf ("</html>\n");
-}
 /**
 \brief Retorna a direção em que o jogador vai andar
 1- SW	x==-1 ; y==1
@@ -36,7 +16,10 @@ void print_footer () {
 */
 int getDirection(ESTADO e,POSICAO p){
 	int type=0;
-	if(isMonster(e,p)){
+	POSICAO tmp;
+	tmp.x = p.x + e.jog.x;
+	tmp.y = p.y + e.jog.y;
+	if(com_monstros(e,tmp)){
 		type=10;
 	}
 	return 7-3*(p.y+1)+p.x+1+type;
@@ -46,21 +29,18 @@ int getDirection(ESTADO e,POSICAO p){
 @param p Posição a verficar
 */
 void imprime_jogada(ESTADO e, POSICAO p){
-	if(isMonster(e,p)){
-		printf("<image x=%d y=%d width=%d height=%d xlink:href=\"%sMoldura_Movimento.png\"/>\n",
-				TAM*(p.x+1),
-				TAM*(p.y+1),
-				TAM,
-				TAM,
-				IMAGE_PATH);
-	}else{
-		printf("<image x=%d y=%d width=%d height=%d xlink:href=\"%sMoldura_Movimento.png\"/>\n",
-				TAM*(p.x+1),
-				TAM*(p.y+1),
-				TAM,
-				TAM,
-				IMAGE_PATH);
+	char *mold[]={"Movimento","Ataque"};
+	int type=0;
+	if(com_monstros(e,p)){
+		type=1;
 	}
+	printf("<image x=%d y=%d width=%d height=%d xlink:href=\"%sMoldura_%s.png\"/>\n",
+			TAM*(p.x+1),
+			TAM*(p.y+1),
+			TAM,
+			TAM,
+			IMAGE_PATH,
+			mold[type]);
 }
 /**
 \brief Cria um movimento para as coordenadas dadas
@@ -68,16 +48,17 @@ void imprime_jogada(ESTADO e, POSICAO p){
 @param p Posição onde criar o movimento
 */
 void criar_jogada(ESTADO e, POSICAO p){
+	int new_action;
 	if(e.saida.x==(p.x+e.jog.x) && e.saida.y==(p.y+e.jog.y)){
-		e.action=5;
+		new_action=5;
 	}else{
-		e.action=(char) getDirection(e,p);
+		new_action=(char) getDirection(e,p);
 	}
 	p.x += e.jog.x;
 	p.y += e.jog.y;
 	if (!outOfBounds(p) && !com_pedras(e,p)){
 		char str[34];
-		sprintf(str,"http://localhost/cgi-bin/roguel?%d",e.action);
+		sprintf(str,"http://localhost/cgi-bin/roguel?%d",new_action);
 		ABRIR_LINK(str);
 		imprime_jogada(e,p);
 		FECHAR_LINK;
@@ -110,21 +91,14 @@ void imprime_jogadaS(ESTADO e){
 @param e Estado do jogo
 */
 void imprime_jogador (ESTADO e){
-	if(e.direction==0){
-		printf("<image x=%d y=%d width= %d height= %d href=\"%sIcon_Viking_Right.png\"/>\n",
-				TAM*(e.jog.x+1),
-				TAM*(e.jog.y+1),
-				TAM,
-				TAM,
-				IMAGE_PATH);
-	}else{
-		printf("<image x=%d y=%d width= %d height= %d href=\"%sIcon_Viking_Left.png\"/>\n",
-				TAM*(e.jog.x+1),
-				TAM*(e.jog.y+1),
-				TAM,
-				TAM,
-				IMAGE_PATH);
-	}
+	char *dir[] = {"Right","Left"};
+	printf("<image x=%d y=%d width= %d height= %d href=\"%sIcon_Viking_%s.png\"/>\n",
+			TAM*(e.jog.x+1),
+			TAM*(e.jog.y+1),
+			TAM,
+			TAM,
+			IMAGE_PATH,
+			dir[(int) e.direction]);
 	imprime_jogadaS(e);
 }
 /**
@@ -137,7 +111,7 @@ void imprime_monstros (ESTADO e){
 	char *wolfs[]={"Icon_Lobo_Lateral_3.png","Icon_Lobo_Lateral_4.png"};
 	for(i=0;i<MAX_MONSTROS;i++){
 		int r = rand() % 2;
-		printf("<image onmouseouver=wolfDescription() x=%d y=%d width= %d height= %d href=\"%s%s\"/>\n",
+		printf("<image x=%d y=%d width= %d height= %d href=\"%s%s\"/>\n",
 				TAM*(e.monstros[i].x+1),
 				TAM*(e.monstros[i].y+1),
 				TAM,
@@ -177,8 +151,9 @@ void imprime_saida (POSICAO p){
 \brief Imprime uma casa
 @param p Posição a imprimir
 */
-void imprime_casa (int r,POSICAO p){
+void imprime_casa (POSICAO p){
 	char *tiles[]={"Tile1.png","Tile2.png","Tile3.png","Tile4.png"};
+	int r = rand() % 4;
 	printf("<image x=%d y=%d width=%d height=%d href=\"%s%s\"/>\n",
 			TAM*(p.x+1),
 			TAM*(p.y+1),
@@ -191,14 +166,29 @@ void imprime_casa (int r,POSICAO p){
 \brief Imprime a imagem de fundo
 */
 void imprime_background (){
-
-	printf("<image x=0 y=0 width=800 height=600 href=\"%sIngame_Viking.png\"/>\n",IMAGE_PATH);	
+	printf("<image x=0 y=0 width=800 height=600 href=\"%sIngame_Viking.png\"/>\n",IMAGE_PATH);
 }
 /**
-\brief Função principal que chama todas as outras
+\brief Imprime a barra que indica a vida do jogodor
+@param hp Vida
 */
-void imprime(ESTADO e){
-	print_header();
+void imprime_hpBar(int hp){
+	printf("<image x=600 y=100 width=%f height=10 href=\"%sHealthBar.png\"/>\n",(hp-1)*1.5,IMAGE_PATH);
+}
+/**
+\brief Imprime a barra que indica a mana do jogodor
+@param mp Mana
+*/
+void imprime_mpBar(int mp){
+	printf("<image x=600 y=115 width=%f height=10 href=\"%sManaBar.png\"/>\n",(mp-1)*1.5,IMAGE_PATH);
+}
+void imprime_gameOverScreen(){
+	printf("<image x=0 y=0 width=800 height=600 href=\"%sGameOverScreen.png\"/>\n",IMAGE_PATH);
+	ABRIR_LINK("http://localhost/cgi-bin/roguel?0");
+	printf("<rect x=300 y=350 width=200 height=70 style=opacity:0\n");
+	FECHAR_LINK;
+}
+void imprimePlaying(ESTADO e){
 	imprime_background();
 
 	int x,y;
@@ -206,16 +196,21 @@ void imprime(ESTADO e){
 	srand(e.pedras[0].x);
 	for(y = 0; y < SIZE; y++){
 		for(x = 0; x < SIZE; x++){
-			int r = rand() % 4;
 			p.x= x;
 			p.y= y;
-			imprime_casa(r,p);
+			imprime_casa(p);
 		}
 	}
 
 	imprime_saida(e.saida);
 	imprime_pedras(e);
 	imprime_monstros(e);
-	imprime_jogador(e);
-	print_footer();
+	imprime_hpBar(e.hp);
+	imprime_mpBar(e.mp);
+	if(e.hp>1){
+		imprime_jogador(e);
+	}else{
+		imprime_gameOverScreen();
+	}
+	printf("<p>hp:%d</p>\n<p>mp:%d</p>", e.hp-1,e.mp-1);
 }

@@ -6,14 +6,6 @@
 #include <time.h>
 #include <stdio.h>
 
-#include "estado.h"
-#include "path.h"
-#include "parser.h"
-#include "score.h"
-#include "levelMaker.h"
-#include "move_monst.h"
-#include "colisions.h"
-
 #define TAM           50
 #define MAX_MONSTROS  5
 #define MAX_PEDRAS    25
@@ -57,6 +49,8 @@ typedef struct inventory{
 }INVT;
 
 typedef struct estado{
+    //{Main Menu=0; ScoreBoard=1; Help=2; Character Selection=3; Playing=4; Store=5}
+    char screen;
     //Classe {Warrior=0, Archer=1, Mage=2}
     char classe;
     //Vida do jogador
