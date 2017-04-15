@@ -11,6 +11,13 @@
 #include "levelMaker.h"
 #include "colisions.h"
 
+#include "html0Menu.h"
+#include "html1ScoreBoard.h"
+#include "html2Help.h"
+#include "html3CharSelect.h"
+#include "html4Playing.h"
+#include "html5Shop.h"
+
 /*
 #define COMECAR_HTML						printf("Content-Type: text/html\n\n")
 #define ABRIR_SVG(tamx, tamy)				printf("<svg width=%d height=%d>\n", tamx, tamy)
@@ -26,18 +33,6 @@
 
 void print_header();
 void print_footer();
-int getDirection(ESTADO e,POSICAO p);
-void imprime_jogador (ESTADO e);
-void imprime_jogadaS (ESTADO e);
-void criar_jogada (ESTADO e, POSICAO p);
-void imprime_jogada (ESTADO e,POSICAO p);
-void imprime_monstros (ESTADO e);
-void imprime_pedras (ESTADO e);
-void imprime_saida (POSICAO p);
-void imprime_casa (POSICAO p);
-void imprime_background ();
-void imprime_hpBar(int mp);
-void imprime_mpBar(int mp);
 void imprime(ESTADO e);
 
 #endif
