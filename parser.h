@@ -34,8 +34,10 @@ void imprime_jogada (ESTADO e,POSICAO p);
 void imprime_monstros (ESTADO e);
 void imprime_pedras (ESTADO e);
 void imprime_saida (POSICAO p);
-void imprime_casa (int r,POSICAO p);
+void imprime_casa (POSICAO p);
 void imprime_background ();
+void imprime_hpBar(int mp);
+void imprime_mpBar(int mp);
 void imprime(ESTADO e);
 
 #endif

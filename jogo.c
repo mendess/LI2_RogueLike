@@ -1,5 +1,11 @@
 //#define DEBUG
-
+#include "estado.h"
+#include "path.h"
+#include "parser.h"
+#include "score.h"
+#include "levelMaker.h"
+#include "move_monst.h"
+#include "colisions.h"
 #include "jogo.h"
 /**
 \brief Inicializa o estado do jogo
