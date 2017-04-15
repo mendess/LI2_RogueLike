@@ -190,7 +190,9 @@ void imprime_background (){
 
 	printf("<image x=0 y=0 width=800 height=600 href=\"%sIngame_Viking.png\"/>\n",IMAGE_PATH);	
 }
-
+/**
+\brief Função principal que chama todas as outras
+*/
 void imprime(ESTADO e){
 	print_header();
 	imprime_background();

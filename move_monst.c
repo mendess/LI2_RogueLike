@@ -13,7 +13,7 @@ int inBounds(POSICAO p){
 	return 0;
 }
 int poslivre(ESTADO e, POSICAO p){
-		int flag=1;
+	int flag=1;
 	if (com_monstros(e,p)) flag=0;
 	return flag;
 }

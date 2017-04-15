@@ -61,7 +61,6 @@ ESTADO colocar_pedras (ESTADO e, int pathSize, POSICAO path[]){
 	}
 	return e;
 }
-
 /**
 \brief Coloca todas os monstros para inicializar o estado
 @param e Estado do jogo

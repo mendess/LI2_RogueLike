@@ -43,6 +43,10 @@ ESTADO inicializar(){
 
 	return e;
 }
+/**
+\brief Gera um novo nivel quando o jogador chega a saida
+@param e Estado do Jogo
+*/
 ESTADO newLevel(ESTADO e){
 
 	POSICAO path[MAX_CAMINHO];
@@ -136,9 +140,10 @@ ESTADO calcularNovoEstado(ESTADO e){
 	return e;
 }
 /**
-\brief Verifica se tem de se criar um estado novo (QUERY_STRING vazia)
-	   ou se já existe ler a query e convertela no estado do jogo
+\brief Lê o estado de um ficheiro
+Converte o estado que estava em hexadecimal no ficheiro para uma struct ESTADO e muda a action conforme a que está na QUERY_STRING
 @param args QUERY_STRING
+@param gamestateFile Apontador para um ficheiro com o estado
 */
 ESTADO ler_estado (char *args,FILE *gamestateFile){
 	char str[MAX_BUFFER];
@@ -149,6 +154,10 @@ ESTADO ler_estado (char *args,FILE *gamestateFile){
 	e.action = act;
 	return e;
 }
+/**
+\brief Corre o jogo. 
+Cria um novo jogo se estiver a começar ou faz "update" ao estado conforme o que o jogador fez.
+*/
 ESTADO runGame(){
 	char *args = getenv("QUERY_STRING");
 	FILE *gamestateFile;
