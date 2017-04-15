@@ -183,7 +183,7 @@ ESTADO runGame(){
 \brief Main
 */
 int main(){
-  
+
 	ESTADO e = runGame();
 	if(e.hp<=0){
 		updateScoreBoard(e.score);
