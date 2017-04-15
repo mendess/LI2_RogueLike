@@ -21,10 +21,7 @@ void print_footer () {
 @param p Posição a verficar
 */
 int outOfBounds(POSICAO p){
-	if (p.x<0 || p.x>= SIZE || p.y<0 || p.y>=SIZE){
-		return 1;
-	}
-	return 0;
+    return p.x>0 && p.x< SIZE && p.y>0 && p.y<SIZE;
 }
 int isMonster(ESTADO e, POSICAO p){
 	return 0;
