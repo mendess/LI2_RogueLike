@@ -5,7 +5,9 @@
 */
 void print_header (){
 	printf ("Content-Type: text/html; charset=utf-8\n\n");
-	printf ("<header><title> Rogue Like </title></header>\n");
+	printf ("<!DOCTYPE html>\n");
+	printf ("<html>\n");
+	printf ("<head><title> Rogue Like </title></head>\n");
 	printf ("<body>\n");
 	printf ("<svg width=800 height = 600>\n");
 }
@@ -15,6 +17,7 @@ void print_header (){
 void print_footer () {
 	printf ("</svg>\n");
 	printf("</body>\n");
+	printf ("</html>\n");
 }
 /**
 \brief Retorna a direção em que o jogador vai andar
@@ -107,21 +110,14 @@ void imprime_jogadaS(ESTADO e){
 @param e Estado do jogo
 */
 void imprime_jogador (ESTADO e){
-	if(e.direction==0){
-		printf("<image x=%d y=%d width= %d height= %d href=\"%sIcon_Viking_Right.png\"/>\n",
-				TAM*(e.jog.x+1),
-				TAM*(e.jog.y+1),
-				TAM,
-				TAM,
-				IMAGE_PATH);
-	}else{
-		printf("<image x=%d y=%d width= %d height= %d href=\"%sIcon_Viking_Left.png\"/>\n",
-				TAM*(e.jog.x+1),
-				TAM*(e.jog.y+1),
-				TAM,
-				TAM,
-				IMAGE_PATH);
-	}
+	char *dir[] = {"Right","Left"};
+	printf("<image x=%d y=%d width= %d height= %d href=\"%sIcon_Viking_%s.png\"/>\n",
+			TAM*(e.jog.x+1),
+			TAM*(e.jog.y+1),
+			TAM,
+			TAM,
+			IMAGE_PATH,
+			dir[(int) e.direction]);
 	imprime_jogadaS(e);
 }
 /**
@@ -189,27 +185,29 @@ void imprime_casa (POSICAO p){
 \brief Imprime a imagem de fundo
 */
 void imprime_background (){
-	printf("<image x=0 y=0 width=800 height=600 href=\"%sIngame_Viking.png\"/>\n",IMAGE_PATH);	
+	printf("<image x=0 y=0 width=800 height=600 href=\"%sIngame_Viking.png\"/>\n",IMAGE_PATH);
 }
 /**
 \brief Imprime a barra que indica a vida do jogodor
 @param hp Vida
 */
 void imprime_hpBar(int hp){
-	printf("<image x=600 y=100 width=%f height=10 href=\"%sHealthBar.png\"/>\n",hp*1.5,IMAGE_PATH);
+	printf("<image x=600 y=100 width=%f height=10 href=\"%sHealthBar.png\"/>\n",(hp-1)*1.5,IMAGE_PATH);
 }
 /**
 \brief Imprime a barra que indica a mana do jogodor
 @param mp Mana
 */
 void imprime_mpBar(int mp){
-	printf("<image x=600 y=115 width=%f height=10 href=\"%sManaBar.png\"/>\n",mp*1.5,IMAGE_PATH);
+	printf("<image x=600 y=115 width=%f height=10 href=\"%sManaBar.png\"/>\n",(mp-1)*1.5,IMAGE_PATH);
 }
-/**
-\brief Função principal que chama todas as outras
-*/
-void imprime(ESTADO e){
-	print_header();
+void imprime_gameOverScreen(){
+	printf("<image x=0 y=0 width=800 height=600 href=\"%sGameOverScreen.png\"/>\n",IMAGE_PATH);
+	ABRIR_LINK("http://localhost/cgi-bin/roguel?0");
+	printf("<rect x=300 y=350 width=200 height=70 style=opacity:0\n");
+	FECHAR_LINK;
+}
+void imprimePlaying(ESTADO e){
 	imprime_background();
 
 	int x,y;
@@ -226,9 +224,33 @@ void imprime(ESTADO e){
 	imprime_saida(e.saida);
 	imprime_pedras(e);
 	imprime_monstros(e);
-	imprime_jogador(e);
 	imprime_hpBar(e.hp);
 	imprime_mpBar(e.mp);
-
+	if(e.hp>1){
+		imprime_jogador(e);
+	}else{
+		imprime_gameOverScreen();
+	}
+	printf("<p>hp:%d</p>\n<p>mp:%d</p>", e.hp-1,e.mp-1);
+}
+/**
+\brief Função principal que chama todas as outras
+*/
+void imprime(ESTADO e){
+	print_header();
+	switch(e.screen){
+		case 0: //imprimeMainMenu(e);
+				break;
+		case 1: //imprimeScoreBoard(e);
+				break;
+		case 2: //imprimeHelp(e);
+				break;
+		case 3: //imprimeCharSelect(e);
+				break;
+		case 4: imprimePlaying(e);
+				break;
+		case 5: //imprimeStore(e);
+				break;
+	}
 	print_footer();
 }

@@ -16,6 +16,7 @@ ESTADO inicializar(){
 	POSICAO path[MAX_CAMINHO];
 	int n=pathMaker(path);
 	srandom(time(NULL));
+	e.screen=4;
 	//Classe {Warrior=0, Archer=1, Mage=2}
 	e.classe=0;
 	//Vida do jogador
@@ -121,6 +122,10 @@ ESTADO calcularCombate(ESTADO e){
 @param e Estado do jogo
 */
 ESTADO calcularNovoEstado(ESTADO e){
+	//novo jogo
+	if(e.action==0){
+		return inicializar();
+	}
 	//saida
 	if(e.action==5){
 		return newLevel(e);
@@ -142,6 +147,13 @@ ESTADO calcularNovoEstado(ESTADO e){
 	e=move_monstros(e);
 
 	e.turn+=1;
+	
+	if(e.hp<1){
+		e.hp=1;
+	}
+	if(e.mp<1){
+		e.mp=1;
+	}
 
 	return e;
 }
