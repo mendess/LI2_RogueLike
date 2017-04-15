@@ -6,6 +6,14 @@
 #include <time.h>
 #include <stdio.h>
 
+#include "estado.h"
+#include "path.h"
+#include "parser.h"
+#include "score.h"
+#include "levelMaker.h"
+#include "move_monst.h"
+#include "colisions.h"
+
 #define TAM           50
 #define MAX_MONSTROS  5
 #define MAX_PEDRAS    25

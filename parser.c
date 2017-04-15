@@ -17,16 +17,6 @@ void print_footer () {
 	printf("</body>\n");
 }
 /**
-\brief Verifica se um par de coordenadas esta fora dos limites do mapa
-@param p Posição a verficar
-*/
-int outOfBounds(POSICAO p){
-    return p.x>0 && p.x< SIZE && p.y>0 && p.y<SIZE;
-}
-int isMonster(ESTADO e, POSICAO p){
-	return 0;
-}
-/**
 \brief Retorna a direção em que o jogador vai andar
 1- SW	x==-1 ; y==1
 2- S	x==0  ; y==1
@@ -51,7 +41,7 @@ int getDirection(ESTADO e,POSICAO p){
 \brief Imprime um movimento (link)
 @param p Posição a verficar
 */
-void imprime_movimento(ESTADO e, POSICAO p){
+void imprime_jogada(ESTADO e, POSICAO p){
 	if(isMonster(e,p)){
 		printf("<image x=%d y=%d width=%d height=%d xlink:href=\"%sMoldura_Movimento.png\"/>\n",
 				TAM*(p.x+1),
@@ -73,7 +63,7 @@ void imprime_movimento(ESTADO e, POSICAO p){
 @param e Estado do jogo
 @param p Posição onde criar o movimento
 */
-void criar_movimento(ESTADO e, POSICAO p){
+void criar_jogada(ESTADO e, POSICAO p){
 	if(e.saida.x==(p.x+e.jog.x) && e.saida.y==(p.y+e.jog.y)){
 		e.action=5;
 	}else{
@@ -85,7 +75,7 @@ void criar_movimento(ESTADO e, POSICAO p){
 		char str[34];
 		sprintf(str,"http://localhost/cgi-bin/roguel?%d",e.action);
 		ABRIR_LINK(str);
-		imprime_movimento(e,p);
+		imprime_jogada(e,p);
 		FECHAR_LINK;
 	}
 }
@@ -93,20 +83,20 @@ void criar_movimento(ESTADO e, POSICAO p){
 \brief Imprime as jogadas possiveis
 @param e Estado do jogo
 */
-void imprime_jogadas(ESTADO e){
+void imprime_jogadaS(ESTADO e){
 	POSICAO p;
 	p.x=0;p.y=1;
-	criar_movimento(e,p);
+	criar_jogada(e,p);
 	p.x=1;p.y=0;
-	criar_movimento(e,p);
+	criar_jogada(e,p);
 	p.x=-1;p.y=0;
-	criar_movimento(e,p);
+	criar_jogada(e,p);
 	p.x=0;p.y=-1;
-	criar_movimento(e,p);
+	criar_jogada(e,p);
 	/*for(p.x=-1;p.x<=1;p.x++){
 		for(p.y=-1;p.y<=1;p.y++){
 			if (p.x != 0 || p.y != 0){
-				criar_movimento(e,p);
+				criar_jogada(e,p);
 			}
 		}
 	}*/
@@ -131,7 +121,7 @@ void imprime_jogador (ESTADO e){
 				TAM,
 				IMAGE_PATH);
 	}
-	imprime_jogadas(e);
+	imprime_jogadaS(e);
 }
 /**
 \brief Imprime os monstros

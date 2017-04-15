@@ -1,11 +1,5 @@
 //#define DEBUG
 
-#include "estado.h"
-#include "path.h"
-#include "parser.h"
-#include "score.h"
-#include "levelMaker.h"
-#include "move_monst.h"
 #include "jogo.h"
 /**
 \brief Inicializa o estado do jogo
@@ -100,7 +94,7 @@ ESTADO newLevel(ESTADO e){
 */
 POSICAO calculaNovaPosicao(POSICAO jog, int act){
 	int x[10]={5,-1, 0, 1,-1, 5, 1,-1, 0, 1};
-//             0  1  2  3  4  5  6  7  8  9
+	//         0  1  2  3  4  5  6  7  8  9
 	int y[10]={5, 1, 1, 1, 0, 5, 0,-1,-1,-1};
 
 	if(act!=0 && act!=5){
@@ -112,9 +106,6 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act){
 ESTADO calcularCombate(ESTADO e){
 	return e;
 }
-/*ESTADO movemonstros(ESTADO e){
-	return e;
-}*/
 /**
 \brief Calcula um novo estado conforme a ação que esteja no estado que recebe
 @param e Estado do jogo
@@ -188,7 +179,6 @@ ESTADO runGame(){
 	fclose(gamestateFile);
 	return e;
 }
-
 /**
 \brief Main
 */

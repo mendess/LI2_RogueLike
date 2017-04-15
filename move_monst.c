@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include "jogo.h"
 #include "move_monst.h" 
-#include "levelMaker.h"
-#include "parser.h"
 
 // ataca_jogador
 //existe_jogador (estado, pos monstro)
@@ -19,7 +12,6 @@ int inBounds(POSICAO p){
 	}
 	return 0;
 }
-
 int poslivre(ESTADO e, POSICAO p){
     int flag=1; 
 	if (com_monstros(e,p)) flag=0;
@@ -28,7 +20,6 @@ int poslivre(ESTADO e, POSICAO p){
 void ataca_jogador(ESTADO e,int i){
 	e.hp-=i;
 }
-
 int existe_jogador(ESTADO e,POSICAO p){
    int q,w;
    for(q=-1;q<=1;q++){
@@ -73,7 +64,6 @@ int blocked1 (ESTADO e, POSICAO p){
   return u; 
 }
 */
-
 int ve_jogador (ESTADO e,POSICAO p){
 	int p1,p2;
 	p1=abs(p.x-e.jog.x);
@@ -81,7 +71,6 @@ int ve_jogador (ESTADO e,POSICAO p){
    if (p1+p2 <= 3) return 1;
    return 0;
 }
-
 ESTADO mov_bat(ESTADO e,int i,POSICAO p){
    int q,w;
     POSICAO p1;
@@ -98,7 +87,6 @@ ESTADO mov_bat(ESTADO e,int i,POSICAO p){
     }
     return e;
 }
-
 ESTADO mov_ogre(ESTADO e,int i,POSICAO p){
 	int q,w;
     POSICAO p1;
@@ -115,7 +103,6 @@ ESTADO mov_ogre(ESTADO e,int i,POSICAO p){
     return e;
 }
 // ataca se a dferença de posições for de 3 quadriculas x+y <=3
-
 ESTADO mov_archer(ESTADO e,int i,POSICAO p){
 	int q,w;
     POSICAO p1;
@@ -146,7 +133,6 @@ ESTADO mov_wolf (ESTADO e,int i,POSICAO p){
 	}
 	return e;
 }
-
 ESTADO acao_bat(ESTADO e, int i, POSICAO p){
    int flag=1;
    if (existe_jogador(e,p)){
@@ -214,4 +200,3 @@ ESTADO move_monstros (ESTADO e){
   }
   return e;
 }
-
