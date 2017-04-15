@@ -5,7 +5,9 @@
 */
 void print_header (){
 	printf ("Content-Type: text/html; charset=utf-8\n\n");
-	printf ("<header><title> Rogue Like </title></header>\n");
+	printf ("<!DOCTYPE html>\n");
+	printf ("<html>\n");
+	printf ("<head><title> Rogue Like </title></head>\n");
 	printf ("<body>\n");
 	printf ("<svg width=800 height = 600>\n");
 }
@@ -14,7 +16,9 @@ void print_header (){
 */
 void print_footer () {
 	printf ("</svg>\n");
+	imprime_scripts();
 	printf("</body>\n");
+	printf ("</html>\n");
 }
 /**
 \brief Verifica se um par de coordenadas esta fora dos limites do mapa
@@ -146,7 +150,7 @@ void imprime_monstros (ESTADO e){
 	char *wolfs[]={"Icon_Lobo_Lateral_3.png","Icon_Lobo_Lateral_4.png"};
 	for(i=0;i<MAX_MONSTROS;i++){
 		int r = rand() % 2;
-		printf("<image onmouseouver=wolfDescription x=%d y=%d width= %d height= %d href=\"%s%s\"/>\n",
+		printf("<image onmouseouver=wolfDescription() x=%d y=%d width= %d height= %d href=\"%s%s\"/>\n",
 				TAM*(e.monstros[i].x+1),
 				TAM*(e.monstros[i].y+1),
 				TAM,
@@ -224,6 +228,5 @@ void imprime(ESTADO e){
 	imprime_pedras(e);
 	imprime_monstros(e);
 	imprime_jogador(e);
-	imprime_scripts();
 	print_footer();
 }
