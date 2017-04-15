@@ -4,20 +4,17 @@
 #include <stdlib.h>
 
 #include "jogo.h"
+#include "colisions.h"
 
-#define HP_WARRIOR    100
-#define HP_ARCHER     90
-#define HP_MAGE       70
+#define HP_WARRIOR    101
+#define HP_ARCHER     91
+#define HP_MAGE       71
 
-#define MP_WARRIOR    50
-#define MP_ARCHER     70
-#define MP_MAGE       100
+#define MP_WARRIOR    51
+#define MP_ARCHER     71
+#define MP_MAGE       101
 
-int isOnPath(ESTADO e, POSICAO p, int pathSize, POSICAO path[]);
-int pos_ocupada (ESTADO e, POSICAO p);
-int com_jogador (ESTADO e,POSICAO p);
-int com_pedras (ESTADO e, POSICAO p);
-int com_monstros (ESTADO e, POSICAO p);
+
 ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]);
 ESTADO colocar_monstro (ESTADO e);
 ESTADO colocar_pedras (ESTADO e, int pathSize, POSICAO path[]);
