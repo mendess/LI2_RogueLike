@@ -5,6 +5,7 @@
 #include "parser.h"
 #include "score.h"
 #include "levelMaker.h"
+#include "move_monst.h"
 #include "jogo.h"
 /**
 \brief Inicializa o estado do jogo
@@ -111,9 +112,9 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act){
 ESTADO calcularCombate(ESTADO e){
 	return e;
 }
-ESTADO movemonstros(ESTADO e){
+/*ESTADO movemonstros(ESTADO e){
 	return e;
-}
+}*/
 /**
 \brief Calcula um novo estado conforme a ação que esteja no estado que recebe
 @param e Estado do jogo
@@ -132,12 +133,12 @@ ESTADO calcularNovoEstado(ESTADO e){
 	}
 	if(e.action>0 && e.action<10){
 		e.jog=calculaNovaPosicao(e.jog,e.action);
-		return e;
 	}
 	if(e.action>10 && e.action>20){
 		e=calcularCombate(e);
 	}
-	e=movemonstros(e);
+
+	e=move_monstros(e);
 
 	e.turn+=1;
 
@@ -164,21 +165,21 @@ ESTADO runGame(){
 
 	if(strlen(args)==0){
 		#ifdef DEBUG
-		gamestateFile = fopen("tmp/gamestate","w");
+		gamestateFile = fopen("gamestate","w");
 		#else
 		gamestateFile = fopen("/tmp/gamestate","w");
 		#endif
 		e = inicializar();
 	}else{
 		#ifdef DEBUG
-		gamestateFile = fopen("tmp/gamestate","r+");
+		gamestateFile = fopen("gamestate","r+");
 		#else
 		gamestateFile = fopen("/tmp/gamestate","r+");
 		#endif
 		e = ler_estado(args,gamestateFile);
 		e = calcularNovoEstado(e);
 		#ifdef DEBUG
-		gamestateFile = freopen("tmp/gamestate","w",gamestateFile);
+		gamestateFile = freopen("gamestate","w",gamestateFile);
 		#else
 		gamestateFile = freopen("/tmp/gamestate","w",gamestateFile);
 		#endif
