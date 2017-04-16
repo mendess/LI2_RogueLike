@@ -74,7 +74,7 @@ typedef struct estado{
     char direction;
     //Action
     char action;
-    // Items que podem ser adquirido num certo nivel
+    // Items que podem ser adquiridos num certo nivel
     char lootTable[];
     // Inventario do jogador
     INVT bag;
