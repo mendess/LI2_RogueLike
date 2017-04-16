@@ -16,15 +16,22 @@
 #define NEW_LEVEL_SC_BONUS  60
 
 /*
-HelhPotion      0
+--gold
+GoldCoins
+--potion
+HealthPotion    0
 ManaPotion      1
+--scroll
 ScrollFire      2  - Vermelho
 ScrollLightning 3  - Amarelo
 ScrollTeleport  4  - Azul
+ScrollHealing   5  - Pink
+--weapon
 SwordBronze     5  - Castanho
 SwordIron       6  - Cinzento Escuro
 SwordSteel      7  - Cinzento Claro
 SwordPalladium  8  - Inventa para ai
+--armour
 ArmourBronze    9  - Castanho
 ArmourIron      10 - Cinzento Escuro
 ArmourSteel     11 - Cinzento Claro
@@ -67,6 +74,10 @@ typedef struct estado{
     char direction;
     //Action
     char action;
+    // Items que podem ser adquirido num certo nivel
+    char lootTable[];
+    // Inventario do jogador
+    INVT bag;
 	// Posição do jogador
     POSICAO jog;
     // Posição da saida
