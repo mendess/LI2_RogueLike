@@ -7,8 +7,8 @@ install: roguel
 	rm *.o
 	touch install
 
-roguel: jogo.o estado.o path.o htmlMaster.o html0Menu.o html1ScoreBoard.o html2Help.o html3CharSelect.o html4Playing.o html5Shop.o score.o levelMaker.o move_monst.o colisions.o
-	cc -o roguel jogo.o estado.o path.o htmlMaster.o html0Menu.o html1ScoreBoard.o html2Help.o html3CharSelect.o html4Playing.o html5Shop.o score.o levelMaker.o move_monst.o colisions.o
+roguel: jogo.o estado.o path.o htmlMaster.o html0Menu.o html1ScoreBoard.o html2Help.o html3CharSelect.o html4Playing.o html5Shop.o score.o levelMaker.o move_monst.o colisions.o loot.o
+	cc -o roguel jogo.o estado.o path.o htmlMaster.o html0Menu.o html1ScoreBoard.o html2Help.o html3CharSelect.o html4Playing.o html5Shop.o score.o levelMaker.o move_monst.o colisions.o loot.o -lm
 
 exemplo.zip: $(FICHEIROS)
 	zip -9 exemplo.zip $(FICHEIROS)

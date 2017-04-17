@@ -1,7 +1,7 @@
 #include "loot.h"
 
 char generatePotion(){
-	r = rand % 3;
+	int r = rand() % 3;
 	if(r<2){
 		return HEALTH_POTION;
 	}else{
@@ -9,17 +9,18 @@ char generatePotion(){
 	}
 }
 char generateScroll(){
-	r = rand % 3;
+	int r = rand() % 3;
 	switch(r){
-		case 0: return SCROLL_FIRE
+		case 0: return SCROLL_FIRE;
 
-		case 1: return SCROLL_LIGHTNING
+		case 1: return SCROLL_LIGHTNING;
 
-		case 2: return SCROLL_TELEPORT
+		case 2: return SCROLL_TELEPORT;
 	}
+	return SCROLL_FIRE;
 }
 char generateSword(char world_lvl){
-	int r = rand % 100000;
+	int r = rand() % 100000;
 	double tier1=TIER1_ODDS(world_lvl);
 	double tier4=TIER4_ODDS(world_lvl);
 	double tmp=100000-tier1-tier4;
@@ -38,7 +39,7 @@ char generateSword(char world_lvl){
 	return SWORD_PALLADIUM;
 }
 char generateArmour(char world_lvl){
-	int r = rand % 100000;
+	int r = rand() % 100000;
 	double tier1=TIER1_ODDS(world_lvl);
 	double tier4=TIER4_ODDS(world_lvl);
 	double tmp=100000-tier1-tier4;
@@ -56,12 +57,11 @@ char generateArmour(char world_lvl){
 	}
 	return ARMOUR_PALLADIUM;
 }
-char *generateLoot(int world_lvl){
-	char lootTable[LOOT_TABLE_SIZE];
+void generateLoot(char lootTable[], int world_lvl){
 	srand(time(NULL));
 	int i;
 	for(i=0;i<LOOT_TABLE_SIZE;i++){
-		int r = rand % 100;
+		int r = rand() % 100;
 		if(r<40){
 			lootTable[i]=generatePotion();
 		}
@@ -75,5 +75,4 @@ char *generateLoot(int world_lvl){
 			lootTable[i]=generateArmour(world_lvl);
 		}
 	}
-	return lootTable;
 }

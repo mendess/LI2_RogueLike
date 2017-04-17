@@ -1,3 +1,5 @@
+#define DEBUG
+
 #include "html4Playing.h"
 
 /**
@@ -212,5 +214,16 @@ void imprimePlaying(ESTADO e){
 	}else{
 		imprime_gameOverScreen();
 	}
-	printf("<p>hp:%d</p>\n<p>mp:%d</p>", e.hp-1,e.mp-1);
+	#ifdef DEBUG
+	printf("<p>hp:%d  mp:%d  world_lvl:%d  score:%d  turn:%d  LootTable[%d,%d,%d,%d]</p>",
+			e.hp-1,
+			e.mp-1,
+			e.world_lvl,
+			e.score,
+			e.turn,
+			e.lootTable[0],
+			e.lootTable[1],
+			e.lootTable[2],
+			e.lootTable[3]);
+	#endif
 }

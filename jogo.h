@@ -15,6 +15,8 @@
 #define NEW_LEVEL_MP_BONUS  10
 #define NEW_LEVEL_SC_BONUS  60
 
+#define LOOT_TABLE_SIZE 4
+
 /*
 --gold
 GoldCoins
@@ -75,7 +77,7 @@ typedef struct estado{
     //Action
     char action;
     // Items que podem ser adquiridos num certo nivel
-    char lootTable[];
+    char lootTable[LOOT_TABLE_SIZE];
     // Inventario do jogador
     INVT bag;
 	// Posição do jogador

@@ -6,6 +6,7 @@
 #include "levelMaker.h"
 #include "move_monst.h"
 #include "colisions.h"
+#include "loot.h"
 #include "jogo.h"
 /**
 \brief Inicializa o estado do jogo
@@ -33,6 +34,8 @@ ESTADO inicializar(){
 	e.direction=0;
 	//Action
 	e.action=0;
+	//Inicializar LootTable para o primeiro nivel
+	generateLoot(e.lootTable,e.world_lvl);
 	// Posição do jogador
 	e.jog.x=path[0].x;
 	e.jog.y=path[0].y;
@@ -81,6 +84,8 @@ ESTADO newLevel(ESTADO e){
 	e.direction=0;
 	//Action
 	e.action=0;
+	//Inicializar LootTable para o novo nivel
+	generateLoot(e.lootTable,e.world_lvl);
 	// Posição do jogador
 	e.jog.x=path[0].x;
 	e.jog.y=path[0].y;
