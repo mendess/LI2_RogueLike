@@ -193,10 +193,12 @@ ESTADO acao_archer(ESTADO e, int i, POSICAO p){
 }
 // (pos1,pos2,tipo,hp) ->(x,y,z,d,v)
 ESTADO move_monstros (ESTADO e){
-   POSICAO p;
+   POSICAO p,q;
    int i;
-    srandom(time(NULL));
+   (q.x,q.y)=ataque_monst(e);
+   srandom(time(NULL));
    for (i=0;i<MAX_MONSTROS;i++){
+        if(i==q.x || i== q.y) i++;
 	    p.x=e.monstros[i].x;
         p.y=e.monstros[i].y;
       	if(e.monstros[i].monType == 1){

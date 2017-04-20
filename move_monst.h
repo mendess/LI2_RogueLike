@@ -2,6 +2,10 @@
 #define __MVMON_H__
 
 #include "jogo.h"
+#include "IAbat.h"
+#include "IAwolf.h"
+#include "IAogre.h"
+#include "IAarcher.h"
 
 #define WOLF_DMG      10
 #define WOLF_HP       10
