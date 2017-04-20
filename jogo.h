@@ -49,6 +49,8 @@ typedef struct inventory{
 }INVT;
 
 typedef struct estado{
+    //{Main Menu=0; ScoreBoard=1; Help=2; Character Selection=3; Playing=4; Store=5}
+    char screen;
     //Classe {Warrior=0, Archer=1, Mage=2}
     char classe;
     //Vida do jogador
