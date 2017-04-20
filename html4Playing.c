@@ -173,14 +173,14 @@ void imprime_background (){
 @param hp Vida
 */
 void imprime_hpBar(int hp){
-	printf("<image x=600 y=100 width=%f height=10 href=\"%sHealthBar.png\"/>\n",(hp-1)*1.5,IMAGE_PATH);
+	printf("<image x=600 y=100 width=%f height=10 preserveAspectRatio=none href=\"%sHealthBar.png\"/>\n",(hp-1)*1.5,IMAGE_PATH);
 }
 /**
 \brief Imprime a barra que indica a mana do jogodor
 @param mp Mana
 */
 void imprime_mpBar(int mp){
-	printf("<image x=600 y=115 width=%f height=10 href=\"%sManaBar.png\"/>\n",(mp-1)*1.5,IMAGE_PATH);
+	printf("<image x=600 y=115 width=%f height=10 preserveAspectRatio=none href=\"%sManaBar.png\"/>\n",(mp-1)*1.5,IMAGE_PATH);
 }
 void imprime_gameOverScreen(){
 	printf("<image x=0 y=0 width=800 height=600 href=\"%sGameOverScreen.png\"/>\n",IMAGE_PATH);
