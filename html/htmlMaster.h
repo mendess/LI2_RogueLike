@@ -1,15 +1,15 @@
-#ifndef ___PARSER_H___
-#define ___PARSER_H___
+#ifndef ___HTML_MASTER_H___
+#define ___HTML_MASTER_H___
 
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
 #include <stdlib.h>
 
-#include "jogo.h"
-#include "estado.h"
-#include "levelMaker.h"
-#include "colisions.h"
+#include "../jogo.h"
+#include "../estado.h"
+#include "../levelMaker.h"
+#include "../colisions.h"
 
 #include "html0Menu.h"
 #include "html1ScoreBoard.h"
