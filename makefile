@@ -8,13 +8,10 @@ LIBS=-lm
 install: roguel
 	sudo cp roguel /usr/lib/cgi-bin/
 	sudo cp imagens/* /var/www/html/imagens
-	rm *.o
 	touch install
 
-roguel: $(OBJECTS) html
+roguel: $(OBJ_HTML) $(OBJECTS)
 	cc -o roguel $(OBJECTS) $(OBJ_HTML) $(LIBS)
-
-html:   (cd html;make)
 
 exemplo.zip: $(FICHEIROS)
 	zip -9 exemplo.zip $(FICHEIROS)
