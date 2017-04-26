@@ -1,0 +1,5 @@
+$(wildcard *.c)
+$(patsubst
+
+cc -o roguel $(OBJECTS) &(LIBS)
+(cd html;make)
