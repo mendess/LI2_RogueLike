@@ -191,26 +191,75 @@ ESTADO acao_archer(ESTADO e, int i, POSICAO p){
     }
     return e;
 }
+
+POSICAO quemAtaca(ESTADO e){
+  POSICAO q,p;
+  int i,j,w,e;
+  q.x=abs(e.monstros[0].x+e.monstros[0].y);
+  q.y=abs(e.monstros[1].x+e.monstros[1].y);
+  w.x=e.monstros[0].x;
+  w.y=e.monstros[0].y;
+  e.x=e.monstros[1].x;
+  e.y=e.monstros[1].y;
+  for (i=2;i<e.num_monst;i++){
+     j=abs(e.monstros[i].x+e.monstros[i].y);
+     if (j<q.x && q.x >q.y){
+       q.x=j;
+       w=i;
+     }
+      if (j<q.y && q.x<q.y){
+       q.y=j;
+       e=i;
+     }
+  } 
+  p.x=w;
+  p.y=e;
+  return p;
+}
+
+ESTADO iaMoves (ESTADO e,int i){
+        POSICAO p;
+        p.x=e.monstros[i].x;
+        p.y=e.monstros[i].y;
+        if(e.monstros[i].monType == 1 && flag){
+            e=estrat_bat(e,i,p);
+        }
+    	if(e.monstros[i].monType == 2  && flag){
+            e=estrat_wolf(e,i,p);
+      	} 
+        if(e.monstros[i].monType == 3 && (e.turn%2 == 0) && flag){
+   		    e=estrat_ogre(e,i,p);
+      	}
+   	    if(e.monstros[i].monType == 4 && flag){
+             e=estrat_archer(e,i,p);
+     	}
+        return e;
+}
+
 // (pos1,pos2,tipo,hp) ->(x,y,z,d,v)
 ESTADO move_monstros (ESTADO e){
    POSICAO p,q;
-   int i;
-   (q.x,q.y)=ataque_monst(e);
+   int i,flag;
+   flag=1;
+   q=quemAtaca(e);
    srandom(time(NULL));
    for (i=0;i<MAX_MONSTROS;i++){
-        if(i==q.x || i== q.y) i++;
+        if(i==q.x || i== q.y){
+           e=iaMoves(e,i);
+           flag=0;
+        }
 	    p.x=e.monstros[i].x;
         p.y=e.monstros[i].y;
-      	if(e.monstros[i].monType == 1){
+      	if(e.monstros[i].monType == 1 && flag){
             e=acao_bat(e,i,p);
         }
-    	if(e.monstros[i].monType == 2){
+    	if(e.monstros[i].monType == 2  && flag){
             e=acao_wolf(e,i,p);
       	} 
-        if(e.monstros[i].monType == 3 && (e.turn%2 == 0)){
+        if(e.monstros[i].monType == 3 && (e.turn%2 == 0) && flag){
    		    e=acao_ogre(e,i,p);
       	}
-   	    if(e.monstros[i].monType == 4){
+   	    if(e.monstros[i].monType == 4 && flag){
              e=acao_archer(e,i,p);
      	}
   }
