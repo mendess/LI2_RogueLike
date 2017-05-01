@@ -1,8 +1,7 @@
 #ifndef __HTML4_H__
-#define __HTML4_H__ 
+#define __HTML4_H__
 
 #include "htmlMaster.h"
-#include "jogo.h"
 
 int getDirection(ESTADO e,POSICAO p);
 void imprime_jogador (ESTADO e);

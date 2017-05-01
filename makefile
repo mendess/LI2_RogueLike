@@ -1,5 +1,9 @@
 CFLAGS=-Wall -g
-FICHEIROS=cgi.h estado.c estado.h exemplo.c Makefile
+FICHEIROS=(wildcard *.c) (wildcard *.h) makefile
+OBJECTS:=$(patsubst %.c,%.o,$(wildcard *.c))
+OBJ_HTML:=$(patsubst %.c,%.o,$(wildcard html/*.c))
+
+LIBS=-lm
 
 install: roguel
 	sudo cp roguel /usr/lib/cgi-bin/
@@ -7,8 +11,10 @@ install: roguel
 	rm *.o
 	touch install
 
-roguel: jogo.o estado.o path.o htmlMaster.o html0Menu.o html1ScoreBoard.o html2Help.o html3CharSelect.o html4Playing.o html5Shop.o score.o levelMaker.o move_monst.o colisions.o
-	cc -o roguel jogo.o estado.o path.o htmlMaster.o html0Menu.o html1ScoreBoard.o html2Help.o html3CharSelect.o html4Playing.o html5Shop.o score.o levelMaker.o move_monst.o colisions.o
+roguel: $(OBJECTS) html
+	cc -o roguel $(OBJECTS) $(OBJ_HTML) $(LIBS)
+
+html:   (cd html;make)
 
 exemplo.zip: $(FICHEIROS)
 	zip -9 exemplo.zip $(FICHEIROS)
@@ -18,5 +24,5 @@ doc:
 	doxygen
 
 clean:
-	rm -rf *.o roguel Doxyfile latex html install
-	rm -rf gamestate
+	rm -rf *.o roguel install gamestate
+	(cd html;make clean)

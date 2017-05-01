@@ -8,7 +8,6 @@
 
 #include "colisions.h"
 #include "levelMaker.h"
-//#include "parser.h"
 #include "jogo.h"
 
 #define WOLF_DMG      10
