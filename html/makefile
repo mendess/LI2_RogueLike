@@ -4,5 +4,5 @@ OBJECTS:=$(patsubst %.c,%.o,$(wildcard *.c))
 instal: $(OBJECTS)
 	cc -c $(OBJECTS)
 
-clean:
+clean: 
 	rm -rf *.o
