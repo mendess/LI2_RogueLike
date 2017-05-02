@@ -11,17 +11,17 @@
 #define TIER4_ODDS(i)	(89/(1 + 99999999*exp(-0.5*i)))*1000+1
 #define TIER_SHIFT(i)	0.9/(1+170*exp(-0.25*i))
 
-#define HEALTH_POTION 		0
-#define MANA_POTION 		1
-#define SCROLL_FIRE 		2
-#define SCROLL_LIGHTNING 	3
-#define SCROLL_TELEPORT		4
-#define SWORD_BRONZE 		10
-#define SWORD_IRON	 		11
-#define SWORD_STEEL 		12
+#define HEALTH_POTION		1
+#define MANA_POTION			2
+#define SCROLL_FIRE			3
+#define SCROLL_LIGHTNING	4
+#define SCROLL_TELEPORT		5
+#define SWORD_BRONZE		10
+#define SWORD_IRON			11
+#define SWORD_STEEL			12
 #define SWORD_PALLADIUM		13
-#define ARMOUR_BRONZE 		14
-#define ARMOUR_IRON 		15
+#define ARMOUR_BRONZE		14
+#define ARMOUR_IRON			15
 #define ARMOUR_STEEL		16
 #define ARMOUR_PALLADIUM	17
 
