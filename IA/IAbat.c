@@ -1,14 +1,8 @@
 // falta persegue
 // no .h fazer include "../move_monst.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 #include "IA.h"
-#include "jogo.h"
-#include "move_monst.h" 
-#include "levelMaker.h"
-#include "parser.h"
+
 
 ESTADO persegue_bat(e,i,p){
 
@@ -72,7 +66,6 @@ POSICAO buscaB4 (ESTADO mov){
 POSICAO mapa1 (Estado e,int i,POSICAO p,int q){
   int d,x,y,flag;
   int a[10][10];
-  POSICAO intersect;
   d=abs(e.jog.x-p.x)+abs(e.jog.y-p.y);
   flag=1;
   for(y=0;y<10;y++){
@@ -85,10 +78,10 @@ POSICAO mapa1 (Estado e,int i,POSICAO p,int q){
        } 
     }
   }
-  if(q==1) intersect=buscaB1(a);
-  if(q==2) intersect=buscaB2(a);
-  if(q==3) intersect=buscaB3(a);
-  if(q==4) intersect=buscaB4(a);
+  if(q==1) intersect=buscaA1(a);
+  if(q==2) intersect=buscaA2(a);
+  if(q==3) intersect=buscaA3(a);
+  if(q==4) intersect=buscaA4(a);
   return intersect;
 }
 
@@ -133,7 +126,7 @@ ESTADO defB3 (ESTADO e, int i,POSICAO p){
 }
 ESTADO defB4 (ESTADO e, int i,POSICAO p){
   POSICAO intersect;
-  intersect= mapa1(e,i,p,4);
+ intersect= mapa1(e,i,p,4);
   e=estrat_bat1(e,i,intersect);
   return e;
 }

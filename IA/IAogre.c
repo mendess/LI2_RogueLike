@@ -1,41 +1,15 @@
-// falta persegue
+#include "IA.h"
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-ESTADO defB1 (ESTADO e, int i,POSICAO p){
-  POSICAO intersect;
-  ESTADO mov;
-  mov= mapa1(ESTADO e,int i,POSICAO p);
-  intersect=busca1 (mov);
-  e=estrat_bat1(e,i,intersect);
-  return e;
-}
+// falta persegue -> ogre protege objeto raro e poderoso
 
 ESTADO estrat_ogre (ESTADO e,int i,POSICAO p){
    int flag=1;;
    if (existe_jogador(e,p)){
        	e.hp-=OGRE_DMG;
    		flag=0;
-   } // J M →ŧ
+   } 
+   /* // J M →ŧ
    if(flag && e.jog.x<=p.x && e.jog.y>=p.y && e.saida.x>=e.jog.x && e.saida.y<=e.jog.y){
      e=defO1(e,i,p);
      flag=0;
@@ -53,6 +27,7 @@ ESTADO estrat_ogre (ESTADO e,int i,POSICAO p){
      flag=0;
    }
    // na persegue dá-se primasia as diagonais
-   if(flag) e=persegue2(e,i,p);
+   if(flag) e=persegueO(e,i,p);
    return e;
 }
+*/

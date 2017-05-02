@@ -6,6 +6,7 @@
 #include "move_monst.h" 
 #include "levelMaker.h"
 #include "parser.h"
+#include "IA.h"
 
 // ataca_jogador
 //existe_jogador (estado, pos monstro)
@@ -193,32 +194,36 @@ ESTADO acao_archer(ESTADO e, int i, POSICAO p){
 }
 
 POSICAO quemAtaca(ESTADO e){
-  POSICAO q,p;
-  int i,j,w,e;
-  q.x=abs(e.monstros[0].x+e.monstros[0].y);
-  q.y=abs(e.monstros[1].x+e.monstros[1].y);
+  POSICAO q,p,w;
+  int i,j,t,r,i1,i2;
   w.x=e.monstros[0].x;
   w.y=e.monstros[0].y;
-  e.x=e.monstros[1].x;
-  e.y=e.monstros[1].y;
-  for (i=2;i<e.num_monst;i++){
+  q.x=e.monstros[1].x;
+  q.y=e.monstros[1].y;
+  i1=1;i2=0;
+  for (i=2;i<e.num_monstros;i++){
      j=abs(e.monstros[i].x+e.monstros[i].y);
-     if (j<q.x && q.x >q.y){
-       q.x=j;
-       w=i;
+     t=abs(q.x+q.y-e.jog.x-e.jog.y);
+     r=abs(w.x+w.y-e.jog.x-e.jog.y);
+     if (j<t && t>r){
+       q.x=e.monstros[i].x;
+       q.y=e.monstros[i].y;
+       i1=i;
      }
-      if (j<q.y && q.x<q.y){
-       q.y=j;
-       e=i;
+      if (j<r && r>t){
+       w.x=e.monstros[i].x;
+       w.y=e.monstros[i].y;
+       i2=i;
      }
-  } 
-  p.x=w;
-  p.y=e;
+  }
+  p.x=i1;
+  p.y=i2;
   return p;
 }
 
 ESTADO iaMoves (ESTADO e,int i){
         POSICAO p;
+        int flag=1;
         p.x=e.monstros[i].x;
         p.y=e.monstros[i].y;
         if(e.monstros[i].monType == 1 && flag){

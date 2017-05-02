@@ -1,55 +1,136 @@
-#include "IAwolf.h"
+#include <stdio.h>
+#include "IA.h"
 
-ESTADO persegue_wolf (ESTADO e,int i,POSICAO p){
-  POSICAO pos;
+
+ESTADO persegue_wolf (ESTADO e,int i,int p){
    if(e.jog.x>p.x && e.jog.y<p.y){
-    pos=p+(1,-1);
-    if (possivel(e,pos)){
+    if (possivel(e,p+(1,-1))){
       e.monstros[i].x+=1;
       e.monstros[i].y+=-1;
     }
    }
    if(e.jog.x<p.x && e.jog.y>p.y){
-    pos=p+(-1,1);
-    if (possivel(e,pos)){
+    if (possivel(e,p+(-1,1))){
       e.monstros[i].x+=-1;
       e.monstros[i].y+=1;
     }
    }
      if(e.jog.x>p.x && e.jog.y>p.y){
-      pos=p+(1,1);
-    if (possivel(e,pos)){
+    if (possivel(e,p+(1,1))){
       e.monstros[i].x+=1;
       e.monstros[i].y+=1;
     }
    }
     if(e.jog.x<p.x && e.jog.y<p.y){
-      pos=p+(-1,-1);
-    if (possivel(e,pos)){
+    if (possivel(e,p+(-1,-1))){
       e.monstros[i].x+=-1;
       e.monstros[i].y+=-1;
     }
    }
-   pos=p+(0,1);
-   if(e.jog.x==p.x && e.jog.y>p.y && possivel(e,pos)){
+   if(e.jog.x==p.x && e.jog.y>p.y && possivel(e.p+(0,1))){
      e.monstros[i].y+=1;
      p+=(0,1);
    }
-   pos=p+(0,1);
-   if(e.jog.x==p.x && e.jog.y<p.y && possivel(e,pos)){
+   if(e.jog.x==p.x && e.jog.y<p.y && possivel(e.p+(0,1))){
      e.monstros[i].y+=-1;
      p+=(0,-1);
    }
-   pos=p+(1,0);
-    if(e.jog.y==p.y && e.jog.x>p.x && possivel(e,)){
+    if(e.jog.y==p.y && e.jog.x>p.x && possivel(e.p+(1,0))){
      e.monstros[i].x+=1;
    }
-   pos=p+(-1,0);
-    if(e.jog.y==p.y && e.jog.x<p.x && possivel(e,pos)){
+    if(e.jog.y==p.y && e.jog.x<p.x && possivel(e.p+(-1,0))){
      e.monstros[i].x+=-1;
    }
    return e;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // PEDRAS
 int blocked1 (ESTADO e,POSICAO p){
   int i,flag;
@@ -117,7 +198,7 @@ POSICAO altera2(ESTADO e, POSICAO seguinte){
   else{
     seguinte+=(1,1);
   }
-  return seguinte;
+  return segunite;
 }
 POSICAO altera3(ESTADO e, POSICAO seguinte){
   POSICAO pos;
@@ -126,7 +207,7 @@ POSICAO altera3(ESTADO e, POSICAO seguinte){
   else{
     seguinte+=(-1,-1);
   }
-  return seguinte;
+  return segunite;
 }
 POSICAO altera4(ESTADO e, POSICAO seguinte){
   POSICAO pos;
@@ -135,71 +216,59 @@ POSICAO altera4(ESTADO e, POSICAO seguinte){
   else{
     seguinte+=(1,-1);
   }
-  return seguinte;
+  return segunite;
 }
 void corrige (ESTADO e,POSICAO caminho[],POSICAO q,POSICAO intersect){
-   POSICAO pos;
    for(i=0;caminho[i]!= intersect;i++){
     if (caminho[0]==q) break;
     i++;
      while(caminho[i]!= q){
       if(q.y<caminho[i].y && q.x>caminho[i].x){
-        pos=caminho[i-1]+(1,-1);
-        if(caminho[i]!=pos){
-          caminho[i]=altera1(e,caminho[i-1]);
-        }
-      }
-       if(q.y>caminho[i].y && q.x>caminho[i].x){
-        pos=caminho[i-1]+(1,1);
-        if(caminho[i]!=pos){
-          caminho[i]=altera2(e,caminho[i-1]);
-        }
-      }
-        if(q.y<caminho[i].y && q.x<caminho[i].x){
-        pos=caminho[i-1]+(-1,-1);
-        if(caminho[i]!=pos){
-          caminho[i]=altera3(e,caminho[i-1]);
-        }
-      }
-        if(q.y<caminho[i].y && q.x>caminho[i].x){
-        pos=caminho[i-1]+(1,-1);
-        if(caminho[i]!=pos){
-          caminho[i]=altera4(e,caminho[i-1]);
-        }
-      }
-      i++;
-    }
-  }
-    /*
-    while(caminho[i]!=intersect){
-      if(intersect.y<caminho[i].y){
-        pos=caminho[i-1]+(1,-1);
-        if(caminho[i]!=pos){
+        if(caminho[i]!=caminho[i-1]+(1,-1)){
           caminho[i]=altera1(e,caminho[i-1],q);
         }
       }
-       if(intersect.y>caminho[i].y){
-        pos=caminho[i-1]+(1,1);
-        if(caminho[i]!=pos){
+       if(q.y>caminho[i].y && q.x>caminho[i].x){
+        if(caminho[i]!=caminho[i-1]+(1,1)){
           caminho[i]=altera2(e,caminho[i-1],q);
         }
       }
         if(q.y<caminho[i].y && q.x<caminho[i].x){
-          pos=caminho[i-1]+(-1,-1);
-        if(caminho[i]!=pos){
+        if(caminho[i]!=caminho[i-1]+(-1,-1)){
           caminho[i]=altera3(e,caminho[i-1],q);
         }
       }
         if(q.y<caminho[i].y && q.x>caminho[i].x){
-          pos=caminho[i-1]+(1,-1);
-        if(caminho[i]!=pos){
+        if(caminho[i]!=caminho[i-1]+(1,-1)){
+          caminho[i]=altera4(e,caminho[i-1],q);
+        }
+      }
+      i++;
+    }
+    while(caminho[i]!=intersect){
+      if(intersect.y<caminho[i].y){
+        if(caminho[i]!=caminho[i-1]+(1,-1)){
+          caminho[i]=altera1(e,caminho[i-1],q);
+        }
+      }
+       if(intersect.y>caminho[i].y){
+        if(caminho[i]!=caminho[i-1]+(1,1)){
+          caminho[i]=altera2(e,caminho[i-1],q);
+        }
+      }
+        if(q.y<caminho[i].y && q.x<caminho[i].x){
+        if(caminho[i]!=caminho[i-1]+(-1,-1)){
+          caminho[i]=altera3(e,caminho[i-1],q);
+        }
+      }
+        if(q.y<caminho[i].y && q.x>caminho[i].x){
+        if(caminho[i]!=caminho[i-1]+(1,-1)){
           caminho[i]=altera4(e,caminho[i-1],q);
         }
       }
       i++;
     }
   }
-  */
 
 }
 void vertical(ESTADO e,int caminho[],int i){
@@ -212,19 +281,17 @@ void vertical(ESTADO e,int caminho[],int i){
 }
 POSICAO tracker(ESTADO e,POSICAO p, POSICAO intersect){
   int i,k,flag1,diferenca;
-  POSICAO caminho[25],q,pos;
+  POSICAO caminho[25],q;
   flag1=1;
   /*caminho1(caminho,intersect,p);
   k=contacaminho(caminho,intersect);*/
   caminho[0]=p;
   for(i=1;caminho[i]!=intersect;i++){// a paragem esta mal pode passar de uma posição para o intersect
-      pos=caminho[i-1]+(1,0);
-      if(!possivel(e,pos)){
+    /*if(blocked1(e,caminho[i])){
       flag1=0;
-      }
+      }*/
       if(caminho[i-1].y<=intersect.y-1 && caminho[i-1].x<=intersect.x-1){ // pega no pos ant. e muda em direcao a intersect o valor seguinte
-        pos=caminho[i-1]+(1,1);
-        if(possivel(e,pos)){
+        if(possivel(e,(caminho[i-1]+(1,1)))){
           caminho[i]=caminho[i-1]+(1,1);
         }
         if(!possivel(e,caminho[i]) && !flag1){ // encontrar lugar mais proximo vago em filas de pedras 
@@ -234,9 +301,8 @@ POSICAO tracker(ESTADO e,POSICAO p, POSICAO intersect){
            k=contacaminho(caminho);
         } 
       }
-      if(caminho[i].y>=intersect.y+1 && caminho[i].x<=intersect.x-1){
-        pos=caminho[i-1]+(1,-1);
-        if(possivel(e,pos)){
+      if(caminho[i].y>=intersect.y+1 && caminho[i].x<=intersect.x-1){ 
+        if(possivel(e,(caminho[i-1]+(1,-1)))){
           caminho[i]=caminho[i-1]+(1,-1);
         }
         if(!possivel(e,caminho[i]) && !flag1){  
@@ -246,8 +312,7 @@ POSICAO tracker(ESTADO e,POSICAO p, POSICAO intersect){
         }  
       }  
       if(caminho[i].y<=intersect.y-1 && caminho[i].x>=intersect.x+1){ 
-        pos=caminho[i-1]+(-1,1);
-        if(possivel(e,pos)){
+        if(possivel(e,(caminho[i-1]+(-1,1)))){
           caminho[i]=caminho[i-1]+(-1,1);
         }
         if(!possivel(e,caminho[i]) && !flag1){  
@@ -257,8 +322,7 @@ POSICAO tracker(ESTADO e,POSICAO p, POSICAO intersect){
         } 
       }
       if(caminho[i].y>=intersect.y+1 && caminho[i].x>=intersect.x+1){ 
-        pos=caminho[i-1]+(-1,-1);
-        if(possivel(e,pos)){
+        if(possivel(e,(caminho[i-1]+(-1,-1)))){
           caminho[i]=caminho[i-1]+(-1,-1);
         }
         if(!possivel(e,caminho[i]) && !flag1){  
@@ -272,13 +336,52 @@ POSICAO tracker(ESTADO e,POSICAO p, POSICAO intersect){
  return caminho[1];
 }
 
-POSICAO buscaW1 (int a[][]){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+POSICAO buscaW1 (ESTADO mov){
   int x,y,flag;
   POSICAO intersect;
   flag=1;
   for(y=0;y<10;y++){
     for(x=9;x>=0;x--){
-       if(a[x][y] == 0 && livre1(e,x,y) && flag){
+       if(mov[x][y] == 0 && livre1(e,x,y) && flag){
          intersec=(x,y);
          flag=0;
        }
@@ -286,13 +389,13 @@ POSICAO buscaW1 (int a[][]){
   }
  return intersect;
 }
-POSICAO buscaW2 (int a[][]){
+POSICAO buscaW2 (ESTADO mov){
   int x,y,flag;
   POSICAO intersect;
   flag=1;
   for(y=9;y>=0;y--){
     for(x=0;x<10;x++){
-      if(a[x][y] == 0 && livre1(e,x,y) && flag){
+      if(mov[x][y] == 0 && livre1(e,x,y) && flag){
          intersec=(x,y);
          flag=0;
        }
@@ -300,13 +403,13 @@ POSICAO buscaW2 (int a[][]){
   }
   return intersect;
 }
-POSICAO buscaW3 (int a[][]){
+POSICAO buscaW3 (ESTADO mov){
    int x,y,flag;
   POSICAO intersect;
   flag=1;
   for(y=0;y<10;y--){
     for(x=0;x<10;x++){
-      if(a[x][y] == 0 && livre1(e,x,y) && flag){
+      if(mov[x][y] == 0 && livre1(e,x,y) && flag){
          intersec=(x,y);
          flag=0;
        }
@@ -314,13 +417,13 @@ POSICAO buscaW3 (int a[][]){
   }
   return intersect;
 }
-POSICAO buscaW4 (int a[][]){
+POSICAO buscaW4 (ESTADO mov){
    int x,y,flag;
   POSICAO intersect;
   flag=1;
   for(y=9;y>=0;y--){
     for(x=9;x>=0;x+--){
-      if(a[x][y] == 0 && livre1(e,x,y) && flag){
+      if(mov[x][y] == 0 && livre1(e,x,y) && flag){
          intersec=(x,y);
          flag=0;
        }
@@ -328,7 +431,7 @@ POSICAO buscaW4 (int a[][]){
   }
   return intersect;
 }
-POSICAO mapa1 (Estado e,int i,POSICAO p,int q){
+POSICAO mapa3 (Estado e,int i,POSICAO p,int q){
   int d,x,y,flag;
   int a[10][10];
   POSICAO intersect;
@@ -351,31 +454,31 @@ POSICAO mapa1 (Estado e,int i,POSICAO p,int q){
   return intersect;
 }
 
-ESTADO defW1 (ESTADO e, int i,POSICAO p){
+ESTADO defB1 (ESTADO e, int i,POSICAO p){
   POSICAO intersect,nova_pos;
-  intersect=mapa1(e,i,p,1);
+  intersect= mapa3(e,i,p,1);
   nova_pos=tracker(e,p,intersect);
   e.monstros[i]=nova_pos;
   return e;
 }
-ESTADO defW2 (ESTADO e, int i,POSICAO p){
-  POSICAO intersect,nova_pos;
-  intersect= mapa1(e,i,p,2);
-  nova_pos=tracker(e,p,intersect);
+ESTADO defB2 (ESTADO e, int i,POSICAO p){
+  POSICAO intersect;
+  intersect= mapa3(e,i,p,2);
+  novapos=tracker(e,p,intersect);
   e.monstros[i]=nova_pos;
   return e;
 }
-ESTADO defW3 (ESTADO e, int i,POSICAO p){
-  POSICAO intersect,nova_pos;
-  intersect= mapa1(e,i,p,3);
-  nova_pos=tracker(e,p,intersect);
+ESTADO defB3 (ESTADO e, int i,POSICAO p){
+  POSICAO intersect;
+  intersect= mapa3(e,i,p,3);
+  novapos=tracker(e,p,intersect);
   e.monstros[i]=nova_pos;
   return e;
 }
-ESTADO defW4 (ESTADO e, int i,POSICAO p){
-  POSICAO intersect,nova_pos;
-  intersect= mapa1(e,i,p,4);
-  nova_pos=tracker(e,p,intersect);
+ESTADO defB4 (ESTADO e, int i,POSICAO p){
+  POSICAO intersect;
+  intersect= mapa3(e,i,p,4);
+  novapos=tracker(e,p,intersect);
   e.monstros[i]=nova_pos;
   return e;
 }
