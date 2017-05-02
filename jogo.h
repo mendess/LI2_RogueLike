@@ -46,6 +46,8 @@ typedef struct monster{
 typedef struct inventory{
     char gold;
     char inv[4];
+    char weapon;
+    char armour;
 }INVT;
 
 typedef struct estado{
@@ -67,6 +69,8 @@ typedef struct estado{
     char direction;
     //Action
     char action;
+    //Inventario
+    INVT bag;
 	// Posição do jogador
     POSICAO jog;
     // Posição da saida

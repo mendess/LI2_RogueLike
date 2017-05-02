@@ -6,7 +6,18 @@
 #include "levelMaker.h"
 #include "move_monst.h"
 #include "colisions.h"
+#include "calcularCombate.h"
 #include "jogo.h"
+ESTADO initInv(ESTADO e){
+	e.gold=0;
+	int i;
+	for(i=0;i<4;i++){
+		inv[i]=0;
+	}
+	e.weapon=0;
+	e.armour=0;
+	return e;
+}
 /**
 \brief Inicializa o estado do jogo
 */
@@ -33,6 +44,8 @@ ESTADO inicializar(){
 	e.direction=0;
 	//Action
 	e.action=0;
+	//Inventario
+	e=initInv(e);
 	// Posição do jogador
 	e.jog.x=path[0].x;
 	e.jog.y=path[0].y;
@@ -113,9 +126,6 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act){
 		jog.y+=y[act];
 	}
 	return jog;
-}
-ESTADO calcularCombate(ESTADO e){
-	return e;
 }
 /**
 \brief Calcula um novo estado conforme a ação que esteja no estado que recebe
