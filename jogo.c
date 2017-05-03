@@ -1,4 +1,4 @@
-//#define DEBUG
+#define DEBUG
 #include "estado.h"
 #include "path.h"
 #include "html/htmlMaster.h"
@@ -8,15 +8,15 @@
 #include "colisions.h"
 #include "calcularCombate.h"
 #include "jogo.h"
-ESTADO initInv(ESTADO e){
-	e.gold=0;
+
+void initInv(INVT bag){
+	bag.gold=0;
 	int i;
 	for(i=0;i<4;i++){
-		inv[i]=0;
+		bag.inv[i]=0;
 	}
-	e.weapon=0;
-	e.armour=0;
-	return e;
+	bag.weapon=0;
+	bag.armour=0;
 }
 /**
 \brief Inicializa o estado do jogo
@@ -45,7 +45,7 @@ ESTADO inicializar(){
 	//Action
 	e.action=0;
 	//Inventario
-	e=initInv(e);
+	initInv(e.bag);
 	// Posição do jogador
 	e.jog.x=path[0].x;
 	e.jog.y=path[0].y;

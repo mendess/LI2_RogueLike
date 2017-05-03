@@ -1,14 +1,13 @@
 #include "calcularCombate.h"
 
 int samePos(POSICAO monPos, MSTR monster){
-	return mon.x == monster.x && mon.y == monster.y
+	return monPos.x == monster.x && monPos.y == monster.y;
 }
-void killMonster(POSICAO target, MSTR monstros[], char *num_monstros){
+void killMonster(POSICAO target, MSTR monstros[], char num_monstros){
 	int i=0;
 	while(!samePos(target,monstros[i])){
 		i++;
 	}
-	*num_monstros--;
 	while(i<num_monstros){
 		monstros[i]=monstros[i+1];
 	}
@@ -30,7 +29,7 @@ char calcPlayerDmg(char classe, INVT bag){
 	return (char) weaponDmg + plrDmg;
 }
 ESTADO calcularCombate(ESTADO e){
-	POSICAO mon = calcularNovaPosicao(e.jog,e.action-10);
+	POSICAO mon = calculaNovaPosicao(e.jog,(int) e.action-10);
 	int i=0, found=0;
 	while(!found){
 		if(samePos(mon,e.monstros[i])){
@@ -41,7 +40,8 @@ ESTADO calcularCombate(ESTADO e){
 	}
 	char plrDmg = calcPlayerDmg(e.classe,e.bag);
 	if(e.monstros[i].hp < plrDmg){
-		killMonster(mon, e.monstros,&e.num_monstros);
+		e.num_monstros--;
+		killMonster(mon, e.monstros,e.num_monstros);
 	}else{
 		e.monstros[i].hp -= plrDmg;
 	}

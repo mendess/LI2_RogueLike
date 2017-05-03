@@ -56,9 +56,9 @@ typedef struct estado{
     //Classe {Warrior=0, Archer=1, Mage=2}
     char classe;
     //Vida do jogador
-    char hp;
+    int hp;
     //Mana do jogador
-    char mp;
+    int mp;
     //Nivel
     char world_lvl;
     //Score

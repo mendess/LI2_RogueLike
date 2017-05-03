@@ -18,7 +18,7 @@
 #define SWORD_PALLADIUM_DMG	20
 
 int samePos(POSICAO monPos, MSTR monster);
-void killMonster(POSICAO target, MSTR monstros[], char *num_monstros);
+void killMonster(POSICAO target, MSTR monstros[], char num_monstros);
 char calcPlayerDmg(char classe, INVT bag);
 ESTADO calcularCombate(ESTADO e);
 
