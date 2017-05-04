@@ -1,5 +1,4 @@
-#define DEBUG
-#include "estado.h"
+//#define DEBUG
 #include "path.h"
 #include "html/htmlMaster.h"
 #include "score.h"
@@ -139,10 +138,9 @@ Converte o estado que estava em hexadecimal no ficheiro para uma struct ESTADO e
 @param gamestateFile Apontador para um ficheiro com o estado
 */
 ESTADO ler_estado (char *args,FILE *gamestateFile){
-	//char str[MAX_BUFFER];
 	int act;
-	//fgets(str,MAX_BUFFER,gamestateFile);
-	ESTADO e = str2estado(gamestateFile);
+	ESTADO e;
+	fread(&e, sizeof(ESTADO), 1, gamestateFile);
 	sscanf(args,"%d",&act);
 	e.action = act;
 	return e;
@@ -153,8 +151,8 @@ Cria um novo jogo se estiver a começar ou faz "update" ao estado conforme o que
 */
 ESTADO runGame(){
 	char *args = getenv("QUERY_STRING");
-	FILE *gamestateFile;
 	ESTADO e;
+	FILE *gamestateFile;
 	char filepath[15];
 
 	#ifdef DEBUG
@@ -172,8 +170,7 @@ ESTADO runGame(){
 		e = calcularNovoEstado(e);
 		gamestateFile = freopen(filepath,"w",gamestateFile);
 	}
-	//fprintf(gamestateFile,"%s",estado2str(e));
-	estado2str(e,gamestateFile);
+	fwrite(&e, sizeof(ESTADO), 1, gamestateFile);
 	fclose(gamestateFile);
 	return e;
 }
