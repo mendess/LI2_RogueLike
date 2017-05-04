@@ -1,4 +1,4 @@
-//#define DEBUG
+#define DEBUG
 #include "estado.h"
 #include "path.h"
 #include "html/htmlMaster.h"
@@ -139,10 +139,10 @@ Converte o estado que estava em hexadecimal no ficheiro para uma struct ESTADO e
 @param gamestateFile Apontador para um ficheiro com o estado
 */
 ESTADO ler_estado (char *args,FILE *gamestateFile){
-	char str[MAX_BUFFER];
+	//char str[MAX_BUFFER];
 	int act;
-	fgets(str,MAX_BUFFER,gamestateFile);
-	ESTADO e = str2estado(str);
+	//fgets(str,MAX_BUFFER,gamestateFile);
+	ESTADO e = str2estado(gamestateFile);
 	sscanf(args,"%d",&act);
 	e.action = act;
 	return e;

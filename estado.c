@@ -5,7 +5,8 @@
 @param e O estado do jogo
 */
 void estado2str(ESTADO e, FILE *fp) {
-	/*static char buffer[MAX_BUFFER];
+	/*
+	static char buffer[MAX_BUFFER];
 	char *p = (char *) &e;
 	int i;
 
@@ -14,7 +15,8 @@ void estado2str(ESTADO e, FILE *fp) {
 	for(i = 0; i < sizeof(ESTADO); i++)
 		sprintf(buffer, "%s%02x", buffer, p[i]);
 
-	return buffer;*/
+	return buffer;
+	
 	PRT_FIELD(fp,e,screen);
 	PRT_FIELD(fp,e,classe);
 	PRT_FIELD(fp,e,hp);
@@ -39,16 +41,17 @@ void estado2str(ESTADO e, FILE *fp) {
 	while(i++<num_pedras){
 		PRT_POSICAO(fp,e,pedras[i])
 	}
-	fprintf(fp,"*]");
+	fprintf(fp,"*]");*/
+	fwrite(&e, sizeof(ESTADO), 1, fp);
 }
 
 /**
 \brief Converte uma query num estado
 @param argumentos Query a ser convertida
 */
-ESTADO str2estado(char *argumentos) {
-	/*ESTADO e;
-	char *p = (char *) &e;
+ESTADO str2estado(FILE *fp) {
+	ESTADO e;
+	/*char *p = (char *) &e;
 	int i;
 
 	for(i = 0; i < sizeof(ESTADO); i++, argumentos += 2) {
@@ -58,5 +61,6 @@ ESTADO str2estado(char *argumentos) {
 	}
 
 	return e;*/
-	
+	fread(&e, sizeof(ESTADO), 1, fp);
+	return e;
 }
