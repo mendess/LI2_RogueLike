@@ -7,7 +7,6 @@
 #include <stdlib.h>
 
 #include "../jogo.h"
-#include "../estado.h"
 #include "../levelMaker.h"
 #include "../colisions.h"
 
