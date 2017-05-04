@@ -96,3 +96,15 @@ char getClassMp(char type){
 	}
 	return -1;
 }
+
+INVT initINVT(INVT bag){
+	bag.gold=0;
+	int i=0;
+	for (i = 0; i < INVT_SIZE; ++i)
+	{
+		bag.inv[i]=0;
+	}
+	bag.weapon=0;
+	bag.armour=0;
+	return bag;
+}

@@ -21,5 +21,6 @@ ESTADO colocar_pedras (ESTADO e, int pathSize, POSICAO path[]);
 ESTADO colocar_monstros (ESTADO e);
 char getClassHp(char type);
 char getClassMp(char type);
+INVT initINVT(INVT bag);
 
 #endif

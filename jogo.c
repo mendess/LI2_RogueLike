@@ -25,6 +25,8 @@ ESTADO inicializar(){
 	e.turn=0;					//Turno
 	e.direction=0;				//Lado para que o jogador esta a olhar 0:drt e 1:esq
 	e.action=0;					//Action
+	generateLoot(e.lootTable,e.world_lvl);//Inicializar LootTable para o primeiro nivel
+	e.bag=initINVT(e.bag);		//Inicializar o inventario
 	e.jog.x=path[0].x;			//Posição do jogador (x)
 	e.jog.y=path[0].y;			//Posição do jogador (y)
 	e.saida.x=path[n-1].x;		//Posição da saida (x)
@@ -62,6 +64,7 @@ ESTADO newLevel(ESTADO e){
 	e.turn=0;					//Turno
 	e.direction=0;				//Lado para que o jogador esta a olhar 0:direita e 1:esquerda
 	e.action=0;					//Action
+	generateLoot(e.lootTable,e.world_lvl);//Inicializar LootTable para o primeiro nivel
 	e.jog.x=path[0].x;			//Posição do jogador (x)
 	e.jog.y=path[0].y;			//Posição do jogador (y)
 	e.saida.x=path[n-1].x;		//Posição da saida (x)

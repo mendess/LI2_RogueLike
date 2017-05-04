@@ -15,29 +15,45 @@
 #define NEW_LEVEL_MP_BONUS  10
 #define NEW_LEVEL_SC_BONUS  60
 
-#define LOOT_TABLE_SIZE 4
+#define HEALTH_POTION       1
+#define MANA_POTION         2
+#define SCROLL_FIRE         3
+#define SCROLL_LIGHTNING    4
+#define SCROLL_TELEPORT     5
+#define SWORD_BRONZE        10
+#define SWORD_IRON          11
+#define SWORD_STEEL         12
+#define SWORD_PALLADIUM     13
+#define ARMOUR_BRONZE       14
+#define ARMOUR_IRON         15
+#define ARMOUR_STEEL        16
+#define ARMOUR_PALLADIUM    17
+
+#define LOOT_TABLE_SIZE     4
+
+#define INVT_SIZE           6
 
 /*
 --gold
 GoldCoins
 --potion
-HealthPotion    0
-ManaPotion      1
+HealthPotion    1
+ManaPotion      2
 --scroll
-ScrollFire      2  - Vermelho
-ScrollLightning 3  - Amarelo
-ScrollTeleport  4  - Azul
-ScrollHealing   5  - Pink
+ScrollFire      3  - Vermelho
+ScrollLightning 4  - Amarelo
+ScrollTeleport  5  - Azul
+ScrollHealing   6  - Pink
 --weapon
-SwordBronze     5  - Castanho
-SwordIron       6  - Cinzento Escuro
-SwordSteel      7  - Cinzento Claro
-SwordPalladium  8  - Inventa para ai
+SwordBronze     10 - Castanho
+SwordIron       11 - Cinzento Escuro
+SwordSteel      12 - Cinzento Claro
+SwordPalladium  13 - Inventa para ai
 --armour
-ArmourBronze    9  - Castanho
-ArmourIron      10 - Cinzento Escuro
-ArmourSteel     11 - Cinzento Claro
-ArmourPalladium 12 - Inventa para ai
+ArmourBronze    14 - Castanho
+ArmourIron      15 - Cinzento Escuro
+ArmourSteel     16 - Cinzento Claro
+ArmourPalladium 17 - Inventa para ai
 */
 
 typedef struct posicao{
@@ -54,7 +70,9 @@ typedef struct monster{
 
 typedef struct inventory{
     char gold;
-    char inv[4];
+    char inv[INVT_SIZE];
+    char weapon;
+    char armour;
 }INVT;
 
 typedef struct estado{

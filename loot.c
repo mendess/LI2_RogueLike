@@ -26,7 +26,7 @@ char generateSword(char world_lvl){
 	double tmp=100000-tier1-tier4;
 	double tier3=tmp*TIER_SHIFT(world_lvl);
 	double tier2=tmp-tier3;
-	
+
 	if(r<tier1){
 		return SWORD_BRONZE;
 	}
@@ -45,7 +45,7 @@ char generateArmour(char world_lvl){
 	double tmp=100000-tier1-tier4;
 	double tier3=tmp*TIER_SHIFT(world_lvl);
 	double tier2=tmp-tier3;
-	
+
 	if(r<tier1){
 		return ARMOUR_BRONZE;
 	}
@@ -71,7 +71,7 @@ void generateLoot(char lootTable[], int world_lvl){
 		if(r>69 && r<85){
 			lootTable[i]=generateSword(world_lvl);
 		}
-		if(r>84 && r>100){
+		if(r>84 && r<100){
 			lootTable[i]=generateArmour(world_lvl);
 		}
 	}
