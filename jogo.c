@@ -118,7 +118,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 	if(e.action>0 && e.action<10){
 		e.jog=calculaNovaPosicao(e.jog,e.action);
 	}
-	if(e.action>10 && e.action>20){
+	if(e.action>10 && e.action<20){
 		e=calcularCombate(e);
 	}
 
@@ -127,10 +127,10 @@ ESTADO calcularNovoEstado(ESTADO e){
 	e.turn+=1;
 
 	if(e.hp<1){
-		e.hp=1;
+		e.hp=0;
 	}
 	if(e.mp<1){
-		e.mp=1;
+		e.mp=0;
 	}
 
 	return e;
@@ -184,7 +184,7 @@ ESTADO runGame(){
 int main(){
 
 	ESTADO e = runGame();
-	if(e.hp<=0){
+	if(e.hp==0){
 		updateScoreBoard(e.score);
 	}
 
