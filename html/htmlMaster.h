@@ -1,33 +1,43 @@
 #ifndef ___HTML_MASTER_H___
 #define ___HTML_MASTER_H___
 
-#include <stdio.h>
-#include <string.h>
-#include <time.h>
-#include <stdlib.h>
-
 #include "../jogo.h"
-#include "../levelMaker.h"
-#include "../colisions.h"
 
 #include "html0Menu.h"
-#include "html1ScoreBoard.h"
+#include "html1CharSelect.h"
 #include "html2Help.h"
-#include "html3CharSelect.h"
+#include "html3ScoreBoard.h"
 #include "html4Playing.h"
 #include "html5Shop.h"
 
-/*
-#define COMECAR_HTML						printf("Content-Type: text/html\n\n")
-#define ABRIR_SVG(tamx, tamy)				printf("<svg width=%d height=%d>\n", tamx, tamy)
-#define FECHAR_SVG							printf("</svg>\n")
-*/
+#define ITEM_LIST				{"Empty",\
+								 "Item_PotionHealth.png",\
+								 "Item_PotionMana.png",\
+								 "Item_ScrollRed.png",\
+								 "Item_ScrollGreen.png",\
+								 "Item_ScrollBlue.png",\
+								 "Item_SwordBronze.png",\
+								 "Item_SwordIron.png",\
+								 "Item_SwordSteel.png",\
+								 "Item_SwordPalladium.png",\
+								 "Item_ArmourBronze.png",\
+								 "Item_ArmourIron.png",\
+								 "Item_ArmourSteel.png",\
+								 "Item_ArmourPalladium.png"}
 
-#define IMAGE_PATH							"http://127.0.0.1/imagens/"
+#define SVG_WIDTH				800
 
-#define ABRIR_LINK(link)					printf("<a xlink:href=%s>\n", link)
+#define SVG_HEIGHT				600
 
-#define FECHAR_LINK							printf("</a>\n")
+#define IMAGE_PATH				"http://127.0.0.1/imagens/"
+
+#define IMAGEM(X,Y,WIDTH,HEIGHT,FICHEIRO)	printf("<image x=%d y=%d width=%d height=%d preserveAspectRatio=none xlink:href=%s%s />\n", \
+												X, Y, WIDTH, HEIGHT, IMAGE_PATH, FICHEIRO)
+
+
+#define ABRIR_LINK(link)		printf("<a xlink:href=http://localhost/cgi-bin/roguel?%s>\n", link)
+
+#define FECHAR_LINK				printf("</a>\n")
 
 
 void print_header();

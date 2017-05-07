@@ -1,8 +1,6 @@
 #ifndef ___LEVELMAKER_H___
 #define ___LEVELMAKER_H___
 
-#include <stdlib.h>
-
 #include "jogo.h"
 #include "colisions.h"
 

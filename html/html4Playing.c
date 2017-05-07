@@ -31,18 +31,13 @@ int getDirection(ESTADO e,POSICAO p){
 @param p Posição a verficar
 */
 void imprime_jogada(ESTADO e, POSICAO p){
-	char *mold[]={"Movimento","Ataque"};
+	char *mold[]={"Moldura_Movimento.png","Moldura_Ataque.png"};
 	int type=0;
 	if(com_monstros(e,p)){
 		type=1;
 	}
-	printf("<image x=%d y=%d width=%d height=%d xlink:href=\"%sMoldura_%s.png\"/>\n",
-			TAM*(p.x+1),
-			TAM*(p.y+1),
-			TAM,
-			TAM,
-			IMAGE_PATH,
-			mold[type]);
+	IMAGEM(TAM*(p.x+1),TAM*(p.y+1),TAM,TAM,mold[type]);
+
 }
 /**
 \brief Cria um movimento para as coordenadas dadas
@@ -59,9 +54,9 @@ void criar_jogada(ESTADO e, POSICAO p){
 	p.x += e.jog.x;
 	p.y += e.jog.y;
 	if (!outOfBounds(p) && !com_pedras(e,p)){
-		char str[34];
-		sprintf(str,"http://localhost/cgi-bin/roguel?%d",new_action);
-		ABRIR_LINK(str);
+		char query[4];
+		sprintf(query,"%d",new_action);
+		ABRIR_LINK(query);
 		imprime_jogada(e,p);
 		FECHAR_LINK;
 	}
@@ -93,14 +88,8 @@ void imprime_jogadaS(ESTADO e){
 @param e Estado do jogo
 */
 void imprime_jogador (ESTADO e){
-	char *dir[] = {"Right","Left"};
-	printf("<image x=%d y=%d width= %d height= %d href=\"%sIcon_Viking_%s.png\"/>\n",
-			TAM*(e.jog.x+1),
-			TAM*(e.jog.y+1),
-			TAM,
-			TAM,
-			IMAGE_PATH,
-			dir[(int) e.direction]);
+	char *dir[] = {"Jogador_Viking_Right.png","Jogador_Viking_Left.png"};
+	IMAGEM(TAM*(e.jog.x+1),TAM*(e.jog.y+1),TAM,TAM,dir[(int) e.direction]);
 	imprime_jogadaS(e);
 }
 /**
@@ -110,16 +99,10 @@ void imprime_jogador (ESTADO e){
 void imprime_monstros (ESTADO e){
 	int i;
 	srand(time(NULL));
-	char *wolfs[]={"Icon_Lobo_Lateral_3.png","Icon_Lobo_Lateral_4.png"};
+	char *wolfs[]={"Monstro_Lobo_Lateral_1.png","Monstro_Lobo_Lateral_2.png"};
 	for(i=0;i<MAX_MONSTROS;i++){
 		int r = rand() % 2;
-		printf("<image x=%d y=%d width= %d height= %d href=\"%s%s\"/>\n",
-				TAM*(e.monstros[i].x+1),
-				TAM*(e.monstros[i].y+1),
-				TAM,
-				TAM,
-				IMAGE_PATH,
-				wolfs[r]);
+		IMAGEM(TAM*(e.monstros[i].x+1),TAM*(e.monstros[i].y+1),TAM,TAM,wolfs[r]);
 	}
 }
 /**
@@ -129,12 +112,7 @@ void imprime_monstros (ESTADO e){
 void imprime_pedras (ESTADO e){
 	int i;
 	for (i=0;i<MAX_PEDRAS;i++){
-		printf("<image x=%d y=%d width= %d height= %d href=\"%sObstacle1.png\"/>\n",
-				TAM*(e.pedras[i].x+1),
-				TAM*(e.pedras[i].y+1),
-				TAM,
-				TAM,
-				IMAGE_PATH);
+		IMAGEM(TAM*(e.pedras[i].x+1),TAM*(e.pedras[i].y+1),TAM,TAM,"Tile_Obstacle.png");
 	}
 }
 /**
@@ -142,12 +120,7 @@ void imprime_pedras (ESTADO e){
 @param p Posição da saida
 */
 void imprime_saida (POSICAO p){
-	printf("<image x=%d y=%d width=%d height=%d href=\"%sExit_Tile.png\"/>\n",
-			TAM*(p.x+1),
-			TAM*(p.y+1),
-			TAM,
-			TAM,
-			IMAGE_PATH);
+	IMAGEM(TAM*(p.x+1),TAM*(p.y+1),TAM,TAM,"Exit_Tile.png");
 }
 /**
 \brief Imprime uma casa
@@ -156,42 +129,68 @@ void imprime_saida (POSICAO p){
 void imprime_casa (POSICAO p){
 	char *tiles[]={"Tile1.png","Tile2.png","Tile3.png","Tile4.png"};
 	int r = rand() % 4;
-	printf("<image x=%d y=%d width=%d height=%d href=\"%s%s\"/>\n",
-			TAM*(p.x+1),
-			TAM*(p.y+1),
-			TAM,
-			TAM,
-			IMAGE_PATH,
-			tiles[r]);
+	IMAGEM(TAM*(p.x+1),TAM*(p.y+1),TAM,TAM,tiles[r]);
 }
 /**
 \brief Imprime a imagem de fundo
 */
-void imprime_background (){
-	printf("<image x=0 y=0 width=800 height=600 href=\"%sIngame_Viking.png\"/>\n",IMAGE_PATH);
+void imprime_background (char classe){
+	char *background[] = {"Ingame_Viking.png","Ingame_Archer.png","Ingame_Mage.png"};
+	IMAGEM(0,0,SVG_WIDTH,SVG_HEIGHT,background[(int) classe]);
 }
 /**
 \brief Imprime a barra que indica a vida do jogodor
 @param hp Vida
 */
 void imprime_hpBar(int hp){
-	printf("<image x=600 y=100 width=%f height=10 preserveAspectRatio=none href=\"%sHealthBar.png\"/>\n",(hp)*1.5,IMAGE_PATH);
+	IMAGEM(600,10,200,50,"BarHealthIcon.png");
+	IMAGEM(641,10,(int) ((hp)*1.5),50,"BarHealthBar.png");
 }
 /**
 \brief Imprime a barra que indica a mana do jogodor
 @param mp Mana
 */
-void imprime_mpBar(int mp){
-	printf("<image x=600 y=115 width=%f height=10 preserveAspectRatio=none href=\"%sManaBar.png\"/>\n",(mp)*1.5,IMAGE_PATH);
+void imprime_mpBar(int mp,char classe){
+	char *icons[] = {"BarEnergyIcon.png","BarManaIcon.png"};
+	char *bars[] = {"BarEnergyBar.png","BarManaBar.png"};
+	IMAGEM(600,55,			   200,50,(classe <3) ? icons[0] : icons[1]);
+	IMAGEM(641,55,(int) ((mp)*1.5),50,(classe <3) ? bars[0]  : bars[1]);
 }
 void imprime_gameOverScreen(){
-	printf("<image x=0 y=0 width=800 height=600 href=\"%sGameOverScreen.png\"/>\n",IMAGE_PATH);
-	ABRIR_LINK("http://localhost/cgi-bin/roguel?0");
-	printf("<rect x=300 y=350 width=200 height=70 style=opacity:0\n");
+	IMAGEM(0,0,SVG_WIDTH,SVG_HEIGHT,"ScreenGameOver.png");
+	ABRIR_LINK("0");
+	printf("<rect x=300 y=350 width=200 height=70 style=opacity:0;>\n");
 	FECHAR_LINK;
 }
+void imprime_inv_slot(char item,int i){
+	char *itemlist[] = ITEM_LIST;
+	if(item!=0){
+		int X = 600+(TAM*(i/2));
+		int Y = 111+(50*!(i%2));
+		IMAGEM(X,Y,TAM,TAM,itemlist[(int) item]);
+		char query[4];
+		sprintf(query,"2%d",i);
+		ABRIR_LINK(query);
+		printf("<rect x=%d y=%d width=50 height=50 style=opacity:0;>\n",X,Y);
+		FECHAR_LINK;
+	}
+}
+void imprime_equipment(INVT bag){
+	char *itemlist[] = ITEM_LIST;
+	IMAGEM(700,260,TAM,TAM,itemlist[(int) bag.weapon]);
+	IMAGEM(700,310,TAM,TAM,itemlist[(int) bag.armour]);
+}
+void imprime_inventory(INVT bag){
+	IMAGEM(620,110,150,100,"Inv_bag.png");
+	int i;
+	for (i = 0; i < INVT_SIZE; ++i){
+		imprime_inv_slot(bag.inv[i],i);
+	}
+	IMAGEM(700,260,50,100,"Inv_equipment.png");
+	imprime_equipment(bag);
+}
 void imprimePlaying(ESTADO e){
-	imprime_background();
+	imprime_background(e.classe);
 
 	int x,y;
 	POSICAO p;
@@ -208,7 +207,8 @@ void imprimePlaying(ESTADO e){
 	imprime_pedras(e);
 	imprime_monstros(e);
 	imprime_hpBar(e.hp);
-	imprime_mpBar(e.mp);
+	imprime_mpBar(e.mp,e.classe);
+	imprime_inventory(e.bag);
 	if(e.hp>1){
 		imprime_jogador(e);
 	}else{
@@ -217,7 +217,7 @@ void imprimePlaying(ESTADO e){
 	#ifdef DEBUG
 	printf("<p>hp:%d  mp:%d  world_lvl:%d  score:%d  turn:%d  LootTable[%d,%d,%d,%d]</p>",
 			e.hp,
-			e.mp-1,
+			e.mp,
 			e.world_lvl,
 			e.score,
 			e.turn,

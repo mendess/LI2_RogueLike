@@ -96,6 +96,8 @@ typedef struct estado{
     char action;
     // Items que podem ser adquiridos num certo nivel
     char lootTable[LOOT_TABLE_SIZE];
+    //Guarda se o jogador esta na loja
+    char isInShop;
     // Inventario do jogador
     INVT bag;
 	// Posição do jogador
@@ -112,7 +114,7 @@ typedef struct estado{
     POSICAO pedras [MAX_PEDRAS];
 }ESTADO;
 
-ESTADO inicializar();
+ESTADO inicializar(char classe);
 ESTADO newLevel();
 POSICAO calculaNovaPosicao(POSICAO jog, int act);
 ESTADO calcularNovaEstado(ESTADO e);

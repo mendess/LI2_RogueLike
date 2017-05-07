@@ -9,7 +9,7 @@ void print_header (){
 	printf ("<html>\n");
 	printf ("<head><title> Rogue Like </title></head>\n");
 	printf ("<body>\n");
-	printf ("<svg width=800 height = 600>\n");
+	printf ("<svg width=%d height=%d>\n",SVG_WIDTH,SVG_HEIGHT);
 }
 /**
 \brief Imprime o fim do html
@@ -25,17 +25,17 @@ void print_footer () {
 void imprime(ESTADO e){
 	print_header();
 	switch(e.screen){
-		case 0: imprimeMainMenu(e);
+		case 0: imprimeMainMenu();
 				break;
-		case 1: imprimeScoreBoard(e);
+		case 1: imprimeCharSelect();
 				break;
-		case 2: imprimeHelp(e);
+		case 2: imprimeHelp();
 				break;
-		case 3: imprimeCharSelect(e);
+		case 3: imprimeScoreBoard();
 				break;
 		case 4: imprimePlaying(e);
 				break;
-		case 5: imprimeStore(e);
+		case 5: imprimeShop(e);
 				break;
 	}
 	print_footer();

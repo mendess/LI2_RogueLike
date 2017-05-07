@@ -14,7 +14,7 @@ int outOfBounds(POSICAO p){
 @param pathSize Tamanho do caminho
 @param path Array de posições do caminho
 */
-int isOnPath(ESTADO e, POSICAO p, int pathSize, POSICAO path[]){ 
+int isOnPath(POSICAO p, int pathSize, POSICAO path[]){ 
 	int i, flag;
 	flag=0;
 	for (i=1;i<pathSize && !flag;i++){

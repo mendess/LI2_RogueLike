@@ -7,6 +7,9 @@
 
 #define SB_SIZE 	10
 
+int importScoreBoard(int scoreBoard[]);
+int insertScore(int score, int scoreBoard[], int num_scores);
+void exportScoreBoard(int scoreBoard[], int num_scores);
 void updateScoreBoard(int score);
 
 #endif

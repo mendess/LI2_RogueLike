@@ -1,8 +1,6 @@
 #ifndef __LOOT_H_
 #define __LOOT_H_
 
-#include <stdlib.h>
-#include <time.h>
 #include <math.h>
 
 #include "jogo.h"

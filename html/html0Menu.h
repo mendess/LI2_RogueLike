@@ -3,6 +3,6 @@
 
 #include "htmlMaster.h"
 
-void imprimeMainMenu(ESTADO e);
+void imprimeMainMenu();
 
 #endif
