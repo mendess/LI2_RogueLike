@@ -165,8 +165,8 @@ void imprime_gameOverScreen(){
 void imprime_inv_slot(char item,int i){
 	char *itemlist[] = ITEM_LIST;
 	if(item!=0){
-		int X = 600+(TAM*(i/2));
-		int Y = 111+(50*!(i%2));
+		int X = 620+(TAM*(i/2));
+		int Y = 110+(50*!(i%2));
 		IMAGEM(X,Y,TAM,TAM,itemlist[(int) item]);
 		char query[4];
 		sprintf(query,"2%d",i);
