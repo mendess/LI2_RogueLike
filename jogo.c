@@ -48,6 +48,7 @@ ESTADO newLevel(ESTADO e){
 	if(!(e.world_lvl % 5)){
 		if(e.isInShop){
 			e.screen=4;
+			e.isInShop=0;
 		}else{
 			generateLoot(e.lootTable,e.world_lvl);
 			e.screen=5;
@@ -118,7 +119,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 		e.screen=0;
 		return e;
 	}
-	if(e.action==5 || e.action==82){//saida
+	if(e.action==5){//saida
 		return newLevel(e);
 	}
 	if(e.action==9 || e.action==6 || e.action==3){//set direction

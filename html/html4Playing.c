@@ -136,7 +136,7 @@ void imprime_casa (POSICAO p){
 */
 void imprime_background (char classe){
 	char *background[] = {"Ingame_Viking.png","Ingame_Archer.png","Ingame_Mage.png"};
-	IMAGEM(0,0,SVG_WIDTH,SVG_HEIGHT,background[(int) classe]);
+	IMAGEM(0,0,SVG_WIDTH,SVG_HEIGHT,background[(int) classe-1]);
 }
 /**
 \brief Imprime a barra que indica a vida do jogodor
@@ -159,7 +159,7 @@ void imprime_mpBar(int mp,char classe){
 void imprime_gameOverScreen(){
 	IMAGEM(0,0,SVG_WIDTH,SVG_HEIGHT,"ScreenGameOver.png");
 	ABRIR_LINK("0");
-	printf("<rect x=300 y=350 width=200 height=70 style=opacity:0;>\n");
+	printf("<rect x=300 y=350 width=200 height=70 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
 }
 void imprime_inv_slot(char item,int i){
@@ -171,7 +171,7 @@ void imprime_inv_slot(char item,int i){
 		char query[4];
 		sprintf(query,"2%d",i);
 		ABRIR_LINK(query);
-		printf("<rect x=%d y=%d width=50 height=50 style=opacity:0;>\n",X,Y);
+		printf("<rect x=%d y=%d width=50 height=50 style=opacity:0;></rect>\n",X,Y);
 		FECHAR_LINK;
 	}
 }

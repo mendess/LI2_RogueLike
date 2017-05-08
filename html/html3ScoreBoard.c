@@ -20,6 +20,6 @@ void imprimeScoreBoard(){
 		imprime_score(scoreBoard[i],i);
 	}
 	ABRIR_LINK("0");//back
-	printf("<rect x=0 y=540 width=140 height=60 style=opacity:0;>\n");
+	printf("<rect x=0 y=540 width=140 height=60 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
 }

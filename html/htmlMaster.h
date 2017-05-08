@@ -16,6 +16,10 @@
 								 "Item_ScrollRed.png",\
 								 "Item_ScrollGreen.png",\
 								 "Item_ScrollBlue.png",\
+								 "Empty",\
+								 "Empty",\
+								 "Empty",\
+								 "Empty",\
 								 "Item_SwordBronze.png",\
 								 "Item_SwordIron.png",\
 								 "Item_SwordSteel.png",\
