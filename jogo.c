@@ -6,6 +6,7 @@
 #include "move_monst.h"
 #include "colisions.h"
 #include "loot.h"
+#include "shop.h"
 #include "jogo.h"
 /**
 \brief Inicializa o estado do jogo
@@ -27,6 +28,7 @@ ESTADO inicializar(char classe){
 	e.action=0;					//Action
 	generateLoot(e.lootTable,e.world_lvl);//Inicializar LootTable para o primeiro nivel
 	e.isInShop=0;				//O jogador começa fora da loja logo começa a 0
+	e.shopFeedback=0;
 	e.bag=initINVT(e.bag);		//Inicializar o inventario
 	e.jog.x=path[0].x;			//Posição do jogador (x)
 	e.jog.y=path[0].y;			//Posição do jogador (y)
@@ -36,7 +38,6 @@ ESTADO inicializar(char classe){
 	e.num_pedras=0;				//Numero de pedras
 	e=colocar_pedras(e,n,path);	//Posições da pedras
 	e=colocar_monstros(e);		//Posições dos monstros
-
 	return e;
 }
 /**
@@ -53,6 +54,7 @@ ESTADO newLevel(ESTADO e){
 			generateLoot(e.lootTable,e.world_lvl);
 			e.screen=5;
 			e.isInShop=1;
+			e.shopFeedback=0;
 			return e;
 		}
 	}
@@ -85,7 +87,6 @@ ESTADO newLevel(ESTADO e){
 	e.num_pedras=0;				//Numero de pedras
 	e=colocar_pedras(e,n,path);	//Posições da pedras
 	e=colocar_monstros(e);		//Posições dos monstros
-
 	return e;
 }
 /**
@@ -105,9 +106,6 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act){
 	return jog;
 }
 ESTADO calcularCombate(ESTADO e){
-	return e;
-}
-ESTADO shop(ESTADO e){
 	return e;
 }
 /**
@@ -136,12 +134,13 @@ ESTADO calcularNovoEstado(ESTADO e){
 	}
 	if(e.action>50 && e.action<60){//escolha do menu
 		e.screen = e.action-50;
-		return e; 
+		return e;
 	}
 	if(e.action>60 && e.action<70){//novo jogo
 		return inicializar(e.action-60);
 	}
 	if(e.action>69 && e.action<82){//loja
+		e.shopFeedback=0;
 		return shop(e);
 	}
 
@@ -211,7 +210,7 @@ int main(){
 
 	ESTADO e = runGame();
 	if(e.screen==4 && e.hp==0){
-		if(e.score>99999){//isto nunca deve acontecer 
+		if(e.score>99999){//isto nunca deve acontecer
 			e.score=99999;//mas assim tenho a certeza
 		}				  //que ao imprimir não causa problemas
 		updateScoreBoard(e.score);

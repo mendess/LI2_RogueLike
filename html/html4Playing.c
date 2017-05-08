@@ -120,7 +120,7 @@ void imprime_pedras (ESTADO e){
 @param p Posição da saida
 */
 void imprime_saida (POSICAO p){
-	IMAGEM(TAM*(p.x+1),TAM*(p.y+1),TAM,TAM,"Exit_Tile.png");
+	IMAGEM(TAM*(p.x+1),TAM*(p.y+1),TAM,TAM,"Tile_Exit.png");
 }
 /**
 \brief Imprime uma casa
