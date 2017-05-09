@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "../move_monst.h"
 #include "../jogo.h"
-
+/*
 ESTADO mapa1 (Estado e,int i,POSICAO p);
 int livre (ESTADO e,int x,int y);
 POSICAO buscaB1 (ESTADO mov);
@@ -58,3 +58,4 @@ ESTADO defW2(ESTADO e,int i,POSICAO p);
 ESTADO defW3(ESTADO e,int i,POSICAO p);
 ESTADO defW4(ESTADO e,int i,POSICAO p);
 ESTADO persegue_wolf(ESTADO e,int i,POSICAO p);
+*/
