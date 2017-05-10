@@ -59,7 +59,7 @@ ESTADO persegue_wolf (ESTADO e,int i,POSICAO p){
 int blocked1 (ESTADO e,POSICAO p){
   int i,flag;
   flag=0;
-  for(i=0;i<num_pedras;i++){
+  for(i=0;i<e.num_pedras;i++){
     if(e.pedras[i].x==p.x && e.pedras[i].y==p.y) flag=1;
   }
   return flag;
@@ -68,7 +68,7 @@ int blocked1 (ESTADO e,POSICAO p){
 int blocked2 (ESTADO e,POSICAO p){
   int i,flag;
   flag=0;
-  for(i=0;i<num_monstros;i++){
+  for(i=0;i<e.num_monstros;i++){
     if(e.monstros[i].x==p.x && e.monstros[i].y==p.y) flag=1;
   }
   return flag;
@@ -100,8 +100,8 @@ int primeira_livre (ESTADO e,POSICAO p){
     }
     r++;
   }
-  if(flag0=1) k=10;
-  if(flag1=1) r=10;
+  if(flag0==1) k=10;
+  if(flag1==1) r=10;
   if(r>abs(k)) k=r;
   return k;
 }
@@ -329,7 +329,7 @@ POSICAO tracker(ESTADO e,POSICAO p, POSICAO intersect){
  return caminho[1];
 }
 
-POSICAO buscaW1 (ESTADO e,int a[][]){
+POSICAO buscaW1 (ESTADO e,int a[SIZE][SIZE]){
   int x,y,flag;
   POSICAO intersect,pos;
   flag=1;
@@ -346,7 +346,7 @@ POSICAO buscaW1 (ESTADO e,int a[][]){
   }
  return intersect;
 }
-POSICAO buscaW2 (ESTADO e,int a[][]){
+POSICAO buscaW2 (ESTADO e,int a[SIZE][SIZE]){
   int x,y,flag;
   POSICAO intersect,pos;
   flag=1;
@@ -363,7 +363,7 @@ POSICAO buscaW2 (ESTADO e,int a[][]){
   }
   return intersect;
 }
-POSICAO buscaW3 (ESTADO e,int a[][]){
+POSICAO buscaW3 (ESTADO e,int a[SIZE][SIZE]){
   int x,y,flag;
   POSICAO intersect,pos;
   flag=1;
@@ -380,7 +380,7 @@ POSICAO buscaW3 (ESTADO e,int a[][]){
   }
   return intersect;
 }
-POSICAO buscaW4 (ESTADO e,int a[][]){
+POSICAO buscaW4 (ESTADO e,int a[SIZE][SIZE]){
   int x,y,flag;
   POSICAO intersect,pos;
   flag=1;
