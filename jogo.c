@@ -38,8 +38,9 @@ ESTADO inicializar(char classe){
 	e.saida.y=path[n-1].y;		//Posição da saida (y)
 	e.num_monstros=0;			//Numero de Monstros
 	e.num_pedras=0;				//Numero de pedras
+	e.num_chests=0;				//Numero de chests
 	e=colocar_pedras(e,n,path);	//Posições da pedras
-	e=genMonsters(e);		//Posições dos monstros
+	e=genMonsters(e);			//Posições dos monstros
 
 	return e;
 }
@@ -90,6 +91,7 @@ ESTADO newLevel(ESTADO e){
 	e.saida.y=path[n-1].y;					//Posição da saida (y)
 	e.num_monstros=0;						//Numero de Monstros
 	e.num_pedras=0;							//Numero de pedras
+	e.num_chests=0;							//Numero de chests
 	e=colocar_pedras(e,n,path);				//Posições da pedras
 	e=genMonsters(e);						//Posições dos monstros
 

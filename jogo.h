@@ -12,6 +12,7 @@
 #define MIN_MONSTROS	4
 #define MAX_MONSTROS	20
 #define MAX_PEDRAS		25
+#define MAX_CHESTS      3
 #define SIZE			10
 
 #define NEW_LEVEL_HP_BONUS	30
@@ -78,6 +79,12 @@ typedef struct inventory{
 	char armour;
 }INVT;
 
+typedef struct chest{
+    char x;
+    char y;
+    char item;
+}CHEST;
+
 typedef struct estado{
 	//Ecra {Main Menu=0; Class Select=1; Help=2; ScoreBoard=3; Playing=4; Store=5}
 	char screen;
@@ -105,6 +112,10 @@ typedef struct estado{
 	char shopFeedback;
 	//Guarda se o jogador esta numa Boss Battle
 	char isInBossBattle;
+    //Numero de chests
+    char num_chests;
+    //Lista de chests
+    CHEST chests[MAX_CHESTS]
 	// Inventario do jogador
 	INVT bag;
 	// Posição do jogador
