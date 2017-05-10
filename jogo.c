@@ -1,4 +1,4 @@
-#define DEBUG
+//#define DEBUG
 #include "path.h"
 #include "html/htmlMaster.h"
 #include "score.h"
@@ -49,17 +49,15 @@ ESTADO inicializar(char classe){
 */
 ESTADO newLevel(ESTADO e){
 
-	e.world_lvl++;				//Incrementa o nivel.
 	#ifdef BOSS
-	if(!(e.world_lvl % 10)){	//Se o jogador chegou a um nivel multiplo de 10:
+	if(!((e.world_lvl+1) % 10)){	//Se o jogador chegou a um nivel multiplo de 10:
 		e.isInBossBattle=1;		//Começa uma boss battle
 	}
 	#endif
-	if(!((e.world_lvl-1) % 5)){	//Se o jogador acabou de sair de um nivel multiplo de 5:
+	if(!(e.world_lvl % 5)){	//Se o jogador acabou de sair de um nivel multiplo de 5:
 		if(e.isInShop){		//Se estava na loja:
 			e.screen=4;		//Sai
-			e.isInShop=0;	//da
-			e.world_lvl--;	//loja
+			e.isInShop=0;	//da loja
 		}else{										//Se não estava na loja:
 			generateLoot(e.lootTable,e.world_lvl);	//Entra
 			e.screen=5;								//na
@@ -80,6 +78,7 @@ ESTADO newLevel(ESTADO e){
 	}else{												//ter passado
 		e.mp+=NEW_LEVEL_MP_BONUS;						//de nivel
 	}
+	e.world_lvl++;				//Incrementa o nivel.
 	e.score+=NEW_LEVEL_SC_BONUS;			//Adiciona score de passar de nivel
 	e.turn=0;								//Turno a 0
 	e.direction=0;							//Lado para que o jogador esta a olhar 0:drt e 1:esq

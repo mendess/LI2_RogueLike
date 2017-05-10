@@ -8,32 +8,33 @@
 #include <time.h>
 #include <stdio.h>
 
-#define TAM           50
-#define MAX_MONSTROS  20
-#define MAX_PEDRAS    25
-#define SIZE          10
+#define TAM				50
+#define MIN_MONSTROS	4
+#define MAX_MONSTROS	20
+#define MAX_PEDRAS		25
+#define SIZE			10
 
-#define NEW_LEVEL_HP_BONUS  30
-#define NEW_LEVEL_MP_BONUS  10
-#define NEW_LEVEL_SC_BONUS  60
+#define NEW_LEVEL_HP_BONUS	30
+#define NEW_LEVEL_MP_BONUS	10
+#define NEW_LEVEL_SC_BONUS	60
 
-#define HEALTH_POTION       1
-#define MANA_POTION         2
-#define SCROLL_FIRE         3
-#define SCROLL_LIGHTNING    4
-#define SCROLL_TELEPORT     5
-#define SWORD_BRONZE        10
-#define SWORD_IRON          11
-#define SWORD_STEEL         12
-#define SWORD_PALLADIUM     13
-#define ARMOUR_BRONZE       14
-#define ARMOUR_IRON         15
-#define ARMOUR_STEEL        16
-#define ARMOUR_PALLADIUM    17
+#define HEALTH_POTION		1
+#define MANA_POTION			2
+#define SCROLL_FIRE			3
+#define SCROLL_LIGHTNING	4
+#define SCROLL_TELEPORT		5
+#define SWORD_BRONZE		10
+#define SWORD_IRON			11
+#define SWORD_STEEL			12
+#define SWORD_PALLADIUM		13
+#define ARMOUR_BRONZE		14
+#define ARMOUR_IRON			15
+#define ARMOUR_STEEL		16
+#define ARMOUR_PALLADIUM	17
 
-#define LOOT_TABLE_SIZE     4
+#define LOOT_TABLE_SIZE		4
 
-#define INVT_SIZE           6
+#define INVT_SIZE			6
 
 /*
 --gold
@@ -64,60 +65,60 @@ typedef struct posicao{
 }POSICAO;
 
 typedef struct monster{
-    char x;
-    char y;
-    char monType;
-    char hp;
+	char x;
+	char y;
+	char monType;
+	char hp;
 }MSTR;
 
 typedef struct inventory{
-    int gold;
-    char inv[INVT_SIZE];
-    char weapon;
-    char armour;
+	int gold;
+	char inv[INVT_SIZE];
+	char weapon;
+	char armour;
 }INVT;
 
 typedef struct estado{
-    //{Main Menu=0; ScoreBoard=1; Help=2; Character Selection=3; Playing=4; Store=5}
-    char screen;
-    //Classe {Warrior=0, Archer=1, Mage=2}
-    char classe;
-    //Vida do jogador
-    char hp;
-    //Mana do jogador
-    char mp;
-    //Nivel
-    char world_lvl;
-    //Score
-    int score;
-    //Turno
-    char turn;
-    //Lado para que o jogador esta a olhar 0:direita e 1:esquerda
-    char direction;
-    //Action
-    char action;
-    // Items que podem ser adquiridos num certo nivel
-    char lootTable[LOOT_TABLE_SIZE];
-    //Guarda se o jogador esta na loja
-    char isInShop;
-    //Codigo de feedback da loja
-    char shopFeedback;
-    //Guarda se o jogador esta numa Boss Battle
-    char isInBossBattle;
-    // Inventario do jogador
-    INVT bag;
+	//Ecra {Main Menu=0; Class Select=1; Help=2; ScoreBoard=3; Playing=4; Store=5}
+	char screen;
+	//Classe {Warrior=0, Archer=1, Mage=2}
+	char classe;
+	//Vida do jogador
+	char hp;
+	//Mana do jogador
+	char mp;
+	//Nivel
+	char world_lvl;
+	//Score
+	int score;
+	//Turno
+	char turn;
+	//Lado para que o jogador esta a olhar 0:direita e 1:esquerda
+	char direction;
+	//Action
+	char action;
+	// Items que podem ser adquiridos num certo nivel
+	char lootTable[LOOT_TABLE_SIZE];
+	//Guarda se o jogador esta na loja
+	char isInShop;
+	//Codigo de feedback da loja
+	char shopFeedback;
+	//Guarda se o jogador esta numa Boss Battle
+	char isInBossBattle;
+	// Inventario do jogador
+	INVT bag;
 	// Posição do jogador
-    POSICAO jog;
-    // Posição da saida
-    POSICAO saida;
-    // Numero de Monstros
-    char num_monstros;
-    // Numero de pedras
-    char num_pedras;
-    // Posições dos monstros
-    MSTR monstros [MAX_MONSTROS];
-    // Posições da pedras
-    POSICAO pedras [MAX_PEDRAS];
+	POSICAO jog;
+	// Posição da saida
+	POSICAO saida;
+	// Numero de Monstros
+	char num_monstros;
+	// Numero de pedras
+	char num_pedras;
+	// Posições dos monstros
+	MSTR monstros [MAX_MONSTROS];
+	// Posições da pedras
+	POSICAO pedras [MAX_PEDRAS];
 }ESTADO;
 
 ESTADO inicializar(char classe);
