@@ -34,6 +34,7 @@ Items:
 	Armour (bronze, iron, steel, Palladium)
 
 Action map:
+
 	0 -> MainMenu
 	1 -> SW
 	2 -> S
