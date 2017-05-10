@@ -1,8 +1,9 @@
 #ifndef __HTML5_H__
 #define __HTML5_H__
 
-#include "htmlMaster.h"
 #include "../shop.h"
+
+#include "htmlMaster.h"
 
 void imprime_shop_item(char item, int index);
 void imprime_inv_slot_shop(char item,int i);
