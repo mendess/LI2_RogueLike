@@ -13,7 +13,7 @@
 #define OGRE_DMG      15
 #define OGRE_HP       15
 
-
+int inBounds(POSICAO p);
 int poslivre(ESTADO e, POSICAO p);
 void ataca_jogador(ESTADO e,int i);
 int existe_jogador(ESTADO e,POSICAO p);
@@ -24,6 +24,11 @@ ESTADO mov_bat(ESTADO e,int i,POSICAO p);
 ESTADO mov_ogre(ESTADO e,int i,POSICAO p);
 ESTADO mov_archer(ESTADO e,int i,POSICAO p);
 ESTADO mov_wolf (ESTADO e,int i,POSICAO p);
+ESTADO acao_bat(ESTADO e, int i, POSICAO p);
+ESTADO acao_wolf (ESTADO e,int i, POSICAO p);
+ESTADO acao_ogre(ESTADO e,int i,POSICAO p);
+ESTADO acao_archer(ESTADO e, int i, POSICAO p);
+POSICAO quemAtaca(ESTADO e);
 ESTADO move_monstros(ESTADO e);
 
 #endif

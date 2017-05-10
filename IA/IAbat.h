@@ -2,7 +2,7 @@
 #define __BAT_H__
 #include "IA.h"
 
-ESTADO persegue_bat(ESTADO e,int i,POSICAO p);
+
 POSICAO buscaB1 (ESTADO e,int a[SIZE][SIZE]);
 POSICAO buscaB2 (ESTADO e,int a[SIZE][SIZE]);
 POSICAO buscaB3 (ESTADO e,int a[SIZE][SIZE]);

@@ -1,14 +1,10 @@
-// falta persegue
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include "IAbat.h"
 
-ESTADO persegue_bat(ESTADO e,int i,POSICAO p){
-  return e;
-}
+
 POSICAO buscaB1 (ESTADO e,int a[SIZE][SIZE]){
   int x,y,flag;
   POSICAO intersect;
@@ -90,7 +86,6 @@ POSICAO mapa1 (ESTADO e,int i,POSICAO p,int q){
   if(q==4) intersect=buscaB4(e,a);
   return intersect;
 }
-
 int livre (ESTADO e,int x,int y){
   int i,flag;
   flag=1;
@@ -142,7 +137,6 @@ ESTADO estrat_bat1 (ESTADO e, int i, POSICAO intersect){
    }
    return e;
 }
-
 ESTADO defB (ESTADO e, int i,POSICAO p,int num){
   POSICAO intersect;
   intersect= mapa1(e,i,p,num);
@@ -172,8 +166,7 @@ ESTADO estrat_bat(ESTADO e,int i,POSICAO p){
      e=defB(e,i,p,4);
      flag=0;
    }
-   // na persegue dá-se primasia as diagonais
-   if(flag) e=persegue_bat(e,i,p);
+   if(flag) e=estrat_bat1(e,i,e.jog);
    return e;
 }
 

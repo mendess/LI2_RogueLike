@@ -6,7 +6,7 @@
 #include "move_monst.h" 
 #include "levelMaker.h"
 #include "parser.h"
-#include "IA.h"
+#include "IA/IA.h"
 
 // ataca_jogador
 //existe_jogador (estado, pos monstro)
