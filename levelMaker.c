@@ -25,50 +25,17 @@ ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]){
 	return e;
 }
 /**
-\brief Coloca um monstro numa posição aleatoria válida
-@param e Estado do jogo
-*/
-ESTADO colocar_monstro (ESTADO e){
-	POSICAO p;
-	int placed=0, i=0;
-	while(!placed && i<20){
-		i++;
-		int x=rand() % SIZE;
-		int y=rand() % SIZE;
-		p.x=(char) x;
-		p.y=(char) y;
-		if (!pos_ocupada(e,p)){
-			placed=1;
-			e.monstros [(int) e.num_monstros].x=p.x;
-			e.monstros [(int) e.num_monstros].y=p.y;
-			e.monstros [(int) e.num_monstros].monType=1;
-			e.monstros [(int) e.num_monstros].hp=30;
-			e.num_monstros++;
-		}
-	}
-	return e;
-}
-/**
 \brief Coloca todas as pedras para inicializar o estado
 @param e Estado do jogo
 @param pathSize Tamanho do caminho a evitar
 @param path Array de coordenadas do caminho a evitar
 */
 ESTADO colocar_pedras (ESTADO e, int pathSize, POSICAO path[]){
-	int i;
-	for(i=0;i<MAX_PEDRAS;i++){
-		e=colocar_pedra(e,pathSize,path);
-	}
-	return e;
-}
-/**
-\brief Coloca todas os monstros para inicializar o estado
-@param e Estado do jogo
-*/
-ESTADO colocar_monstros (ESTADO e){
-	int i;
-	for (i=0;i<MAX_MONSTROS;i++){
-		e=colocar_monstro(e);
+	if(!e.isInBossBattle){
+		int i;
+		for(i=0;i<MAX_PEDRAS;i++){
+			e=colocar_pedra(e,pathSize,path);
+		}
 	}
 	return e;
 }
@@ -96,7 +63,6 @@ char getClassMp(char type){
 	}
 	return -1;
 }
-
 INVT initINVT(INVT bag){
 	bag.gold=0;
 	int i=0;

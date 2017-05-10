@@ -6,11 +6,12 @@
 #include "htmlMaster.h"
 
 int getDirection(ESTADO e,POSICAO p);
-void imprime_jogador (ESTADO e);
-void imprime_jogadaS (ESTADO e);
-void criar_jogada (ESTADO e, POSICAO p);
 void imprime_jogada (ESTADO e,POSICAO p);
+void criar_jogada (ESTADO e, POSICAO p);
+void imprime_jogadaS (ESTADO e);
+void imprime_jogador (ESTADO e);
 void imprime_monstros (ESTADO e);
+void imprime_boss(ESTADO e);
 void imprime_pedras (ESTADO e);
 void imprime_saida (POSICAO p);
 void imprime_casa (POSICAO p);

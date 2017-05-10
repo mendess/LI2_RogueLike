@@ -1,13 +1,15 @@
 #ifndef ___JOGO_H___
 #define ___JOGO_H___
 
+//#define BOSS
+
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <stdio.h>
 
 #define TAM           50
-#define MAX_MONSTROS  5
+#define MAX_MONSTROS  20
 #define MAX_PEDRAS    25
 #define SIZE          10
 
@@ -98,6 +100,8 @@ typedef struct estado{
     char lootTable[LOOT_TABLE_SIZE];
     //Guarda se o jogador esta na loja
     char isInShop;
+    //Guarda se o jogador esta numa Boss Battle
+    char isInBossBattle;
     // Inventario do jogador
     INVT bag;
 	// Posição do jogador
@@ -120,5 +124,5 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act);
 ESTADO calcularNovaEstado(ESTADO e);
 ESTADO ler_estado (char *args,FILE *gamestateFile);
 ESTADO runGame();
-
+int main();
 #endif

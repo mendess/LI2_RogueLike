@@ -1,4 +1,4 @@
-//#define DEBUG
+#define DEBUG
 #include "path.h"
 #include "html/htmlMaster.h"
 #include "score.h"
@@ -6,6 +6,7 @@
 #include "move_monst.h"
 #include "colisions.h"
 #include "loot.h"
+#include "genMonsters.h"
 #include "jogo.h"
 /**
 \brief Inicializa o estado do jogo
@@ -26,7 +27,8 @@ ESTADO inicializar(char classe){
 	e.direction=0;				//Lado para que o jogador esta a olhar 0:drt e 1:esq
 	e.action=0;					//Action
 	generateLoot(e.lootTable,e.world_lvl);//Inicializar LootTable para o primeiro nivel
-	e.isInShop=0;				//O jogador começa fora da loja logo começa a 0
+	e.isInShop=0;				//O jogador começa fora da loja 
+	e.isInBossBattle=0;			//O jogador começa fora da boss battle
 	e.bag=initINVT(e.bag);		//Inicializar o inventario
 	e.jog.x=path[0].x;			//Posição do jogador (x)
 	e.jog.y=path[0].y;			//Posição do jogador (y)
@@ -35,7 +37,7 @@ ESTADO inicializar(char classe){
 	e.num_monstros=0;			//Numero de Monstros
 	e.num_pedras=0;				//Numero de pedras
 	e=colocar_pedras(e,n,path);	//Posições da pedras
-	e=colocar_monstros(e);		//Posições dos monstros
+	e=genMonsters(e);		//Posições dos monstros
 
 	return e;
 }
@@ -45,46 +47,50 @@ ESTADO inicializar(char classe){
 */
 ESTADO newLevel(ESTADO e){
 
-	if(!(e.world_lvl % 5)){
-		if(e.isInShop){
-			e.screen=4;
-			e.isInShop=0;
-		}else{
-			generateLoot(e.lootTable,e.world_lvl);
-			e.screen=5;
-			e.isInShop=1;
+	e.world_lvl++;				//Incrementa o nivel.
+	#ifdef BOSS
+	if(!(e.world_lvl % 10)){	//Se o jogador chegou a um nivel multiplo de 10:
+		e.isInBossBattle=1;		//Começa uma boss battle
+	}
+	#endif
+	if(!((e.world_lvl-1) % 5)){	//Se o jogador acabou de sair de um nivel multiplo de 5:
+		if(e.isInShop){		//Se estava na loja:
+			e.screen=4;		//Sai
+			e.isInShop=0;	//da
+			e.world_lvl--;	//loja
+		}else{										//Se não estava na loja:
+			generateLoot(e.lootTable,e.world_lvl);	//Entra
+			e.screen=5;								//na
+			e.isInShop=1;							//loja
 			return e;
 		}
 	}
-	POSICAO path[MAX_CAMINHO];
-	int n=pathMaker(path);
+	POSICAO path[MAX_CAMINHO];		//Gera um caminho para garantir
+	int n=pathMaker(path);			//que o jogador consegue chegar ao fim
 	srandom(time(NULL));
-	//Vida do jogador
-	if(e.hp>(getClassHp(e.classe)-NEW_LEVEL_HP_BONUS)){
-		e.hp=getClassHp(e.classe);
-	}else{
-		e.hp+=NEW_LEVEL_HP_BONUS;
+	if(e.hp>(getClassHp(e.classe)-NEW_LEVEL_HP_BONUS)){	//Adiciona um bonus
+		e.hp=getClassHp(e.classe);						//de vida por 
+	}else{												//ter passado
+		e.hp+=NEW_LEVEL_HP_BONUS;						//de nivel
 	}
-	//Mana do jogador
-	if(e.mp>(getClassMp(e.classe)-NEW_LEVEL_MP_BONUS)){
-		e.mp=getClassMp(e.classe);
-	}else{
-		e.mp+=NEW_LEVEL_MP_BONUS;
+	if(e.mp>(getClassMp(e.classe)-NEW_LEVEL_MP_BONUS)){	//Adiciona um bonus
+		e.mp=getClassMp(e.classe);						//de mana por
+	}else{												//ter passado
+		e.mp+=NEW_LEVEL_MP_BONUS;						//de nivel
 	}
-	e.world_lvl+=1;				//Nivel
-	e.score+=NEW_LEVEL_SC_BONUS;//Score
-	e.turn=0;					//Turno
-	e.direction=0;				//Lado para que o jogador esta a olhar 0:direita e 1:esquerda
-	e.action=0;					//Action
-	generateLoot(e.lootTable,e.world_lvl);//Inicializar LootTable para o nivel
-	e.jog.x=path[0].x;			//Posição do jogador (x)
-	e.jog.y=path[0].y;			//Posição do jogador (y)
-	e.saida.x=path[n-1].x;		//Posição da saida (x)
-	e.saida.y=path[n-1].y;		//Posição da saida (y)
-	e.num_monstros=0;			//Numero de Monstros
-	e.num_pedras=0;				//Numero de pedras
-	e=colocar_pedras(e,n,path);	//Posições da pedras
-	e=colocar_monstros(e);		//Posições dos monstros
+	e.score+=NEW_LEVEL_SC_BONUS;			//Adiciona score de passar de nivel
+	e.turn=0;								//Turno a 0
+	e.direction=0;							//Lado para que o jogador esta a olhar 0:drt e 1:esq
+	e.action=0;								//Action
+	generateLoot(e.lootTable,e.world_lvl);	//Inicializar LootTable para o nivel
+	e.jog.x=path[0].x;						//Posição do jogador (x)
+	e.jog.y=path[0].y;						//Posição do jogador (y)
+	e.saida.x=path[n-1].x;					//Posição da saida (x)
+	e.saida.y=path[n-1].y;					//Posição da saida (y)
+	e.num_monstros=0;						//Numero de Monstros
+	e.num_pedras=0;							//Numero de pedras
+	e=colocar_pedras(e,n,path);				//Posições da pedras
+	e=genMonsters(e);						//Posições dos monstros
 
 	return e;
 }
@@ -107,6 +113,9 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act){
 ESTADO calcularCombate(ESTADO e){
 	return e;
 }
+ESTADO calcularDanoBoss(ESTADO e){
+	return e;
+}
 ESTADO shop(ESTADO e){
 	return e;
 }
@@ -120,6 +129,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 		return e;
 	}
 	if(e.action==5){//saida
+		if(e.isInBossBattle == 1){e.isInBossBattle=0;}
 		return newLevel(e);
 	}
 	if(e.action==9 || e.action==6 || e.action==3){//set direction
@@ -133,6 +143,9 @@ ESTADO calcularNovoEstado(ESTADO e){
 	}
 	if(e.action>10 && e.action<20){//ataque normal
 		e=calcularCombate(e);
+	}
+	if(e.action==30){
+		e=calcularDanoBoss(e);
 	}
 	if(e.action>50 && e.action<60){//escolha do menu
 		e.screen = e.action-50;

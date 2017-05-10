@@ -24,6 +24,9 @@ int getDirection(ESTADO e,POSICAO p){
 	if(com_monstros(e,tmp)){
 		type=10;
 	}
+	if(isBoss(e,p)){
+		return 30;
+	}
 	return 7-3*(p.y+1)+p.x+1+type;
 }
 /**
@@ -34,6 +37,9 @@ void imprime_jogada(ESTADO e, POSICAO p){
 	char *mold[]={"Moldura_Movimento.png","Moldura_Ataque.png"};
 	int type=0;
 	if(com_monstros(e,p)){
+		type=1;
+	}
+	if(isBoss(e,p)){
 		type=1;
 	}
 	IMAGEM(TAM*(p.x+1),TAM*(p.y+1),TAM,TAM,mold[type]);
@@ -99,11 +105,18 @@ void imprime_jogador (ESTADO e){
 void imprime_monstros (ESTADO e){
 	int i;
 	srand(time(NULL));
-	char *wolfs[]={"Monstro_Lobo_Lateral_1.png","Monstro_Lobo_Lateral_2.png"};
-	for(i=0;i<MAX_MONSTROS;i++){
-		int r = rand() % 2;
-		IMAGEM(TAM*(e.monstros[i].x+1),TAM*(e.monstros[i].y+1),TAM,TAM,wolfs[r]);
+	char *mstrImgs[]={  "Monstro_Lobo_Lateral_1.png"  ,"Monstro_Lobo_Lateral_2.png",
+						"Monstro_Bat_Lateral_1.png"   ,"Monstro_Bat_Lateral_2.png",
+						"Monstro_Ogre_Lateral_1.png"  ,"Monstro_Ogre_Lateral_2.png",
+						"Monstro_Archer_Lateral_1.png","Monstro_Archer_Lateral_2.png"};
+	for(i=0;i<e.num_monstros;i++){
+		int side = rand() % 2;
+		int type = (int) e.monstros[i].monType;
+		IMAGEM(TAM*(e.monstros[i].x+1),TAM*(e.monstros[i].y+1),TAM,TAM,mstrImgs[(type*2) + side]);
 	}
+}
+void imprime_boss(ESTADO e){
+	IMAGEM(TAM*(e.monstros[0].x+1),TAM*(e.monstros[0].y+1),TAM*4,TAM*3,"Monstro_Dragon.png");
 }
 /**
 \brief Imprime as pedras
@@ -111,7 +124,7 @@ void imprime_monstros (ESTADO e){
 */
 void imprime_pedras (ESTADO e){
 	int i;
-	for (i=0;i<MAX_PEDRAS;i++){
+	for (i=0;i<e.num_pedras;i++){
 		IMAGEM(TAM*(e.pedras[i].x+1),TAM*(e.pedras[i].y+1),TAM,TAM,"Tile_Obstacle.png");
 	}
 }
@@ -120,7 +133,9 @@ void imprime_pedras (ESTADO e){
 @param p Posição da saida
 */
 void imprime_saida (POSICAO p){
-	IMAGEM(TAM*(p.x+1),TAM*(p.y+1),TAM,TAM,"Exit_Tile.png");
+	if(p.x<SIZE){
+		IMAGEM(TAM*(p.x+1),TAM*(p.y+1),TAM,TAM,"Tile_Exit.png");
+	}
 }
 /**
 \brief Imprime uma casa
@@ -202,10 +217,13 @@ void imprimePlaying(ESTADO e){
 			imprime_casa(p);
 		}
 	}
-
 	imprime_saida(e.saida);
 	imprime_pedras(e);
-	imprime_monstros(e);
+	if(e.isInBossBattle){
+		imprime_boss(e);
+	}else{
+		imprime_monstros(e);
+	}
 	imprime_hpBar(e.hp);
 	imprime_mpBar(e.mp,e.classe);
 	imprime_inventory(e.bag);

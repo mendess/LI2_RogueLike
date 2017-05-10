@@ -3,6 +3,7 @@
 
 #include "jogo.h"
 #include "colisions.h"
+#include "genMonsters.h"
 
 #define HP_WARRIOR    100
 #define HP_ARCHER     90
@@ -14,9 +15,7 @@
 
 
 ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]);
-ESTADO colocar_monstro (ESTADO e);
 ESTADO colocar_pedras (ESTADO e, int pathSize, POSICAO path[]);
-ESTADO colocar_monstros (ESTADO e);
 char getClassHp(char type);
 char getClassMp(char type);
 INVT initINVT(INVT bag);

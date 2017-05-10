@@ -9,5 +9,5 @@ int pos_ocupada (ESTADO e, POSICAO p);
 int com_jogador (ESTADO e,POSICAO p);
 int com_pedras (ESTADO e, POSICAO p);
 int com_monstros (ESTADO e, POSICAO p);
-
+int isBoss(ESTADO e, POSICAO p);
 #endif

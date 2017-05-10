@@ -70,3 +70,8 @@ int com_monstros (ESTADO e, POSICAO p){
 	}
 	return flag;
 }
+int isBoss(ESTADO e, POSICAO p){
+	return (e.isInBossBattle &&
+			p.x>=e.monstros[0].x && p.x<=e.monstros[0].x+3 &&
+			p.y>=e.monstros[0].y && p.y<=e.monstros[0].y+2   );
+}
