@@ -71,7 +71,7 @@ typedef struct monster{
 }MSTR;
 
 typedef struct inventory{
-    char gold;
+    int gold;
     char inv[INVT_SIZE];
     char weapon;
     char armour;
@@ -100,6 +100,8 @@ typedef struct estado{
     char lootTable[LOOT_TABLE_SIZE];
     //Guarda se o jogador esta na loja
     char isInShop;
+    //Codigo de feedback da loja
+    char shopFeedback;
     //Guarda se o jogador esta numa Boss Battle
     char isInBossBattle;
     // Inventario do jogador

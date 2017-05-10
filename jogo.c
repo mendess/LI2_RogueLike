@@ -7,6 +7,7 @@
 #include "colisions.h"
 #include "loot.h"
 #include "genMonsters.h"
+#include "shop.h"
 #include "jogo.h"
 /**
 \brief Inicializa o estado do jogo
@@ -28,6 +29,7 @@ ESTADO inicializar(char classe){
 	e.action=0;					//Action
 	generateLoot(e.lootTable,e.world_lvl);//Inicializar LootTable para o primeiro nivel
 	e.isInShop=0;				//O jogador começa fora da loja 
+	e.shopFeedback=0;
 	e.isInBossBattle=0;			//O jogador começa fora da boss battle
 	e.bag=initINVT(e.bag);		//Inicializar o inventario
 	e.jog.x=path[0].x;			//Posição do jogador (x)
@@ -116,9 +118,6 @@ ESTADO calcularCombate(ESTADO e){
 ESTADO calcularDanoBoss(ESTADO e){
 	return e;
 }
-ESTADO shop(ESTADO e){
-	return e;
-}
 /**
 \brief Calcula um novo estado conforme a ação que esteja no estado que recebe
 @param e Estado do jogo
@@ -149,12 +148,13 @@ ESTADO calcularNovoEstado(ESTADO e){
 	}
 	if(e.action>50 && e.action<60){//escolha do menu
 		e.screen = e.action-50;
-		return e; 
+		return e;
 	}
 	if(e.action>60 && e.action<70){//novo jogo
 		return inicializar(e.action-60);
 	}
 	if(e.action>69 && e.action<82){//loja
+		e.shopFeedback=0;
 		return shop(e);
 	}
 
@@ -224,7 +224,7 @@ int main(){
 
 	ESTADO e = runGame();
 	if(e.screen==4 && e.hp==0){
-		if(e.score>99999){//isto nunca deve acontecer 
+		if(e.score>99999){//isto nunca deve acontecer
 			e.score=99999;//mas assim tenho a certeza
 		}				  //que ao imprimir não causa problemas
 		updateScoreBoard(e.score);
