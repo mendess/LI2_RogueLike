@@ -1,4 +1,5 @@
 //#define DEBUG
+//#define ANTI-CHEAT
 #include "path.h"
 #include "html/htmlMaster.h"
 #include "score.h"
@@ -8,6 +9,7 @@
 #include "loot.h"
 #include "genMonsters.h"
 #include "shop.h"
+#include "antiCheat.h"
 #include "jogo.h"
 /**
 \brief Inicializa o estado do jogo
@@ -124,6 +126,11 @@ ESTADO calcularDanoBoss(ESTADO e){
 @param e Estado do jogo
 */
 ESTADO calcularNovoEstado(ESTADO e){
+	#ifdef ANTI-CHEAT
+	if(!validAction(e)){
+		return e;
+	}
+	#endif
 	if(e.action==0){//main menu
 		e.screen=0;
 		return e;
