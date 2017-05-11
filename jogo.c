@@ -7,6 +7,7 @@
 #include "colisions.h"
 #include "loot.h"
 #include "shop.h"
+#include "antiCheat.h"
 #include "jogo.h"
 /**
 \brief Inicializa o estado do jogo
@@ -113,6 +114,9 @@ ESTADO calcularCombate(ESTADO e){
 @param e Estado do jogo
 */
 ESTADO calcularNovoEstado(ESTADO e){
+	if(!validAction(e)){
+		return e;
+	}
 	if(e.action==0){//main menu
 		e.screen=0;
 		return e;

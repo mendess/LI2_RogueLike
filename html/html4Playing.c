@@ -18,10 +18,7 @@
 */
 int getDirection(ESTADO e,POSICAO p){
 	int type=0;
-	POSICAO tmp;
-	tmp.x = p.x + e.jog.x;
-	tmp.y = p.y + e.jog.y;
-	if(com_monstros(e,tmp)){
+	if(com_monstros(e,e.jog)){
 		type=10;
 	}
 	return 7-3*(p.y+1)+p.x+1+type;
@@ -46,18 +43,18 @@ void imprime_jogada(ESTADO e, POSICAO p){
 */
 void criar_jogada(ESTADO e, POSICAO p){
 	int new_action;
-	if(e.saida.x==(p.x+e.jog.x) && e.saida.y==(p.y+e.jog.y)){
+	e.jog.x += p.x;
+	e.jog.y += p.y;
+	if(com_saida(e,e.jog)){
 		new_action=5;
 	}else{
-		new_action=(char) getDirection(e,p);
+		new_action=getDirection(e,p);
 	}
-	p.x += e.jog.x;
-	p.y += e.jog.y;
-	if (!outOfBounds(p) && !com_pedras(e,p)){
+	if (!outOfBounds(e.jog) && !com_pedras(e,e.jog)){
 		char query[4];
 		sprintf(query,"%d",new_action);
 		ABRIR_LINK(query);
-		imprime_jogada(e,p);
+		imprime_jogada(e,e.jog);
 		FECHAR_LINK;
 	}
 }
