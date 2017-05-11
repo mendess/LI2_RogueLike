@@ -70,6 +70,21 @@ int com_monstros (ESTADO e, POSICAO p){
 	}
 	return flag;
 }
+/**
+\brief Verifica se existem chests nas coordenadas dadas
+@param e Estado do jogo
+@param p Posição a verificar
+*/
+int com_chest(ESTADO e, POSICAO p){
+	int i,flag;
+	flag=0;
+	for(i=0;i<e.num_chests && !flag;i++){
+		if(e.chests[i].pos.x == p.x && e.chests[i].pos.y == p.y){
+			flag=1;
+		}
+	}
+	return flag;
+}
 int isBoss(ESTADO e, POSICAO p){
 	return (e.isInBossBattle &&
 			p.x>=e.monstros[0].x && p.x<=e.monstros[0].x+3 &&

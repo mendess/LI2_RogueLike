@@ -80,8 +80,7 @@ typedef struct inventory{
 }INVT;
 
 typedef struct chest{
-    char x;
-    char y;
+    POSICAO pos;
     char item;
 }CHEST;
 
