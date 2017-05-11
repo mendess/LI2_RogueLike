@@ -65,7 +65,7 @@ POSICAO buscaB4 (ESTADO e,int a[SIZE][SIZE]){
   }
   return intersect;
 }
-POSICAO mapa3 (ESTADO e,int i,POSICAO p,int q){
+POSICAO mapa3 (ESTADO e,POSICAO p,int q){
   int d,x,y;
   int a[10][10];
   POSICAO intersect;
@@ -90,7 +90,9 @@ int livre (ESTADO e,int x,int y){
   int i,flag;
   flag=1;
   for(i=0;i<e.num_monstros;i++){
-     if (e.monstros[i].x==x && e.monstros[i].y==y) flag=0;
+     if (e.monstros[i].x==x && e.monstros[i].y==y){
+      flag=0;
+     }
   }
   return flag;
 }
@@ -139,7 +141,7 @@ ESTADO estrat_bat1 (ESTADO e, int i, POSICAO intersect){
 }
 ESTADO defB (ESTADO e, int i,POSICAO p,int num){
   POSICAO intersect;
-  intersect= mapa3(e,i,p,num);
+  intersect= mapa3(e,p,num);
   e=estrat_bat1(e,i,intersect);
   return e;
 }

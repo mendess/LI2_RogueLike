@@ -397,7 +397,7 @@ POSICAO buscaW4 (ESTADO e,int a[SIZE][SIZE]){
   }
   return intersect;
 }
-POSICAO mapa1 (ESTADO e,int i,POSICAO p,int q){
+POSICAO mapa1 (ESTADO e,POSICAO p,int q){
   int d,x,y;
   int a[10][10];
   POSICAO intersect;
@@ -421,7 +421,7 @@ POSICAO mapa1 (ESTADO e,int i,POSICAO p,int q){
 
 ESTADO defW1 (ESTADO e, int i,POSICAO p){
   POSICAO intersect,nova_pos;
-  intersect= mapa1(e,i,p,1);
+  intersect= mapa1(e,p,1);
   nova_pos=tracker(e,p,intersect);
   e.monstros[i].x=nova_pos.x;
   e.monstros[i].y=nova_pos.y;
@@ -429,7 +429,7 @@ ESTADO defW1 (ESTADO e, int i,POSICAO p){
 }
 ESTADO defW2 (ESTADO e, int i,POSICAO p){
   POSICAO intersect,nova_pos;
-  intersect= mapa1(e,i,p,2);
+  intersect= mapa1(e,p,2);
   nova_pos=tracker(e,p,intersect);
   e.monstros[i].x=nova_pos.x;
   e.monstros[i].y=nova_pos.y;
@@ -437,7 +437,7 @@ ESTADO defW2 (ESTADO e, int i,POSICAO p){
 }
 ESTADO defW3 (ESTADO e, int i,POSICAO p){
   POSICAO intersect,nova_pos;
-  intersect= mapa1(e,i,p,3);
+  intersect= mapa1(e,p,3);
   nova_pos=tracker(e,p,intersect);
   e.monstros[i].x=nova_pos.x;
   e.monstros[i].y=nova_pos.y;
@@ -445,7 +445,7 @@ ESTADO defW3 (ESTADO e, int i,POSICAO p){
 }
 ESTADO defW4 (ESTADO e, int i,POSICAO p){
   POSICAO intersect,nova_pos;
-  intersect= mapa1(e,i,p,4);
+  intersect= mapa1(e,p,4);
   nova_pos=tracker(e,p,intersect);
   e.monstros[i].x=nova_pos.x;
   e.monstros[i].y=nova_pos.y;

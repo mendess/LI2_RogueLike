@@ -3,11 +3,11 @@
 #include "html/htmlMaster.h"
 #include "score.h"
 #include "levelMaker.h"
-#include "move_monst.h"
 #include "colisions.h"
 #include "loot.h"
 #include "genMonsters.h"
 #include "shop.h"
+#include "IA/IA.h"
 #include "jogo.h"
 /**
 \brief Inicializa o estado do jogo

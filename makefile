@@ -11,8 +11,8 @@ install: roguel
 	sudo cp imagens/* /var/www/html/imagens
 	touch install
 
-roguel: $(OBG_IA) $(OBJ_HTML) $(OBJECTS)
-	cc -o roguel $(OBJECTS) $(OBJ_HTML) $(LIBS)
+roguel: $(OBJ_IA) $(OBJ_HTML) $(OBJECTS)
+	cc -o roguel $(OBJECTS) $(OBJ_IA) $(OBJ_HTML) $(LIBS)
 
 exemplo.zip: $(FICHEIROS)
 	zip -9 exemplo.zip $(FICHEIROS)

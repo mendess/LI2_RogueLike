@@ -24,7 +24,7 @@ POSICAO buscaW1 (ESTADO e,int a[SIZE][SIZE]);
 POSICAO buscaW2 (ESTADO e,int a[SIZE][SIZE]);
 POSICAO buscaW3 (ESTADO e,int a[SIZE][SIZE]);
 POSICAO buscaW4 (ESTADO e,int a[SIZE][SIZE]);
-POSICAO mapa1 (ESTADO e,int i,POSICAO p,int q);
+POSICAO mapa1 (ESTADO e,POSICAO p,int q);
 ESTADO defW1(ESTADO e,int i,POSICAO p);
 ESTADO defW2(ESTADO e,int i,POSICAO p);
 ESTADO defW3(ESTADO e,int i,POSICAO p);

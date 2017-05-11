@@ -4,29 +4,11 @@
 #include <time.h>
 #include "IA.h"
 
-// PEDRAS
-int block_pedra (ESTADO e,POSICAO p){
-  int i,flag;
-  flag=0;
-  for(i=0;i<e.num_pedras;i++){
-    if(e.pedras[i].x==p.x && e.pedras[i].y==p.y) flag=1;
-  }
-  return flag;
-}
-// MONSTROS
-int block_monst (ESTADO e,POSICAO p){
-  int i,flag;
-  flag=0;
-  for(i=0;i<e.num_monstros;i++){
-    if(e.monstros[i].x==p.x && e.monstros[i].y==p.y) flag=1;
-  }
-  return flag;
-}
 
 int possivel_casa (ESTADO e,POSICAO p){
   int flag;
   flag=1;
-  if(block_pedra(e,p) || block_monst(e,p)) flag=0;
+  if(com_pedras(e,p) || com_monstros(e,p)) flag=0;
   return flag;
 }
 ESTADO persegue_arch(ESTADO e,int i,POSICAO p){
@@ -146,17 +128,18 @@ POSICAO buscaA4(ESTADO e,int a[SIZE][SIZE]){
   }
  return intersect;
 }
-POSICAO mapa4 (ESTADO e,int i,POSICAO p,int q){
-  int x,y;
+POSICAO mapa4 (ESTADO e,POSICAO p,int q){
+  int d,x,y;
   int a[10][10];
   POSICAO intersect;
+  d=abs(e.jog.x-p.x)+abs(e.jog.y-p.y);
   for(y=0;y<10;y++){
   for(x=0;x<10;x++){
      if (abs(x-e.jog.x)>abs(y-e.jog.y)){
-      a[y][x]=abs(x-e.jog.x)-2;
+      a[y][x]=abs(x-e.jog.x)-d+2;
      }
      if (abs(y-e.jog.y)>abs(x-e.jog.x)){
-      a[y][x]=abs(y-e.jog.y)-2;
+      a[y][x]=abs(y-e.jog.y)-d+2;
      } 
   }
   }
@@ -197,7 +180,7 @@ ESTADO decide(ESTADO e,int i, POSICAO intersect){
 }
 ESTADO defA (ESTADO e, int i, POSICAO p,int num){
    POSICAO intersect;
-   intersect=mapa4(e,i,p,num);
+   intersect=mapa4(e,p,num);
    e=decide(e,i,intersect);
    return e;
 }

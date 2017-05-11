@@ -7,7 +7,7 @@ POSICAO buscaB1 (ESTADO e,int a[SIZE][SIZE]);
 POSICAO buscaB2 (ESTADO e,int a[SIZE][SIZE]);
 POSICAO buscaB3 (ESTADO e,int a[SIZE][SIZE]);
 POSICAO buscaB4 (ESTADO e,int a[SIZE][SIZE]);
-POSICAO mapa3 (ESTADO e,int i,POSICAO p,int q);
+POSICAO mapa3 (ESTADO e,POSICAO p,int q);
 int livre (ESTADO e,int x,int y);
 ESTADO estrat_bat1 (ESTADO e, int i, POSICAO intersect);
 ESTADO defB1 (ESTADO e, int i,POSICAO p,int num);

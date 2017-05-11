@@ -1,6 +1,4 @@
-#include "move_monst.h"
-#include "levelMaker.h"
-#include "IA/IA.h"
+#include "IA.h"
 
 // ataca_jogador
 //existe_jogador (estado, pos monstro)
@@ -240,16 +238,16 @@ ESTADO move_monstros (ESTADO e){
         }
 	    p.x=e.monstros[i].x;
         p.y=e.monstros[i].y;
-      	if(e.monstros[i].monType == 1 && flag){
+      	if(e.monstros[i].monType == 0 && flag){
             e=acao_bat(e,i,p);
         }
-    	if(e.monstros[i].monType == 2  && flag){
+    	if(e.monstros[i].monType == 1  && flag){
             e=acao_wolf(e,i,p);
       	} 
-        if(e.monstros[i].monType == 3 && (e.turn%2 == 0) && flag){
+        if(e.monstros[i].monType == 2 && (e.turn%2 == 0) && flag){
    		    e=acao_ogre(e,i,p);
       	}
-   	    if(e.monstros[i].monType == 4 && flag){
+   	    if(e.monstros[i].monType == 3 && flag){
              e=acao_archer(e,i,p);
      	}
   }
