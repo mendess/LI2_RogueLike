@@ -129,6 +129,16 @@ void imprime_pedras (ESTADO e){
 	}
 }
 /**
+\brief Imprime as chests
+@param e Estado do jogo
+*/
+void imprime_chests(ESTADO e){
+	int i;
+	for (i=0;i<e.num_chests;i++){
+		IMAGEM(TAM*(e.chests[i].pos.x+1),TAM*(e.chests[i].pos.y+1),TAM,TAM,"Chest.png");
+	}
+}
+/**
 \brief Imprime a saida
 @param p Posição da saida
 */
@@ -224,6 +234,7 @@ void imprimePlaying(ESTADO e){
 	}else{
 		imprime_monstros(e);
 	}
+	imprime_chests(e);
 	imprime_hpBar(e.hp);
 	imprime_mpBar(e.mp,e.classe);
 	imprime_inventory(e.bag);

@@ -30,7 +30,7 @@ int isOnPath(POSICAO p, int pathSize, POSICAO path[]){
 @param p Posição a verificar
 */
 int pos_ocupada (ESTADO e, POSICAO p){
-	return com_jogador(e,p) || com_pedras(e,p) || com_monstros(e,p);
+	return com_jogador(e,p) || com_pedras(e,p) || com_monstros(e,p) || outOfBounds(p);
 }
 /**
 \brief Verifica se o jogador esta num certo par de coordenadas

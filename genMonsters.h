@@ -4,6 +4,7 @@
 #include <math.h>
 
 #include "colisions.h"
+#include "loot.h"
 #include "jogo.h"
 
 #define MON_HP_WOLF		10
@@ -18,9 +19,10 @@
 
 ESTADO genBoss(ESTADO e);
 ESTADO genBossBattle(ESTADO e);
-char getMonsterNumber(char worldLvl);
-char setMonsterType(char worldLvl);
+char getNumMonst(char worldLvl);
 char getMonsterHP(char type);
-ESTADO placeMonster(ESTADO e, int index);
+ESTADO placeMonster(ESTADO e,char type);
+ESTADO placeOgre(ESTADO e);
+CHEST genChest(ESTADO e, CHEST chest);
 ESTADO genMonsters(ESTADO e);
 #endif
