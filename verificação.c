@@ -1,3 +1,5 @@
+#include "jogo.h"
+
 int com_jogador (ESTADO e,POSICAO p){
 	int com_jogador (ESTADO e,POSICAO p){
     int flag=0;

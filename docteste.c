@@ -3,15 +3,14 @@
 #include <string.h>
 #include <time.h>
 #include "jogo.h"
-#include "move_monst.h" 
+#include "move_monst.h"
 #include "levelMaker.h"
-#include "parser.h"
 
 
 int blocked0 (ESTADO e, POSICAO p){
   POSICAO p1,p2,p3,p4;
   int e1,e2,e3,e4,i;
-  e1=e2=e3=e4=0; 
+  e1=e2=e3=e4=0;
   p1.x=p3.x=p.x;
   p2.y=p4.y= p.y;
   p2.x=p.x+1;

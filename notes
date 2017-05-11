@@ -1,0 +1,47 @@
+$(wildcard *.c)
+$(patsubst
+
+cc -o roguel $(OBJECTS) &(LIBS)
+(cd html;make)
+
+
+
+#define str(s)		#s
+
+#define ptr_field(file,var,field)	fprintf(file,str(field) ": %d\n",var.field)
+
+#define scan_field(file,var,field)	if(fscanf(file,str(field) ": %d\n",&var.field) != 1) {\
+					   perror("Não consegui ler o campo ", str(field));\
+					   exit 1;\
+					}
+
+
+//versão mais generica
+
+typedef struct{
+	char *field;
+	char *format;
+} field entry;
+
+field_entry field[] = {
+	{"hp","%d"},
+	{"name","%s"},
+};
+
+ESTADO read_fields(char *name){
+	FILE *f = fopen(name,"r");
+	if(f==NULL){
+		perror("não consegui abrir of ficheiro");
+		exit(1);
+	}
+	char buffer[10240];
+	while(fgets(buffer,10240,f)!=NULL){
+		char field[100];
+		if(fscanf(buffer, "%s:", field) != 1){
+			fprintf(stderr, "linha %s mal formada\n",buffer);
+			exit(1);
+		}
+		char *format = get_format(field,field);
+		fscanf(buffer,"%s: %s",value);
+		sscanf(value, format, 
+		
