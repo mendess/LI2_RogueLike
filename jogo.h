@@ -80,8 +80,7 @@ typedef struct inventory{
 }INVT;
 
 typedef struct chest{
-    char x;
-    char y;
+    POSICAO pos;
     char item;
 }CHEST;
 
@@ -115,7 +114,7 @@ typedef struct estado{
     //Numero de chests
     char num_chests;
     //Lista de chests
-    CHEST chests[MAX_CHESTS]
+    CHEST chests[MAX_CHESTS];
 	// Inventario do jogador
 	INVT bag;
 	// Posição do jogador
