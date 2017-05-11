@@ -66,7 +66,7 @@ ESTADO placeOgre(ESTADO e){
 }
 int pos_ocupada_aux(ESTADO e, char x, char y){
 	POSICAO tmp = {x,y};
-	return pos_ocupada(e,tmp) && com_saida(e,tmp);
+	return pos_ocupada(e,tmp) || com_saida(e,tmp) || outOfBounds(tmp);
 }
 CHEST genChest(ESTADO e,CHEST chest){
 	if(      !pos_ocupada_aux(e,chest.pos.x,chest.pos.y-1)){

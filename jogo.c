@@ -1,5 +1,5 @@
 //#define DEBUG
-//#define ANTI-CHEAT
+//#define ANTICHEAT
 #include "path.h"
 #include "html/htmlMaster.h"
 #include "score.h"
@@ -126,7 +126,7 @@ ESTADO calcularDanoBoss(ESTADO e){
 @param e Estado do jogo
 */
 ESTADO calcularNovoEstado(ESTADO e){
-	#ifdef ANTI-CHEAT
+	#ifdef ANTICHEAT
 	if(!validAction(e)){
 		return e;
 	}
