@@ -5,7 +5,7 @@
 #include "IA.h"
 
 // PEDRAS
-int blocked1 (ESTADO e,POSICAO p){
+int block_pedra (ESTADO e,POSICAO p){
   int i,flag;
   flag=0;
   for(i=0;i<e.num_pedras;i++){
@@ -14,7 +14,7 @@ int blocked1 (ESTADO e,POSICAO p){
   return flag;
 }
 // MONSTROS
-int blocked2 (ESTADO e,POSICAO p){
+int block_monst (ESTADO e,POSICAO p){
   int i,flag;
   flag=0;
   for(i=0;i<e.num_monstros;i++){
@@ -23,10 +23,10 @@ int blocked2 (ESTADO e,POSICAO p){
   return flag;
 }
 
-int possivel (ESTADO e,POSICAO p){
+int possivel_casa (ESTADO e,POSICAO p){
   int flag;
   flag=1;
-  if(blocked1(e,p) || blocked2(e,p)) flag=0;
+  if(block_pedra(e,p) || block_monst(e,p)) flag=0;
   return flag;
 }
 ESTADO persegue_arch(ESTADO e,int i,POSICAO p){
@@ -34,29 +34,37 @@ ESTADO persegue_arch(ESTADO e,int i,POSICAO p){
   int flag=1;
   pos.x=p.x-1;
   pos.y=p.y;
-  if(p.x>e.jog.x && abs(e.jog.y-p.y)<3 && possivel(e,pos)){
+  if(p.x>e.jog.x && abs(e.jog.y-p.y)<3 && possivel_casa(e,pos)){
   e.monstros[i].x+=(-1);
   flag=0;
   }
   pos.x=p.x+1;
   pos.y=p.y;
-   if(flag && p.x<e.jog.x && abs(e.jog.y-p.y)<2 && possivel(e,pos)){
+   if(flag && p.x<e.jog.x && abs(e.jog.y-p.y)<2 && possivel_casa(e,pos)){
   e.monstros[i].x+=(-1);
   flag=0;
   }
   pos.x=p.x;
   pos.y=p.y+1;
-  if(flag && p.y<e.jog.y && abs(e.jog.x-p.x)<2 && possivel(e,pos)){
+  if(flag && p.y<e.jog.y && abs(e.jog.x-p.x)<2 && possivel_casa(e,pos)){
   e.monstros[i].y+=1;
   flag=0;
   }
   pos.x=p.x;
   pos.y=p.y-1;
-  if(flag && p.y>e.jog.y && abs(e.jog.x-p.x)<2 && possivel(e,pos)){
+  if(flag && p.y>e.jog.y && abs(e.jog.x-p.x)<2 && possivel_casa(e,pos)){
   e.monstros[i].y+=(-1);
   flag=0;
   }
   return e;
+}
+int livre1(ESTADO e,int x,int y){
+  POSICAO pos;
+  pos.x=x;
+  pos.y=y;
+  int i;
+  i=possivel_casa(e,pos);
+  return i;
 }
 POSICAO buscaA1(ESTADO e,int a[SIZE][SIZE]){
   int i,x,y,flag;
@@ -138,8 +146,8 @@ POSICAO buscaA4(ESTADO e,int a[SIZE][SIZE]){
   }
  return intersect;
 }
-POSICAO mapa2 (ESTADO e,int i,POSICAO p,int q){
-  int d,x,y;
+POSICAO mapa4 (ESTADO e,int i,POSICAO p,int q){
+  int x,y;
   int a[10][10];
   POSICAO intersect;
   for(y=0;y<10;y++){
@@ -163,33 +171,33 @@ ESTADO decide(ESTADO e,int i, POSICAO intersect){
   int flag=1;
   pos.x=e.monstros[i].x+1;
   pos.y=e.monstros[i].y;
-  if (intersect.x>e.monstros[i].x && possivel(e,pos)){
+  if (intersect.x>e.monstros[i].x && possivel_casa(e,pos)){
     e.monstros[i].x+=1;
     flag=0;
    }
    pos.x=e.monstros[i].x-1;
    pos.y=e.monstros[i].y;
-   if (flag && intersect.x<e.monstros[i].x && possivel(e,pos)){
+   if (flag && intersect.x<e.monstros[i].x && possivel_casa(e,pos)){
     e.monstros[i].x+=-1;
     flag=0;
    }
    pos.x=e.monstros[i].x;
    pos.y=e.monstros[i].y+1;
-  if (flag && intersect.y>e.monstros[i].y && possivel(e,pos)){
+  if (flag && intersect.y>e.monstros[i].y && possivel_casa(e,pos)){
     e.monstros[i].y+=1;
     flag=0;
    }
    pos.x=e.monstros[i].x;
    pos.y=e.monstros[i].y-1;
-   if (flag && intersect.y<e.monstros[i].y && possivel(e,pos)){
+   if (flag && intersect.y<e.monstros[i].y && possivel_casa(e,pos)){
     e.monstros[i].y+=-1;
     flag=0;
    }
    return e;
 }
 ESTADO defA (ESTADO e, int i, POSICAO p,int num){
-   POSICAO intersect,nova_pos;
-   intersect=mapa2(e,i,p,num);
+   POSICAO intersect;
+   intersect=mapa4(e,i,p,num);
    e=decide(e,i,intersect);
    return e;
 }

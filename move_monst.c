@@ -222,26 +222,24 @@ POSICAO quemAtaca(ESTADO e){
 }
 
 ESTADO iaMoves (ESTADO e,int i){
-        POSICAO p;
-        int flag=1;
-        p.x=e.monstros[i].x;
-        p.y=e.monstros[i].y;
-        if(e.monstros[i].monType == 1 && flag){
-            e=estrat_bat(e,i,p);
-        }
-    	if(e.monstros[i].monType == 2  && flag){
-            e=estrat_wolf(e,i,p);
-      	} 
-        if(e.monstros[i].monType == 3 && (e.turn%2 == 0) && flag){
-   		    e=estrat_ogre(e,i,p);
-      	}
-   	    if(e.monstros[i].monType == 4 && flag){
-             e=estrat_archer(e,i,p);
-     	}
-        return e;
+  POSICAO p;
+  int flag=1;
+  p.x=e.monstros[i].x;
+  p.y=e.monstros[i].y;
+  if(e.monstros[i].monType == 1 && flag){
+     e=estrat_bat(e,i,p);
+  }
+  if(e.monstros[i].monType == 2  && flag){
+     e=estrat_wolf(e,i,p);
+ 	} 
+  if(e.monstros[i].monType == 3 && (e.turn%2 == 0) && flag){
+     e=estrat_ogre(e,i,p);
+  }
+  if(e.monstros[i].monType == 4 && flag){
+     e=estrat_archer(e,i,p);
+  }
+  return e;
 }
-
-// (pos1,pos2,tipo,hp) ->(x,y,z,d,v)
 ESTADO move_monstros (ESTADO e){
    POSICAO p,q;
    int i,flag;

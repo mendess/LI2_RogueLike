@@ -29,6 +29,7 @@ ESTADO acao_wolf (ESTADO e,int i, POSICAO p);
 ESTADO acao_ogre(ESTADO e,int i,POSICAO p);
 ESTADO acao_archer(ESTADO e, int i, POSICAO p);
 POSICAO quemAtaca(ESTADO e);
+ESTADO iaMoves (ESTADO e,int i);
 ESTADO move_monstros(ESTADO e);
 
 #endif

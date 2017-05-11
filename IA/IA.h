@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include "../move_monst.h"
 #include "../jogo.h"
+#include "IAwolf.h"
+#include "IAarcher.h"
+#include "IAbat.h"
+#include "IAogre.h"
 /*
 ESTADO mapa1 (Estado e,int i,POSICAO p);
 int livre (ESTADO e,int x,int y);

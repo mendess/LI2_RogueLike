@@ -65,7 +65,7 @@ POSICAO buscaB4 (ESTADO e,int a[SIZE][SIZE]){
   }
   return intersect;
 }
-POSICAO mapa1 (ESTADO e,int i,POSICAO p,int q){
+POSICAO mapa3 (ESTADO e,int i,POSICAO p,int q){
   int d,x,y;
   int a[10][10];
   POSICAO intersect;
@@ -100,46 +100,46 @@ ESTADO estrat_bat1 (ESTADO e, int i, POSICAO intersect){
    p.x=e.monstros[i].x;
    p.y=e.monstros[i].y;
    if (flag && p.x > intersect.x && p.y > intersect.y && livre(e,p.x-1,p.y-1)){
-    e.monstros[i].x-1;
-    e.monstros[i].y-1;
+    e.monstros[i].x+=-1;
+    e.monstros[i].y+=-1;
     flag=0;
    }
    if (flag && p.x > intersect.x && p.y < intersect.y && livre(e,p.x-1,p.y+1)){
-    e.monstros[i].x-1;
-    e.monstros[i].y+1;
+    e.monstros[i].x+=-1;
+    e.monstros[i].y+=1;
     flag=0;
    }
    if (flag && p.x < intersect.x && p.y > intersect.y && livre(e,p.x+1,p.y-1)){
-    e.monstros[i].x+1;
-    e.monstros[i].y-1;
+    e.monstros[i].x+=1;
+    e.monstros[i].y+=-1;
     flag=0;
    }
    if (flag && p.x < intersect.x && p.y < intersect.y && livre(e,p.x+1,p.y+1)){
-    e.monstros[i].x+1;
-    e.monstros[i].y+1;
+    e.monstros[i].x+=1;
+    e.monstros[i].y+=1;
     flag=0;
    }
    if (flag && p.x > intersect.x && livre(e,p.x+1,p.y)){
-    e.monstros[i].x+1;
+    e.monstros[i].x+=1;
     flag=0;
    }
    if (flag && p.y < intersect.y && livre(e,p.x,p.y-1)){
-    e.monstros[i].y-1;
+    e.monstros[i].y+=-1;
     flag=0;
    }
    if (flag && p.x < intersect.x && livre(e,p.x-1,p.y)){
-    e.monstros[i].x-1;
+    e.monstros[i].x+=-1;
     flag=0;
    }
    if (flag && p.y > intersect.y && livre(e,p.x,p.y-1)){
-    e.monstros[i].y+1;
+    e.monstros[i].y+=1;
     flag=0;
    }
    return e;
 }
 ESTADO defB (ESTADO e, int i,POSICAO p,int num){
   POSICAO intersect;
-  intersect= mapa1(e,i,p,num);
+  intersect= mapa3(e,i,p,num);
   e=estrat_bat1(e,i,intersect);
   return e;
 }
