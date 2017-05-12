@@ -6,6 +6,7 @@ int samePos(POSICAO monPos, MSTR monster){
 void killMonster(int i, MSTR monstros[], char num_monstros){
 	while(i<num_monstros){
 		monstros[i]=monstros[i+1];
+		i++;
 	}
 }
 char calcPlayerDmg(char classe, INVT bag){

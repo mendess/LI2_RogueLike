@@ -182,7 +182,7 @@ ESTADO move_monstros (ESTADO e){
 	POSICAO p;
 	int i;
 	srandom(time(NULL));
-	for (i=0;i<MAX_MONSTROS;i++){
+	for (i=0;i<e.num_monstros;i++){
 		p.x=e.monstros[i].x;
 		p.y=e.monstros[i].y;
 		if(e.monstros[i].monType == 1){

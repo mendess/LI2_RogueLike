@@ -97,7 +97,7 @@ void imprime_monstros (ESTADO e){
 	int i;
 	srand(time(NULL));
 	char *wolfs[]={"Monstro_Lobo_Lateral_1.png","Monstro_Lobo_Lateral_2.png"};
-	for(i=0;i<MAX_MONSTROS;i++){
+	for(i=0;i<e.num_monstros;i++){
 		int r = rand() % 2;
 		IMAGEM(TAM*(e.monstros[i].x+1),TAM*(e.monstros[i].y+1),TAM,TAM,wolfs[r]);
 	}
