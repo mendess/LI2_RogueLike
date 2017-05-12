@@ -65,14 +65,16 @@ POSICAO buscaB4 (ESTADO e,int a[SIZE][SIZE]){
   }
   return intersect;
 }
+// previsão da posição em que o jogador estará daqui a tantas jogadas
+// como metade da distancia em x e y entre monstro e jogador
 POSICAO mapa3 (ESTADO e,POSICAO p,int q){
   int d,x,y;
   int a[10][10];
   POSICAO intersect;
-  d=abs(e.jog.x-p.x)+abs(e.jog.y-p.y);
+  d=(abs(e.jog.x-p.x)+abs(e.jog.y-p.y))/2-1;
   for(y=0;y<10;y++){
     for(x=0;x<10;x++){
-       if (abs(x-e.jog.x)>abs(y-e.jog.y)){
+       if (abs(x-e.jog.x)>=abs(y-e.jog.y)){
           a[y][x]=abs(x-e.jog.x)-d;
        }
        if (abs(y-e.jog.y)>abs(x-e.jog.x)){
@@ -88,11 +90,18 @@ POSICAO mapa3 (ESTADO e,POSICAO p,int q){
 }
 int livre (ESTADO e,int x,int y){
   int i,flag;
+  POSICAO pos;
+  pos.x=x;
+  pos.y=y;
   flag=1;
   for(i=0;i<e.num_monstros;i++){
-     if (e.monstros[i].x==x && e.monstros[i].y==y){
+    if(inBounds(pos)!=1){
+      flag=0;
+    }
+     if (flag && (e.monstros[i].x==pos.x && e.monstros[i].y==pos.y)){
       flag=0;
      }
+     printf("%d",flag );
   }
   return flag;
 }
@@ -121,19 +130,19 @@ ESTADO estrat_bat1 (ESTADO e, int i, POSICAO intersect){
     e.monstros[i].y+=1;
     flag=0;
    }
-   if (flag && p.x > intersect.x && livre(e,p.x+1,p.y)){
+   if (flag && p.y == intersect.y && p.x < intersect.x && livre(e,p.x+1,p.y)){
     e.monstros[i].x+=1;
     flag=0;
    }
-   if (flag && p.y < intersect.y && livre(e,p.x,p.y-1)){
+   if (flag && p.x == intersect.x && p.y > intersect.y && livre(e,p.x,p.y-1)){
     e.monstros[i].y+=-1;
     flag=0;
    }
-   if (flag && p.x < intersect.x && livre(e,p.x-1,p.y)){
+   if (flag && p.y == intersect.y && p.x > intersect.x && livre(e,p.x-1,p.y)){
     e.monstros[i].x+=-1;
     flag=0;
    }
-   if (flag && p.y > intersect.y && livre(e,p.x,p.y-1)){
+   if (flag && p.x == intersect.x && p.y<intersect.y && livre(e,p.x,p.y-1)){
     e.monstros[i].y+=1;
     flag=0;
    }
@@ -147,7 +156,7 @@ ESTADO defB (ESTADO e, int i,POSICAO p,int num){
 }
 // ve se o monstro está entre o jogador e a saida e em que quadrante está.
 ESTADO estrat_bat(ESTADO e,int i,POSICAO p){
-   int flag=1;;
+   int flag=1;
    if (existe_jogador(e,p)){
         e.hp-=BAT_DMG;
       flag=0;

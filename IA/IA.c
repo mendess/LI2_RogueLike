@@ -179,31 +179,25 @@ ESTADO acao_archer(ESTADO e, int i, POSICAO p){
 }
 
 POSICAO quemAtaca(ESTADO e){
-  POSICAO q,p,w;
-  int i,j,t,r,i1,i2;
-  w.x=e.monstros[0].x;
-  w.y=e.monstros[0].y;
-  q.x=e.monstros[1].x;
-  q.y=e.monstros[1].y;
+  POSICAO w;
+  int i,j,i1,i2;
+  w.x=abs(e.monstros[0].x-e.jog.x) + abs(e.monstros[0].y-e.jog.y);
+  w.y=abs(e.monstros[1].x-e.jog.x) + abs(e.monstros[1].y-e.jog.y);
   i1=1;i2=0;
   for (i=2;i<e.num_monstros;i++){
-     j=abs(e.monstros[i].x+e.monstros[i].y);
-     t=abs(q.x+q.y-e.jog.x-e.jog.y);
-     r=abs(w.x+w.y-e.jog.x-e.jog.y);
-     if (j<t && t>r){
-       q.x=e.monstros[i].x;
-       q.y=e.monstros[i].y;
+     j=abs(e.monstros[i].x-e.jog.x) + abs(e.monstros[i].y-e.jog.y);
+     if (j<=w.x && w.x>w.y){
+       w.x=e.monstros[i].x + e.monstros[i].y;
        i1=i;
      }
-      if (j<r && r>t){
-       w.x=e.monstros[i].x;
-       w.y=e.monstros[i].y;
+      if (w.x != j && j<w.y && w.y>w.x){
+       w.y=e.monstros[i].x + e.monstros[i].y;
        i2=i;
      }
   }
-  p.x=i1;
-  p.y=i2;
-  return p;
+  w.x=i1;
+  w.y=i2;
+  return w;
 }
 
 ESTADO iaMoves (ESTADO e,int i){
@@ -236,20 +230,22 @@ ESTADO move_monstros (ESTADO e){
            e=iaMoves(e,i);
            flag=0;
         }
-	    p.x=e.monstros[i].x;
-        p.y=e.monstros[i].y;
-      	if(e.monstros[i].monType == 0 && flag){
+        if(i!=q.x || i!= q.y){
+          p.x=e.monstros[i].x;
+          p.y=e.monstros[i].y;
+          if(e.monstros[i].monType == 0 && flag){
             e=acao_bat(e,i,p);
-        }
-    	if(e.monstros[i].monType == 1  && flag){
+          }
+        	if(e.monstros[i].monType == 1  && flag){
             e=acao_wolf(e,i,p);
-      	} 
-        if(e.monstros[i].monType == 2 && (e.turn%2 == 0) && flag){
-   		    e=acao_ogre(e,i,p);
-      	}
-   	    if(e.monstros[i].monType == 3 && flag){
-             e=acao_archer(e,i,p);
-     	}
+        	} 
+         if(e.monstros[i].monType == 2 && (e.turn%2 == 0) && flag){
+   	    	  e=acao_ogre(e,i,p);
+         }
+         if(e.monstros[i].monType == 3 && flag){
+            e=acao_archer(e,i,p);
+         }
+        }
   }
   return e;
 }
