@@ -56,7 +56,7 @@ ESTADO calcularCombate(ESTADO e){
 		}
 	}
 	char plrDmg = calcPlayerDmg(e.classe,e.bag);
-	if(e.monstros[i].hp < plrDmg){
+	if(e.monstros[i].hp <= plrDmg){
 		e.score+=updateScore(e.monstros[i].monType);
 		e.num_monstros--;
 		killMonster(i,e.monstros,e.num_monstros);
