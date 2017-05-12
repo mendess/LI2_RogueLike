@@ -12,15 +12,6 @@
 #include "antiCheat.h"
 #include "jogo.h"
 
-void initInv(INVT bag){
-	bag.gold=0;
-	int i;
-	for(i=0;i<4;i++){
-		bag.inv[i]=0;
-	}
-	bag.weapon=0;
-	bag.armour=0;
-}
 /**
 \brief Inicializa o estado do jogo
 */
