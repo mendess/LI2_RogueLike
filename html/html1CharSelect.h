@@ -3,6 +3,6 @@
 
 #include "htmlMaster.h"
 
-void imprimeScoreBoard(ESTADO e);
+void imprimeCharSelect();
 
 #endif

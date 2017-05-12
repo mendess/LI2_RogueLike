@@ -1,18 +1,16 @@
 #ifndef ___LEVELMAKER_H___
 #define ___LEVELMAKER_H___
 
-#include <stdlib.h>
-
 #include "jogo.h"
 #include "colisions.h"
 
-#define HP_WARRIOR    101
-#define HP_ARCHER     91
-#define HP_MAGE       71
+#define HP_WARRIOR    100
+#define HP_ARCHER     90
+#define HP_MAGE       70
 
-#define MP_WARRIOR    51
-#define MP_ARCHER     71
-#define MP_MAGE       101
+#define MP_WARRIOR    50
+#define MP_ARCHER     70
+#define MP_MAGE       100
 
 
 ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]);
@@ -21,5 +19,6 @@ ESTADO colocar_pedras (ESTADO e, int pathSize, POSICAO path[]);
 ESTADO colocar_monstros (ESTADO e);
 char getClassHp(char type);
 char getClassMp(char type);
+INVT initINVT(INVT bag);
 
 #endif

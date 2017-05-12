@@ -3,6 +3,6 @@
 
 #include "htmlMaster.h"
 
-void imprimeHelp(ESTADO e);
+void imprimeHelp();
 
 #endif

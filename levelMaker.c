@@ -15,7 +15,7 @@ ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]){
 		int y=rand() % SIZE;
 		p.x=(char) x;
 		p.y=(char) y;
-		if (!pos_ocupada(e,p) && !isOnPath(e,p,pathSize,path)){
+		if (!pos_ocupada(e,p) && !isOnPath(p,pathSize,path)){
 			placed=1;
 			e.pedras[(int) e.num_pedras].x=p.x;
 			e.pedras[(int) e.num_pedras].y=p.y;
@@ -78,9 +78,9 @@ ESTADO colocar_monstros (ESTADO e){
 */
 char getClassHp(char type){
 	switch(type){
-		case 0: return HP_WARRIOR;
-		case 1: return HP_ARCHER;
-		case 2: return HP_MAGE;
+		case 1: return HP_WARRIOR;
+		case 2: return HP_ARCHER;
+		case 3: return HP_MAGE;
 	}
 	return -1;
 }
@@ -90,9 +90,20 @@ char getClassHp(char type){
 */
 char getClassMp(char type){
 	switch(type){
-		case 0: return MP_WARRIOR;
-		case 1: return MP_ARCHER;
-		case 2: return MP_MAGE;
+		case 1: return MP_WARRIOR;
+		case 2: return MP_ARCHER;
+		case 3: return MP_MAGE;
 	}
 	return -1;
+}
+INVT initINVT(INVT bag){
+	bag.gold=0;
+	int i=0;
+	for (i = 0; i < INVT_SIZE; ++i)
+	{
+		bag.inv[i]=0;
+	}
+	bag.weapon=0;
+	bag.armour=0;
+	return bag;
 }

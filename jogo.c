@@ -1,5 +1,5 @@
-#define DEBUG
-#include "estado.h"
+//#define DEBUG
+//#define ANTICHEAT
 #include "path.h"
 #include "html/htmlMaster.h"
 #include "score.h"
@@ -7,6 +7,9 @@
 #include "move_monst.h"
 #include "colisions.h"
 #include "calcularCombate.h"
+#include "loot.h"
+#include "shop.h"
+#include "antiCheat.h"
 #include "jogo.h"
 
 void initInv(INVT bag){
@@ -21,46 +24,33 @@ void initInv(INVT bag){
 /**
 \brief Inicializa o estado do jogo
 */
-ESTADO inicializar(){
+ESTADO inicializar(char classe){
 
 	ESTADO e;
 	POSICAO path[MAX_CAMINHO];
 	int n=pathMaker(path);
 	srandom(time(NULL));
-	e.screen=4;
-	//Classe {Warrior=0, Archer=1, Mage=2}
-	e.classe=0;
-	//Vida do jogador
-	e.hp=getClassHp(e.classe);
-	//Mana do jogador
-	e.mp=getClassMp(e.classe);
-	//Nivel
-	e.world_lvl=0;
-	//Score
-	e.score=0;
-	//Turno
-	e.turn=0;
-	//Lado para que o jogador esta a olhar 0:direita e 1:esquerda
-	e.direction=0;
-	//Action
-	e.action=0;
-	//Inventario
-	initInv(e.bag);
-	// Posição do jogador
-	e.jog.x=path[0].x;
-	e.jog.y=path[0].y;
-	// Posição da saida
-	e.saida.x=path[n-1].x;
-	e.saida.y=path[n-1].y;
-	// Numero de Monstros
-	e.num_monstros=0;
-	// Numero de pedras
-	e.num_pedras=0;
-	// Posições da pedras
-	e=colocar_pedras(e,n,path);
-	// Posições dos monstros
-	e=colocar_monstros(e);
-
+	e.screen=4;					//Ecra de jogo
+	e.classe=classe;			//Classe {Warrior=1, Archer=2, Mage=3}
+	e.hp=getClassHp(e.classe);	//Vida do jogador
+	e.mp=getClassMp(e.classe);	//Mana do jogador
+	e.world_lvl=1;				//Nivel
+	e.score=0;					//Score
+	e.turn=0;					//Turno
+	e.direction=0;				//Lado para que o jogador esta a olhar 0:drt e 1:esq
+	e.action=0;					//Action
+	generateLoot(e.lootTable,e.world_lvl);//Inicializar LootTable para o primeiro nivel
+	e.isInShop=0;				//O jogador começa fora da loja logo começa a 0
+	e.shopFeedback=0;
+	e.bag=initINVT(e.bag);		//Inicializar o inventario
+	e.jog.x=path[0].x;			//Posição do jogador (x)
+	e.jog.y=path[0].y;			//Posição do jogador (y)
+	e.saida.x=path[n-1].x;		//Posição da saida (x)
+	e.saida.y=path[n-1].y;		//Posição da saida (y)
+	e.num_monstros=0;			//Numero de Monstros
+	e.num_pedras=0;				//Numero de pedras
+	e=colocar_pedras(e,n,path);	//Posições da pedras
+	e=colocar_monstros(e);		//Posições dos monstros
 	return e;
 }
 /**
@@ -69,6 +59,18 @@ ESTADO inicializar(){
 */
 ESTADO newLevel(ESTADO e){
 
+	if(!(e.world_lvl % 5)){
+		if(e.isInShop){
+			e.screen=4;
+			e.isInShop=0;
+		}else{
+			generateLoot(e.lootTable,e.world_lvl);
+			e.screen=5;
+			e.isInShop=1;
+			e.shopFeedback=0;
+			return e;
+		}
+	}
 	POSICAO path[MAX_CAMINHO];
 	int n=pathMaker(path);
 	srandom(time(NULL));
@@ -84,31 +86,20 @@ ESTADO newLevel(ESTADO e){
 	}else{
 		e.mp+=NEW_LEVEL_MP_BONUS;
 	}
-	//Nivel
-	e.world_lvl+=1;
-	//Score
-	e.score+=NEW_LEVEL_SC_BONUS;
-	//Turno
-	e.turn=0;
-	//Lado para que o jogador esta a olhar 0:direita e 1:esquerda
-	e.direction=0;
-	//Action
-	e.action=0;
-	// Posição do jogador
-	e.jog.x=path[0].x;
-	e.jog.y=path[0].y;
-	// Posição da saida
-	e.saida.x=path[n-1].x;
-	e.saida.y=path[n-1].y;
-	// Numero de Monstros
-	e.num_monstros=0;
-	// Numero de pedras
-	e.num_pedras=0;
-	// Posições da pedras
-	e=colocar_pedras(e,n,path);
-	// Posições dos monstros
-	e=colocar_monstros(e);
-
+	e.world_lvl+=1;				//Nivel
+	e.score+=NEW_LEVEL_SC_BONUS;//Score
+	e.turn=0;					//Turno
+	e.direction=0;				//Lado para que o jogador esta a olhar 0:direita e 1:esquerda
+	e.action=0;					//Action
+	generateLoot(e.lootTable,e.world_lvl);//Inicializar LootTable para o nivel
+	e.jog.x=path[0].x;			//Posição do jogador (x)
+	e.jog.y=path[0].y;			//Posição do jogador (y)
+	e.saida.x=path[n-1].x;		//Posição da saida (x)
+	e.saida.y=path[n-1].y;		//Posição da saida (y)
+	e.num_monstros=0;			//Numero de Monstros
+	e.num_pedras=0;				//Numero de pedras
+	e=colocar_pedras(e,n,path);	//Posições da pedras
+	e=colocar_monstros(e);		//Posições dos monstros
 	return e;
 }
 /**
@@ -132,37 +123,51 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act){
 @param e Estado do jogo
 */
 ESTADO calcularNovoEstado(ESTADO e){
-	//novo jogo
-	if(e.action==0){
-		return inicializar();
+	#ifdef ANTICHEAT
+	if(!validAction(e)){
+		return e;
 	}
-	//saida
-	if(e.action==5){
+	#endif
+	if(e.action==0){//main menu
+		e.screen=0;
+		return e;
+	}
+	if(e.action==5){//saida
 		return newLevel(e);
 	}
-	//set direction
-	if(e.action==9 || e.action==6 || e.action==3){
+	if(e.action==9 || e.action==6 || e.action==3){//set direction
 		e.direction=0;
 	}
-	if(e.action==7 || e.action==4 || e.action==1){
+	if(e.action==7 || e.action==4 || e.action==1){//set direction
 		e.direction=1;
 	}
-	if(e.action>0 && e.action<10){
+	if(e.action>0 && e.action<10){//mover jogador
 		e.jog=calculaNovaPosicao(e.jog,e.action);
 	}
-	if(e.action>10 && e.action>20){
+	if(e.action>10 && e.action<20){//ataque normal
 		e=calcularCombate(e);
+	}
+	if(e.action>50 && e.action<60){//escolha do menu
+		e.screen = e.action-50;
+		return e;
+	}
+	if(e.action>60 && e.action<70){//novo jogo
+		return inicializar(e.action-60);
+	}
+	if(e.action>69 && e.action<82){//loja
+		e.shopFeedback=0;
+		return shop(e);
 	}
 
 	e=move_monstros(e);
 
-	e.turn+=1;
-	
+	e.turn++;
+
 	if(e.hp<1){
-		e.hp=1;
+		e.hp=0;
 	}
 	if(e.mp<1){
-		e.mp=1;
+		e.mp=0;
 	}
 
 	return e;
@@ -174,45 +179,42 @@ Converte o estado que estava em hexadecimal no ficheiro para uma struct ESTADO e
 @param gamestateFile Apontador para um ficheiro com o estado
 */
 ESTADO ler_estado (char *args,FILE *gamestateFile){
-	char str[MAX_BUFFER];
 	int act;
-	fscanf(gamestateFile,"%s",str);
-	ESTADO e = str2estado(str);
-	sscanf(args,"%d",&act);
-	e.action = act;
-	return e;
+	ESTADO e;
+	if(fread(&e, sizeof(ESTADO), 1, gamestateFile)){
+		sscanf(args,"%d",&act);
+		e.action = act;
+		return e;
+	}else{
+		return e; //PERGUNTAR AOS STORES
+	}
 }
 /**
-\brief Corre o jogo. 
+\brief Corre o jogo.
 Cria um novo jogo se estiver a começar ou faz "update" ao estado conforme o que o jogador fez.
 */
 ESTADO runGame(){
 	char *args = getenv("QUERY_STRING");
-	FILE *gamestateFile;
 	ESTADO e;
+	FILE *gamestateFile;
+	char filepath[15];
+
+	#ifdef DEBUG
+	strcpy(filepath,"gamestate");
+	#else
+	strcpy(filepath,"/tmp/gamestate");
+	#endif
 
 	if(strlen(args)==0){
-		#ifdef DEBUG
-		gamestateFile = fopen("gamestate","w");
-		#else
-		gamestateFile = fopen("/tmp/gamestate","w");
-		#endif
-		e = inicializar();
+		gamestateFile = fopen(filepath,"w");
+		e.screen = 0;
 	}else{
-		#ifdef DEBUG
-		gamestateFile = fopen("gamestate","r+");
-		#else
-		gamestateFile = fopen("/tmp/gamestate","r+");
-		#endif
+		gamestateFile = fopen(filepath,"r+");
 		e = ler_estado(args,gamestateFile);
 		e = calcularNovoEstado(e);
-		#ifdef DEBUG
-		gamestateFile = freopen("gamestate","w",gamestateFile);
-		#else
-		gamestateFile = freopen("/tmp/gamestate","w",gamestateFile);
-		#endif
+		gamestateFile = freopen(filepath,"w",gamestateFile);
 	}
-	fprintf(gamestateFile,"%s",estado2str(e));
+	fwrite(&e, sizeof(ESTADO), 1, gamestateFile);
 	fclose(gamestateFile);
 	return e;
 }
@@ -222,7 +224,10 @@ ESTADO runGame(){
 int main(){
 
 	ESTADO e = runGame();
-	if(e.hp<=0){
+	if(e.screen==4 && e.hp==0){
+		if(e.score>99999){//isto nunca deve acontecer
+			e.score=99999;//mas assim tenho a certeza
+		}				  //que ao imprimir não causa problemas
 		updateScoreBoard(e.score);
 	}
 
