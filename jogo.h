@@ -93,7 +93,7 @@ typedef struct estado{
     //Lado para que o jogador esta a olhar 0:direita e 1:esquerda
     char direction;
     //Action
-    char action;
+    int action;
     // Items que podem ser adquiridos num certo nivel
     char lootTable[LOOT_TABLE_SIZE];
     //Guarda se o jogador esta na loja

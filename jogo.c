@@ -9,6 +9,7 @@
 #include "loot.h"
 #include "shop.h"
 #include "antiCheat.h"
+#include "items.h"
 #include "jogo.h"
 /**
 \brief Inicializa o estado do jogo
@@ -138,6 +139,9 @@ ESTADO calcularNovoEstado(ESTADO e){
 	}
 	if(e.action>10 && e.action<20){//ataque normal
 		e=calcularCombate(e);
+	}
+	if(e.action>19 && e.action<30){
+		e=useItem(e);
 	}
 	if(e.action>50 && e.action<60){//escolha do menu
 		e.screen = e.action-50;

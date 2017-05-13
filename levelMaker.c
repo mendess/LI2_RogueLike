@@ -104,6 +104,12 @@ INVT initINVT(INVT bag){
 	{
 		bag.inv[i]=0;
 	}
+	bag.inv[0]=10;
+	bag.inv[1]=11;
+	bag.inv[2]=14;
+	bag.inv[3]=15;
+	bag.inv[4]=1;
+	bag.inv[5]=1;
 	bag.weapon=0;
 	bag.armour=0;
 	return bag;
