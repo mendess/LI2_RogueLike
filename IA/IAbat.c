@@ -161,19 +161,19 @@ ESTADO estrat_bat(ESTADO e,int i,POSICAO p){
         e.hp-=BAT_DMG;
       flag=0;
    } // J M →ŧ
-   if(flag && e.jog.x<=p.x && e.jog.y>=p.y && e.saida.x>=e.jog.x && e.saida.y<=e.jog.y){
+   if(flag && e.jog.x<p.x && e.jog.y>p.y && e.saida.x>p.x && e.saida.y<p.y && e.saida.x>e.jog.x && e.saida.y<e.jog.y){
      e=defB(e,i,p,1);
      flag=0;
    } // J M←ŧ
-   if(flag && e.jog.x>=p.x && e.jog.y>=p.y && e.saida.x<=e.jog.x && e.saida.y<=e.jog.y){
+   if(flag && e.jog.x>p.x && e.jog.y>p.y && e.saida.x<p.x && e.saida.y<p.y && e.saida.x<e.jog.x && e.saida.y<e.jog.y){
      e= defB(e,i,p,2);
      flag=0;
    } // J M←↓
-   if(flag && e.jog.x>=p.x && e.jog.y<=p.y && e.saida.x<=e.jog.x && e.saida.y>=e.jog.y){
+   if(flag && e.jog.x>p.x && e.jog.y<p.y && e.saida.x<p.x && e.saida.y>p.y && e.saida.x<e.jog.x && e.saida.y>e.jog.y){
      e=defB(e,i,p,3);
      flag=0;
    } // J M→↓
-   if(flag && e.jog.x<=p.x && e.jog.y<=p.y && e.saida.x>=e.jog.x && e.saida.y>=e.jog.y){
+   if(flag && e.jog.x<p.x && e.jog.y<p.y && e.saida.x>p.x && e.saida.y>p.y && e.saida.x>e.jog.x && e.saida.y>e.jog.y){
      e=defB(e,i,p,4);
      flag=0;
    }
