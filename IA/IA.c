@@ -177,21 +177,21 @@ ESTADO acao_archer(ESTADO e, int i, POSICAO p){
 	}
 	return e;
 }
-
+// certo devolve 2 monstros
 POSICAO quemAtaca(ESTADO e){
   POSICAO w;
   int i,j,i1,i2;
-  w.x=abs(e.monstros[0].x-e.jog.x) + abs(e.monstros[0].y-e.jog.y);
-  w.y=abs(e.monstros[1].x-e.jog.x) + abs(e.monstros[1].y-e.jog.y);
+  w.x=10;
+  w.y=10;
   i1=1;i2=0;
-  for (i=2;i<e.num_monstros;i++){
+  for (i=0;i<e.num_monstros;i++){
      j=abs(e.monstros[i].x-e.jog.x) + abs(e.monstros[i].y-e.jog.y);
-     if (j<=w.x && w.x>w.y){
-       w.x=e.monstros[i].x + e.monstros[i].y;
+     if (j<=w.x && w.x>=w.y){
+       w.x=j;
        i1=i;
      }
-      if (w.x != j && j<w.y && w.y>w.x){
-       w.y=e.monstros[i].x + e.monstros[i].y;
+      if (w.x != j && j<w.y && w.y>=w.x){
+       w.y=j;
        i2=i;
      }
   }
@@ -199,7 +199,6 @@ POSICAO quemAtaca(ESTADO e){
   w.y=i2;
   return w;
 }
-
 ESTADO iaMoves (ESTADO e,int i){
   POSICAO p;
   int flag=1;
@@ -221,28 +220,26 @@ ESTADO iaMoves (ESTADO e,int i){
 }
 ESTADO move_monstros (ESTADO e){
    POSICAO p,q;
-   int i,flag;
-   flag=1;
+   int i;
    q=quemAtaca(e);
    srandom(time(NULL));
    for (i=0;i<MAX_MONSTROS;i++){
         if(i==q.x || i== q.y){
            e=iaMoves(e,i);
-           flag=0;
         }
-        if(i!=q.x || i!= q.y){
+        if(i!=q.x && i!= q.y){
           p.x=e.monstros[i].x;
           p.y=e.monstros[i].y;
-          if(e.monstros[i].monType == 0 && flag){
+          if(e.monstros[i].monType == 0){
             e=acao_bat(e,i,p);
           }
-        	if(e.monstros[i].monType == 1  && flag){
+        	if(e.monstros[i].monType == 1){
             e=acao_wolf(e,i,p);
         	} 
-         if(e.monstros[i].monType == 2 && (e.turn%2 == 0) && flag){
+         if(e.monstros[i].monType == 2 && (e.turn%2 == 0)){
    	    	  e=acao_ogre(e,i,p);
          }
-         if(e.monstros[i].monType == 3 && flag){
+         if(e.monstros[i].monType == 3){
             e=acao_archer(e,i,p);
          }
         }

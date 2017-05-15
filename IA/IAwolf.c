@@ -97,7 +97,7 @@ int impossivel(ESTADO e,POSICAO pos){
    }
    return flag;
 }
-POSICAO anda_vertical(ESTADO e,POSICAO atual,POSICAO alternativa){
+POSICAO anda_vertical(POSICAO atual,POSICAO alternativa){
   POSICAO pos=atual;
   int flag=1;
     if(atual.y>alternativa.y+1){
@@ -149,15 +149,14 @@ POSICAO tracker (ESTADO e,POSICAO p, POSICAO intersect){
     if(impossivel(e,caminho[i])){
       alternativa=vertical1(e,caminho[i]);// alternativa=(8,5)
       alt=i;
-      // até aqui funciona -> da (9,7)(8,5) mas devia dar (9,7) (9,6) e so depois (8,5)
       while(caminho[alt-1].x!=alternativa.x || caminho[alt-1].y!=alternativa.y){
-        caminho[alt]=anda_vertical(e,caminho[alt-1],alternativa);
+        caminho[alt]=anda_vertical(caminho[alt-1],alternativa);
         alt++;
-      } // até aqui perfeito
+      } 
       while(caminho[alt-1].x!= intersect.x || caminho[alt-1].y != intersect.y){
           caminho[alt]=direcao(caminho[alt-1],intersect);
           alt++;
-      }  // errado entre comentários
+      }  // caminho certo
     }
  }
  return caminho[1];

@@ -9,7 +9,7 @@
 
 ESTADO persegue_wolf(ESTADO e,int i,POSICAO p);
 int impossivel(ESTADO e,POSICAO pos);
-POSICAO anda_vertical(ESTADO e,POSICAO atual,POSICAO alternativa);
+POSICAO anda_vertical(POSICAO atual,POSICAO alternativa);
 POSICAO vertical1(ESTADO e,POSICAO pos);
 POSICAO direcao(POSICAO pos,POSICAO intersect);
 POSICAO tracker1 (ESTADO e,POSICAO p, POSICAO intersect);
