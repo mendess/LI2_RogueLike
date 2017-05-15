@@ -18,10 +18,7 @@
 */
 int getDirection(ESTADO e,POSICAO p){
 	int type=0;
-	POSICAO tmp;
-	tmp.x = p.x + e.jog.x;
-	tmp.y = p.y + e.jog.y;
-	if(com_monstros(e,tmp)){
+	if(com_monstros(e,e.jog)){
 		type=10;
 	}
 	if(isBoss(e,p)){
@@ -52,18 +49,18 @@ void imprime_jogada(ESTADO e, POSICAO p){
 */
 void criar_jogada(ESTADO e, POSICAO p){
 	int new_action;
-	if(e.saida.x==(p.x+e.jog.x) && e.saida.y==(p.y+e.jog.y)){
+	e.jog.x += p.x;
+	e.jog.y += p.y;
+	if(com_saida(e,e.jog)){
 		new_action=5;
 	}else{
-		new_action=(char) getDirection(e,p);
+		new_action=getDirection(e,p);
 	}
-	p.x += e.jog.x;
-	p.y += e.jog.y;
-	if (!outOfBounds(p) && !com_pedras(e,p)){
+	if (!outOfBounds(e.jog) && !com_pedras(e,e.jog)){
 		char query[4];
 		sprintf(query,"%d",new_action);
 		ABRIR_LINK(query);
-		imprime_jogada(e,p);
+		imprime_jogada(e,e.jog);
 		FECHAR_LINK;
 	}
 }
@@ -126,6 +123,16 @@ void imprime_pedras (ESTADO e){
 	int i;
 	for (i=0;i<e.num_pedras;i++){
 		IMAGEM(TAM*(e.pedras[i].x+1),TAM*(e.pedras[i].y+1),TAM,TAM,"Tile_Obstacle.png");
+	}
+}
+/**
+\brief Imprime as chests
+@param e Estado do jogo
+*/
+void imprime_chests(ESTADO e){
+	int i;
+	for (i=0;i<e.num_chests;i++){
+		IMAGEM(TAM*(e.chests[i].pos.x+1),TAM*(e.chests[i].pos.y+1),TAM,TAM,"Chest.png");
 	}
 }
 /**
@@ -224,6 +231,7 @@ void imprimePlaying(ESTADO e){
 	}else{
 		imprime_monstros(e);
 	}
+	imprime_chests(e);
 	imprime_hpBar(e.hp);
 	imprime_mpBar(e.mp,e.classe);
 	imprime_inventory(e.bag);

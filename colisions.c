@@ -33,6 +33,14 @@ int pos_ocupada (ESTADO e, POSICAO p){
 	return com_jogador(e,p) || com_pedras(e,p) || com_monstros(e,p);
 }
 /**
+\brief Verifica se a saida esta num certo par de coordenadas
+@param e Estado do jogo
+@param p Posição a verificar
+*/
+int com_saida (ESTADO e, POSICAO p){
+	return (e.saida.x==p.x) && (e.saida.y==p.y);
+}
+/**
 \brief Verifica se o jogador esta num certo par de coordenadas
 @param e Estado do jogo
 @param p Posição a verificar
