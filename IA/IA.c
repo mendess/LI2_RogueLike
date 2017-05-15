@@ -186,6 +186,7 @@ POSICAO quemAtaca(ESTADO e){
   i1=1;i2=0;
   for (i=0;i<e.num_monstros;i++){
      j=abs(e.monstros[i].x-e.jog.x) + abs(e.monstros[i].y-e.jog.y);
+     if(e.monstros[i].monType==4) j-=3;
      if (j<=w.x && w.x>=w.y){
        w.x=j;
        i1=i;
@@ -207,14 +208,14 @@ ESTADO iaMoves (ESTADO e,int i){
   if(e.monstros[i].monType == 1 && flag){
      e=estrat_bat(e,i,p);
   }
-  if(e.monstros[i].monType == 2  && flag){
-     e=estrat_wolf(e,i,p);
+  if(e.monstros[i].monType == 2  && flag){//por wolf
+     e=estrat_archer(e,i,p);
  	} 
   if(e.monstros[i].monType == 3 && (e.turn%2 == 0) && flag){
      e=estrat_ogre(e,i,p);
   }
-  if(e.monstros[i].monType == 4 && flag){
-     e=estrat_archer(e,i,p);
+  if(e.monstros[i].monType == 4 && flag){// por archer
+     e=estrat_wolf(e,i,p);
   }
   return e;
 }
@@ -233,14 +234,14 @@ ESTADO move_monstros (ESTADO e){
           if(e.monstros[i].monType == 0){
             e=acao_bat(e,i,p);
           }
-        	if(e.monstros[i].monType == 1){
-            e=acao_wolf(e,i,p);
+        	if(e.monstros[i].monType == 1){//por wolf
+            e=acao_archer(e,i,p);
         	} 
          if(e.monstros[i].monType == 2 && (e.turn%2 == 0)){
    	    	  e=acao_ogre(e,i,p);
          }
-         if(e.monstros[i].monType == 3){
-            e=acao_archer(e,i,p);
+         if(e.monstros[i].monType == 3){// por archer
+            e=acao_wolf(e,i,p);
          }
         }
   }

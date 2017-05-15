@@ -3,38 +3,97 @@
 #include <string.h>
 #include <time.h>
 #include "IA.h"
-
-
+/*
+int ve_jogador (ESTADO e,POSICAO p){
+   int p1,p2;
+   p1=abs(p.x-e.jog.x);
+   p2=abs(p.y-e.jog.y);
+   if (p1+p2 <= 3) return 1;
+   return 0;
+}
+int com_pedras (ESTADO e, POSICAO p){
+   int i,flag;
+   flag=0;
+   for(i=0;i<e.num_pedras && !flag;i++){
+      if (e.pedras[i].x == p.x && e.pedras[i].y == p.y){
+         flag=1;
+      }
+   }
+   return flag;
+}
+int com_monstros (ESTADO e, POSICAO p){
+   int i,flag;
+   flag=0;
+   for (i=0;i<e.num_monstros && !flag;i++){
+      if (e.monstros[i].x == p.x && e.monstros[i].y == p.y){
+         flag=1;
+      }
+   }
+}
+*/
 int possivel_casa (ESTADO e,POSICAO p){
   int flag;
   flag=1;
   if(com_pedras(e,p) || com_monstros(e,p)) flag=0;
   return flag;
 }
+int in_range(ESTADO e,POSICAO p){
+   int flag=0;
+   if((p.x-e.jog.x)+(p.y-e.jog.y)==1) flag=1;
+   return flag;
+}
+ESTADO desvia(ESTADO e,int i,POSICAO p){ // por a desviar para cima e para baixo p.x<e.jog.x
+  POSICAO pos;
+  int flag=1;
+  pos.x=p.x+1;
+  pos.y=p.y;
+  if( p.x>e.jog.x && possivel_casa(e,pos)){
+    e.monstros[i].x+=1;
+  }
+  pos.x=p.x-1;
+  pos.y=p.y;
+   if(flag && p.x<e.jog.x && possivel_casa(e,pos)){
+  e.monstros[i].x-=1;
+  flag=0;
+  }
+  pos.x=p.x;
+  pos.y=p.y-1;
+  if(flag && p.y<e.jog.y && possivel_casa(e,pos)){
+  e.monstros[i].y-=1;
+  flag=0;
+  }
+  pos.x=p.x;
+  pos.y=p.y+1;
+  if(flag && p.y>e.jog.y && possivel_casa(e,pos)){
+  e.monstros[i].y+=1;
+  flag=0;
+  }
+  return e;
+}
 ESTADO persegue_arch(ESTADO e,int i,POSICAO p){
   POSICAO pos;
   int flag=1;
   pos.x=p.x-1;
   pos.y=p.y;
-  if(p.x>e.jog.x && abs(e.jog.y-p.y)<3 && possivel_casa(e,pos)){
+  if(p.x>e.jog.x && possivel_casa(e,pos)){
   e.monstros[i].x+=(-1);
   flag=0;
   }
   pos.x=p.x+1;
   pos.y=p.y;
-   if(flag && p.x<e.jog.x && abs(e.jog.y-p.y)<2 && possivel_casa(e,pos)){
+   if(flag && p.x<e.jog.x && possivel_casa(e,pos)){
   e.monstros[i].x+=(-1);
   flag=0;
   }
   pos.x=p.x;
   pos.y=p.y+1;
-  if(flag && p.y<e.jog.y && abs(e.jog.x-p.x)<2 && possivel_casa(e,pos)){
+  if(flag && p.y<e.jog.y && possivel_casa(e,pos)){
   e.monstros[i].y+=1;
   flag=0;
   }
   pos.x=p.x;
   pos.y=p.y-1;
-  if(flag && p.y>e.jog.y && abs(e.jog.x-p.x)<2 && possivel_casa(e,pos)){
+  if(flag && p.y>e.jog.y && possivel_casa(e,pos)){
   e.monstros[i].y+=(-1);
   flag=0;
   }
@@ -185,7 +244,11 @@ ESTADO defA (ESTADO e, int i, POSICAO p,int num){
    return e;
 }
 ESTADO estrat_archer (ESTADO e,int i,POSICAO p){
-   int flag=1;;
+   int flag=1;
+ if(in_range(e,p)){
+     e=desvia(e,i,p);
+     if(p.x!=e.monstros[i].x || p.y!=e.monstros[i].y) flag=0;
+   }
    if (ve_jogador(e,p)){
     e.hp-=ARCHER_DMG;
     flag=0;
@@ -210,3 +273,22 @@ ESTADO estrat_archer (ESTADO e,int i,POSICAO p){
    if(flag) e=persegue_arch(e,i,p);
    return e;
 }
+/*
+int main (){
+   ESTADO e;
+   POSICAO pos;
+   e.hp=30;
+   e.saida.x=2;
+   e.saida.y=7;
+   e.monstros[0].x=7;
+   e.monstros[0].y=7;
+   e.jog.x=4;
+   e.jog.y=4;
+   pos.x=e.monstros[0].x;
+   pos.y=e.monstros[0].y;
+   printf("antes:(%d,%d)\n",e.monstros[0].x,e.monstros[0].y);
+   e=estrat_archer(e,0,pos);
+   printf("depois:(%d,%d)\n",e.monstros[0].x,e.monstros[0].y);
+   return 1;
+}
+*/
