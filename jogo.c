@@ -1,4 +1,4 @@
-//#define DEBUG
+#define DEBUG
 //#define ANTICHEAT
 #include "path.h"
 #include "html/htmlMaster.h"
@@ -10,7 +10,9 @@
 #include "genMonsters.h"
 #include "shop.h"
 #include "antiCheat.h"
+#include "calcularCombate.h"
 #include "jogo.h"
+
 /**
 \brief Inicializa o estado do jogo
 */
@@ -30,7 +32,7 @@ ESTADO inicializar(char classe){
 	e.direction=0;				//Lado para que o jogador esta a olhar 0:drt e 1:esq
 	e.action=0;					//Action
 	generateLoot(e.lootTable,e.world_lvl);//Inicializar LootTable para o primeiro nivel
-	e.isInShop=0;				//O jogador começa fora da loja 
+	e.isInShop=0;				//O jogador começa fora da loja
 	e.shopFeedback=0;
 	e.isInBossBattle=0;			//O jogador começa fora da boss battle
 	e.bag=initINVT(e.bag);		//Inicializar o inventario
@@ -114,9 +116,6 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act){
 		jog.y+=y[act];
 	}
 	return jog;
-}
-ESTADO calcularCombate(ESTADO e){
-	return e;
 }
 ESTADO calcularDanoBoss(ESTADO e){
 	return e;
@@ -204,22 +203,22 @@ ESTADO runGame(){
 	char *args = getenv("QUERY_STRING");
 	ESTADO e;
 	FILE *gamestateFile;
-	char filepath[15];
-
-	#ifdef DEBUG
-	strcpy(filepath,"gamestate");
-	#else
-	strcpy(filepath,"/tmp/gamestate");
-	#endif
-
 	if(strlen(args)==0){
-		gamestateFile = fopen(filepath,"w");
+		gamestateFile = fopen("files/gamestate","w");
 		e.screen = 0;
 	}else{
-		gamestateFile = fopen(filepath,"r+");
+		gamestateFile = fopen("files/gamestate","r+");
 		e = ler_estado(args,gamestateFile);
 		e = calcularNovoEstado(e);
-		gamestateFile = freopen(filepath,"w",gamestateFile);
+		gamestateFile = freopen("files/gamestate","w",gamestateFile);
+		#ifdef DEBUG
+		FILE *fp;
+		char str[30];
+		sprintf(str,"files/gamestate%d",e.turn);
+		fp=fopen(str,"w");
+		fwrite(&e, sizeof(ESTADO), 1, fp);
+		fclose(fp);
+		#endif
 	}
 	fwrite(&e, sizeof(ESTADO), 1, gamestateFile);
 	fclose(gamestateFile);
