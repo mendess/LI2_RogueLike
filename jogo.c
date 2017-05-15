@@ -1,4 +1,4 @@
-//#define DEBUG
+#define DEBUG
 //#define ANTICHEAT
 #include "path.h"
 #include "html/htmlMaster.h"
@@ -9,7 +9,9 @@
 #include "loot.h"
 #include "shop.h"
 #include "antiCheat.h"
+#include "calcularCombate.h"
 #include "jogo.h"
+
 /**
 \brief Inicializa o estado do jogo
 */
@@ -107,9 +109,6 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act){
 	}
 	return jog;
 }
-ESTADO calcularCombate(ESTADO e){
-	return e;
-}
 /**
 \brief Calcula um novo estado conforme a ação que esteja no estado que recebe
 @param e Estado do jogo
@@ -189,22 +188,22 @@ ESTADO runGame(){
 	char *args = getenv("QUERY_STRING");
 	ESTADO e;
 	FILE *gamestateFile;
-	char filepath[15];
-
-	#ifdef DEBUG
-	strcpy(filepath,"gamestate");
-	#else
-	strcpy(filepath,"/tmp/gamestate");
-	#endif
-
 	if(strlen(args)==0){
-		gamestateFile = fopen(filepath,"w");
+		gamestateFile = fopen("files/gamestate","w");
 		e.screen = 0;
 	}else{
-		gamestateFile = fopen(filepath,"r+");
+		gamestateFile = fopen("files/gamestate","r+");
 		e = ler_estado(args,gamestateFile);
 		e = calcularNovoEstado(e);
-		gamestateFile = freopen(filepath,"w",gamestateFile);
+		gamestateFile = freopen("files/gamestate","w",gamestateFile);
+		#ifdef DEBUG
+		FILE *fp;
+		char str[30];
+		sprintf(str,"files/gamestate%d",e.turn);
+		fp=fopen(str,"w");
+		fwrite(&e, sizeof(ESTADO), 1, fp);
+		fclose(fp);
+		#endif
 	}
 	fwrite(&e, sizeof(ESTADO), 1, gamestateFile);
 	fclose(gamestateFile);
