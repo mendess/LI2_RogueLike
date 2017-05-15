@@ -4,7 +4,7 @@ int samePos(POSICAO monPos, MSTR monster){
 	return monPos.x == monster.x && monPos.y == monster.y;
 }
 void killMonster(int i, MSTR monstros[], char num_monstros){
-	monstros[i]=monstros[num_monstros];
+	monstros[i]=monstros[(int) num_monstros];
 }
 char calcPlayerDmg(char classe, INVT bag){
 	int weaponDmg;
