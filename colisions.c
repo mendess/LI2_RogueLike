@@ -14,7 +14,7 @@ int outOfBounds(POSICAO p){
 @param pathSize Tamanho do caminho
 @param path Array de posições do caminho
 */
-int isOnPath(ESTADO e, POSICAO p, int pathSize, POSICAO path[]){ 
+int isOnPath(POSICAO p, int pathSize, POSICAO path[]){ 
 	int i, flag;
 	flag=0;
 	for (i=1;i<pathSize && !flag;i++){
@@ -31,6 +31,14 @@ int isOnPath(ESTADO e, POSICAO p, int pathSize, POSICAO path[]){
 */
 int pos_ocupada (ESTADO e, POSICAO p){
 	return com_jogador(e,p) || com_pedras(e,p) || com_monstros(e,p);
+}
+/**
+\brief Verifica se a saida esta num certo par de coordenadas
+@param e Estado do jogo
+@param p Posição a verificar
+*/
+int com_saida (ESTADO e, POSICAO p){
+	return (e.saida.x==p.x) && (e.saida.y==p.y);
 }
 /**
 \brief Verifica se o jogador esta num certo par de coordenadas
