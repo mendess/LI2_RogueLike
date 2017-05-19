@@ -189,17 +189,17 @@ ESTADO runGame(){
 	ESTADO e;
 	FILE *gamestateFile;
 	if(strlen(args)==0){
-		gamestateFile = fopen("files/gamestate","w");
+		gamestateFile = fopen("/var/www/html/files/gamestate","w");
 		e.screen = 0;
 	}else{
-		gamestateFile = fopen("files/gamestate","r+");
+		gamestateFile = fopen("/var/www/html/files/gamestate","r");
 		e = ler_estado(args,gamestateFile);
 		e = calcularNovoEstado(e);
-		gamestateFile = freopen("files/gamestate","w",gamestateFile);
+		gamestateFile = freopen("/var/www/html/files/gamestate","w",gamestateFile);
 		#ifdef DEBUG
 		FILE *fp;
 		char str[30];
-		sprintf(str,"files/gamestate%d",e.turn);
+		sprintf(str,"/var/www/html/files/gamestate%d",e.turn);
 		fp=fopen(str,"w");
 		fwrite(&e, sizeof(ESTADO), 1, fp);
 		fclose(fp);

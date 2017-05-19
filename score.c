@@ -4,9 +4,9 @@
 
 int importScoreBoard(int scoreBoard[]){
 	FILE *scoreFile;
-	scoreFile=fopen("score/scoreBoard","r");
+	scoreFile=fopen("/var/www/html/score/scoreBoard","r");
 	if(!scoreFile){
-		scoreFile=fopen("score/scoreBoard","w");
+		scoreFile=fopen("/var/www/html/score/scoreBoard","w");
 		fclose(scoreFile);
 		return 0;
 	}
@@ -43,7 +43,7 @@ int insertScore(int score, int scoreBoard[], int num_scores){
 }
 void exportScoreBoard(int scoreBoard[], int num_scores){
 	FILE *scoreFile;
-	scoreFile=fopen("score/scoreBoard","w");
+	scoreFile=fopen("/var/www/html/score/scoreBoard","w");
 	int i;
 	for(i=0;i<num_scores;i++){
 		fprintf(scoreFile,"%d\n", scoreBoard[i]);
