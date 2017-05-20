@@ -43,8 +43,8 @@ void imprime_price(int x, int y, int amount){
 	int digitPos=3;
 	while(amount){
 		int digit = amount % 10;
-		amount /= 10;
 		char filepath[15];
+		amount /= 10;
 		sprintf(filepath,"Number%d.png",digit);
 		IMAGEM(x+(25*digitPos),y,25,25,filepath);
 		digitPos--;
@@ -65,8 +65,8 @@ void imprime_shop_messages(char shopFeedback){
 	IMAGEM(20,400,150,150,messages[(int) shopFeedback]);
 }
 void imprimeShop(ESTADO e){
-	IMAGEM(0,0,SVG_WIDTH,SVG_HEIGHT,"ScreenShop.png");
 	int i;
+	IMAGEM(0,0,SVG_WIDTH,SVG_HEIGHT,"ScreenShop.png");
 	for (i = 0; i < 4; ++i){
 		imprime_shop_item(e.lootTable[i],i);
 	}
@@ -79,7 +79,7 @@ void imprimeShop(ESTADO e){
 
 	imprime_shop_messages(e.shopFeedback);
 
-	ABRIR_LINK("5");//done
+	ABRIR_LINK("5");/* done */
 	printf("<rect x=0 y=540 width=140 height=60 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
 

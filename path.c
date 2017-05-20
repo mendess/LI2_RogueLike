@@ -1,4 +1,4 @@
-//#define DEBUG
+/* #define DEBUG */
 #include "path.h"
 
 /**
@@ -9,25 +9,27 @@
 */
 int pathMaker(POSICAO path[]){
 	int plrX;
+	int decision, i;
+	i=0;
+
 	srand(time(NULL));
 	plrX=rand() % 10;
 	path[0].x=(char) plrX;
 	path[0].y=(char) 9;
 
-	int decision,i=0;
 	decision=2;
 	while(path[i].y!=(char) 0 && i<MAX_CAMINHO){
 		i++;
 		switch(decision){
-			//esquerda
+			/* esquerda */
 			case 0: if(path[i-1].x!=(char) 0){
 						decision=rand() % 2;
 						switch(decision){
-							//esquerda
+							/* esquerda */
 							case 0: path[i].x=path[i-1].x-1;
 					 				path[i].y=path[i-1].y;
 					 				break;
-					 		//cima
+					 		/* cima */
 							case 1: path[i].x=path[i-1].x;
 									path[i].y=path[i-1].y-1;
 					 				break;
@@ -37,15 +39,15 @@ int pathMaker(POSICAO path[]){
 						path[i].y=path[i-1].y-1;
 					}
 					break;
-			//direita
+			/* direita */
 			case 1: if(path[i-1].x!=(char) SIZE-1){
 						decision=rand() % 2;
 						switch(decision){
-							//direita
+							/* direita */
 							case 0: path[i].x=path[i-1].x+1;
 					 				path[i].y=path[i-1].y;
 					 				break;
-					 		//cima
+					 		/* cima */
 					 		case 1: path[i].x=path[i-1].x;
 					 				path[i].y=path[i-1].y-1;
 					 				break;
@@ -55,15 +57,15 @@ int pathMaker(POSICAO path[]){
 						path[i].y=path[i-1].y-1;
 					}
 					break;
-			//cima
+			/* cima */
 			case 2: if(path[i-1].x==(char) 0){
 						decision=rand() % 2;
 						switch(decision){
-							//direita
+							/* direita */
 							case 0: path[i].x=path[i-1].x+1;
 					 				path[i].y=path[i-1].y;
 					 				break;
-					 		//cima
+					 		/* cima */
 					 		case 1: path[i].x=path[i-1].x;
 					 				path[i].y=path[i-1].y-1;
 					 				break;
@@ -73,11 +75,11 @@ int pathMaker(POSICAO path[]){
 					if(path[i-1].x==(char) SIZE-1){
 						decision=rand() % 2;
 						switch(decision){
-							//esquerda
+							/* esquerda */
 							case 0: path[i].x=path[i-1].x-1;
 					 				path[i].y=path[i-1].y;
 					 				break;
-					 		//cima
+					 		/* cima */
 							case 1: path[i].x=path[i-1].x;
 									path[i].y=path[i-1].y-1;
 					 				break;
@@ -86,15 +88,15 @@ int pathMaker(POSICAO path[]){
 					}
 					decision=rand () % 3;
 					switch(decision){
-						//esquerda
+						/* esquerda */
 						case 0: path[i].x=path[i-1].x-1;
 				 				path[i].y=path[i-1].y;
 					 			break;
-						//direita
+						/* direita */
 						case 1: path[i].x=path[i-1].x+1;
 				 				path[i].y=path[i-1].y;
 					 			break;
-						//cima
+						/* cima */
 						case 2: path[i].x=path[i-1].x;
 				 				path[i].y=path[i-1].y-1;
 					 			break;
