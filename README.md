@@ -55,12 +55,21 @@ Action map:
 	17 -> atack NW
 	18 -> atack N
 	19 -> atack NE
-	20 -> Use Item 0
-	21 -> Use Item 1
-	22 -> Use Item 2
-	23 -> Use Item 3
-	24 -> Use Item 4
-	25 -> Use Item 5
+	21 -> archer atack SW
+	22 -> archer atack S
+	23 -> archer atack SE
+	24 -> archer atack W
+	25 -> archer atack Boss
+	26 -> archer atack E
+	27 -> archer atack NW
+	28 -> archer atack N
+	29 -> archer atack NE
+	40 -> Use Item 0
+	41 -> Use Item 1
+	42 -> Use Item 2
+	43 -> Use Item 3
+	44 -> Use Item 4
+	45 -> Use Item 5
 	51 -> Go to CharSelect
 	52 -> Go to Help
 	53 -> Go to ScoreBoard

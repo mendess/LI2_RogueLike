@@ -5,6 +5,12 @@
 
 #include "htmlMaster.h"
 
+#define ARCHER_ACTION_MATRIX	{{-1,-1,28,-1,-1},\
+								 {-1,27,-1,29,-1},\
+								 {24,-1,-1,-1,26},\
+								 {-1,21,-1,23,-1},\
+								 {-1,-1,22,-1,-1},}
+
 int getDirection(ESTADO e,POSICAO p);
 void imprime_jogador (ESTADO e);
 void imprime_jogadaS (ESTADO e);

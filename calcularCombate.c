@@ -44,11 +44,26 @@ int updateScore(char type){
 	}
 	return scoreGain;
 }
+POSICAO calculaArcherAtackPos(POSICAO p,int act){
+	int x[10]={5,-1, 0, 1,-2, 5, 2,-1, 0, 1};
+	/*         0  1  2  3  4  5  6  7  8  9 */
+	int y[10]={5, 1, 2, 1, 0, 5, 0,-1,-2,-1};
+
+	if(act!=0 && act!=5){
+		p.x+=x[act];
+		p.y+=y[act];
+	}
+	return p;
+}
 ESTADO calcularCombate(ESTADO e){
 	POSICAO mon;
 	char plrDmg;
 	int i, found;
-	mon = calculaNovaPosicao(e.jog,(int) e.action-10);
+	if(e.action<20){
+		mon = calculaNovaPosicao(e.jog,e.action-10);	
+	}else /*if(e.action<30)*/{
+		mon = calculaArcherAtackPos(e.jog,e.action-20);
+	}
 	plrDmg = calcPlayerDmg(e.classe,e.bag);
 	i=found=0;
 	while(!found){

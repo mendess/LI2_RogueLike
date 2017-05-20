@@ -18,10 +18,17 @@
 */
 int getDirection(ESTADO e,POSICAO p){
 	int type=0;
+	int action;
 	if(com_monstros(e,e.jog)){
 		type=10;
 	}
-	return 7-3*(p.y+1)+p.x+1+type;
+	if(e.classe==2){
+		int actions[5][5] = ARCHER_ACTION_MATRIX;
+		action=actions[p.x+2][p.y+2];
+	}else{
+		action=7-3*(p.y+1)+p.x+1+type;
+	}
+	return action;
 }
 /**
 \brief Imprime um movimento (link)
@@ -51,11 +58,34 @@ void criar_jogada(ESTADO e, POSICAO p){
 		new_action=getDirection(e,p);
 	}
 	if (!outOfBounds(e.jog) && !com_pedras(e,e.jog)){
-		char query[4];
+		char query[5];
 		sprintf(query,"%d",new_action);
 		ABRIR_LINK(query);
 		imprime_jogada(e,e.jog);
 		FECHAR_LINK;
+	}
+}
+void imprime_archer_attack_link(ESTADO e,int x, int y){
+	POSICAO tmp,d;
+	tmp.x=x+e.jog.x;tmp.y=y+e.jog.y;
+	d.x  =x;		d.y  =y;
+	if(!outOfBounds(tmp) && com_monstros(e,tmp)){
+		char query[5];
+		int new_action=getDirection(e,d);
+		sprintf(query,"%d",new_action);
+		ABRIR_LINK(query);
+		imprime_jogada(e,e.jog);
+		FECHAR_LINK;
+	}
+}
+void imprime_ataques_arqueiro(ESTADO e){
+	int x,y;
+	for(x=-2,y=0;x<0;x++,y++){
+		imprime_archer_attack_link(e,x,y);
+		imprime_archer_attack_link(e,y,x);
+	}
+	for(x=-1,y=-1;x<2;x++,y++){
+		imprime_archer_attack_link(e,x,y);
 	}
 }
 /**
@@ -79,6 +109,9 @@ void imprime_jogadaS(ESTADO e){
 			}
 		}
 	}*/
+	if(e.classe==2){
+		imprime_ataques_arqueiro(e);
+	}
 }
 /**
 \brief Imprime o jogador

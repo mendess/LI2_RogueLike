@@ -122,5 +122,6 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act);
 ESTADO calcularNovaEstado(ESTADO e);
 ESTADO ler_estado (char *args,FILE *gamestateFile);
 ESTADO runGame();
+void keepLog(ESTADO e);
 
 #endif

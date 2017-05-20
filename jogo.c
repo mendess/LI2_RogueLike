@@ -1,4 +1,4 @@
-/* #define DEBUG */
+#define DEBUG 
 /* #define ANTICHEAT */
 #include "path.h"
 #include "html/htmlMaster.h"
@@ -102,7 +102,7 @@ ESTADO newLevel(ESTADO e){
 */
 POSICAO calculaNovaPosicao(POSICAO jog, int act){
 	int x[10]={5,-1, 0, 1,-1, 5, 1,-1, 0, 1};
-	/*          0  1  2  3  4  5  6  7  8  9 */
+	/*         0  1  2  3  4  5  6  7  8  9 */
 	int y[10]={5, 1, 1, 1, 0, 5, 0,-1,-1,-1};
 
 	if(act!=0 && act!=5){
@@ -137,7 +137,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 	if(e.action>0 && e.action<10){/* mover jogador */
 		e.jog=calculaNovaPosicao(e.jog,e.action);
 	}
-	if(e.action>10 && e.action<20){/* ataque normal */
+	if(e.action>10 && e.action<30){/* ataque normal */
 		e=calcularCombate(e);
 	}
 	if(e.action>50 && e.action<60){/* escolha do menu */
@@ -199,12 +199,7 @@ ESTADO runGame(){
 		e = calcularNovoEstado(e);
 		gamestateFile = freopen("/var/www/html/files/gamestate","w",gamestateFile);
 		#ifdef DEBUG
-		FILE *fp;
-		char str[30];
-		sprintf(str,"/var/www/html/files/gamestate%d",e.turn);
-		fp=fopen(str,"w");
-		fwrite(&e, sizeof(ESTADO), 1, fp);
-		fclose(fp);
+		keepLog(e);
 		#endif
 	}
 	fwrite(&e, sizeof(ESTADO), 1, gamestateFile);
@@ -227,4 +222,14 @@ int main(){
 	imprime(e);
 
 	return 0;
+}
+
+
+void keepLog(ESTADO e){
+	FILE *fp;
+	char str[30];
+	sprintf(str,"/var/www/html/files/gamestate%d",e.turn);
+	fp=fopen(str,"w");
+	fwrite(&e, sizeof(ESTADO), 1, fp);
+	fclose(fp);
 }
