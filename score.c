@@ -1,16 +1,17 @@
-//#define DEBUG
+/* #define DEBUG */
 
 #include "score.h"
 
 int importScoreBoard(int scoreBoard[]){
 	FILE *scoreFile;
-	scoreFile=fopen("score/scoreBoard","r");
+	int i, flag;
+	i=0;flag=0;
+	scoreFile=fopen("/var/www/html/score/scoreBoard","r");
 	if(!scoreFile){
-		scoreFile=fopen("score/scoreBoard","w");
+		scoreFile=fopen("/var/www/html/score/scoreBoard","w");
 		fclose(scoreFile);
 		return 0;
 	}
-	int i=0, flag=0;
 	while(i<SB_SIZE && flag!=-1){
 		flag=fscanf(scoreFile,"%d\n",&scoreBoard[i++]);
 	}
@@ -43,8 +44,8 @@ int insertScore(int score, int scoreBoard[], int num_scores){
 }
 void exportScoreBoard(int scoreBoard[], int num_scores){
 	FILE *scoreFile;
-	scoreFile=fopen("score/scoreBoard","w");
 	int i;
+	scoreFile=fopen("/var/www/html/score/scoreBoard","w");
 	for(i=0;i<num_scores;i++){
 		fprintf(scoreFile,"%d\n", scoreBoard[i]);
 	}

@@ -10,9 +10,9 @@ ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]){
 	POSICAO p;
 	int placed=0, i=0;
 	while(!placed && i<20){
-		i++;
 		int x=rand() % SIZE;
 		int y=rand() % SIZE;
+		i++;
 		p.x=(char) x;
 		p.y=(char) y;
 		if (!pos_ocupada(e,p) && !isOnPath(p,pathSize,path)){
@@ -32,9 +32,9 @@ ESTADO colocar_monstro (ESTADO e){
 	POSICAO p;
 	int placed=0, i=0;
 	while(!placed && i<20){
-		i++;
 		int x=rand() % SIZE;
 		int y=rand() % SIZE;
+		i++;
 		p.x=(char) x;
 		p.y=(char) y;
 		if (!pos_ocupada(e,p)){
@@ -97,8 +97,9 @@ char getClassMp(char type){
 	return -1;
 }
 INVT initINVT(INVT bag){
+	int i;
+	i=0;
 	bag.gold=0;
-	int i=0;
 	for (i = 0; i < INVT_SIZE; ++i)
 	{
 		bag.inv[i]=0;

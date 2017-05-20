@@ -95,8 +95,8 @@ void imprime_jogador (ESTADO e){
 */
 void imprime_monstros (ESTADO e){
 	int i;
-	srand(time(NULL));
 	char *wolfs[]={"Monstro_Lobo_Lateral_1.png","Monstro_Lobo_Lateral_2.png"};
+	srand(time(NULL));
 	for(i=0;i<e.num_monstros;i++){
 		int r = rand() % 2;
 		IMAGEM(TAM*(e.monstros[i].x+1),TAM*(e.monstros[i].y+1),TAM,TAM,wolfs[r]);
@@ -164,8 +164,8 @@ void imprime_inv_slot(char item,int i){
 	if(item!=0){
 		int X = 620+(TAM*(i/2));
 		int Y = 110+(50*!(i%2));
-		IMAGEM(X,Y,TAM,TAM,itemlist[(int) item]);
 		char query[4];
+		IMAGEM(X,Y,TAM,TAM,itemlist[(int) item]);
 		sprintf(query,"2%d",i);
 		ABRIR_LINK(query);
 		printf("<rect x=%d y=%d width=50 height=50 style=opacity:0;></rect>\n",X,Y);
@@ -178,8 +178,8 @@ void imprime_equipment(INVT bag){
 	IMAGEM(700,310,TAM,TAM,itemlist[(int) bag.armour]);
 }
 void imprime_inventory(INVT bag){
-	IMAGEM(620,110,150,100,"Inv_bag.png");
 	int i;
+	IMAGEM(620,110,150,100,"Inv_bag.png");
 	for (i = 0; i < INVT_SIZE; ++i){
 		imprime_inv_slot(bag.inv[i],i);
 	}
@@ -187,10 +187,10 @@ void imprime_inventory(INVT bag){
 	imprime_equipment(bag);
 }
 void imprimePlaying(ESTADO e){
-	imprime_background(e.classe);
-
 	int x,y;
 	POSICAO p;
+
+	imprime_background(e.classe);
 	srand(e.pedras[0].x);
 	for(y = 0; y < SIZE; y++){
 		for(x = 0; x < SIZE; x++){

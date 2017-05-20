@@ -58,8 +58,8 @@ char generateArmour(char world_lvl){
 	return ARMOUR_PALLADIUM;
 }
 void generateLoot(char lootTable[], int world_lvl){
-	srand(time(NULL));
 	int i;
+	srand(time(NULL));
 	for(i=0;i<LOOT_TABLE_SIZE;i++){
 		int r = rand() % 100;
 		if(r<40){

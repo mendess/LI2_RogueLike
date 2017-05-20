@@ -8,6 +8,8 @@ void killMonster(int i, MSTR monstros[], char num_monstros){
 }
 char calcPlayerDmg(char classe, INVT bag){
 	int weaponDmg;
+	int plrDmg;
+	plrDmg=weaponDmg=0;
 	switch(bag.weapon){
 		case 10: weaponDmg = SWORD_BRONZE_DMG;
 			 break;
@@ -18,7 +20,6 @@ char calcPlayerDmg(char classe, INVT bag){
 		case 13: weaponDmg = SWORD_PALLADIUM_DMG;
 			 break;
 	}
-	int plrDmg;
 	switch(classe){
 		case 0: plrDmg = WARRIOR_BASE_DMG;
 			break;
@@ -44,8 +45,12 @@ int updateScore(char type){
 	return scoreGain;
 }
 ESTADO calcularCombate(ESTADO e){
-	POSICAO mon = calculaNovaPosicao(e.jog,(int) e.action-10);
-	int i=0, found=0;
+	POSICAO mon;
+	char plrDmg;
+	int i, found;
+	mon = calculaNovaPosicao(e.jog,(int) e.action-10);
+	plrDmg = calcPlayerDmg(e.classe,e.bag);
+	i=found=0;
 	while(!found){
 		if(samePos(mon,e.monstros[i])){
 			found=1;
@@ -53,7 +58,6 @@ ESTADO calcularCombate(ESTADO e){
 			i++;
 		}
 	}
-	char plrDmg = calcPlayerDmg(e.classe,e.bag);
 	if(e.monstros[i].hp <= plrDmg){
 		e.score+=updateScore(e.monstros[i].monType);
 		e.num_monstros--;

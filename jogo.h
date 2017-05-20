@@ -76,43 +76,43 @@ typedef struct inventory{
 }INVT;
 
 typedef struct estado{
-    //{Main Menu=0; ScoreBoard=1; Help=2; Character Selection=3; Playing=4; Store=5}
+    /* {Main Menu=0; ScoreBoard=1; Help=2; Character Selection=3; Playing=4; Store=5} */
     char screen;
-    //Classe {Warrior=0, Archer=1, Mage=2}
+    /* Classe {Warrior=0, Archer=1, Mage=2} */
     char classe;
-    //Vida do jogador
+    /* Vida do jogador */
     int hp;
-    //Mana do jogador
+    /* Mana do jogador */
     int mp;
-    //Nivel
+    /* Nivel */
     char world_lvl;
-    //Score
+    /* Score */
     int score;
-    //Turno
+    /* Turno */
     char turn;
-    //Lado para que o jogador esta a olhar 0:direita e 1:esquerda
+    /* Lado para que o jogador esta a olhar 0:direita e 1:esquerda */
     char direction;
-    //Action
+    /* Action */
     char action;
-    // Items que podem ser adquiridos num certo nivel
+    /*  Items que podem ser adquiridos num certo nivel */
     char lootTable[LOOT_TABLE_SIZE];
-    //Guarda se o jogador esta na loja
+    /* Guarda se o jogador esta na loja */
     char isInShop;
-    //Codigo de feedback da loja
+    /* Codigo de feedback da loja */
     char shopFeedback;
-    // Inventario do jogador
+    /*  Inventario do jogador */
     INVT bag;
-	// Posição do jogador
+	/*  Posição do jogador */
     POSICAO jog;
-    // Posição da saida
+    /*  Posição da saida */
     POSICAO saida;
-    // Numero de Monstros
+    /*  Numero de Monstros */
     char num_monstros;
-    // Numero de pedras
+    /*  Numero de pedras */
     char num_pedras;
-    // Posições dos monstros
+    /*  Posições dos monstros */
     MSTR monstros [MAX_MONSTROS];
-    // Posições da pedras
+    /*  Posições da pedras */
     POSICAO pedras [MAX_PEDRAS];
 }ESTADO;
 

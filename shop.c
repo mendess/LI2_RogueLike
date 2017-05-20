@@ -39,15 +39,15 @@ char buyItem(char action,char lootTable[],INVT *bag){
 	int enoughMoney = bag->gold > price;
 	int enoughSpace = hasEnoughSpace(bag->inv);
 
-	if(!enoughMoney){									//Se não tem dinheiro que chegue
-		return 2;										//Retornar o codigo de erro 2 (Não tem dinheiro que chegue)
-	}else if(!enoughSpace){								//Se não tem espaço que chegue
-		return 3;										//Retornar o codigo de erro 3 (Não tem espaço que chegue)
-	}else{												//Se tem dinheiro e espaço que chegue
-		putItemInv(bag->inv,lootTable[(int) action-70]);//Colocar o item no inventario
-		lootTable[(int) action-70]=0;					//Retirar o item da loja
-		bag->gold-=price;								//Subtrair o preco ao dinheiro do jogador
-		return 1;										//Retornar o codigo de erro 1 (Compra com sucesso)
+	if(!enoughMoney){									/* Se não tem dinheiro que chegue */
+		return 2;										/* Retornar o codigo de erro 2 (Não tem dinheiro que chegue) */
+	}else if(!enoughSpace){								/* Se não tem espaço que chegue */
+		return 3;										/* Retornar o codigo de erro 3 (Não tem espaço que chegue) */
+	}else{												/* Se tem dinheiro e espaço que chegue */
+		putItemInv(bag->inv,lootTable[(int) action-70]);/* Colocar o item no inventario */
+		lootTable[(int) action-70]=0;					/* Retirar o item da loja */
+		bag->gold-=price;								/* Subtrair o preco ao dinheiro do jogador */
+		return 1;										/* Retornar o codigo de erro 1 (Compra com sucesso) */
 	}
 }
 int getItemSellPrice(char item){

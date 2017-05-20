@@ -7,10 +7,14 @@ int validMenu(ESTADO e){
 		|| e.hp<0;
 }
 int validNewLevel(ESTADO e){
-	POSICAO cima	= {e.jog.x  ,e.jog.y-1};
-	POSICAO direita	= {e.jog.x+1,e.jog.y  };
-	POSICAO baixo	= {e.jog.x  ,e.jog.y+1};
-	POSICAO esquerda= {e.jog.x-1,e.jog.y  };
+	POSICAO cima;
+	POSICAO direita;
+	POSICAO baixo;
+	POSICAO esquerda;
+	cima.x		=e.jog.x;	cima.y		=e.jog.y-1;
+	direita.x	=e.jog.x+1;	direita.y	=e.jog.y;
+	baixo.x		=e.jog.x;	baixo.y		=e.jog.y+1;
+	esquerda.x	=e.jog.x-1;	esquerda.y	=e.jog.y;
 	return com_saida(e,cima)
 		|| com_saida(e,direita)
 		|| com_saida(e,baixo)
@@ -29,7 +33,7 @@ int validAtack(ESTADO e){
 int validItemUse(ESTADO e){
 	return e.bag.inv[e.action-20]!=0;
 }
-int validBossAtack(ESTADO e){//FINISH THIS validAction.c l32
+int validBossAtack(ESTADO e){/* FINISH THIS validAction.c l32 */
 	return 0;
 }
 int isInMenu(ESTADO e){
@@ -42,16 +46,16 @@ int isInShop(ESTADO e){
 	return e.screen==5;
 }
 int validAction(ESTADO e){
-	if(e.action==0){//main menu
+	if(e.action==0){/* main menu */
 		return validMenu(e);
 	}
-	if(e.action==5){//saida
+	if(e.action==5){/* saida */
 		return validNewLevel(e);
 	}
-	if(e.action>0 && e.action<10){//mover jogador
+	if(e.action>0 && e.action<10){/* mover jogador */
 		return validMove(e);
 	}
-	if(e.action>10 && e.action<20){//ataque normal
+	if(e.action>10 && e.action<20){/* ataque normal */
 		return validAtack(e);
 	}
 	if(e.action>19 && e.action<30){
@@ -60,13 +64,13 @@ int validAction(ESTADO e){
 	if(e.action==30){
 		return validBossAtack(e);
 	}
-	if(e.action>50 && e.action<60){//escolha do menu
+	if(e.action>50 && e.action<60){/* escolha do menu */
 		return isInMenu(e);
 	}
-	if(e.action>60 && e.action<70){//novo jogo
+	if(e.action>60 && e.action<70){/* novo jogo */
 		return isInCharSelect(e);
 	}
-	if(e.action>69 && e.action<82){//loja
+	if(e.action>69 && e.action<82){/* loja */
 		return isInShop(e);
 	}
 
