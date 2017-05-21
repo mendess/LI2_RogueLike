@@ -15,11 +15,12 @@ int validNewLevel(ESTADO e){
 	direita.x	=e.jog.x+1;	direita.y	=e.jog.y;
 	baixo.x		=e.jog.x;	baixo.y		=e.jog.y+1;
 	esquerda.x	=e.jog.x-1;	esquerda.y	=e.jog.y;
-	return e.screen==4
-		&& (com_saida(e,cima)
-			|| com_saida(e,direita)
-			|| com_saida(e,baixo)
-			|| com_saida(e,esquerda));
+	return e.screen==5
+		|| (e.screen==4
+			&& (com_saida(e,cima)
+				|| com_saida(e,direita)
+				|| com_saida(e,baixo)
+				|| com_saida(e,esquerda)));
 }
 int validMove(ESTADO e){
 	POSICAO tmp = calculaNovaPosicao(e.jog, e.action);
