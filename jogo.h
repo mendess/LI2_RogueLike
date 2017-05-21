@@ -116,11 +116,14 @@ typedef struct estado{
     POSICAO pedras [MAX_PEDRAS];
 }ESTADO;
 
+static const ESTADO estadoZero;
+
 ESTADO inicializar(char classe);
 ESTADO newLevel();
 POSICAO calculaNovaPosicao(POSICAO jog, int act);
 ESTADO calcularNovaEstado(ESTADO e);
-ESTADO ler_estado (char *args,FILE *gamestateFile);
+ESTADO ler_estado (char *args);
 ESTADO runGame();
+void keepLog(ESTADO e);
 
 #endif

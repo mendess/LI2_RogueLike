@@ -1,5 +1,5 @@
 /* #define DEBUG */
-/* #define ANTICHEAT */
+#define ANTICHEAT
 #include "path.h"
 #include "html/htmlMaster.h"
 #include "score.h"
@@ -171,15 +171,31 @@ Converte o estado que estava em hexadecimal no ficheiro para uma struct ESTADO e
 @param args QUERY_STRING
 @param gamestateFile Apontador para um ficheiro com o estado
 */
-ESTADO ler_estado (char *args,FILE *gamestateFile){
+ESTADO ler_estado (char *args){
 	int act;
-	ESTADO e;
-	if(fread(&e, sizeof(ESTADO), 1, gamestateFile)){
-		sscanf(args,"%d",&act);
-		e.action = act;
-		return e;
+	ESTADO e = estadoZero;
+	FILE *gamestateFile;
+	gamestateFile = fopen("/var/www/html/files/gamestate","r");
+	if(gamestateFile){
+		int r=fread(&e, sizeof(ESTADO), 1, gamestateFile);
+		fclose(gamestateFile);
+		if(r<1){
+			e = estadoZero;
+		}
+	}
+	sscanf(args,"%d",&act);
+	e.action = act;
+	return e;
+}
+void escrever_estado(ESTADO e){
+	FILE *gamestateFile;
+	gamestateFile = fopen("/var/www/html/files/gamestate","w");
+	if(gamestateFile==NULL){
+		perror("Não consegui escrever o estado");
+		exit(-1);
 	}else{
-		return e; /* PERGUNTAR AOS STORES */
+		fwrite(&e, sizeof(ESTADO), 1, gamestateFile);
+		fclose(gamestateFile);
 	}
 }
 /**
@@ -188,27 +204,17 @@ Cria um novo jogo se estiver a começar ou faz "update" ao estado conforme o que
 */
 ESTADO runGame(){
 	char *args = getenv("QUERY_STRING");
-	ESTADO e;
-	FILE *gamestateFile;
+	ESTADO e = estadoZero;
 	if(strlen(args)==0){
-		gamestateFile = fopen("/var/www/html/files/gamestate","w");
 		e.screen = 0;
 	}else{
-		gamestateFile = fopen("/var/www/html/files/gamestate","r");
-		e = ler_estado(args,gamestateFile);
+		e = ler_estado(args);
 		e = calcularNovoEstado(e);
-		gamestateFile = freopen("/var/www/html/files/gamestate","w",gamestateFile);
-		#ifdef DEBUG
-		FILE *fp;
-		char str[30];
-		sprintf(str,"/var/www/html/files/gamestate%d",e.turn);
-		fp=fopen(str,"w");
-		fwrite(&e, sizeof(ESTADO), 1, fp);
-		fclose(fp);
-		#endif
 	}
-	fwrite(&e, sizeof(ESTADO), 1, gamestateFile);
-	fclose(gamestateFile);
+	escrever_estado(e);
+	#ifdef DEBUG
+	keepLog(e);
+	#endif
 	return e;
 }
 /**
@@ -228,3 +234,13 @@ int main(){
 
 	return 0;
 }
+#ifdef DEBUG
+void keepLog(ESTADO e){
+	FILE *fp;
+	char str[50];
+	sprintf(str,"/var/www/html/files/gamestate%d",e.turn);
+	fp=fopen(str,"w");
+	fwrite(&e, sizeof(ESTADO), 1, fp);
+	fclose(fp);
+}
+#endif

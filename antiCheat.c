@@ -4,7 +4,7 @@ int validMenu(ESTADO e){
 	return e.screen==1
 		|| e.screen==2
 		|| e.screen==3
-		|| e.hp<0;
+		|| (e.screen==4 && e.hp<=0);
 }
 int validNewLevel(ESTADO e){
 	POSICAO cima;
@@ -15,27 +15,32 @@ int validNewLevel(ESTADO e){
 	direita.x	=e.jog.x+1;	direita.y	=e.jog.y;
 	baixo.x		=e.jog.x;	baixo.y		=e.jog.y+1;
 	esquerda.x	=e.jog.x-1;	esquerda.y	=e.jog.y;
-	return com_saida(e,cima)
-		|| com_saida(e,direita)
-		|| com_saida(e,baixo)
-		|| com_saida(e,esquerda);
+	return e.screen==4
+		&& (com_saida(e,cima)
+			|| com_saida(e,direita)
+			|| com_saida(e,baixo)
+			|| com_saida(e,esquerda));
 }
 int validMove(ESTADO e){
 	POSICAO tmp = calculaNovaPosicao(e.jog, e.action);
-	return !outOfBounds(tmp)
+	return e.screen==4
+		&& !outOfBounds(tmp)
 		&& !pos_ocupada(e,tmp)
 		&& !com_saida(e,tmp);
 }
 int validAtack(ESTADO e){
 	POSICAO tmp = calculaNovaPosicao(e.jog, e.action-10);
-	return com_monstros(e,tmp);
+	return e.screen==4
+		&& com_monstros(e,tmp);
 }
 int validItemUse(ESTADO e){
-	return e.bag.inv[e.action-20]!=0;
+	return e.screen==4
+		&& e.bag.inv[e.action-20]!=0;
 }
-int validBossAtack(ESTADO e){/* FINISH THIS validAction.c l32 */
+/*
+int validBossAtack(ESTADO e){ FINISH THIS validAction.c l32
 	return 0;
-}
+}*/
 int isInMenu(ESTADO e){
 	return e.screen==0;
 }
@@ -61,10 +66,10 @@ int validAction(ESTADO e){
 	if(e.action>19 && e.action<30){
 		return validItemUse(e);
 	}
-	if(e.action==30){
+/*	if(e.action==30){
 		return validBossAtack(e);
 	}
-	if(e.action>50 && e.action<60){/* escolha do menu */
+*/	if(e.action>50 && e.action<60){/* escolha do menu */
 		return isInMenu(e);
 	}
 	if(e.action>60 && e.action<70){/* novo jogo */

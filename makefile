@@ -7,9 +7,12 @@ LIBS=-lm
 
 install: roguel
 	sudo cp roguel /usr/lib/cgi-bin/
+	sudo rm -r /var/www/html/*
+	sudo mkdir /var/www/html/imagens
+	sudo mkdir /var/www/html/files
+	sudo mkdir /var/www/html/score
+	sudo chmod a+rw /var/www/html/*
 	sudo cp imagens/* /var/www/html/imagens
-	sudo mkdir -m a=rwx -p /var/www/html/files
-	sudo mkdir -m a=rwx -p /var/www/html/score
 	touch install
 
 roguel: $(OBJ_HTML) $(OBJECTS)
