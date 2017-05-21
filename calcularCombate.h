@@ -8,6 +8,11 @@
 #define ARCHER_SCORE  8
 #define OGRE_SCORE    15
 
+#define WOLF_GOLD    10
+#define BAT_GOLD     10
+#define ARCHER_GOLD  8
+#define OGRE_GOLD    15
+
 #define WARRIOR_BASE_DMG	20
 #define ARCHER_BASE_DMG		15
 #define MAGE_BASE_DMG		13
@@ -20,6 +25,7 @@
 int samePos(POSICAO monPos, MSTR monster);
 void killMonster(int i, MSTR monstros[], char num_monstros);
 int updateScore(char type);
+int goldDrop(char type);
 char calcPlayerDmg(char classe, INVT bag);
 ESTADO calcularCombate(ESTADO e);
 

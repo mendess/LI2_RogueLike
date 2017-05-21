@@ -44,6 +44,20 @@ int updateScore(char type){
 	}
 	return scoreGain;
 }
+int goldDrop(char type){
+	int goldGain=0;
+	switch(type){
+		case 0: goldGain = WOLF_GOLD;
+			break;
+		case 1: goldGain = BAT_GOLD;
+			break;
+		case 2: goldGain = OGRE_GOLD;
+			break;
+		case 3: goldGain = ARCHER_GOLD;
+			break;
+	}
+	return goldGain;
+}
 ESTADO calcularCombate(ESTADO e){
 	POSICAO mon;
 	char plrDmg;
@@ -60,6 +74,7 @@ ESTADO calcularCombate(ESTADO e){
 	}
 	if(e.monstros[i].hp <= plrDmg){
 		e.score+=updateScore(e.monstros[i].monType);
+		e.bag.gold+=goldDrop(e.monstros[i].monType);
 		e.num_monstros--;
 		killMonster(i,e.monstros,e.num_monstros);
 	}else{
