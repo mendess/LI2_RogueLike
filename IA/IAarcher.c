@@ -249,7 +249,7 @@ ESTADO estrat_archer (ESTADO e,int i,POSICAO p){
      e=desvia(e,i,p);
      if(p.x!=e.monstros[i].x || p.y!=e.monstros[i].y) flag=0;
    }
-   if (ve_jogador(e,p)){
+   if (flag && ve_jogador(e,p)){
     e.hp-=ARCHER_DMG;
     flag=0;
    } // J M →ŧ
