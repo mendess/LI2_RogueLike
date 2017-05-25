@@ -121,33 +121,33 @@ ESTADO calcularNovoEstado(ESTADO e){
 		return e;
 	}
 	#endif
-	if(e.action==0){/* main menu*/
+	if(ACT_GOTO_MENU){/* main menu*/
 		e.screen=0;
 		return e;
 	}
-	if(e.action==5){/* saida */
+	if(ACT_EXIT){/* saida */
 		return newLevel(e);
 	}
-	if(e.action==9 || e.action==6 || e.action==3){/* set direction */
+	if(PLR_FACING_LEFT){/* set direction */
 		e.direction=0;
 	}
-	if(e.action==7 || e.action==4 || e.action==1){/* set direction */
+	if(PLR_FACING_RIGHT){/* set direction */
 		e.direction=1;
 	}
-	if(e.action>0 && e.action<10){/* mover jogador */
+	if(ACT_MOVE){/* mover jogador */
 		e.jog=calculaNovaPosicao(e.jog,e.action);
 	}
-	if(e.action>10 && e.action<20){/* ataque normal */
+	if(ACT_ATACK){/* ataque normal */
 		e=calcularCombate(e);
 	}
-	if(e.action>50 && e.action<60){/* escolha do menu */
+	if(ACT_MENU_CHOICE){/* escolha do menu */
 		e.screen = e.action-50;
 		return e;
 	}
-	if(e.action>60 && e.action<70){/* novo jogo */
+	if(ACT_CLASS_CHOICE){/* novo jogo */
 		return inicializar(e.action-60);
 	}
-	if(e.action>69 && e.action<82){/* loja */
+	if(ACT_SHOP_CHOICE){/* loja */
 		e.shopFeedback=0;
 		return shop(e);
 	}

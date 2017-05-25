@@ -3,6 +3,7 @@
 
 #include "jogo.h"
 #include "colisions.h"
+#include "actionMap.h"
 
 int validMenu(ESTADO e);
 int validNewLevel(ESTADO e);
