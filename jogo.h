@@ -3,6 +3,7 @@
 
 //#define BOSS
 
+
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -61,15 +62,15 @@ ArmourPalladium 17 - Inventa para ai
 */
 
 typedef struct posicao{
-	char x;
-	char y;
+	int x;
+	int y;
 }POSICAO;
 
 typedef struct monster{
-	char x;
-	char y;
-	char monType;
-	char hp;
+	int x;
+	int y;
+	int monType;
+	int hp;
 }MSTR;
 
 typedef struct inventory{
@@ -90,7 +91,7 @@ typedef struct estado{
 	//Classe {Warrior=0, Archer=1, Mage=2}
 	char classe;
 	//Vida do jogador
-	char hp;
+	int hp;
 	//Mana do jogador
 	char mp;
 	//Nivel
@@ -98,7 +99,7 @@ typedef struct estado{
 	//Score
 	int score;
 	//Turno
-	char turn;
+	int turn;
 	//Lado para que o jogador esta a olhar 0:direita e 1:esquerda
 	char direction;
 	//Action
@@ -112,7 +113,7 @@ typedef struct estado{
 	//Guarda se o jogador esta numa Boss Battle
 	char isInBossBattle;
 	//Numero de chests
-	char num_chests;
+	int num_chests;
 	//Lista de chests
 	CHEST chests[MAX_CHESTS];
 	// Inventario do jogador
@@ -122,9 +123,9 @@ typedef struct estado{
 	// Posição da saida
 	POSICAO saida;
 	// Numero de Monstros
-	char num_monstros;
+	int num_monstros;
 	// Numero de pedras
-	char num_pedras;
+	int num_pedras;
 	// Posições dos monstros
 	MSTR monstros [MAX_MONSTROS];
 	// Posições da pedras

@@ -127,6 +127,7 @@ ESTADO  track_chest(ESTADO e,int i,POSICAO p){
 	nova_pos=tracker_chest(e,p,chest);
 	e.monstros[i].x=nova_pos.x;
 	e.monstros[i].y=nova_pos.y;
+  return e;
 }
 ESTADO defO(ESTADO e,POSICAO c,POSICAO m,int i){
 	POSICAO pos;
@@ -185,7 +186,7 @@ ESTADO estrat_ogre (ESTADO e,int i,POSICAO p){
 	int flag=1;
    if (existe_jogador(e,p)){
         e.hp+=-OGRE_DMG;
-        flag==0;
+        flag=0;
    } 
    if(flag && next2chest(e,i,p)){
    	e=protect_it(e,i,p);

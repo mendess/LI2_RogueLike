@@ -21,13 +21,9 @@ void ataca_jogador(ESTADO e,int i){
 	e.hp-=i;
 }
 int existe_jogador(ESTADO e,POSICAO p){
-	int q,w;
-	for(q=-1;q<=1;q++){
-		for(w=-1;w<=1;w++){
-			if (e.jog.x==p.x+q && e.jog.y == p.y+w) return 1;
-		}
-	}
-	return 0;
+	int flag=0;
+	if (abs(e.jog.x-p.x)<=1 && abs(e.jog.y-p.y)<=1) flag=1;
+	return flag;
 }
 /*
 // impede que os monstros presos ao procurarem mover-se entrem em ciclos infinitos
@@ -205,17 +201,17 @@ ESTADO iaMoves (ESTADO e,int i){
   int flag=1;
   p.x=e.monstros[i].x;
   p.y=e.monstros[i].y;
-  if(e.monstros[i].monType == 1 && flag){
-     e=estrat_bat(e,i,p);
+  if(e.monstros[i].monType == 0 && flag){
+     e=estrat_wolf(e,i,p);
   }
-  if(e.monstros[i].monType == 2  && flag){//por wolf
-     e=estrat_archer(e,i,p);
+  if(e.monstros[i].monType == 1  && flag){//por wolf
+     e=estrat_bat(e,i,p);
  	} 
-  if(e.monstros[i].monType == 3 && (e.turn%2 == 0) && flag){
+  if(e.monstros[i].monType == 2 && (e.turn%2 == 0) && flag){
      e=estrat_ogre(e,i,p);
   }
-  if(e.monstros[i].monType == 4 && flag){// por archer
-     e=estrat_wolf(e,i,p);
+  if(e.monstros[i].monType == 3 && flag){// por archer
+     e=estrat_archer(e,i,p);
   }
   return e;
 }
@@ -232,16 +228,16 @@ ESTADO move_monstros (ESTADO e){
           p.x=e.monstros[i].x;
           p.y=e.monstros[i].y;
           if(e.monstros[i].monType == 0){
-            e=acao_bat(e,i,p);
+            e=acao_wolf(e,i,p);
           }
         	if(e.monstros[i].monType == 1){//por wolf
-            e=acao_archer(e,i,p);
+            e=acao_bat(e,i,p);
         	} 
          if(e.monstros[i].monType == 2 && (e.turn%2 == 0)){
    	    	  e=acao_ogre(e,i,p);
          }
          if(e.monstros[i].monType == 3){// por archer
-            e=acao_wolf(e,i,p);
+            e=acao_archer(e,i,p);
          }
         }
   }

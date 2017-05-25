@@ -49,5 +49,4 @@ int sem_pedras(ESTADO e,int n,int x,int y);
 void dist (ESTADO e,int a[10][10],int x,int y,int i);
 void preenche(int a[10][10]);
 ESTADO estrat_wolf (ESTADO e,int i,POSICAO p);
-
 #endif
