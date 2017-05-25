@@ -64,8 +64,7 @@ POSICAO buscaB4 (ESTADO e,int a[SIZE][SIZE]){
     }
   }
   return intersect;
-}
-// previsão da posição em que o jogador estará daqui a tantas jogadas
+}// previsão da posição em que o jogador estará daqui a tantas jogadas
 // como metade da distancia em x e y entre monstro e jogador
 POSICAO mapa3 (ESTADO e,POSICAO p,int q){
   int d,x,y;
@@ -153,8 +152,7 @@ ESTADO defB (ESTADO e, int i,POSICAO p,int num){
   intersect= mapa3(e,p,num);
   e=estrat_bat1(e,i,intersect);
   return e;
-}
-// ve se o monstro está entre o jogador e a saida e em que quadrante está.
+}// ve se o monstro está entre o jogador e a saida e em que quadrante está.
 ESTADO estrat_bat(ESTADO e,int i,POSICAO p){
    int flag=1;
    if (existe_jogador(e,p)){
@@ -180,4 +178,3 @@ ESTADO estrat_bat(ESTADO e,int i,POSICAO p){
    if(flag) e=estrat_bat1(e,i,e.jog);
    return e;
 }
-

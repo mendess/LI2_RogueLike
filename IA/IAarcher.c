@@ -3,34 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "IA.h"
-/*
-int ve_jogador (ESTADO e,POSICAO p){
-   int p1,p2;
-   p1=abs(p.x-e.jog.x);
-   p2=abs(p.y-e.jog.y);
-   if (p1+p2 <= 3) return 1;
-   return 0;
-}
-int com_pedras (ESTADO e, POSICAO p){
-   int i,flag;
-   flag=0;
-   for(i=0;i<e.num_pedras && !flag;i++){
-      if (e.pedras[i].x == p.x && e.pedras[i].y == p.y){
-         flag=1;
-      }
-   }
-   return flag;
-}
-int com_monstros (ESTADO e, POSICAO p){
-   int i,flag;
-   flag=0;
-   for (i=0;i<e.num_monstros && !flag;i++){
-      if (e.monstros[i].x == p.x && e.monstros[i].y == p.y){
-         flag=1;
-      }
-   }
-}
-*/
+
 int possivel_casa (ESTADO e,POSICAO p){
   int flag;
   flag=1;
@@ -112,7 +85,7 @@ POSICAO buscaA1(ESTADO e,int a[SIZE][SIZE]){
   POSICAO intersect;
   flag=1;i=0;
   for(y=0;y<10;y++){
-  for(x=0;x<10;x++){
+   for(x=0;x<10;x++){
      if(a[x][y] == 0 && i!=3){
        i++;
      }
@@ -123,12 +96,12 @@ POSICAO buscaA1(ESTADO e,int a[SIZE][SIZE]){
       y=10;
       flag=0;
      }
-  }
+   }
   }
  return intersect;
 }
 POSICAO buscaA2(ESTADO e,int a[SIZE][SIZE]){
-   int i,x,y,flag;
+  int i,x,y,flag;
   POSICAO intersect;
   flag=1;i=0;
   for(y=0;y<10;y++){
@@ -137,22 +110,22 @@ POSICAO buscaA2(ESTADO e,int a[SIZE][SIZE]){
      i++;
      }
      if(i==3 && livre1(e,x,y) && flag){
-    intersect.x=x;
-    intersect.y=y;
-    x=-1;
-    y=10;
-    flag=0;
-    }
+      intersect.x=x;
+      intersect.y=y;
+      x=-1;
+      y=10;
+      flag=0;
+     }
    }
   }
  return intersect;
 }
 POSICAO buscaA3(ESTADO e,int a[SIZE][SIZE]){
-   int i,x,y,flag;
+  int i,x,y,flag;
   POSICAO intersect;
   flag=1;i=0;
   for(y=9;y>=0;y--){
-  for(x=9;x>=0;x--){
+   for(x=9;x>=0;x--){
      if(a[x][y] == 0 && i!=3){
       i++;
      }
@@ -163,16 +136,16 @@ POSICAO buscaA3(ESTADO e,int a[SIZE][SIZE]){
       y=-1;
       flag=0;
      }
-  }
+   }
   }
  return intersect;
 }
 POSICAO buscaA4(ESTADO e,int a[SIZE][SIZE]){
-   int i,x,y,flag;
+  int i,x,y,flag;
   POSICAO intersect;
   flag=1;i=0;
   for(y=0;y<10;y++){
-  for(x=0;x<10;x++){
+   for(x=0;x<10;x++){
      if(a[x][y] == 0 && i!=3){
       i++;
      }
@@ -183,7 +156,7 @@ POSICAO buscaA4(ESTADO e,int a[SIZE][SIZE]){
       y=10;
       flag=0;
      }
-  }
+   }
   }
  return intersect;
 }
@@ -245,7 +218,7 @@ ESTADO defA (ESTADO e, int i, POSICAO p,int num){
 }
 ESTADO estrat_archer (ESTADO e,int i,POSICAO p){
    int flag=1;
- if(in_range(e,p)){
+   if(in_range(e,p)){
      e=desvia(e,i,p);
      if(p.x!=e.monstros[i].x || p.y!=e.monstros[i].y) flag=0;
    }
@@ -273,22 +246,3 @@ ESTADO estrat_archer (ESTADO e,int i,POSICAO p){
    if(flag) e=persegue_arch(e,i,p);
    return e;
 }
-/*
-int main (){
-   ESTADO e;
-   POSICAO pos;
-   e.hp=30;
-   e.saida.x=2;
-   e.saida.y=7;
-   e.monstros[0].x=7;
-   e.monstros[0].y=7;
-   e.jog.x=4;
-   e.jog.y=4;
-   pos.x=e.monstros[0].x;
-   pos.y=e.monstros[0].y;
-   printf("antes:(%d,%d)\n",e.monstros[0].x,e.monstros[0].y);
-   e=estrat_archer(e,0,pos);
-   printf("depois:(%d,%d)\n",e.monstros[0].x,e.monstros[0].y);
-   return 1;
-}
-*/

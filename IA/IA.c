@@ -204,13 +204,13 @@ ESTADO iaMoves (ESTADO e,int i){
   if(e.monstros[i].monType == 0 && flag){
      e=estrat_wolf(e,i,p);
   }
-  if(e.monstros[i].monType == 1  && flag){//por wolf
+  if(e.monstros[i].monType == 1  && flag){
      e=estrat_bat(e,i,p);
  	} 
   if(e.monstros[i].monType == 2 && (e.turn%2 == 0) && flag){
      e=estrat_ogre(e,i,p);
   }
-  if(e.monstros[i].monType == 3 && flag){// por archer
+  if(e.monstros[i].monType == 3 && flag){
      e=estrat_archer(e,i,p);
   }
   return e;
@@ -220,7 +220,7 @@ ESTADO move_monstros (ESTADO e){
    int i;
    q=quemAtaca(e);
    srandom(time(NULL));
-   for (i=0;i<MAX_MONSTROS;i++){
+   for (i=0;i<e.num_monstros;i++){
         if(i==q.x || i== q.y){
            e=iaMoves(e,i);
         }

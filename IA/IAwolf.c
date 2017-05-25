@@ -100,7 +100,7 @@ ESTADO persegue_wolf (ESTADO e,int i,POSICAO p,int a[10][10]){
   }
   return e;
 }
-ESTADO defW1 (ESTADO e, int i,POSICAO p,int a[10][10]){
+ESTADO defesa_WOLF_NE (ESTADO e, int i,POSICAO p,int a[10][10]){
   int x,y,d,flag;
   flag=1;
   d= a[p.x][p.y]/2; // o monstro deve ir para d para intersetar o jogador;
@@ -115,7 +115,7 @@ ESTADO defW1 (ESTADO e, int i,POSICAO p,int a[10][10]){
   }
   return e;
 }
-ESTADO defW2 (ESTADO e, int i,POSICAO p,int a[10][10]){
+ESTADO defesa_WOLF_NO (ESTADO e, int i,POSICAO p,int a[10][10]){
  int x,y,d,flag;
   flag=1;
   d= a[p.x][p.y]/2; // o monstro deve ir para d para intersetar o jogador;
@@ -130,7 +130,7 @@ ESTADO defW2 (ESTADO e, int i,POSICAO p,int a[10][10]){
   }
   return e;
 }
-ESTADO defW3 (ESTADO e, int i,POSICAO p,int a[10][10]){
+ESTADO defesa_WOLF_SE (ESTADO e, int i,POSICAO p,int a[10][10]){
   int x,y,d,flag;
   flag=1;
   d= a[p.x][p.y]/2; // o monstro deve ir para d para intersetar o jogador;
@@ -145,7 +145,7 @@ ESTADO defW3 (ESTADO e, int i,POSICAO p,int a[10][10]){
   }
   return e;
 }
-ESTADO defW4 (ESTADO e, int i,POSICAO p,int a[10][10]){
+ESTADO defesa_WOLF_SO (ESTADO e, int i,POSICAO p,int a[10][10]){
  int x,y,d,flag;
   flag=1;
   d= a[p.x][p.y]/2; // o monstro deve ir para d para intersetar o jogador;
@@ -160,7 +160,7 @@ ESTADO defW4 (ESTADO e, int i,POSICAO p,int a[10][10]){
   }
   return e;
 }
-void dist (ESTADO e,int a[10][10],int x,int y,int i){
+void distancia_WOLF (ESTADO e,int a[10][10],int x,int y,int i){
     int a1,a2;
     if(x<10 && x>=0 && y<10 && y>=0){
       if(sem_pedras(e,e.num_pedras,x,y) && i<a[x][y] && sem_monstros(e,e.num_monstros,x,y)){
@@ -169,14 +169,14 @@ void dist (ESTADO e,int a[10][10],int x,int y,int i){
         for(a1=x-1;a1<=x+1;a1++){
           for(a2=y-1;a2<=y+1;a2++){
             if(a1!=0 || a2!=0){
-              dist(e,a,a1,a2,i);
+              distancia_WOLF(e,a,a1,a2,i);
             }
           }
         }
       }
     }
 }
-void preenche(int a[10][10]){
+void preenche_matriz(int a[10][10]){
   int x,y;
   for(x=0;x<10;x++){
     for(y=0;y<10;y++){
@@ -184,29 +184,30 @@ void preenche(int a[10][10]){
     }
   }
 }
+
 ESTADO estrat_wolf (ESTADO e,int i,POSICAO p){
   int flag=1;
   int a[10][10];
-  preenche(a);
-  dist(e,a,e.jog.x,e.jog.y,0);
+  preenche_matriz(a);
+  distancia_WOLF(e,a,e.jog.x,e.jog.y,0);
   if (existe_jogador(e,p)){
     e.hp-=WOLF_DMG;
   	flag=0;
   } // J M →ŧ
-  if(flag && e.jog.x<p.x && e.jog.y>p.y && p.x<e.saida.x && e.saida.y<p.y && e.saida.x>e.jog.x && e.saida.y<e.jog.y){
-    e=defW1(e,i,p,a);
+  if(flag && e.jog.x<p.x && BLOQUEAVEL_NE){
+    e=defesa_WOLF_NE(e,i,p,a);
     flag=0;
   } // J M←ŧ
-  if(flag && e.jog.x>p.x && e.jog.y>p.y && e.saida.x<p.x && e.saida.y<p.y && e.saida.x<e.jog.x && e.saida.y<e.jog.y){
-    e= defW2(e,i,p,a);
+  if(flag && e.jog.x>p.x && BLOQUEAVEL_NO){
+    e= defesa_WOLF_NO(e,i,p,a);
     flag=0;
   } // J M←↓
-  if(flag && e.jog.x>p.x && e.jog.y<p.y && e.saida.x<p.x && e.saida.y>p.y && e.saida.x<e.jog.x && e.saida.y>e.jog.y){
-    e=defW3(e,i,p,a);
+  if(flag && e.jog.x>p.x && BLOQUEAVEL_SE){
+    e=defesa_WOLF_SE(e,i,p,a);
     flag=0;
   } // J M→↓
-  if(flag && e.jog.x<p.x && e.jog.y<p.y && e.saida.x>p.x && e.saida.y>p.y && e.saida.x>e.jog.x && e.saida.y>e.jog.y){
-    e=defW4(e,i,p,a);
+  if(flag && e.jog.x<p.x && BLOQUEAVEL_SO){
+    e=defesa_WOLF_SO(e,i,p,a);
     flag=0;
   } // na persegue dá-se primasia as diagonais
   if(flag) e=persegue_wolf(e,i,p,a);

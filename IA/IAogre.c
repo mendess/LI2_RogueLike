@@ -8,8 +8,7 @@ int blocked1_ (ESTADO e,POSICAO p){
     if(e.pedras[i].x==p.x && e.pedras[i].y==p.y) flag=1;
   }
   return flag;
-}
-// MONSTROS
+}// MONSTROS
 int blocked2_ (ESTADO e,POSICAO p){
   int i,flag;
   flag=0;
@@ -24,7 +23,7 @@ int possivel_ (ESTADO e,POSICAO p){
   if(blocked1_(e,p) || blocked2_(e,p)) flag=0;
   return flag;
 }
- int impossivel_(ESTADO e,POSICAO pos){
+int impossivel_(ESTADO e,POSICAO pos){
    int i,flag=0;
    for(i=0;i<e.num_pedras;i++){
     if(!flag && pos.x==e.pedras[i].x && pos.y==e.pedras[i].y) flag=1;
@@ -76,8 +75,7 @@ POSICAO instrucoes(POSICAO pos,POSICAO intersect){
   if(flag && intersect.y>pos.y) pos.y+=1;
   if(flag && intersect.y<pos.y) pos.y+=-1;
   return pos;
-}
-// estado - pos monstro-pos intercecao
+}// estado - pos monstro-pos intercecao
 POSICAO tracker_chest (ESTADO e,POSICAO p, POSICAO intersect){
  POSICAO alternativa,caminho[25];
  int i=0;int alt;
@@ -120,7 +118,6 @@ POSICAO nearest_chest(ESTADO e,POSICAO p){
  chest.y=e.chests[u].pos.y;
  return chest;
 }
-
 ESTADO  track_chest(ESTADO e,int i,POSICAO p){
  POSICAO chest,nova_pos;
 	chest=nearest_chest(e,p);
@@ -162,7 +159,6 @@ ESTADO defO(ESTADO e,POSICAO c,POSICAO m,int i){
  }
  return e;
 }
-
 ESTADO protect_it(ESTADO e,int i,POSICAO pos_monst){
     POSICAO pos_chest;
     e=defO(e,pos_chest,pos_monst,i);
