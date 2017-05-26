@@ -166,7 +166,7 @@ void imprime_inv_slot(char item,int i){
 		int Y = 110+(50*!(i%2));
 		char query[4];
 		IMAGEM(X,Y,TAM,TAM,itemlist[(int) item]);
-		sprintf(query,"2%d",i);
+		sprintf(query,"4%d",i);
 		ABRIR_LINK(query);
 		printf("<rect x=%d y=%d width=50 height=50 style=opacity:0;></rect>\n",X,Y);
 		FECHAR_LINK;

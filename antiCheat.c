@@ -36,7 +36,7 @@ int validAtack(ESTADO e){
 }
 int validItemUse(ESTADO e){
 	return e.screen==4
-		&& e.bag.inv[e.action-20]!=0;
+		&& e.bag.inv[e.action-40]!=0;
 }
 /*
 int validBossAtack(ESTADO e){ FINISH THIS validAction.c l32

@@ -81,10 +81,10 @@ void sellEquipment(char action, INVT *bag){
 ESTADO shop(ESTADO e){
 	if(e.action<74){
 		e.shopFeedback=buyItem(e.action,e.lootTable,&(e.bag));
-	}else if(e.action<80){
+	}/*else if(e.action<80){
 		sellItem_Bag(e.action,&(e.bag));
 	}else if(e.action<82){
 		sellEquipment(e.action,&(e.bag));
-	}
+	}*/
 	return e;
 }
