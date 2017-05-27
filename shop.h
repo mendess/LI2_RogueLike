@@ -19,42 +19,42 @@
 \brief Devolve o preco de um dado item
 @param item Item a ser avaliado
 */
-int getItemBuyPrice(char item);
+int getItemBuyPrice(int item);
 /**
 \brief Verifica se o jogador tem espaço que chegue para guardar o item que quer comprar
 @param inv Inventario do jogador
 */
-int hasEnoughSpace(char inv[]);
+int hasEnoughSpace(int inv[]);
 /**
 \brief Coloca um item no inventario
 @param inv Inventario do jogador
 @param item Item que vai ser adicionado
 */
-void putItemInv(char inv[],char item);
+void putItemInv(int inv[],int item);
 /**
 \brief Tenta comprar um item e retorna se foi possivel
 @param action Acao que o jogador fez (item selecionado)
 @param lootTable Lista de item à venda
 @param *bag Apontador para o inventario do jogador
 */
-char buyItem(char action,char lootTable[],INVT *bag);
+int buyItem(int action,int lootTable[],INVT *bag);
 /**
 \brief Devolve o preco de venda de um dado item
 @param item Item a ser avaliado
 */
-int getItemSellPrice(char item);
+int getItemSellPrice(int item);
 /**
 \brief Vende um item
 @param action Acao que o jogador fez (item selecionado)
 @param *bag Apontador para o inventario do jogador
 */
-void sellItem_Bag(char action, INVT *bag);
+void sellItem_Bag(int action, INVT *bag);
 /**
 \brief Vende uma arma ou armadura
 @param action Acao que o jogador fez (item selecionado)
 @param *bag Apontador para o inventario do jogador
 */
-void sellEquipment(char action, INVT *bag);
+void sellEquipment(int action, INVT *bag);
 /**
 \brief Função mestra que controla a loja
 @param e Estado do jogo

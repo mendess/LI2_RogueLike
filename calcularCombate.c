@@ -3,10 +3,10 @@
 int samePos(POSICAO monPos, MSTR monster){
 	return monPos.x == monster.x && monPos.y == monster.y;
 }
-void killMonster(int i, MSTR monstros[], char num_monstros){
-	monstros[i]=monstros[(int) num_monstros];
+void killMonster(int i, MSTR monstros[], int num_monstros){
+	monstros[i]=monstros[num_monstros];
 }
-char calcPlayerDmg(char classe, INVT bag){
+int calcPlayerDmg(int classe, INVT bag){
 	int weaponDmg;
 	int plrDmg;
 	plrDmg=weaponDmg=0;
@@ -28,9 +28,9 @@ char calcPlayerDmg(char classe, INVT bag){
 		case 2: plrDmg = MAGE_BASE_DMG;
 			break;
 	}
-	return (char) weaponDmg + plrDmg;
+	return weaponDmg + plrDmg;
 }
-int updateScore(char type){
+int updateScore(int type){
 	int scoreGain=0;
 	switch(type){
 		case 0: scoreGain = WOLF_SCORE;
@@ -44,7 +44,7 @@ int updateScore(char type){
 	}
 	return scoreGain;
 }
-int goldDrop(char type){
+int goldDrop(int type){
 	int goldGain=0;
 	switch(type){
 		case 0: goldGain = WOLF_GOLD;
@@ -60,9 +60,9 @@ int goldDrop(char type){
 }
 ESTADO calcularCombate(ESTADO e){
 	POSICAO mon;
-	char plrDmg;
+	int plrDmg;
 	int i, found;
-	mon = calculaNovaPosicao(e.jog,(int) e.action-10);
+	mon = calculaNovaPosicao(e.jog, e.action-10);
 	plrDmg = calcPlayerDmg(e.classe,e.bag);
 	i=found=0;
 	while(!found){

@@ -14,29 +14,29 @@
 #define INVT_SIZE       6
 
 typedef struct posicao{
-	char x;
-	char y;
+	int x;
+	int y;
 }POSICAO;
 
 typedef struct monster{
-	char x;
-	char y;
-	char monType;
-	char hp;
+	int x;
+	int y;
+	int monType;
+	int hp;
 }MSTR;
 
 typedef struct inventory{
 	int gold;
-	char inv[INVT_SIZE];
-	char weapon;
-	char armour;
+	int inv[INVT_SIZE];
+	int weapon;
+	int armour;
 }INVT;
 
 typedef struct estado{
 	/* {Main Menu=0; ScoreBoard=1; Help=2; Character Selection=3; Playing=4; Store=5} */
-	char screen;
+	int screen;
 	/* Classe {Warrior=0, Archer=1, Mage=2} */
-	char classe;
+	int classe;
 	/* Vida do jogador */
 	int hp;
 	/* Mana do jogador */
@@ -44,21 +44,21 @@ typedef struct estado{
 	/* Nome do Jogador */
 	char name[100];
 	/* Nivel */
-	char world_lvl;
+	int world_lvl;
 	/* Score */
 	int score;
 	/* Turno */
-	char turn;
+	int turn;
 	/* Lado para que o jogador esta a olhar 0:direita e 1:esquerda */
-	char direction;
+	int direction;
 	/* Action */
 	int action;
 	/*  Items que podem ser adquiridos num certo nivel */
-	char lootTable[LOOT_TABLE_SIZE];
+	int lootTable[LOOT_TABLE_SIZE];
 	/* Guarda se o jogador esta na loja */
-	char isInShop;
+	int isInShop;
 	/* Codigo de feedback da loja */
-	char shopFeedback;
+	int shopFeedback;
 	/*  Inventario do jogador */
 	INVT bag;
 	/*  Posição do jogador */
@@ -66,9 +66,9 @@ typedef struct estado{
 	/*  Posição da saida */
 	POSICAO saida;
 	/*  Numero de Monstros */
-	char num_monstros;
+	int num_monstros;
 	/*  Numero de pedras */
-	char num_pedras;
+	int num_pedras;
 	/*  Posições dos monstros */
 	MSTR monstros [MAX_MONSTROS];
 	/*  Posições da pedras */

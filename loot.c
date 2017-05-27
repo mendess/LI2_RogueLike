@@ -1,6 +1,6 @@
 #include "loot.h"
 
-char generatePotion(){
+int generatePotion(){
 	int r = rand() % 3;
 	if(r<2){
 		return HEALTH_POTION;
@@ -8,7 +8,7 @@ char generatePotion(){
 		return MANA_POTION;
 	}
 }
-char generateScroll(){
+int generateScroll(){
 	int r = rand() % 3;
 	switch(r){
 		case 0: return SCROLL_FIRE;
@@ -19,7 +19,7 @@ char generateScroll(){
 	}
 	return SCROLL_FIRE;
 }
-char generateSword(char world_lvl){
+int generateSword(int world_lvl){
 	int r = rand() % 100000;
 	double tier1=TIER1_ODDS(world_lvl);
 	double tier4=TIER4_ODDS(world_lvl);
@@ -38,7 +38,7 @@ char generateSword(char world_lvl){
 	}
 	return SWORD_PALLADIUM;
 }
-char generateArmour(char world_lvl){
+int generateArmour(int world_lvl){
 	int r = rand() % 100000;
 	double tier1=TIER1_ODDS(world_lvl);
 	double tier4=TIER4_ODDS(world_lvl);
@@ -57,7 +57,7 @@ char generateArmour(char world_lvl){
 	}
 	return ARMOUR_PALLADIUM;
 }
-void generateLoot(char lootTable[], int world_lvl){
+void generateLoot(int lootTable[], int world_lvl){
 	int i;
 	srand(time(NULL));
 	for(i=0;i<LOOT_TABLE_SIZE;i++){

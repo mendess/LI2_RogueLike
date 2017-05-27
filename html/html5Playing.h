@@ -65,7 +65,7 @@ void imprime_casa (POSICAO p);
 \brief Imprime a imagem de fundo
 @param classe Classe do jogador
 */
-void imprime_background (char classe);
+void imprime_background (int classe);
 /**
 \brief Imprime a barra que indica a vida do jogador
 @param hp Vida
@@ -75,7 +75,7 @@ void imprime_hpBar(int hp);
 \brief Imprime a barra que indica a mana do jogador
 @param mp Mana
 */
-void imprime_mpBar(int mp, char classe);
+void imprime_mpBar(int mp, int classe);
 /**
 \brief Imprime o Ecra de fim jogo
 */
@@ -85,7 +85,7 @@ void imprime_gameOverScreen(char *name);
 @param item Item a ser impresso
 @param i Indice de posição do item
 */
-void imprime_inv_slot(char *name, char item,int i);
+void imprime_inv_slot(char *name, int item,int i);
 /**
 \brief Imprime o equipamento do jogador
 @param bag Inventario do jogador

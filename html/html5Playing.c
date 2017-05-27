@@ -80,7 +80,7 @@ void imprime_casa (POSICAO p){
 	int r = rand() % 4;
 	IMAGEM(TAM*(p.x+1),TAM*(p.y+1),TAM,TAM,tiles[r]);
 }
-void imprime_background (char classe){
+void imprime_background (int classe){
 	char *background[] = {"Ingame_Viking.png","Ingame_Archer.png","Ingame_Mage.png"};
 	IMAGEM(0,0,SVG_WIDTH,SVG_HEIGHT,background[(int) classe-1]);
 }
@@ -88,7 +88,7 @@ void imprime_hpBar(int hp){
 	IMAGEM(600,10,200,50,"BarHealthIcon.png");
 	IMAGEM(641,10,(int) ((hp)*1.5),50,"BarHealthBar.png");
 }
-void imprime_mpBar(int mp,char classe){
+void imprime_mpBar(int mp,int classe){
 	char *icons[] = {"BarEnergyIcon.png","BarManaIcon.png"};
 	char *bars[] = {"BarEnergyBar.png","BarManaBar.png"};
 	IMAGEM(600,55,			   200,50,(classe <3) ? icons[0] : icons[1]);
@@ -100,13 +100,13 @@ void imprime_gameOverScreen(char *name){
 	printf("<rect x=300 y=350 width=200 height=70 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
 }
-void imprime_inv_slot(char *name, char item,int i){
+void imprime_inv_slot(char *name, int item,int i){
 	char *itemlist[] = ITEM_LIST;
 	if(item!=0){
 		int X = 620+(TAM*(i/2));
 		int Y = 110+(50*!(i%2));
 		char query[4];
-		IMAGEM(X,Y,TAM,TAM,itemlist[(int) item]);
+		IMAGEM(X,Y,TAM,TAM,itemlist[item]);
 		sprintf(query,"4%d",i);
 		ABRIR_LINK(name,query);
 		printf("<rect x=%d y=%d width=50 height=50 style=opacity:0;></rect>\n",X,Y);
@@ -115,8 +115,8 @@ void imprime_inv_slot(char *name, char item,int i){
 }
 void imprime_equipment(INVT bag){
 	char *itemlist[] = ITEM_LIST;
-	IMAGEM(700,260,TAM,TAM,itemlist[(int) bag.weapon]);
-	IMAGEM(700,310,TAM,TAM,itemlist[(int) bag.armour]);
+	IMAGEM(700,260,TAM,TAM,itemlist[bag.weapon]);
+	IMAGEM(700,310,TAM,TAM,itemlist[bag.armour]);
 }
 void imprime_inventory(char *name,INVT bag){
 	int i;

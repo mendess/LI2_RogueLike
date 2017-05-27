@@ -2,26 +2,28 @@
 
 #include "html6Shop.h"
 
-void imprime_shop_item(char *name, char item, int index){
-	char *itemlist[] = ITEM_LIST;
-	char query[4];
-	sprintf(query,"7%d",index);
-	ABRIR_LINK(name,query);
-	IMAGEM(86+(197*index),240,TAM,TAM,itemlist[(int) item]);
-	FECHAR_LINK;
+void imprime_shop_item(char *name, int item, int index){
+	if(item){
+		char *itemlist[] = ITEM_LIST;
+		char query[4];
+		sprintf(query,"7%d",index);
+		ABRIR_LINK(name,query);
+		IMAGEM(86+(197*index),240,TAM,TAM,itemlist[(int) item]);
+		FECHAR_LINK;
+	}
 }
-void imprime_inv_slot_shop(char *name,char item,int i){
+void imprime_inv_slot_shop(char *name,int item,int i){
 	char *itemlist[] = ITEM_LIST;
 	if(item!=0){
 		char query[4];
 		sprintf(query,"7%d",i+4);
 		if(i%2){
 			ABRIR_LINK(name,query);
-			IMAGEM(638+(TAM*(i/2)),489,TAM,TAM,itemlist[(int) item]);
+			IMAGEM(638+(TAM*(i/2)),489,TAM,TAM,itemlist[item]);
 			FECHAR_LINK;
 		}else{
 			ABRIR_LINK(name,query);
-			IMAGEM(638+(TAM*(i/2)),539,TAM,TAM,itemlist[(int) item]);
+			IMAGEM(638+(TAM*(i/2)),539,TAM,TAM,itemlist[item]);
 			FECHAR_LINK;
 		}
 	}
@@ -30,12 +32,12 @@ void imprime_equipment_shop(char *name, INVT bag){
 	char *itemlist[] = ITEM_LIST;
 	if(bag.weapon){
 		ABRIR_LINK(name,"80");
-		IMAGEM(572,489,TAM,TAM,itemlist[(int) bag.weapon]);
+		IMAGEM(572,489,TAM,TAM,itemlist[bag.weapon]);
 		FECHAR_LINK;
 	}
 	if(bag.armour){
 		ABRIR_LINK(name,"81");
-		IMAGEM(572,539,TAM,TAM,itemlist[(int) bag.armour]);
+		IMAGEM(572,539,TAM,TAM,itemlist[bag.armour]);
 		FECHAR_LINK;
 	}
 }
@@ -50,7 +52,7 @@ void imprime_price(int x, int y, int amount){
 		digitPos--;
 	}
 }
-void imprime_shop_prices(char lootTable[],int gold){
+void imprime_shop_prices(int lootTable[],int gold){
 	int i;
 	for(i=0;i<LOOT_TABLE_SIZE;i++){
 		int x=70+(197*i);
@@ -60,7 +62,7 @@ void imprime_shop_prices(char lootTable[],int gold){
 	}
 	imprime_price(450,502,gold);
 }
-void imprime_shop_messages(char shopFeedback){
+void imprime_shop_messages(int shopFeedback){
 	char *messages[] = {"Empty","ShopMessage1Success.png","ShopMessage2notEnoughGold.png","ShopMessage3notEnoughSpace.png"};
 	IMAGEM(20,400,150,150,messages[(int) shopFeedback]);
 }

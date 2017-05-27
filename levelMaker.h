@@ -46,12 +46,12 @@ ESTADO colocar_monstros (ESTADO e);
 \brief Retorna o hp inicial da classe dada como argumento
 @param type O numero da classe
 */
-char getClassHp(char type);
+int getClassHp(int type);
 /*
 \brief Retorna o mp inicial da classe dada como argumento
 @param type O numero da classe
 */
-char getClassMp(char type);
+int getClassMp(int type);
 /**
 \brief Inicializa o inventario a vazio
 @param bag Inventario

@@ -7,12 +7,12 @@ ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]){
 		int x=rand() % SIZE;
 		int y=rand() % SIZE;
 		i++;
-		p.x=(char) x;
-		p.y=(char) y;
+		p.x= x;
+		p.y= y;
 		if (!pos_ocupada(e,p) && !isOnPath(p,pathSize,path)){
 			placed=1;
-			e.pedras[(int) e.num_pedras].x=p.x;
-			e.pedras[(int) e.num_pedras].y=p.y;
+			e.pedras[e.num_pedras].x=p.x;
+			e.pedras[e.num_pedras].y=p.y;
 			e.num_pedras++;
 		}
 	}
@@ -25,14 +25,14 @@ ESTADO colocar_monstro (ESTADO e){
 		int x=rand() % SIZE;
 		int y=rand() % SIZE;
 		i++;
-		p.x=(char) x;
-		p.y=(char) y;
+		p.x= x;
+		p.y= y;
 		if (!pos_ocupada(e,p)){
 			placed=1;
-			e.monstros [(int) e.num_monstros].x=p.x;
-			e.monstros [(int) e.num_monstros].y=p.y;
-			e.monstros [(int) e.num_monstros].monType=1;
-			e.monstros [(int) e.num_monstros].hp=30;
+			e.monstros [e.num_monstros].x=p.x;
+			e.monstros [e.num_monstros].y=p.y;
+			e.monstros [e.num_monstros].monType=1;
+			e.monstros [e.num_monstros].hp=30;
 			e.num_monstros++;
 		}
 	}
@@ -52,7 +52,7 @@ ESTADO colocar_monstros (ESTADO e){
 	}
 	return e;
 }
-char getClassHp(char type){
+int getClassHp(int type){
 	switch(type){
 		case 1: return HP_WARRIOR;
 		case 2: return HP_ARCHER;
@@ -60,7 +60,7 @@ char getClassHp(char type){
 	}
 	return -1;
 }
-char getClassMp(char type){
+int getClassMp(int type){
 	switch(type){
 		case 1: return MP_WARRIOR;
 		case 2: return MP_ARCHER;

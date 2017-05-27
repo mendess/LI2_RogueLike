@@ -26,28 +26,28 @@
 /**
 \brief Devolve uma potion gerada aleatoriamente
 */
-char generatePotion();
+int generatePotion();
 /**
 \brief Devolve um scroll gerada aleatoriamente
 */
-char generateScroll();
+int generateScroll();
 /**
 \brief Devolve uma arma gerada aleatoriamente 
 	conforme o nivel em que o jogador está
 @param world_lvl Nível
 */
-char generateSword(char world_lvl);
+int generateSword(int world_lvl);
 /**
 \brief Devolve uma armadura gerada aleatoriamente 
 	conforme o nivel em que o jogador está
 @param world_lvl Nível
 */
-char generateArmour(char world_lvl);
+int generateArmour(int world_lvl);
 /**
 \brief Função mestra que gera os quatro items de cada nível
 @param lootTable Tabela de items de um nível
 @param world_lvl Nível para o qual os items vão ser gerados
 */
-void generateLoot(char lootTable[], int world_lvl);
+void generateLoot(int lootTable[], int world_lvl);
 
 #endif

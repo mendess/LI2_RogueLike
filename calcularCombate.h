@@ -35,10 +35,10 @@ int samePos(POSICAO monPos, MSTR monster);
 @param monPos Posição a verificar
 @param monster Monstro a verificar
 */
-void killMonster(int i, MSTR monstros[], char num_monstros);
-int updateScore(char type);
-int goldDrop(char type);
-char calcPlayerDmg(char classe, INVT bag);
+void killMonster(int i, MSTR monstros[], int num_monstros);
+int updateScore(int type);
+int goldDrop(int type);
+int calcPlayerDmg(int classe, INVT bag);
 ESTADO calcularCombate(ESTADO e);
 
 #endif

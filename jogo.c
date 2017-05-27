@@ -62,29 +62,27 @@ ESTADO calcularNovoEstado(ESTADO e){
 }
 ESTADO ler_estado (char *args){
 	int act;
+	char name[100];
 	ESTADO e = estadoZero;
-	// Se o jogador submeteu um nome
-	if(args[0]=='N' && args[1]=='='){
-		strcpy(e.name,args+2);
-		act = 0;
-	}else{
-		sscanf(args,"%[^,],%d",e.name,&act);
+	if(args[0]=='N' && args[1]=='='){	// Se o jogador submeteu um nome
+		strcpy(name,args+2);			// Guardar o nome
+		act = 0;						// Por a action a 0 (ir para o main menu)
+	}else{								// Caso contrario
+		sscanf(args,"%[^,],%d",name,&act); // Guardar o nome e a action
 	}
 	FILE *gamestateFile;
 	char path[100];
-	sprintf(path,"%s%s",FILEPATH,e.name);
+	sprintf(path,"%s%s",FILEPATH,name);
 	gamestateFile = fopen(path,"r");
-	if(gamestateFile){ // Se o jogador escolheu uma save que existe
-		int r=fread(&e, sizeof(ESTADO), 1, gamestateFile);
+	if(gamestateFile){ 					// Se o jogador escolheu uma save que existe
+		int r=fread(&e, sizeof(ESTADO), 1, gamestateFile);	// Ler o estado
 		fclose(gamestateFile);
-		if(r<1){
-			e = estadoZero;
-		}
-		e.action = act;
-		if(ACT_GOTO_MENU){
-			e.screen=1;
+		if(r<1){			// Se o ficheiro for mais pequeno do que é esperado
+			e = estadoZero;	// Inicializar um novo a 0
 		}
 	}
+	e.action = act;		// Inicializar a acao
+	strcpy(e.name,name);// Inicializar o nome
 	return e;
 }
 void escrever_estado(ESTADO e){
