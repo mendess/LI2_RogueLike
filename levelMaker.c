@@ -91,13 +91,11 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act){
 	}
 	return jog;
 }
-ESTADO inicializar(char classe){
-	ESTADO e;
+ESTADO inicializar(ESTADO e){
 	POSICAO path[MAX_CAMINHO];
 	int n=pathMaker(path);
 	srand(time(NULL));
-	e.screen=4;					/* Ecra de jogo */
-	e.classe=classe;			/* Classe {Warrior=1, Archer=2, Mage=3} */
+	e.screen=5;					/* Ecra de jogo */
 	e.hp=getClassHp(e.classe);	/* Vida do jogador */
 	e.mp=getClassMp(e.classe);	/* Mana do jogador */
 	e.world_lvl=1;				/* Nivel */
@@ -126,11 +124,11 @@ ESTADO newLevel(ESTADO e){
 	int n;
 	if(!(e.world_lvl % 5)){
 		if(e.isInShop){
-			e.screen=4;
+			e.screen=5;
 			e.isInShop=0;
 		}else{
 			generateLoot(e.lootTable,e.world_lvl);
-			e.screen=5;
+			e.screen=6;
 			e.isInShop=1;
 			e.shopFeedback=0;
 			return e;

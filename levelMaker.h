@@ -66,7 +66,7 @@ POSICAO calculaNovaPosicao(POSICAO jog, int act);
 /**
 \brief Inicializa o estado do jogo
 */
-ESTADO inicializar(char classe);
+ESTADO inicializar(ESTADO e);
 /**
 \brief Gera um novo nivel quando o jogador chega a saida
 @param e Estado do Jogo

@@ -1,14 +1,21 @@
 #ifndef ___JOGO_H___
 #define ___JOGO_H___
 
+#define ANTICHEAT
+
 #include "estrutura.h"
+#include "actionMap.h"
+#ifdef ANTICHEAT
 #include "antiCheat.h"
+#endif
 #include "levelMaker.h"
 #include "calcularCombate.h"
 #include "move_monst.h"
 #include "shop.h"
 #include "score.h"
 #include "html/htmlMaster.h"
+
+#define FILEPATH	"/var/www/html/files/"
 
 /*
 --gold
@@ -32,7 +39,6 @@ ArmourIron      15 - Cinzento Escuro
 ArmourSteel     16 - Cinzento Claro
 ArmourPalladium 17 - Inventa para ai
 */
-
 
 /**
 \brief Calcula um novo estado conforme a ação que esteja no estado que recebe

@@ -1,4 +1,4 @@
-#include "html3ScoreBoard.h"
+#include "html4ScoreBoard.h"
 
 void imprime_score(int score, int index){
 	int digitPos=0;
@@ -11,7 +11,9 @@ void imprime_score(int score, int index){
 		digitPos++;
 	}
 }
-void imprimeScoreBoard(){
+void imprimeScoreBoard(char *name){
+	ABRIR_SVG;
+	
 	int scoreBoard[SB_SIZE];
 	int i;
 	int num_scores = importScoreBoard(scoreBoard);
@@ -19,7 +21,9 @@ void imprimeScoreBoard(){
 	for (i = 0; i < num_scores; ++i){
 		imprime_score(scoreBoard[i],i);
 	}
-	ABRIR_LINK("0");/* back */
-	printf("<rect x=5 y=526 width=103 height=70 style=opacity:0;></rect>\n");
+	ABRIR_LINK(name,"0");/* back */
+	printf("<rect x=0 y=540 width=140 height=60 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
+
+	FECHAR_SVG;
 }
