@@ -33,3 +33,7 @@ hardclean:
 	rm -rf *.o roguel install
 	(cd html;make clean)
 
+givegdbpermits:
+	sudo chmod a+rw /var/www/html/files/*
+	sudo chmod a+rw /var/www/html/score/*
+
