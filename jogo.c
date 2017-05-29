@@ -37,6 +37,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 		}else{
 			e.screen = 5;
 		}
+		return e;
 	}
 	if(ACT_CLASS_CHOICE){/* novo jogo */
 		e.classe = e.action-60;
@@ -79,9 +80,6 @@ ESTADO ler_estado (char *args){
 		fclose(gamestateFile);
 		if(r<1){			// Se o ficheiro for mais pequeno do que é esperado
 			e = estadoZero;	// Inicializar um novo a 0
-		}
-		if(ACT_GOTO_MENU){
-			e.screen=1;
 		}
 	}
 	e.action = act;		// Inicializar a acao

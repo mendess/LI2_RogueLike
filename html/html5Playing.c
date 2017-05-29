@@ -154,6 +154,9 @@ void imprimePlaying(ESTADO e){
 	}else{
 		imprime_gameOverScreen(e.name);
 	}
+	ABRIR_LINK(e.name,"0");/* back */
+	printf("<rect x=660 y=540 width=140 height=60 style=opacity:0;></rect>\n");
+	FECHAR_LINK;
 	
 	FECHAR_SVG;
 

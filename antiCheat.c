@@ -1,7 +1,8 @@
 #include "antiCheat.h"
 
 int validMenu(ESTADO e){
-	return e.screen==0
+	return 1
+		|| e.screen==0
 		|| e.screen==1
 		|| e.screen==2
 		|| e.screen==3
