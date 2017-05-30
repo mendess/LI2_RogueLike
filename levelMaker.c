@@ -1,59 +1,43 @@
 #include "levelMaker.h"
 
-/**
-\brief Coloca uma pedra numa posição aleatoria válida
-@param e Estado do jogo
-@param pathSize Tamanho do caminho
-@param path Caminho a evitar
-*/
 ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]){
 	POSICAO p;
 	int placed=0, i=0;
 	while(!placed && i<20){
-		i++;
 		int x=rand() % SIZE;
 		int y=rand() % SIZE;
-		p.x=(char) x;
-		p.y=(char) y;
+		i++;
+		p.x= x;
+		p.y= y;
 		if (!pos_ocupada(e,p) && !isOnPath(p,pathSize,path)){
 			placed=1;
-			e.pedras[(int) e.num_pedras].x=p.x;
-			e.pedras[(int) e.num_pedras].y=p.y;
+			e.pedras[e.num_pedras].x=p.x;
+			e.pedras[e.num_pedras].y=p.y;
 			e.num_pedras++;
 		}
 	}
 	return e;
 }
-/**
-\brief Coloca um monstro numa posição aleatoria válida
-@param e Estado do jogo
-*/
 ESTADO colocar_monstro (ESTADO e){
 	POSICAO p;
 	int placed=0, i=0;
 	while(!placed && i<20){
-		i++;
 		int x=rand() % SIZE;
 		int y=rand() % SIZE;
-		p.x=(char) x;
-		p.y=(char) y;
+		i++;
+		p.x= x;
+		p.y= y;
 		if (!pos_ocupada(e,p)){
 			placed=1;
-			e.monstros [(int) e.num_monstros].x=p.x;
-			e.monstros [(int) e.num_monstros].y=p.y;
-			e.monstros [(int) e.num_monstros].monType=1;
-			e.monstros [(int) e.num_monstros].hp=30;
+			e.monstros [e.num_monstros].x=p.x;
+			e.monstros [e.num_monstros].y=p.y;
+			e.monstros [e.num_monstros].monType=1;
+			e.monstros [e.num_monstros].hp=30;
 			e.num_monstros++;
 		}
 	}
 	return e;
 }
-/**
-\brief Coloca todas as pedras para inicializar o estado
-@param e Estado do jogo
-@param pathSize Tamanho do caminho a evitar
-@param path Array de coordenadas do caminho a evitar
-*/
 ESTADO colocar_pedras (ESTADO e, int pathSize, POSICAO path[]){
 	int i;
 	for(i=0;i<MAX_PEDRAS;i++){
@@ -61,10 +45,6 @@ ESTADO colocar_pedras (ESTADO e, int pathSize, POSICAO path[]){
 	}
 	return e;
 }
-/**
-\brief Coloca todas os monstros para inicializar o estado
-@param e Estado do jogo
-*/
 ESTADO colocar_monstros (ESTADO e){
 	int i;
 	for (i=0;i<MAX_MONSTROS;i++){
@@ -72,11 +52,7 @@ ESTADO colocar_monstros (ESTADO e){
 	}
 	return e;
 }
-/*
-\brief Retorna o hp inicial da classe dada como argumento
-@param type O numero da classe
-*/
-char getClassHp(char type){
+int getClassHp(int type){
 	switch(type){
 		case 1: return HP_WARRIOR;
 		case 2: return HP_ARCHER;
@@ -84,11 +60,7 @@ char getClassHp(char type){
 	}
 	return -1;
 }
-/*
-\brief Retorna o mp inicial da classe dada como argumento
-@param type O numero da classe
-*/
-char getClassMp(char type){
+int getClassMp(int type){
 	switch(type){
 		case 1: return MP_WARRIOR;
 		case 2: return MP_ARCHER;
@@ -96,10 +68,10 @@ char getClassMp(char type){
 	}
 	return -1;
 }
-
 INVT initINVT(INVT bag){
+	int i;
+	i=0;
 	bag.gold=0;
-	int i=0;
 	for (i = 0; i < INVT_SIZE; ++i)
 	{
 		bag.inv[i]=0;
@@ -113,4 +85,88 @@ INVT initINVT(INVT bag){
 	bag.weapon=0;
 	bag.armour=0;
 	return bag;
+}
+POSICAO calculaNovaPosicao(POSICAO jog, int act){
+	int x[10]={5,-1, 0, 1,-1, 5, 1,-1, 0, 1};
+	/*         0  1  2  3  4  5  6  7  8  9 */
+	int y[10]={5, 1, 1, 1, 0, 5, 0,-1,-1,-1};
+
+	if(act!=0 && act!=5){
+		jog.x+=x[act];
+		jog.y+=y[act];
+	}
+	return jog;
+}
+ESTADO inicializar(ESTADO e){
+	POSICAO path[MAX_CAMINHO];
+	int n=pathMaker(path);
+	srand(time(NULL));
+	e.screen=5;					/* Ecra de jogo */
+	e.hp=getClassHp(e.classe);	/* Vida do jogador */
+	e.mp=getClassMp(e.classe);	/* Mana do jogador */
+	e.world_lvl=1;				/* Nivel */
+	e.score=0;					/* Score */
+	e.turn=0;					/* Turno */
+	e.direction=0;				/* Lado para que o jogador esta a olhar 0:drt e 1:esq */
+	e.action=0;					/* Action */
+	generateLoot(e.lootTable,e.world_lvl);/* Inicializar LootTable para o primeiro nivel */
+	e.isInShop=0;				/* O jogador começa fora da loja logo começa a 0 */
+	e.shopFeedback=0;
+	e.bag=initINVT(e.bag);		/* Inicializar o inventario */
+	e.jog.x=path[0].x;			/* Posição do jogador (x) */
+	e.jog.y=path[0].y;			/* Posição do jogador (y) */
+	e.saida.x=path[n-1].x;		/* Posição da saida (x) */
+	e.saida.y=path[n-1].y;		/* Posição da saida (y) */
+	e.num_monstros=0;			/* Numero de Monstros */
+	e.num_pedras=0;				/* Numero de pedras */
+	e=colocar_pedras(e,n,path);	/* Posições da pedras */
+	e=colocar_monstros(e);		/* Posições dos monstros */
+	return e;
+}
+
+ESTADO newLevel(ESTADO e){
+
+	POSICAO path[MAX_CAMINHO];
+	int n;
+	if(!(e.world_lvl % 5)){
+		if(e.isInShop){
+			e.screen=5;
+			e.isInShop=0;
+		}else{
+			generateLoot(e.lootTable,e.world_lvl);
+			e.screen=6;
+			e.isInShop=1;
+			e.shopFeedback=0;
+			return e;
+		}
+	}
+	n=pathMaker(path);
+	srand(time(NULL));
+	/* Vida do jogador */
+	if(e.hp>(getClassHp(e.classe)-NEW_LEVEL_HP_BONUS)){
+		e.hp=getClassHp(e.classe);
+	}else{
+		e.hp+=NEW_LEVEL_HP_BONUS;
+	}
+	/* Mana do jogador */
+	if(e.mp>(getClassMp(e.classe)-NEW_LEVEL_MP_BONUS)){
+		e.mp=getClassMp(e.classe);
+	}else{
+		e.mp+=NEW_LEVEL_MP_BONUS;
+	}
+	e.world_lvl+=1;				/* Nivel */
+	e.score+=NEW_LEVEL_SC_BONUS;/* Score */
+	e.turn=0;					/* Turno */
+	e.direction=0;				/* Lado para que o jogador esta a olhar 0:direita e 1:esquerda */
+	e.action=0;					/* Action */
+	generateLoot(e.lootTable,e.world_lvl);/* Inicializar LootTable para o nivel */
+	e.jog.x=path[0].x;			/* Posição do jogador (x) */
+	e.jog.y=path[0].y;			/* Posição do jogador (y) */
+	e.saida.x=path[n-1].x;		/* Posição da saida (x) */
+	e.saida.y=path[n-1].y;		/* Posição da saida (y) */
+	e.num_monstros=0;			/* Numero de Monstros */
+	e.num_pedras=0;				/* Numero de pedras */
+	e=colocar_pedras(e,n,path);	/* Posições da pedras */
+	e=colocar_monstros(e);		/* Posições dos monstros */
+	return e;
 }

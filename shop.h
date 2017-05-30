@@ -3,7 +3,7 @@
 
 #include <limits.h>
 
-#include "jogo.h"
+#include "estrutura.h"
 
 #define POTION_BUY_PRICE	20
 #define SCROLL_BUY_PRICE	30
@@ -15,12 +15,49 @@
 #define SWORD_SELL_PRICE	12
 #define ARMOUR_SELL_PRICE	12
 
-int getItemBuyPrice(char item);
-int hasEnoughSpace(char inv[]);
-void putItemInv(char inv[],char item);
-char buyItem(char action,char lootTable[],INVT *bag);
-int getItemSellPrice(char item);
-void sellItem_Bag(char action, INVT *bag);
-void sellEquipment(char action, INVT *bag);
+/**
+\brief Devolve o preco de um dado item
+@param item Item a ser avaliado
+*/
+int getItemBuyPrice(int item);
+/**
+\brief Verifica se o jogador tem espaço que chegue para guardar o item que quer comprar
+@param inv Inventario do jogador
+*/
+int hasEnoughSpace(int inv[]);
+/**
+\brief Coloca um item no inventario
+@param inv Inventario do jogador
+@param item Item que vai ser adicionado
+*/
+void putItemInv(int inv[],int item);
+/**
+\brief Tenta comprar um item e retorna se foi possivel
+@param action Acao que o jogador fez (item selecionado)
+@param lootTable Lista de item à venda
+@param *bag Apontador para o inventario do jogador
+*/
+int buyItem(int action,int lootTable[],INVT *bag);
+/**
+\brief Devolve o preco de venda de um dado item
+@param item Item a ser avaliado
+*/
+int getItemSellPrice(int item);
+/**
+\brief Vende um item
+@param action Acao que o jogador fez (item selecionado)
+@param *bag Apontador para o inventario do jogador
+*/
+void sellItem_Bag(int action, INVT *bag);
+/**
+\brief Vende uma arma ou armadura
+@param action Acao que o jogador fez (item selecionado)
+@param *bag Apontador para o inventario do jogador
+*/
+void sellEquipment(int action, INVT *bag);
+/**
+\brief Função mestra que controla a loja
+@param e Estado do jogo
+*/
 ESTADO shop(ESTADO e);
 #endif
