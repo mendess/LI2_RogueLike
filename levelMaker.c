@@ -68,7 +68,8 @@ int getClassMp(int type){
 	}
 	return -1;
 }
-INVT initINVT(INVT bag){
+INVT initINVT(){
+	INVT bag;
 	int i;
 	i=0;
 	bag.gold=0;
@@ -85,6 +86,13 @@ INVT initINVT(INVT bag){
 	bag.weapon=0;
 	bag.armour=0;
 	return bag;
+}
+ITEM_U_DAT initItemUseData(){
+	ITEM_U_DAT data;
+	data.usingItem=0;
+	data.itemBeingUsed=0;
+	data.lastPickedTarget=-1;
+	return data;
 }
 POSICAO calculaNovaPosicao(POSICAO jog, int act){
 	int x[10]={5,-1, 0, 1,-1, 5, 1,-1, 0, 1};
@@ -111,8 +119,9 @@ ESTADO inicializar(ESTADO e){
 	e.action=0;					/* Action */
 	generateLoot(e.lootTable,e.world_lvl);/* Inicializar LootTable para o primeiro nivel */
 	e.isInShop=0;				/* O jogador começa fora da loja logo começa a 0 */
-	e.shopFeedback=0;
-	e.bag=initINVT(e.bag);		/* Inicializar o inventario */
+	e.shopFeedback=0;			/* Inicializa o feedback da loja */
+	e.itemUseData=initItemUseData(); /* Inicializa os dados para uso de items complexos */
+	e.bag=initINVT();			/* Inicializar o inventario */
 	e.jog.x=path[0].x;			/* Posição do jogador (x) */
 	e.jog.y=path[0].y;			/* Posição do jogador (y) */
 	e.saida.x=path[n-1].x;		/* Posição da saida (x) */

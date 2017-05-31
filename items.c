@@ -22,6 +22,7 @@ void usePotion(ESTADO *e,char *item){
 		*item=0;
 	}
 }
+
 void equipItem(ESTADO *e, char *itemToEquip){
 	char *equipedItem;
 	if(*itemToEquip>9 && *itemToEquip<14){
@@ -39,20 +40,13 @@ ESTADO useItem(ESTADO e){
 	if(*item<3){
 		usePotion(&e,item);
 	}else if(*item<10){
-		/*switch(*item){
-			case 3:
-				e=useScrollRed(e,item);
-				break;
-			case 4:
-				e=useScrollBlue(e,item);
-				break;
-			case 5:
-				e=useScrollYellow(e,item);
-				break;
-		}*/
-		return e;
+		e.usingItem=*item;
+		*item=0;
 	}else{
 		equipItem(&e,item);
 	}
+	return e;
+}
+ESTADO castScroll(ESTADO e){
 	return e;
 }

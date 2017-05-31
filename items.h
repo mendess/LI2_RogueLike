@@ -11,4 +11,5 @@
 void usePotion(ESTADO *e,char *item);
 void equipItem(ESTADO *e,char *item);
 ESTADO useItem(ESTADO e);
+ESTADO castScroll(ESTADO e);
 #endif

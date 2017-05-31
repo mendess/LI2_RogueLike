@@ -32,6 +32,12 @@ typedef struct inventory{
 	int armour;
 }INVT;
 
+typedef struct itemUsedata{
+	int usingItem;
+	int itemBeingUsed;
+	int lastPickedTarget;
+}ITEM_U_DAT;
+
 typedef struct estado{
 	/* {Main Menu=0; ScoreBoard=1; Help=2; Character Selection=3; Playing=4; Store=5} */
 	int screen;
@@ -59,6 +65,8 @@ typedef struct estado{
 	int isInShop;
 	/* Codigo de feedback da loja */
 	int shopFeedback;
+	/* Se o jogador esta a usar um item */
+	ITEM_U_DAT itemUseData;
 	/*  Inventario do jogador */
 	INVT bag;
 	/*  Posição do jogador */
