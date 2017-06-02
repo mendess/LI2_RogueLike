@@ -1,4 +1,4 @@
-/* #define DEBUG */
+#define DEBUG
 
 #include "html5Playing.h"
 
@@ -55,7 +55,14 @@ void imprime_jogadaS(ESTADO e){
 void imprime_jogador (ESTADO e){
 	char *dir[] = {"Jogador_Viking_Right.png","Jogador_Viking_Left.png"};
 	IMAGEM(TAM*(e.jog.x+1),TAM*(e.jog.y+1),TAM,TAM,dir[(int) e.direction]);
-	imprime_jogadaS(e);
+	if(e.complexItem.isBeingUsed){
+		imprime_castTargets(&e);
+	}else{
+		if(e.complexItem.isBeingCast){
+			imprime_castSpell(&e);
+		} 
+		imprime_jogadaS(e);
+	}
 }
 void imprime_monstros (ESTADO e){
 	int i;
@@ -154,6 +161,9 @@ void imprimePlaying(ESTADO e){
 	}else{
 		imprime_gameOverScreen(e.name);
 	}
+	if(e.complexItem.unCastable){
+		printf("<text x=600 y=480>Hum... I can't cast that!</text>\n");
+	}
 	ABRIR_LINK(e.name,"0");/* back */
 	printf("<rect x=660 y=540 width=140 height=60 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
@@ -161,7 +171,7 @@ void imprimePlaying(ESTADO e){
 	FECHAR_SVG;
 
 	#ifdef DEBUG
-	printf("<p>hp:%d  mp:%d  world_lvl:%d  score:%d  turn:%d  LootTable[%d,%d,%d,%d]</p>",
+	printf("<p>hp:%d  mp:%d  world_lvl:%d  score:%d  turn:%d  LootTable[%d,%d,%d,%d] jog.x:%x jog.y:%d</p>\n",
 			e.hp,
 			e.mp,
 			e.world_lvl,
@@ -170,7 +180,14 @@ void imprimePlaying(ESTADO e){
 			e.lootTable[0],
 			e.lootTable[1],
 			e.lootTable[2],
-			e.lootTable[3]);
+			e.lootTable[3],
+			e.jog.x,
+			e.jog.y);
+	printf("<p>isBeingUsed:%d  type:%d  lastPickedTarget:%d  isBeingCast:%d </p>\n",
+			e.complexItem.isBeingUsed,
+			e.complexItem.type,
+			e.complexItem.lastPickedTarget,
+			e.complexItem.isBeingCast);
 	printf("<p>");
 	for(x=0;x<e.num_monstros;x++){
 		printf("x:%d y:%d hp:%d\t", e.monstros[x].x,e.monstros[x].y,e.monstros[x].hp);

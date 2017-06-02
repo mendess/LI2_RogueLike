@@ -33,13 +33,15 @@ typedef struct inventory{
 }INVT;
 
 typedef struct itemUsedata{
-	int usingItem;
-	int itemBeingUsed;
+	int isBeingUsed;
+	int type;
 	int lastPickedTarget;
+	int isBeingCast;
+	int unCastable;
 }ITEM_U_DAT;
 
 typedef struct estado{
-	/* {Main Menu=0; ScoreBoard=1; Help=2; Character Selection=3; Playing=4; Store=5} */
+	/* {Form=0; Main Menu=1; ScoreBoard=2; Help=3; Character Selection=4; Playing=5; Store=6} */
 	int screen;
 	/* Classe {Warrior=0, Archer=1, Mage=2} */
 	int classe;
@@ -66,7 +68,7 @@ typedef struct estado{
 	/* Codigo de feedback da loja */
 	int shopFeedback;
 	/* Se o jogador esta a usar um item */
-	ITEM_U_DAT itemUseData;
+	ITEM_U_DAT complexItem;
 	/*  Inventario do jogador */
 	INVT bag;
 	/*  Posição do jogador */

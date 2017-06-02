@@ -38,6 +38,7 @@ int samePos(POSICAO monPos, MSTR monster);
 void killMonster(int i, MSTR monstros[], int num_monstros);
 int updateScore(int type);
 int goldDrop(int type);
+int getMonstro(ESTADO e, POSICAO p);
 int calcPlayerDmg(int classe, INVT bag);
 ESTADO calcularCombate(ESTADO e);
 

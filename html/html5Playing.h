@@ -1,9 +1,10 @@
 #ifndef __HTML5_H__
 #define __HTML5_H__
 
+#include "htmlMaster.h"
 #include "../colisions.h"
 
-#include "htmlMaster.h"
+#include "html5PlayingSpells.h"
 
 /**
 \brief Retorna a direção em que o jogador vai andar

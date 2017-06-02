@@ -1,3 +1,5 @@
+#define DEBUG
+
 #include "levelMaker.h"
 
 ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]){
@@ -77,22 +79,26 @@ INVT initINVT(){
 	{
 		bag.inv[i]=0;
 	}
+	#ifdef DEBUG
 	bag.inv[0]=10;
-	bag.inv[1]=11;
-	bag.inv[2]=14;
-	bag.inv[3]=15;
-	bag.inv[4]=1;
-	bag.inv[5]=1;
+	bag.inv[1]=14;
+	bag.inv[2]=6;
+	bag.inv[3]=3;
+	bag.inv[4]=2;
+	bag.inv[5]=2;
+	#endif
 	bag.weapon=0;
 	bag.armour=0;
 	return bag;
 }
-ITEM_U_DAT initItemUseData(){
-	ITEM_U_DAT data;
-	data.usingItem=0;
-	data.itemBeingUsed=0;
-	data.lastPickedTarget=-1;
-	return data;
+ITEM_U_DAT initComplexItem(){
+	ITEM_U_DAT complexItem;
+	complexItem.isBeingUsed=0;
+	complexItem.type=0;
+	complexItem.lastPickedTarget=-1;
+	complexItem.isBeingCast=0;
+	complexItem.unCastable=0;
+	return complexItem;
 }
 POSICAO calculaNovaPosicao(POSICAO jog, int act){
 	int x[10]={5,-1, 0, 1,-1, 5, 1,-1, 0, 1};
@@ -120,7 +126,7 @@ ESTADO inicializar(ESTADO e){
 	generateLoot(e.lootTable,e.world_lvl);/* Inicializar LootTable para o primeiro nivel */
 	e.isInShop=0;				/* O jogador começa fora da loja logo começa a 0 */
 	e.shopFeedback=0;			/* Inicializa o feedback da loja */
-	e.itemUseData=initItemUseData(); /* Inicializa os dados para uso de items complexos */
+	e.complexItem=initComplexItem(); /* Inicializa os dados para uso de items complexos */
 	e.bag=initINVT();			/* Inicializar o inventario */
 	e.jog.x=path[0].x;			/* Posição do jogador (x) */
 	e.jog.y=path[0].y;			/* Posição do jogador (y) */

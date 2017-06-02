@@ -13,6 +13,7 @@
 #include "move_monst.h"
 #include "shop.h"
 #include "score.h"
+#include "items.h"
 #include "html/htmlMaster.h"
 
 #define FILEPATH	"/var/www/html/files/"

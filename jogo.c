@@ -27,8 +27,20 @@ ESTADO calcularNovoEstado(ESTADO e){
 	if(ACT_ATACK){/* ataque normal */
 		e=calcularCombate(e);
 	}
-	if(e.action>19 && e.action<30){
+	e.complexItem.unCastable=0;
+	if(ACT_USE_ITEM){
 		e=useItem(e);
+		if(e.complexItem.isBeingUsed){
+			return e;
+		}
+	}
+	if(PICKING_ITEM_TGT){
+		if(e.complexItem.isBeingUsed){
+			e=handleComplexItem(e);
+			if(!e.complexItem.isBeingCast){
+				return e;
+			}
+		}
 	}
 	if(ACT_MENU_SCORE_OR_HELP){/* escolha do menu */
 		e.screen = e.action-50;

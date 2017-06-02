@@ -9,7 +9,8 @@
 #define MANA_POTION         2
 #define SCROLL_FIRE         3
 #define SCROLL_LIGHTNING    4
-#define SCROLL_TELEPORT     5
+#define SCROLL_POISON		5
+#define SCROLL_TELEPORT     6
 #define SWORD_BRONZE        10
 #define SWORD_IRON          11
 #define SWORD_STEEL         12

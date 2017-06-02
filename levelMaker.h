@@ -56,7 +56,7 @@ int getClassMp(int type);
 \brief Inicializa o inventario a vazio
 @param bag Inventario
 */
-INVT initINVT(INVT bag);
+INVT initINVT();
 /**
 \brief Calcula a nova posição do jogador
 @param jog A posição antiga do jogador

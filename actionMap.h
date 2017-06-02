@@ -14,6 +14,6 @@
 #define ACT_USE_ITEM			e.action>39 && e.action<50
 #define ACT_RANGED_ATTACK		e.action>20 && e.action<30
 #define ACT_BOSS_ATTACK			e.action==30
-
+#define PICKING_ITEM_TGT		e.action>9999
 
 #endif

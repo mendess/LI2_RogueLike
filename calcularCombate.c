@@ -58,20 +58,24 @@ int goldDrop(int type){
 	}
 	return goldGain;
 }
-ESTADO calcularCombate(ESTADO e){
-	POSICAO mon;
-	int plrDmg;
+int getMonstro(ESTADO e,POSICAO p){
 	int i, found;
-	mon = calculaNovaPosicao(e.jog, e.action-10);
-	plrDmg = calcPlayerDmg(e.classe,e.bag);
 	i=found=0;
-	while(!found){
-		if(samePos(mon,e.monstros[i])){
+	while(!found && i<e.num_monstros){
+		if(samePos(p,e.monstros[i])){
 			found=1;
 		}else{
 			i++;
 		}
 	}
+	return i;
+}
+ESTADO calcularCombate(ESTADO e){
+	POSICAO mon;
+	int plrDmg,i;
+	mon = calculaNovaPosicao(e.jog, e.action-10);
+	plrDmg = calcPlayerDmg(e.classe,e.bag);
+	i = getMonstro(e,mon);
 	if(e.monstros[i].hp <= plrDmg){
 		e.score+=updateScore(e.monstros[i].monType);
 		e.bag.gold+=goldDrop(e.monstros[i].monType);
