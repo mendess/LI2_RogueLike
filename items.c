@@ -22,7 +22,6 @@ void usePotion(ESTADO *e,int *item){
 		*item=0;
 	}
 }
-
 void equipItem(ESTADO *e, int *itemToEquip){
 	int *equipedItem;
 	if(*itemToEquip>=SWORD_BRONZE && *itemToEquip<=SWORD_PALLADIUM){
@@ -38,7 +37,6 @@ int getSpellCost(int item){
 	int costs[] = COST_ARRAY;
 	return costs[item-3];
 }
-
 ESTADO useItem(ESTADO e){
 	int *item = &e.bag.inv[e.action-40];
 	if(*item<3){
@@ -65,19 +63,23 @@ POSICAO itAct2Pos(int action){
 	p.y = (action - 10000) % 100;
 	return p;
 }
+int hitMonster(ESTADO *e, POSICAO target,int dmg){
+	int monIdx = getMonstro(*e,target);
+	if(monIdx < e->num_monstros){
+		e->monstros[monIdx].hp-=dmg;
+		if(e->monstros[monIdx].hp<1){
+			killMonster(monIdx,e->monstros,--e->num_monstros);
+		}
+	}
+	return monIdx < e->num_monstros;
+}
 void castScroll_Fire(ESTADO *e){
 	POSICAO p = itAct2Pos(e->action);
 	int pXmax=p.x+2;
 	int pYmax=p.y+2;
 	for(p.x=pXmax-3;p.x<pXmax;p.x++){
 		for (p.y=pYmax-3;p.y < pYmax; p.y++){
-			int monIdx=getMonstro(*e,p);
-			if(monIdx < e->num_monstros){
-				e->monstros[monIdx].hp-=SCROLL_FIRE_DMG;
-				if(e->monstros[monIdx].hp<1){
-					killMonster(monIdx,e->monstros,--e->num_monstros);
-				}
-			}
+			hitMonster(e,p,SCROLL_FIRE_DMG);
 			if(com_jogador(*e,p)){
 				e->hp-=SCROLL_FIRE_DMG;
 			}
@@ -89,9 +91,35 @@ void castScroll_Teleport(ESTADO *e){
 	e->jog=itAct2Pos(e->action);
 	e->mp-=SCROLL_COST_TELEPORT;
 }
+void castScroll_Lightning(ESTADO *e){
+	POSICAO target = itAct2Pos(e->action);
+	hitMonster(e,target,SCROLL_LIGHTNING_DMG);
+	int num_bolts=1;
+	int found;
+	do{
+		found=0;
+		int pXmax=target.x+3;
+		int pYmax=target.y+3;
+		target.x=pXmax-5;
+		target.y=pYmax-5;
+		while(target.x < pXmax && !found){
+			while(target.y < pYmax && !found){
+				if(hitMonster(e,target,SCROLL_LIGHTNING_DMG-(num_bolts*10))){
+					found=1;
+					num_bolts++;
+				}
+				target.x++;
+				target.y++;
+			}
+		}
+	}while(found);
+	e->mp-=SCROLL_COST_LIGHTNING;
+}
 ESTADO castScroll(ESTADO e){
 	switch(e.complexItem.type){
 		case 3: castScroll_Fire(&e);
+				break;
+		case 4: castScroll_Lightning(&e);
 				break;
 		case 6: castScroll_Teleport(&e);
 				break;

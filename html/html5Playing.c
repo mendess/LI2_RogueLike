@@ -58,10 +58,12 @@ void imprime_jogador (ESTADO e){
 	if(e.complexItem.isBeingUsed){
 		imprime_castTargets(&e);
 	}else{
-		if(e.complexItem.isBeingCast){
+		if(e.complexItem.isBeingCast && e.action>9999){
 			imprime_castSpell(&e);
-		} 
-		imprime_jogadaS(e);
+		}
+		if(e.hp>0){
+			imprime_jogadaS(e);
+		}
 	}
 }
 void imprime_monstros (ESTADO e){
@@ -86,6 +88,17 @@ void imprime_casa (POSICAO p){
 	char *tiles[]={"Tile1.png","Tile2.png","Tile3.png","Tile4.png"};
 	int r = rand() % 4;
 	IMAGEM(TAM*(p.x+1),TAM*(p.y+1),TAM,TAM,tiles[r]);
+}
+void imprime_chao(){
+	int x,y;
+	POSICAO p;
+	for(x = 0; x < SIZE; x++){
+		for(y = 0; y < SIZE; y++){
+			p.x= x;
+			p.y= y;
+			imprime_casa(p);
+		}
+	}
 }
 void imprime_background (int classe){
 	char *background[] = {"Ingame_Viking.png","Ingame_Archer.png","Ingame_Mage.png"};
@@ -136,34 +149,24 @@ void imprime_inventory(char *name,INVT bag){
 }
 void imprimePlaying(ESTADO e){
 	ABRIR_SVG;
-	
-	int x,y;
-	POSICAO p;
 
 	imprime_background(e.classe);
 	srand(e.pedras[0].x);
-	for(y = 0; y < SIZE; y++){
-		for(x = 0; x < SIZE; x++){
-			p.x= x;
-			p.y= y;
-			imprime_casa(p);
-		}
-	}
-
+	imprime_chao();
 	imprime_saida(e.saida);
 	imprime_pedras(e);
 	imprime_monstros(e);
 	imprime_hpBar(e.hp);
 	imprime_mpBar(e.mp,e.classe);
 	imprime_inventory(e.name,e.bag);
-	if(e.hp>1){
-		imprime_jogador(e);
-	}else{
+	imprime_jogador(e);
+	if(e.hp<1){
 		imprime_gameOverScreen(e.name);
 	}
 	if(e.complexItem.unCastable){
 		printf("<text x=600 y=480>Hum... I can't cast that!</text>\n");
 	}
+
 	ABRIR_LINK(e.name,"0");/* back */
 	printf("<rect x=660 y=540 width=140 height=60 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
@@ -188,6 +191,7 @@ void imprimePlaying(ESTADO e){
 			e.complexItem.type,
 			e.complexItem.lastPickedTarget,
 			e.complexItem.isBeingCast);
+	int x;
 	printf("<p>");
 	for(x=0;x<e.num_monstros;x++){
 		printf("x:%d y:%d hp:%d\t", e.monstros[x].x,e.monstros[x].y,e.monstros[x].hp);

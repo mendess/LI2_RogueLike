@@ -43,9 +43,7 @@ void i_castTargetsRed(ESTADO *e){
 	}
 }
 void i_confirmCastRed(ESTADO *e){
-	POSICAO p;
-	p.x = (e->action - 10000) / 100;
-	p.y = (e->action - 10000) % 100;
+	POSICAO p = itAct2Pos(e->action);
 	int pXmax=p.x+2;
 	int pYmax=p.y+2;
 	for(p.x=pXmax-3;p.x<pXmax;p.x++){
@@ -57,9 +55,7 @@ void i_confirmCastRed(ESTADO *e){
 	}
 }
 void i_CastRed(ESTADO *e){
-	POSICAO p;
-	p.x = (e->action - 10000) / 100;
-	p.y = (e->action - 10000) % 100;
+	POSICAO p = itAct2Pos(e->action);
 	int pXmax=p.x+2;
 	int pYmax=p.y+2;
 	for(p.x=pXmax-3;p.x<pXmax;p.x++){
@@ -72,13 +68,46 @@ void i_CastRed(ESTADO *e){
 }
 /* YELLOW ZONE */
 void i_castTargetsYellow(ESTADO *e){
-
+	POSICAO p = e->jog;
+	int pXmax = e->jog.x+3;
+	int pYmax = e->jog.y+3;
+	for(p.x=pXmax-5; p.x < pXmax; ++p.x){
+		for(p.y=pYmax-5; p.y < pYmax; ++p.y){
+			if(com_monstros(*e,p)){
+				char query[4];
+				sprintf(query,"%d",cTgt2Int(p));
+				ABRIR_LINK(e->name,query);
+				CIRCLE((p.x+1)*TAM,(p.y+1)*TAM,TAM/2,"black",0.0,"yellow",1.0,TAM);
+				FECHAR_LINK;
+			}
+		}
+	}
 }
 void i_confirmCastYellow(ESTADO *e){
-
+	POSICAO p = itAct2Pos(e->action);
+	CIRCLE((p.x+1)*TAM,(p.y+1)*TAM,TAM/2,"black",0.3,"yellow",1.0,TAM);
 }
 void i_CastYellow(ESTADO *e){
-	
+	POSICAO p = itAct2Pos(e->action);
+	int plrCx = e->jog.x+1;
+	int plrCy = e->jog.y+2;
+	int rotX = ((e->jog.x+1)*TAM)+TAM/2;
+	int rotY = ((e->jog.y+1)*TAM)+TAM/2;
+
+	int height = sqrt((pow(p.x-e->jog.x,2)+pow(p.y-e->jog.y,2)));
+	p.x-=e->jog.x;
+	p.y-=e->jog.y;
+	double angle;
+	if(p.y==0){
+		angle=p.x<0 ? 90 : -90;
+	}else if(p.x==0){
+		angle=p.y<0 ? 180 : 0;
+	}else{
+		angle=atan((double)p.y/(double)p.x)*(180/M_PI)+(p.x<0 ? 90 : -90);
+	}
+	printf("<image x=%d y=%d width=%d height=%d preserveAspectRatio=none transform=\"rotate(%f %d %d)\" xlink:href=%sSpell_Lightning.png />\n",
+			  plrCx*TAM,plrCy*TAM,TAM,height*TAM                                         ,angle,rotX,rotY,  IMAGE_PATH);
+
 }
 /* BLUE ZONE */
 void i_castTargetsBlue(ESTADO *e){
@@ -119,9 +148,9 @@ void imprime_castSpell(ESTADO *e){
 	switch(e->complexItem.type){
 		case 3: i_CastRed(e);
 				break;
-		/*case 4: i_CastYellow(e);
+		case 4: i_CastYellow(e);
 				break;
-		case 5: i_CastGreen(e):
+		/*case 5: i_CastGreen(e):
 				break;*/
 		case 6: i_CastBlue(e);
 				break;
@@ -131,24 +160,24 @@ void imprime_confirmCast(ESTADO *e){
 	switch(e->complexItem.type){
 		case 3: i_confirmCastRed(e);
 				break;
-		/*case 4: i_confirmCastYellow(e);
+		case 4: i_confirmCastYellow(e);
 				break;
-		case 5: i_confirmCastGreen(e):
+		/*case 5: i_confirmCastGreen(e):
 				break;*/
 		case 6: i_confirmCastBlue(e);
 				break;
 	}
 }
 void imprime_castTargets(ESTADO *e){
-	if(e->complexItem.lastPickedTarget!=-1){
+	if(e->complexItem.lastPickedTarget>9999){
 		imprime_confirmCast(e);
 	}
 	switch(e->complexItem.type){
 		case 3: i_castTargetsRed(e);
 				break;
-		/*case 4: i_castTargetsYellow(e);
+		case 4: i_castTargetsYellow(e);
 				break;
-		case 5: i_castTargetsGree(e);
+		/*case 5: i_castTargetsGree(e);
 				break;*/
 		case 6: i_castTargetsBlue(e);
 				break;

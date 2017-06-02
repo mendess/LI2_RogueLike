@@ -63,6 +63,10 @@ void imprime_saida (POSICAO p);
 */
 void imprime_casa (POSICAO p);
 /**
+\brief Imprime o chao do mapa
+*/
+void imprime_chao();
+/**
 \brief Imprime a imagem de fundo
 @param classe Classe do jogador
 */

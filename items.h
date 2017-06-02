@@ -10,6 +10,7 @@
 #define MP_POT_POWER			10
 
 #define SCROLL_FIRE_DMG			35
+#define SCROLL_LIGHTNING_DMG	40
 
 #define SCROLL_COST_FIRE		40
 #define SCROLL_COST_LIGHTNING	25
@@ -23,10 +24,13 @@
 
 void usePotion(ESTADO *e,int *item);
 void equipItem(ESTADO *e,int *item);
+int getSpellCost(int item);
 ESTADO useItem(ESTADO e);
 POSICAO itAct2Pos(int action);
+int hitMonster(ESTADO *e,POSICAO target,int dmg);
 void castScroll_Fire(ESTADO *e);
 void castScroll_Teleport(ESTADO *e);
+void castScroll_Lightning(ESTADO *e);
 ESTADO castScroll(ESTADO e);
 ESTADO handleComplexItem(ESTADO e);
 #endif
