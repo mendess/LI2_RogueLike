@@ -184,7 +184,6 @@ void preenche_matriz(int a[10][10]){
     }
   }
 }
-
 ESTADO estrat_wolf (ESTADO e,int i,POSICAO p){
   int flag=1;
   int a[10][10];

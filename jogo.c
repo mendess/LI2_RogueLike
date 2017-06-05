@@ -204,17 +204,17 @@ ESTADO runGame(){
 	ESTADO e;
 	FILE *gamestateFile;
 	if(strlen(args)==0){
-		gamestateFile = fopen("/usr/lib/cgi-bin/files/gamestate","w");
+		gamestateFile = fopen("files/gamestate","w");
 		e.screen = 0;
 	}else{
-		gamestateFile = fopen("/usr/lib/cgi-bin/files/gamestate","r+");
+		gamestateFile = fopen("files/gamestate","r+");
 		e = ler_estado(args,gamestateFile);
 		e = calcularNovoEstado(e);
-		gamestateFile = freopen("/usr/lib/cgi-bin/files/gamestate","w",gamestateFile);
+		gamestateFile = freopen("files/gamestate","w",gamestateFile);
 		#ifdef DEBUG
 		FILE *fp;
 		char str[30];
-		sprintf(str,"/usr/lib/cgi-bin/files/gamestate%d",e.turn);
+		sprintf(str,"files/gamestate%d",e.turn);
 		fp=fopen(str,"w");
 		fwrite(&e, sizeof(ESTADO), 1, fp);
 		fclose(fp);
