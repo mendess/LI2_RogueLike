@@ -38,26 +38,5 @@ void putItemInv(int inv[],int item);
 @param *bag Apontador para o inventario do jogador
 */
 int buyItem(int action,int lootTable[],INVT *bag);
-/**
-\brief Devolve o preco de venda de um dado item
-@param item Item a ser avaliado
-*/
-int getItemSellPrice(int item);
-/**
-\brief Vende um item
-@param action Acao que o jogador fez (item selecionado)
-@param *bag Apontador para o inventario do jogador
-*/
-void sellItem_Bag(int action, INVT *bag);
-/**
-\brief Vende uma arma ou armadura
-@param action Acao que o jogador fez (item selecionado)
-@param *bag Apontador para o inventario do jogador
-*/
-void sellEquipment(int action, INVT *bag);
-/**
-\brief Função mestra que controla a loja
-@param e Estado do jogo
-*/
-ESTADO shop(ESTADO e);
+
 #endif

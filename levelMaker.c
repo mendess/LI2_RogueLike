@@ -97,10 +97,15 @@ ITEM_U_DAT initComplexItem(){
 	complexItem.type=0;
 	complexItem.lastPickedTarget=-1;
 	complexItem.isBeingCast=0;
-	complexItem.unCastable=0;
 	return complexItem;
 }
-POSICAO calculaNovaPosicao(POSICAO jog, int act){
+void initDroppedItems(CHEST droppedItems[]){
+	int i;
+	for(i=0;i<MAX_DROPPED_ITEMS;i++){
+		droppedItems[i].item=0;
+	}
+}
+POSICAO calcularNovaPosicao(POSICAO jog, int act){
 	int x[10]={5,-1, 0, 1,-1, 5, 1,-1, 0, 1};
 	/*         0  1  2  3  4  5  6  7  8  9 */
 	int y[10]={5, 1, 1, 1, 0, 5, 0,-1,-1,-1};
@@ -126,27 +131,29 @@ ESTADO inicializar(ESTADO e){
 	POSICAO path[MAX_CAMINHO];
 	int n=pathMaker(path);
 	srand(time(NULL));
-	e.screen=5;					/* Ecra de jogo */
-	e.hp=getClassHp(e.classe);	/* Vida do jogador */
-	e.mp=getClassMp(e.classe);	/* Mana do jogador */
-	e.world_lvl=1;				/* Nivel */
-	e.score=0;					/* Score */
-	e.turn=0;					/* Turno */
-	e.direction=0;				/* Lado para que o jogador esta a olhar 0:drt e 1:esq */
-	e.action=0;					/* Action */
+	e.screen=5;							/* Ecra de jogo */
+	e.hp=getClassHp(e.classe);			/* Vida do jogador */
+	e.mp=getClassMp(e.classe);			/* Mana do jogador */
+	e.world_lvl=1;						/* Nivel */
+	e.score=0;							/* Score */
+	e.turn=0;							/* Turno */
+	e.direction=0;						/* Lado para que o jogador esta a olhar 0:drt e 1:esq */
+	e.action=0;							/* Action */
 	generateLoot(e.lootTable,e.world_lvl);/* Inicializar LootTable para o primeiro nivel */
-	e.isInShop=0;				/* O jogador começa fora da loja logo começa a 0 */
-	e.shopFeedback=0;			/* Inicializa o feedback da loja */
-	e.complexItem=initComplexItem(); /* Inicializa os dados para uso de items complexos */
-	e.bag=initINVT();			/* Inicializar o inventario */
-	e.jog.x=path[0].x;			/* Posição do jogador (x) */
-	e.jog.y=path[0].y;			/* Posição do jogador (y) */
-	e.saida.x=path[n-1].x;		/* Posição da saida (x) */
-	e.saida.y=path[n-1].y;		/* Posição da saida (y) */
-	e.num_monstros=0;			/* Numero de Monstros */
-	e.num_pedras=0;				/* Numero de pedras */
-	e=colocar_pedras(e,n,path);	/* Posições da pedras */
-	e=colocar_monstros(e);		/* Posições dos monstros */
+	e.isInShop=0;						/* O jogador começa fora da loja logo começa a 0 */
+	e.isDeletingItems=0;				/* O jogador começa sem estar neste modo logo 0 */
+	e.feedback=0;						/* Inicializa o feedback da loja */
+	e.complexItem=initComplexItem(); 	/* Inicializa os dados para uso de items complexos */
+	e.bag=initINVT();					/* Inicializar o inventario */
+	e.jog.x=path[0].x;					/* Posição do jogador (x) */
+	e.jog.y=path[0].y;					/* Posição do jogador (y) */
+	e.saida.x=path[n-1].x;				/* Posição da saida (x) */
+	e.saida.y=path[n-1].y;				/* Posição da saida (y) */
+	e.num_monstros=0;					/* Numero de Monstros */
+	e.num_pedras=0;						/* Numero de pedras */
+	e=colocar_pedras(e,n,path);			/* Posições da pedras */
+	e=colocar_monstros(e);				/* Posições dos monstros */
+	initDroppedItems(e.droppedItems); /* Limpa o chão de items */
 	return e;
 }
 
@@ -162,7 +169,7 @@ ESTADO newLevel(ESTADO e){
 			generateLoot(e.lootTable,e.world_lvl);
 			e.screen=6;
 			e.isInShop=1;
-			e.shopFeedback=0;
+			e.feedback=0;
 			return e;
 		}
 	}
@@ -180,19 +187,21 @@ ESTADO newLevel(ESTADO e){
 	}else{
 		e.mp+=NEW_LEVEL_MP_BONUS;
 	}
-	e.world_lvl+=1;				/* Nivel */
-	e.score+=NEW_LEVEL_SC_BONUS;/* Score */
-	e.turn=0;					/* Turno */
-	e.direction=0;				/* Lado para que o jogador esta a olhar 0:direita e 1:esquerda */
-	e.action=0;					/* Action */
+	e.world_lvl+=1;						/* Nivel */
+	e.score+=NEW_LEVEL_SC_BONUS;		/* Score */
+	e.turn=0;							/* Turno */
+	e.direction=0;						/* Lado para que o jogador esta a olhar 0:direita e 1:esquerda */
+	e.action=0;							/* Action */
 	generateLoot(e.lootTable,e.world_lvl);/* Inicializar LootTable para o nivel */
-	e.jog.x=path[0].x;			/* Posição do jogador (x) */
-	e.jog.y=path[0].y;			/* Posição do jogador (y) */
-	e.saida.x=path[n-1].x;		/* Posição da saida (x) */
-	e.saida.y=path[n-1].y;		/* Posição da saida (y) */
-	e.num_monstros=0;			/* Numero de Monstros */
-	e.num_pedras=0;				/* Numero de pedras */
-	e=colocar_pedras(e,n,path);	/* Posições da pedras */
-	e=colocar_monstros(e);		/* Posições dos monstros */
+	e.isDeletingItems=0;				/* Inicializa fora do modo de apagar items */
+	e.jog.x=path[0].x;					/* Posição do jogador (x) */
+	e.jog.y=path[0].y;					/* Posição do jogador (y) */
+	e.saida.x=path[n-1].x;				/* Posição da saida (x) */
+	e.saida.y=path[n-1].y;				/* Posição da saida (y) */
+	e.num_monstros=0;					/* Numero de Monstros */
+	e.num_pedras=0;						/* Numero de pedras */
+	e=colocar_pedras(e,n,path);			/* Posições da pedras */
+	e=colocar_monstros(e);				/* Posições dos monstros */
+	initDroppedItems(e.droppedItems); 	/* Limpa o chão de items */
 	return e;
 }

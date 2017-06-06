@@ -8,37 +8,26 @@ void imprime_shop_item(char *name, int item, int index){
 		char query[4];
 		sprintf(query,"7%d",index);
 		ABRIR_LINK(name,query);
-		IMAGEM(86+(197*index),240,TAM,TAM,itemlist[(int) item]);
+		IMAGEM(73+(197*index),310,75,75,itemlist[(int) item]);
 		FECHAR_LINK;
 	}
 }
-void imprime_inv_slot_shop(char *name,int item,int i){
+void imprime_inv_slot_shop(char *name,int item,int i,int isDeletingItems){
 	char *itemlist[] = ITEM_LIST;
 	if(item!=0){
-		char query[4];
-		sprintf(query,"7%d",i+4);
+		if(isDeletingItems){
+			char query[4];
+			sprintf(query,"4%d",i);
+			ABRIR_LINK(name,query);
+		}
 		if(i%2){
-			ABRIR_LINK(name,query);
 			IMAGEM(638+(TAM*(i/2)),489,TAM,TAM,itemlist[item]);
-			FECHAR_LINK;
 		}else{
-			ABRIR_LINK(name,query);
 			IMAGEM(638+(TAM*(i/2)),539,TAM,TAM,itemlist[item]);
+		}
+		if(isDeletingItems){
 			FECHAR_LINK;
 		}
-	}
-}
-void imprime_equipment_shop(char *name, INVT bag){
-	char *itemlist[] = ITEM_LIST;
-	if(bag.weapon){
-		ABRIR_LINK(name,"80");
-		IMAGEM(572,489,TAM,TAM,itemlist[bag.weapon]);
-		FECHAR_LINK;
-	}
-	if(bag.armour){
-		ABRIR_LINK(name,"81");
-		IMAGEM(572,539,TAM,TAM,itemlist[bag.armour]);
-		FECHAR_LINK;
 	}
 }
 void imprime_price(int x, int y, int amount){
@@ -55,33 +44,40 @@ void imprime_price(int x, int y, int amount){
 void imprime_shop_prices(int lootTable[],int gold){
 	int i;
 	for(i=0;i<LOOT_TABLE_SIZE;i++){
-		int x=70+(197*i);
-		int y=358;
+		int x=45+(197*i);
+		int y=393;
 		int price = getItemBuyPrice(lootTable[i]);
 		imprime_price(x,y,price);
 	}
+	IMAGEM(400,492,50,50,"goldcoins.png");
 	imprime_price(450,502,gold);
 }
 void imprime_shop_messages(int shopFeedback){
-	char *messages[] = {"Empty","ShopMessage1Success.png","ShopMessage2notEnoughGold.png","ShopMessage3notEnoughSpace.png"};
+	char *messages[] = {"Empty","ShopMessage2notEnoughGold.png","ShopMessage3notEnoughSpace.png"};
 	IMAGEM(20,400,150,150,messages[(int) shopFeedback]);
 }
 void imprimeShop(ESTADO e){
 	ABRIR_SVG;
-	
+	if(e.feedback==0){
+		srand(time(NULL));
+		e.feedback = rand() % 3 + 3;
+	}
+	char *shopScreens[] = SHOP_SCREENS;
 	int i;
-	IMAGEM(0,0,SVG_WIDTH,SVG_HEIGHT,"ScreenShop.png");
+	IMAGEM(0,0,SVG_WIDTH,SVG_HEIGHT,shopScreens[e.feedback]);
 	for (i = 0; i < 4; ++i){
 		imprime_shop_item(e.name,e.lootTable[i],i);
 	}
 	for (i = 0; i < INVT_SIZE; ++i){
-		imprime_inv_slot_shop(e.name,e.bag.inv[i],i);
+		imprime_inv_slot_shop(e.name,e.bag.inv[i],i,e.isDeletingItems);
 	}
-	imprime_equipment_shop(e.name,e.bag);
+
+	char *trashCan[] = {"TrashCan_closed.png","TrashCan_opened.png"};
+	ABRIR_LINK(e.name,"85");
+	IMAGEM(500,539,50,50,trashCan[e.isDeletingItems]);
+	FECHAR_LINK;
 
 	imprime_shop_prices(e.lootTable,e.bag.gold);
-
-	imprime_shop_messages(e.shopFeedback);
 
 	ABRIR_LINK(e.name,"5");/* done */
 	printf("<rect x=0 y=540 width=140 height=60 style=opacity:0;></rect>\n");
@@ -90,7 +86,7 @@ void imprimeShop(ESTADO e){
 	FECHAR_SVG;
 	
 	#ifdef DEBUG
-	printf("<p>world_lvl:%d  score:%d  LootTable[%d,%d,%d,%d] Gold:%d Inv[%d,%d,%d,%d] Weapon:%d Armour:%d </p>",
+	printf("<p>world_lvl:%d  score:%d  LootTable[%d,%d,%d,%d] Gold:%d Inv[%d,%d,%d,%d,%d,%d] Weapon:%d Armour:%d </p>",
 			e.world_lvl,
 			e.score,
 			e.lootTable[0],
@@ -102,6 +98,8 @@ void imprimeShop(ESTADO e){
 			e.bag.inv[1],
 			e.bag.inv[2],
 			e.bag.inv[3],
+			e.bag.inv[4],
+			e.bag.inv[5],
 			e.bag.weapon,
 			e.bag.armour);
 	#endif

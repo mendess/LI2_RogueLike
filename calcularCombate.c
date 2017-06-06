@@ -6,6 +6,32 @@ int samePos(POSICAO monPos, MSTR monster){
 void killMonster(int i, MSTR monstros[], int num_monstros){
 	monstros[i]=monstros[num_monstros];
 }
+void dropItem(CHEST droppedItems[], int *item, POSICAO pos){
+	int j=0;
+	while(droppedItems[j].item!=0 && j<MAX_DROPPED_ITEMS){
+		j++;
+	}
+	if(j==MAX_DROPPED_ITEMS){
+		perror("Not enough space to drop item!");
+	}else{
+		droppedItems[j].item = *item;
+		droppedItems[j].pos = pos;
+		*item=0;
+	}
+}
+void dropItemFromMSTR(int lootTable[], CHEST droppedItems[], int x, int y){
+	int chance = rand() % 1;
+	if(chance==0){
+		int i=0;
+		while(lootTable[i]==0 && i<LOOT_TABLE_SIZE){
+			i++;
+		}
+		if(i!=LOOT_TABLE_SIZE){
+			POSICAO pos = {x,y};
+			dropItem(droppedItems,&lootTable[i],pos);
+		}
+	}
+}
 int calcPlayerDmg(int classe, INVT bag){
 	int weaponDmgs[] = WEAPON_DMG_ARRAY;
 	int plrDmgs[] = BASE_DMG_ARRAY;
@@ -48,7 +74,7 @@ ESTADO calcularCombate(ESTADO e){
 	char plrDmg;
 	int i;
 	if(e.action<20){
-		mon = calculaNovaPosicao(e.jog,e.action-10);	
+		mon = calcularNovaPosicao(e.jog,e.action-10);	
 	}else if(e.action<30){
 		mon = calculaRangedAtackPos(e.jog,e.action);
 	}
@@ -59,6 +85,7 @@ ESTADO calcularCombate(ESTADO e){
 		e.score+=updateScore(e.monstros[i].monType);
 		e.bag.gold+=goldDrop(e.monstros[i].monType);
 		e.num_monstros--;
+		dropItemFromMSTR(e.lootTable,e.droppedItems,e.monstros[i].x, e.monstros[i].y);
 		killMonster(i,e.monstros,e.num_monstros);
 	}else{
 		e.monstros[i].hp -= plrDmg;

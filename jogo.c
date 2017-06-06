@@ -8,6 +8,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 		return e;
 	}
 	#endif
+	e.feedback=0;
 	if(ACT_GOTO_MENU){/* main menu*/
 		e.screen=1;
 		return e;
@@ -22,7 +23,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 		e.direction=1;
 	}
 	if(ACT_MOVE){/* mover jogador */
-		e.jog=calculaNovaPosicao(e.jog,e.action);
+		e.jog=calcularNovaPosicao(e.jog,e.action);
 	}
 	if(ACT_LESSER_TELEPORT){
 		e.jog=calcularLesserTeleport(e.jog,e.action);
@@ -31,12 +32,18 @@ ESTADO calcularNovoEstado(ESTADO e){
 	if(ACT_ATACK){/* ataque normal */
 		e=calcularCombate(e);
 	}
-	e.complexItem.unCastable=0;
 	if(ACT_USE_ITEM){
 		e=useItem(e);
-		if(e.complexItem.isBeingUsed){
+		if(e.complexItem.isBeingUsed || e.isDeletingItems){
 			return e;
 		}
+	}
+	if(ACT_DEL_ITEM_MODE){
+		e.isDeletingItems=!e.isDeletingItems;
+		return e;
+	}
+	if(ACT_PICK_UP_ITEM){
+		e.feedback=pickUpItem(e.jog,e.bag.inv,e.droppedItems,e.action);
 	}
 	if(PICKING_ITEM_TGT){
 		if(e.complexItem.isBeingUsed){
@@ -63,8 +70,8 @@ ESTADO calcularNovoEstado(ESTADO e){
 		return inicializar(e);
 	}
 	if(ACT_SHOP_CHOICE){/* loja */
-		e.shopFeedback=0;
-		return shop(e);
+		e.feedback=buyItem(e.action,e.lootTable,&(e.bag));
+		return e;
 	}
 
 	e=move_monstros(e);
@@ -165,4 +172,3 @@ void keepLog(ESTADO e){
 
 }
 #endif
-

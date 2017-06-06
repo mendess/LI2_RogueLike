@@ -6,12 +6,14 @@
 #include <time.h>
 #include <stdio.h>
 
-#define TAM				50
-#define MAX_MONSTROS	5
-#define MAX_PEDRAS		25
-#define SIZE          	10
-#define LOOT_TABLE_SIZE 4
-#define INVT_SIZE       6
+#define TAM					50
+#define MAX_MONSTROS		5
+#define MAX_PEDRAS			25
+#define SIZE          		10
+#define LOOT_TABLE_SIZE 	4
+#define INVT_SIZE       	6
+#define MAX_DROPPED_ITEMS	LOOT_TABLE_SIZE+INVT_SIZE+2
+
 
 typedef struct posicao{
 	int x;
@@ -32,12 +34,16 @@ typedef struct inventory{
 	int armour;
 }INVT;
 
+typedef struct chest{
+	POSICAO pos;
+	int item;
+}CHEST;
+
 typedef struct itemUsedata{
 	int isBeingUsed;
 	int type;
 	int lastPickedTarget;
 	int isBeingCast;
-	int unCastable;
 }ITEM_U_DAT;
 
 typedef struct estado{
@@ -65,8 +71,10 @@ typedef struct estado{
 	int lootTable[LOOT_TABLE_SIZE];
 	/* Guarda se o jogador esta na loja */
 	int isInShop;
-	/* Codigo de feedback da loja */
-	int shopFeedback;
+	/* Guarda se o jogador esta a apagar items do inventario */
+	int isDeletingItems;
+	/* Codigo de feedback */
+	int feedback;
 	/* Se o jogador esta a usar um item */
 	ITEM_U_DAT complexItem;
 	/*  Inventario do jogador */
@@ -83,6 +91,8 @@ typedef struct estado{
 	MSTR monstros [MAX_MONSTROS];
 	/*  Posições da pedras */
 	POSICAO pedras [MAX_PEDRAS];
+	/* Lista de items no chão */
+	CHEST droppedItems[MAX_DROPPED_ITEMS];
 }ESTADO;
 
 static const ESTADO estadoZero;

@@ -42,6 +42,13 @@ int com_jogador (ESTADO e,POSICAO p);
 */
 int com_pedras (ESTADO e, POSICAO p);
 /**
+\brief Verifica se num certo par de coordenadas existe um item no chão
+@param droppedItems Lista dos items no chão
+@param p Posição a verificar
+@returns 1 se existir o item 0 caso contrario
+*/
+int com_droppedItem(CHEST droppedItems[], POSICAO p);
+/**
 \brief Verifica se existem monstros nas coordenadas dadas
 @param e Estado do jogo
 @param p Posição a verificar

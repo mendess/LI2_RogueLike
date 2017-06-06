@@ -57,12 +57,14 @@ int getClassMp(int type);
 @param bag Inventario
 */
 INVT initINVT();
+ITEM_U_DAT initComplexItem();
+void initDroppedItems(CHEST droppedItems[]);
 /**
 \brief Calcula uma nova posição a partir das coordenadas do jogador e da acao
 @param jog A posição antiga do jogador
 @param act Ação selecionada
 */
-POSICAO calculaNovaPosicao(POSICAO jog, int act);
+POSICAO calcularNovaPosicao(POSICAO jog, int act);
 /**
 \brief Calcula o nova posição do jogador depois de usar a abilidade "lesser teleport" do "Mage"
 @param jog Posição do jogador

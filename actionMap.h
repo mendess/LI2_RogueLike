@@ -9,12 +9,14 @@
 #define ACT_LESSER_TELEPORT		e.action>30 && e.action<40
 #define ACT_ATACK				e.action>10 && e.action<30
 #define ACT_EXIT				e.action==5
-#define ACT_SHOP_CHOICE			e.action>69 && e.action<82
+#define ACT_SHOP_CHOICE			e.action>69 && e.action<80
 #define PLR_FACING_LEFT			e.action==9 || e.action==6 || e.action==3
 #define PLR_FACING_RIGHT		e.action==7 || e.action==4 || e.action==1
 #define ACT_USE_ITEM			e.action>39 && e.action<50
 #define ACT_RANGED_ATTACK		e.action>20 && e.action<30
 #define ACT_BOSS_ATTACK			e.action==30
+#define ACT_PICK_UP_ITEM		e.action>80 && e.action<90 && e.action!=85
+#define ACT_DEL_ITEM_MODE		e.action==85
 #define PICKING_ITEM_TGT		e.action>9999
 /*
 	0 -> MainMenu
@@ -66,7 +68,16 @@
 	71 -> BuyShopItem 1
 	72 -> BuyShopItem 2
 	73 -> BuyShopItem 3
-
+	81 -> Pick up item SE
+	82 -> Pick up item S
+	83 -> Pick up item SW
+	84 -> Pick up item E
+	85 -> Delete Item Mode
+	86 -> Pick up item W
+	87 -> Pick up item NE
+	88 -> Pick up item N
+	89 -> Pick up item NW
+	
 	1XXYY -> usar item nas cordenadas XX e YY
 */
 

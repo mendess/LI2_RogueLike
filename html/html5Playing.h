@@ -1,8 +1,8 @@
 #ifndef __HTML5_H__
 #define __HTML5_H__
 
-#include "htmlMaster.h"
 #include "../colisions.h"
+#include "htmlMaster.h"
 
 #include "html5PlayingSpells.h"
 
@@ -12,7 +12,9 @@
 								 {-1,21,-1,23,-1},\
 								 {-1,-1,22,-1,-1},}
 
-#define PLAY_FRAMES		{"Moldura_Movimento.png","Moldura_Ataque.png","Moldura_Lesser_Teleport.png"}
+#define PLAY_FRAMES		{"Moldura_Movimento.png","Moldura_Ataque.png","Moldura_Lesser_Teleport.png","Moldura_PickUp_Item.png"}
+
+#define FEEDBACK_MSGS	{"","Hum... I can't cast that!","I can't carry more items!","There are no targets in range!"}
 
 #define CAN_USE_LESSER_TELEPORT	e.classe==3 && e.turn % 5 == 0 && e.turn != 0 && e.mp>=LESSER_TP_COST
 
@@ -76,14 +78,14 @@ void imprime_all_moves (ESTADO e);
 void imprime_jogador (ESTADO e);
 /**
 \brief Imprime os monstros
-@param e Estado do jogo
+@param mostros Lista dos mostros
 */
-void imprime_monstros (ESTADO e);
+void imprime_monstros (MSTR monstros[], int num_monstros);
 /**
 \brief Imprime as pedras
-@param e Estado do jogo
+@param pedras Lista dos obstaculos
 */
-void imprime_pedras (ESTADO e);
+void imprime_pedras (POSICAO pedras[]);
 /**
 \brief Imprime a saida
 @param p Posição da saida
@@ -132,7 +134,7 @@ void imprime_equipment(INVT bag);
 \brief Imprime o inventario do jogador
 @param bag Inventario do jogador
 */
-void imprime_inventory(char *name, INVT bag);
+void imprime_inventory(int mode, char *name, INVT bag);
 /**
 \brief Função mestra que chama todas as funções
 de impressão

@@ -44,6 +44,8 @@ int samePos(POSICAO monPos, MSTR monster);
 @param monster Monstro a verificar
 */
 void killMonster(int i, MSTR monstros[], int num_monstros);
+void dropItem(CHEST droppedItems[], int *item, POSICAO pos);
+void dropItemFromMSTR(int lootTable[], CHEST droppedItems[], int x, int y);
 int updateScore(int type);
 int goldDrop(int type);
 POSICAO calculaRangedAtackPos(POSICAO p,int act);

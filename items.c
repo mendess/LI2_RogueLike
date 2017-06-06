@@ -1,7 +1,6 @@
 #include "items.h"
 
 void usePotion(ESTADO *e,int *item){
-	
 	int *current;
 	int bonus,max;
 	if(*item==1){
@@ -38,24 +37,61 @@ int getSpellCost(int item){
 	return costs[item-3];
 }
 ESTADO useItem(ESTADO e){
-	int *item = &e.bag.inv[e.action-40];
-	if(*item<3){
-		usePotion(&e,item);
-	}else if(*item<10){
-		if(e.mp>=getSpellCost(*item)){
-			e.complexItem.isBeingUsed=1;
-			e.complexItem.type=*item;
-			e.complexItem.lastPickedTarget=-1;
-			e.complexItem.isBeingCast=0;
-			e.complexItem.unCastable=0;
-			*item=0;
-		}else{
-			e.complexItem.unCastable=1;
-		}
+	if(e.isDeletingItems){
+		e.bag.inv[e.action-40]=0;
 	}else{
-		equipItem(&e,item);
+		int *item = &e.bag.inv[e.action-40];
+		if(*item<3){
+			usePotion(&e,item);
+		}else if(*item<10){
+			if(e.mp>=getSpellCost(*item)){
+				e.complexItem.isBeingUsed=1;
+				e.complexItem.type=*item;
+				e.complexItem.lastPickedTarget=-1;
+				e.complexItem.isBeingCast=0;
+				e.feedback=0;
+				*item=0;
+			}else{
+				e.feedback=1;
+			}
+		}else{
+			equipItem(&e,item);
+		}
 	}
 	return e;
+}
+int getItemSpace(int inv[]){
+	int i=0,foundSpace=0;
+	while(i<INVT_SIZE && !foundSpace){
+		if(inv[i]){
+			i++;
+		}else{
+			foundSpace=1;
+		}
+	}
+	return i;
+}
+int getDroppedItem(POSICAO jog, CHEST droppedItems[],int action){
+	POSICAO pos = calcularNovaPosicao(jog,action-80);
+	int i=0, foundItem=0;
+	while(i<MAX_DROPPED_ITEMS && !foundItem){
+		if(droppedItems[i].item!=0 && droppedItems[i].pos.x == pos.x && droppedItems[i].pos.y == pos.y){
+			foundItem=1;
+		}else{
+			i++;
+		}
+	}
+	return i;
+}
+int pickUpItem(POSICAO jog, int inv[], CHEST droppedItems[], int action){
+	int invI = getItemSpace(inv);
+	if(invI==INVT_SIZE){
+		return 2;
+	}
+	int drpItemI = getDroppedItem(jog,droppedItems,action);
+	inv[invI] = droppedItems[drpItemI].item;
+	droppedItems[drpItemI].item = 0;
+	return 0;
 }
 POSICAO itAct2Pos(int action){
 	POSICAO p;

@@ -26,7 +26,7 @@ int validNewLevel(ESTADO e){
 				|| com_saida(e,esquerda)));
 }
 int validMove(ESTADO e){
-	POSICAO tmp = calculaNovaPosicao(e.jog, e.action);
+	POSICAO tmp = calcularNovaPosicao(e.jog, e.action);
 	return e.screen==5
 		&& !outOfBounds(tmp)
 		&& !pos_ocupada(e,tmp)
@@ -41,14 +41,22 @@ int validAtack(ESTADO e){
 	if(e.action>20){
 		tmp = calculaRangedAtackPos(e.jog,e.action);
 	}else{
-		tmp = calculaNovaPosicao(e.jog, e.action-10);
+		tmp = calcularNovaPosicao(e.jog, e.action-10);
 	}
 	return e.screen==5
 		&& com_monstros(e,tmp);
 }
-int validItemUse(ESTADO e){
+int validItemPickup(ESTADO e){
+	POSICAO p = calcularNovaPosicao(e.jog,e.action-80);
 	return e.screen==5
-		&& e.bag.inv[e.action-40]!=0;
+		&& !com_monstros(e,p)
+		&& getDroppedItem(e.jog,e.droppedItems,e.action)!=MAX_DROPPED_ITEMS;
+}
+int validItemUse(ESTADO e){
+	return e.bag.inv[e.action-40]!=0
+		&& (e.screen==5
+			|| (e.screen==6 
+				&& e.isDeletingItems));
 }
 /*
 int validBossAtack(ESTADO e){ FINISH THIS validAction.c l32
@@ -79,8 +87,17 @@ int validAction(ESTADO e){
 	if(ACT_ATACK){/* ataque normal */
 		return validAtack(e);
 	}
+	if(ACT_PICK_UP_ITEM){
+		return validItemPickup(e);
+	}
 	if(ACT_USE_ITEM){
 		return validItemUse(e);
+	}
+	if(ACT_DEL_ITEM_MODE){
+		return e.screen==5 || e.screen==6;
+	}
+	if(PICKING_ITEM_TGT){
+		return e.complexItem.isBeingUsed==1;
 	}
 /*	if(e.action==30){
 		return validBossAtack(e);

@@ -6,6 +6,8 @@
 #include "actionMap.h"
 #include "levelMaker.h"
 #include "calcularCombate.h"
+#include "items.h"
+#include "shop.h"
 #include "html/html5Playing.h"
 
 /**
@@ -30,6 +32,11 @@ int validMove(ESTADO e);
 @param e Estado do jogo
 */
 int validAtack(ESTADO e);
+/**
+/brief Verifica se o jogador pode apanhar um item do chão
+@param e Estado do jogo
+*/
+int validItemPickup(ESTADO e);
 /**
 \brief Verifica se o item que o jogador escolheu pode ser usado
 Verifica se o item existe

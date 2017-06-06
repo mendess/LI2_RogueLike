@@ -33,6 +33,16 @@ int com_pedras (ESTADO e, POSICAO p){
 	}
 	return flag;
 }
+int com_droppedItem(CHEST droppedItems[], POSICAO p){
+	int i,flag;
+	flag=0;
+	for (i=0;i<MAX_DROPPED_ITEMS && !flag;i++){
+		if (droppedItems[i].item!=0 && droppedItems[i].pos.x == p.x && droppedItems[i].pos.y == p.y){
+			flag=1;
+		}
+	}
+	return flag;
+}
 int com_monstros (ESTADO e, POSICAO p){
 	int i,flag;
 	flag=0;
