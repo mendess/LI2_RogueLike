@@ -168,7 +168,7 @@ void distancia_WOLF (ESTADO e,int a[10][10],int x,int y,int i){
         i++;
         for(a1=x-1;a1<=x+1;a1++){
           for(a2=y-1;a2<=y+1;a2++){
-            if(a1!=0 || a2!=0){
+            if(a1!=x || a2!=y){
               distancia_WOLF(e,a,a1,a2,i);
             }
           }

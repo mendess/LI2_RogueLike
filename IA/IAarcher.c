@@ -3,246 +3,295 @@
 #include <string.h>
 #include <time.h>
 #include "IA.h"
-
-int possivel_casa (ESTADO e,POSICAO p){
-  int flag;
+ 
+/*
+int sem_monstros(ESTADO e,int n,int x,int y){
+  int i,flag;
   flag=1;
-  if(com_pedras(e,p) || com_monstros(e,p)) flag=0;
-  return flag;
+  for(i=0;i<n;i++){
+    if(e.monstros[i].x==x && e.monstros[i].y == y) return 0;
+  }
+    return flag;
+}
+int sem_pedras(ESTADO e,int n,int x,int y){
+  int i,flag;
+  flag=1;
+  for(i=0;i<n;i++){
+    if(e.pedras[i].x==x && e.pedras[i].y == y) return 0;
+  }
+    return flag;
+}
+*/
+ESTADO persegue_NO(ESTADO e,int a[10][10],int i,POSICAO p){
+  int x,y,intersect,flag;
+  flag=1;
+  intersect=abs(e.jog.x-p.x)+abs(e.jog.y-p.y)/2;
+  for(x=p.x-1;x>=p.x+1 && flag;x++){
+    for(y=p.y-1;y<=p.y+1 && flag;y++){
+      if(a[x][y]>=intersect && a[x][y]<a[p.x][p.y] && (a[x][y]-a[p.x][p.y]==1) && sem_monstros(e,e.num_monstros,x,y)){
+        e.monstros[i].x=x;
+        e.monstros[i].y=y;
+        flag=0;
+      }
+    }
+  }
+  return e;
+}
+ESTADO persegue_SO(ESTADO e,int a[10][10],int i,POSICAO p){
+  int x,y,intersect,flag;
+  flag=1;
+  intersect=abs(e.jog.x-p.x)+abs(e.jog.y-p.y)/2;
+  for(x=p.x-1;x<=p.x+1 && flag;x++){
+    for(y=p.y+1;y>=p.y-1 && flag;y--){
+      if(a[x][y]>=intersect && a[x][y]<a[p.x][p.y] && (a[x][y]-a[p.x][p.y]==1) && sem_monstros(e,e.num_monstros,x,y)){
+        e.monstros[i].x=x;
+        e.monstros[i].y=y;
+        flag=0;
+      }
+    }
+  }
+  return e;
+}
+ESTADO persegue_NE(ESTADO e,int a[10][10],int i,POSICAO p){
+  int x,y,intersect,flag;
+  flag=1;
+  intersect=abs(e.jog.x-p.x)+abs(e.jog.y-p.y)/2;
+  for(x=p.x+1;x<=p.x-1 && flag;x--){
+    for(y=p.y-1;y<=p.y+1 && flag;y++){
+      if(a[x][y]>=intersect && a[x][y]<a[p.x][p.y] && (a[x][y]-a[p.x][p.y]==1) && sem_monstros(e,e.num_monstros,x,y)){
+        e.monstros[i].x=x;
+        e.monstros[i].y=y;
+        flag=0;
+      }
+    }
+  }
+  return e;
+}
+ESTADO persegue_SE(ESTADO e,int a[10][10],int i,POSICAO p){
+  int x,y,intersect,flag;
+  flag=1;
+  intersect=abs(e.jog.x-p.x)+abs(e.jog.y-p.y)/2;
+  for(x=p.x+1;x>=p.x-1 && flag;x--){
+    for(y=p.y+1;y>=p.y-1 && flag;y--){
+      if(a[x][y]>=intersect && a[x][y]<a[p.x][p.y] && (a[x][y]-a[p.x][p.y]==1) && sem_monstros(e,e.num_monstros,x,y)){
+        e.monstros[i].x=x;
+        e.monstros[i].y=y;
+        flag=0;
+      }
+    }
+  }
+  return e;
+}
+ESTADO persegue_arch(ESTADO e,int a[10][10],int i,POSICAO p){
+   int flag=1;
+   if (p.x>=e.jog.x && p.y>=e.jog.y){
+      e=persegue_NO(e,a,i,p);
+      flag=0;
+   }
+   if (p.x>=e.jog.x && p.y<=e.jog.y && flag){
+      e=persegue_SO(e,a,i,p);
+      flag=0;
+   }
+   if(p.x<=e.jog.x && p.y>=e.jog.y && flag){
+      e=persegue_NE(e,a,i,p);
+      flag=0;
+   }
+   if(p.x<=e.jog.x && p.y<=e.jog.y && flag){
+      e=persegue_SE(e,a,i,p);
+      flag=0;
+   }
+   return e;
+}
+ESTADO desvia_right(int a[10][10],ESTADO e,int i,POSICAO p){
+  int flag=1;
+  if(a[p.x+1][p.y] != 50 && (p.x+1)<10){
+   e.monstros[i].x+=1;
+   flag=0;
+  }
+  if(a[p.x][p.y+1] != 50 && (p.y+1)<10 && flag){
+   e.monstros[i].y+=1;
+   flag=0;
+  }
+  if(a[p.x][p.y-1] != 50 && (p.y-1)>=0 && flag){
+   e.monstros[i].y-=1;
+ }
+  return e;
+}
+ESTADO desvia_left(int a[10][10],ESTADO e,int i,POSICAO p){
+  int flag=1;
+  if(a[p.x-1][p.y] != 50 && (p.x-1)>=0){
+   e.monstros[i].x-=1;
+   flag=0;
+  }
+  if(a[p.x][p.y+1] != 50 && (p.y+1)<10 && flag){
+   e.monstros[i].y+=1;
+   flag=0;
+  }
+  if(a[p.x][p.y-1] != 50 && (p.y-1)>=0 && flag){
+   e.monstros[i].y-=1;
+  }
+  return e;
+}
+ESTADO desvia_down(int a[10][10],ESTADO e,int i,POSICAO p){
+  int flag=1;
+  if(a[p.x][p.y+1] != 50 && (p.y+1)<10){
+    e.monstros[i].y+=1;
+    flag=0;
+  }
+  if(a[p.x][p.x+1] != 50 && (p.x+1)<10 && flag){
+    e.monstros[i].x+=1;
+    flag=0;
+  }
+  if(a[p.x][p.x-1] != 50 && (p.x-1)>=0 && flag){
+    e.monstros[i].x-=1;
+  }
+  return e;
+}
+ESTADO desvia_up(int a[10][10],ESTADO e,int i,POSICAO p){
+  int flag=1;
+  if(a[p.x][p.y-1] != 50 && (p.y-1)>=0){
+    e.monstros[i].y-=1;
+    flag=0;
+  }
+  if(a[p.x][p.x+1] != 50 && (p.x+1)<10 && flag){
+    e.monstros[i].x+=1;
+    flag=0;
+  }
+  if(a[p.x][p.x-1] != 50 && (p.x-1)>=0 && flag){
+   e.monstros[i].x-=1;
+ }
+  return e;
+}
+ESTADO desvia(ESTADO e,int a[10][10],int i,POSICAO p){
+  if(p.x>e.jog.x){
+    e=desvia_right(a,e,i,p);
+  }
+  if(p.x<e.jog.x){
+    e=desvia_left(a,e,i,p);
+  }
+  if(p.y>e.jog.y){
+    e=desvia_down(a,e,i,p);
+  }
+  if(p.y<e.jog.y){
+    e=desvia_up(a,e,i,p);
+  }
+  return e;
 }
 int in_range(ESTADO e,POSICAO p){
    int flag=0;
-   if((p.x-e.jog.x)+(p.y-e.jog.y)==1) flag=1;
+   if(abs(p.x-e.jog.x)+abs(p.y-e.jog.y)<=3) flag=2;
+   if(abs(p.x-e.jog.x)+abs(p.y-e.jog.y)==1) flag=1;
    return flag;
 }
-ESTADO desvia(ESTADO e,int i,POSICAO p){ // por a desviar para cima e para baixo p.x<e.jog.x
-  POSICAO pos;
-  int flag=1;
-  pos.x=p.x+1;
-  pos.y=p.y;
-  if( p.x>e.jog.x && possivel_casa(e,pos)){
-    e.monstros[i].x+=1;
-  }
-  pos.x=p.x-1;
-  pos.y=p.y;
-   if(flag && p.x<e.jog.x && possivel_casa(e,pos)){
-  e.monstros[i].x-=1;
-  flag=0;
-  }
-  pos.x=p.x;
-  pos.y=p.y-1;
-  if(flag && p.y<e.jog.y && possivel_casa(e,pos)){
-  e.monstros[i].y-=1;
-  flag=0;
-  }
-  pos.x=p.x;
-  pos.y=p.y+1;
-  if(flag && p.y>e.jog.y && possivel_casa(e,pos)){
-  e.monstros[i].y+=1;
-  flag=0;
+ESTADO defArcher_NO (ESTADO e,int a[10][10], int i, POSICAO p,int intersect){
+  int x,y,flag;
+  flag=1;
+  for(x=p.x+1;x>=p.x-1 && flag;x--){
+    for(y=p.y+1;y<=p.y-1 && flag;y--){
+      if(a[x][y]>=intersect && a[x][y]<a[p.x][p.y] && (a[x][y]-a[p.x][p.y]==1) && sem_monstros(e,e.num_monstros,x,y)){
+        e.monstros[i].x=x;
+        e.monstros[i].y=y;
+        flag=0;
+      }
+    }
   }
   return e;
 }
-ESTADO persegue_arch(ESTADO e,int i,POSICAO p){
-  POSICAO pos;
-  int flag=1;
-  pos.x=p.x-1;
-  pos.y=p.y;
-  if(p.x>e.jog.x && possivel_casa(e,pos)){
-  e.monstros[i].x+=(-1);
-  flag=0;
-  }
-  pos.x=p.x+1;
-  pos.y=p.y;
-   if(flag && p.x<e.jog.x && possivel_casa(e,pos)){
-  e.monstros[i].x+=(-1);
-  flag=0;
-  }
-  pos.x=p.x;
-  pos.y=p.y+1;
-  if(flag && p.y<e.jog.y && possivel_casa(e,pos)){
-  e.monstros[i].y+=1;
-  flag=0;
-  }
-  pos.x=p.x;
-  pos.y=p.y-1;
-  if(flag && p.y>e.jog.y && possivel_casa(e,pos)){
-  e.monstros[i].y+=(-1);
-  flag=0;
+ESTADO defArcher_NE (ESTADO e,int a[10][10],int i, POSICAO p,int intersect){
+  int x,y,flag;
+  flag=1;
+  for(x=p.x-1;x<=p.x+1 && flag;x++){
+    for(y=p.y+1;y<=p.y-1 && flag;y--){
+      if(a[x][y]>=intersect && a[x][y]<a[p.x][p.y] && (a[x][y]-a[p.x][p.y]==1) && sem_monstros(e,e.num_monstros,x,y)){
+        e.monstros[i].x=x;
+        e.monstros[i].y=y;
+        flag=0;
+      }
+    }
   }
   return e;
 }
-int livre1(ESTADO e,int x,int y){
-  POSICAO pos;
-  pos.x=x;
-  pos.y=y;
-  int i;
-  i=possivel_casa(e,pos);
-  return i;
-}
-POSICAO buscaA1(ESTADO e,int a[SIZE][SIZE]){
-  int i,x,y,flag;
-  POSICAO intersect;
-  flag=1;i=0;
-  for(y=0;y<10;y++){
-   for(x=0;x<10;x++){
-     if(a[x][y] == 0 && i!=3){
-       i++;
-     }
-     if(i==3 && livre1(e,x,y)  && flag){
-      intersect.x=x;
-      intersect.y=y;
-      x=10;
-      y=10;
-      flag=0;
-     }
-   }
+ESTADO defArcher_SO (ESTADO e,int a[10][10],int i, POSICAO p,int intersect){
+  int x,y,flag;
+  flag=1;
+  for(x=p.x+1;x<=p.x-1 && flag;x--){
+    for(y=p.y+1;y>=p.y-1 && flag;y--){
+      if(a[x][y]>=intersect && a[x][y]<a[p.x][p.y] && (a[x][y]-a[p.x][p.y]==1) && sem_monstros(e,e.num_monstros,x,y)){
+        e.monstros[i].x=x;
+        e.monstros[i].y=y;
+        flag=0;
+      }
+    }
   }
- return intersect;
+  return e;
 }
-POSICAO buscaA2(ESTADO e,int a[SIZE][SIZE]){
-  int i,x,y,flag;
-  POSICAO intersect;
-  flag=1;i=0;
-  for(y=0;y<10;y++){
-   for(x=9;x>=0;x--){
-     if(a[x][y] == 0 && i!=3){
-     i++;
-     }
-     if(i==3 && livre1(e,x,y) && flag){
-      intersect.x=x;
-      intersect.y=y;
-      x=-1;
-      y=10;
-      flag=0;
-     }
-   }
+ESTADO defArcher_SE (ESTADO e,int a[10][10],int i, POSICAO p,int intersect){
+  int x,y,flag;
+  flag=1;
+  for(x=p.x-1;x>=p.x+1 && flag;x++){
+    for(y=p.y-1;y>=p.y+1 && flag;y++){
+      if(a[x][y]>=intersect && a[x][y]<a[p.x][p.y] && (a[x][y]-a[p.x][p.y]==1) && sem_monstros(e,e.num_monstros,x,y)){
+        e.monstros[i].x=x;
+        e.monstros[i].y=y;
+        flag=0;
+      }
+    }
   }
- return intersect;
+  return e;
 }
-POSICAO buscaA3(ESTADO e,int a[SIZE][SIZE]){
-  int i,x,y,flag;
-  POSICAO intersect;
-  flag=1;i=0;
-  for(y=9;y>=0;y--){
-   for(x=9;x>=0;x--){
-     if(a[x][y] == 0 && i!=3){
-      i++;
-     }
-     if(i==3 && livre1(e,x,y) && flag){
-      intersect.x=x;
-      intersect.y=y;
-      x=-1;
-      y=-1;
-      flag=0;
-     }
-   }
-  }
- return intersect;
+// i-> valor da prox casa
+void distancia_ARCHER (ESTADO e,int a[10][10],int x,int y,int i){
+    int a1,a2;
+    if(x>=0 && x<10 && y<10 && y>=0){
+      if(sem_pedras(e,e.num_pedras,x,y) && i<a[x][y] && sem_monstros(e,e.num_monstros,x,y)){
+        a[x][y]=i;
+        i++;
+        for(a1=x-1;a1<=x+1;a1++){
+            if(a1!=x){
+              distancia_ARCHER(e,a,a1,y,i);
+            }
+        }
+        for(a2=y-1;a2<=y+1;a2++){
+            if(a2!=y){
+              distancia_ARCHER(e,a,x,a2,i);
+            }
+        }
+      }
+    }
 }
-POSICAO buscaA4(ESTADO e,int a[SIZE][SIZE]){
-  int i,x,y,flag;
-  POSICAO intersect;
-  flag=1;i=0;
-  for(y=0;y<10;y++){
-   for(x=0;x<10;x++){
-     if(a[x][y] == 0 && i!=3){
-      i++;
-     }
-     if(i==3 && livre1(e,x,y) && flag){
-      intersect.x=x;
-      intersect.y=y;
-      x=-1;
-      y=10;
-      flag=0;
-     }
-   }
-  }
- return intersect;
-}
-POSICAO mapa4 (ESTADO e,POSICAO p,int q){
-  int d,x,y;
-  int a[10][10];
-  POSICAO intersect;
-  d=abs(e.jog.x-p.x)+abs(e.jog.y-p.y);
-  for(y=0;y<10;y++){
-  for(x=0;x<10;x++){
-     if (abs(x-e.jog.x)>abs(y-e.jog.y)){
-      a[y][x]=abs(x-e.jog.x)-d+2;
-     }
-     if (abs(y-e.jog.y)>abs(x-e.jog.x)){
-      a[y][x]=abs(y-e.jog.y)-d+2;
-     } 
-  }
-  }
-  if(q==1) intersect=buscaA1(e,a);
-  if(q==2) intersect=buscaA2(e,a);
-  if(q==3) intersect=buscaA3(e,a);
-  if(q==4) intersect=buscaA4(e,a);
-  return intersect;
-}
-ESTADO decide(ESTADO e,int i, POSICAO intersect){
-  POSICAO pos;
-  int flag=1;
-  pos.x=e.monstros[i].x+1;
-  pos.y=e.monstros[i].y;
-  if (intersect.x>e.monstros[i].x && possivel_casa(e,pos)){
-    e.monstros[i].x+=1;
-    flag=0;
-   }
-   pos.x=e.monstros[i].x-1;
-   pos.y=e.monstros[i].y;
-   if (flag && intersect.x<e.monstros[i].x && possivel_casa(e,pos)){
-    e.monstros[i].x+=-1;
-    flag=0;
-   }
-   pos.x=e.monstros[i].x;
-   pos.y=e.monstros[i].y+1;
-  if (flag && intersect.y>e.monstros[i].y && possivel_casa(e,pos)){
-    e.monstros[i].y+=1;
-    flag=0;
-   }
-   pos.x=e.monstros[i].x;
-   pos.y=e.monstros[i].y-1;
-   if (flag && intersect.y<e.monstros[i].y && possivel_casa(e,pos)){
-    e.monstros[i].y+=-1;
-    flag=0;
-   }
-   return e;
-}
-ESTADO defA (ESTADO e, int i, POSICAO p,int num){
-   POSICAO intersect;
-   intersect=mapa4(e,p,num);
-   e=decide(e,i,intersect);
-   return e;
-}
+
 ESTADO estrat_archer (ESTADO e,int i,POSICAO p){
-   int flag=1;
-   if(in_range(e,p)){
-     e=desvia(e,i,p);
+  int flag=1;
+  int intersect;
+  int a[10][10];
+  preenche_matriz(a);
+  distancia_ARCHER(e,a,e.jog.x,e.jog.y,0);
+  intersect=(a[p.x][p.y])/2;
+  if(in_range(e,p)==1){
+     e=desvia(e,a,i,p);
      if(p.x!=e.monstros[i].x || p.y!=e.monstros[i].y) flag=0;
    }
-   if (flag && ve_jogador(e,p)){
-    e.hp-=ARCHER_DMG;
-    flag=0;
-   } // J M →ŧ
+   if(in_range(e,p)==2 && flag){
+     e.hp-=ARCHER_DMG;
+     flag=0;
+   }
+     // J M →ŧ
    if(flag && e.jog.x<=p.x && e.jog.y>=p.y && e.saida.x>=e.jog.x && e.saida.y<=e.jog.y){
-   e=defA(e,i,p,1);
+   e=defArcher_NO(e,a,i,p,intersect);
    flag=0;
    } // J M←ŧ
    if(flag && e.jog.x>=p.x && e.jog.y>=p.y && e.saida.x<=e.jog.x && e.saida.y<=e.jog.y){
-   e=defA(e,i,p,2);
+   e=defArcher_NE(e,a,i,p,intersect);
    flag=0;
    } // J M←↓
    if(flag && e.jog.x>=p.x && e.jog.y<=p.y && e.saida.x<=e.jog.x && e.saida.y>=e.jog.y){
-   e=defA(e,i,p,3);
+   e=defArcher_SE(e,a,i,p,intersect);
    flag=0;
    } // J M→↓
    if(flag && e.jog.x<=p.x && e.jog.y<=p.y && e.saida.x>=e.jog.x && e.saida.y>=e.jog.y){
-   e=defA(e,i,p,4);
+   e=defArcher_SO(e,a,i,p,intersect);
    flag=0;
    }
-   // na persegue dá-se primasia as diagonais
-   if(flag) e=persegue_arch(e,i,p);
+   if(flag) e=persegue_arch(e,a,i,p);
    return e;
 }
