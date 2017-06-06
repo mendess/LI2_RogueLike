@@ -9,7 +9,11 @@ int importScoreBoard(int scoreBoard[]){
 	scoreFile=fopen("/var/www/html/score/scoreBoard","r");
 	if(!scoreFile){
 		scoreFile=fopen("/var/www/html/score/scoreBoard","w");
-		fclose(scoreFile);
+		if(scoreFile==NULL){
+			perror("Não consegui escrever o ficheiro de scores");
+		}else{
+			fclose(scoreFile);
+		}
 		return 0;
 	}
 	while(i<SB_SIZE && flag!=-1){
@@ -46,10 +50,14 @@ void exportScoreBoard(int scoreBoard[], int num_scores){
 	FILE *scoreFile;
 	int i;
 	scoreFile=fopen("/var/www/html/score/scoreBoard","w");
-	for(i=0;i<num_scores;i++){
-		fprintf(scoreFile,"%d\n", scoreBoard[i]);
+	if(scoreFile==NULL){
+		perror("Não consegui escrever o ficheiro de scores");
+	}else{
+		for(i=0;i<num_scores;i++){
+			fprintf(scoreFile,"%d\n", scoreBoard[i]);
+		}
+		fclose(scoreFile);
 	}
-	fclose(scoreFile);
 }
 void updateScoreBoard(int score){
 	int scoreBoard[SB_SIZE];

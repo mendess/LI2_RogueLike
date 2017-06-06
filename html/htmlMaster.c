@@ -9,15 +9,14 @@ void print_header (){
 	printf ("<html>\n");
 	printf ("<head><title> Rogue Like </title></head>\n");
 	printf ("<body>\n");
-	printf ("<svg width=%d height=%d>\n",SVG_WIDTH,SVG_HEIGHT);
 }
 /**
 \brief Imprime o fim do html
 */
 void print_footer () {
-	printf ("</svg>\n");
+
 	printf("</body>\n");
-	printf ("</html>\n");
+	printf("</html>\n");
 }
 /**
 \brief Função principal que chama todas as outras
@@ -25,17 +24,19 @@ void print_footer () {
 void imprime(ESTADO e){
 	print_header();
 	switch(e.screen){
-		case 0: imprimeMainMenu();
+		case 0: imprimeForm();
 				break;
-		case 1: imprimeCharSelect();
+		case 1: imprimeMainMenu(e.name);
 				break;
-		case 2: imprimeHelp();
+		case 2: imprimeCharSelect(e.name);
 				break;
-		case 3: imprimeScoreBoard();
+		case 3: imprimeHelp(e.name);
 				break;
-		case 4: imprimePlaying(e);
+		case 4: imprimeScoreBoard(e.name);
 				break;
-		case 5: imprimeShop(e);
+		case 5: imprimePlaying(e);
+				break;
+		case 6: imprimeShop(e);
 				break;
 	}
 	print_footer();

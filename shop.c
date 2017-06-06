@@ -1,8 +1,10 @@
 #include "shop.h"
 
-int getItemBuyPrice(char item){
+int getItemBuyPrice(int item){
 	int price=INT_MAX;
-	if(item<3){
+	if(item==0){
+		price = 0;
+	}else if(item<3){
 		price = POTION_BUY_PRICE;
 	}else if(item<10){
 		price = SCROLL_BUY_PRICE;
@@ -13,7 +15,7 @@ int getItemBuyPrice(char item){
 	}
 	return price;
 }
-int hasEnoughSpace(char inv[]){
+int hasEnoughSpace(int inv[]){
 	int hasEmptySpace=0;
 	int i=0;
 	while(!hasEmptySpace && i<INVT_SIZE){
@@ -23,7 +25,7 @@ int hasEnoughSpace(char inv[]){
 	}
 	return hasEmptySpace;
 }
-void putItemInv(char inv[],char item){
+void putItemInv(int inv[],int item){
 	int emptySpace=-1;
 	int i=0;
 	while(emptySpace == -1){
@@ -34,9 +36,9 @@ void putItemInv(char inv[],char item){
 	}
 	inv[emptySpace]=item;
 }
-char buyItem(char action,char lootTable[],INVT *bag){
-	char price = getItemBuyPrice(lootTable[(int) action-70]);
-	int enoughMoney = bag->gold > price;
+int buyItem(int action,int lootTable[],INVT *bag){
+	int price = getItemBuyPrice(lootTable[(int) action-70]);
+	int enoughMoney = bag->gold >= price;
 	int enoughSpace = hasEnoughSpace(bag->inv);
 
 	if(!enoughMoney){									/* Se não tem dinheiro que chegue */
@@ -50,7 +52,7 @@ char buyItem(char action,char lootTable[],INVT *bag){
 		return 1;										/* Retornar o codigo de erro 1 (Compra com sucesso) */
 	}
 }
-int getItemSellPrice(char item){
+int getItemSellPrice(int item){
 	int price=INT_MAX;
 	if(item<3){
 		price = POTION_SELL_PRICE;
@@ -63,13 +65,13 @@ int getItemSellPrice(char item){
 	}
 	return price;
 }
-void sellItem_Bag(char action, INVT *bag){
-	char *item=&(bag->inv[(int) action-74]);
+void sellItem_Bag(int action, INVT *bag){
+	int *item=&(bag->inv[action-74]);
 	bag->gold+=getItemSellPrice(*item);
 	*item=0;
 }
-void sellEquipment(char action, INVT *bag){
-	char *item;
+void sellEquipment(int action, INVT *bag){
+	int *item;
 	if(action==80){
 		item=&(bag->weapon);
 	}else{
@@ -81,10 +83,10 @@ void sellEquipment(char action, INVT *bag){
 ESTADO shop(ESTADO e){
 	if(e.action<74){
 		e.shopFeedback=buyItem(e.action,e.lootTable,&(e.bag));
-	}else if(e.action<80){
+	}/*else if(e.action<80){
 		sellItem_Bag(e.action,&(e.bag));
 	}else if(e.action<82){
 		sellEquipment(e.action,&(e.bag));
-	}
+	}*/
 	return e;
 }

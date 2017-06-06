@@ -14,15 +14,15 @@ int pathMaker(POSICAO path[]){
 
 	srand(time(NULL));
 	plrX=rand() % 10;
-	path[0].x=(char) plrX;
-	path[0].y=(char) 9;
+	path[0].x= plrX;
+	path[0].y= 9;
 
 	decision=2;
-	while(path[i].y!=(char) 0 && i<MAX_CAMINHO){
+	while(path[i].y!= 0 && i<MAX_CAMINHO){
 		i++;
 		switch(decision){
 			/* esquerda */
-			case 0: if(path[i-1].x!=(char) 0){
+			case 0: if(path[i-1].x!=0){
 						decision=rand() % 2;
 						switch(decision){
 							/* esquerda */
@@ -40,7 +40,7 @@ int pathMaker(POSICAO path[]){
 					}
 					break;
 			/* direita */
-			case 1: if(path[i-1].x!=(char) SIZE-1){
+			case 1: if(path[i-1].x!= SIZE-1){
 						decision=rand() % 2;
 						switch(decision){
 							/* direita */
@@ -58,7 +58,7 @@ int pathMaker(POSICAO path[]){
 					}
 					break;
 			/* cima */
-			case 2: if(path[i-1].x==(char) 0){
+			case 2: if(path[i-1].x==0){
 						decision=rand() % 2;
 						switch(decision){
 							/* direita */
@@ -72,7 +72,7 @@ int pathMaker(POSICAO path[]){
 						}
 						break;
 					}
-					if(path[i-1].x==(char) SIZE-1){
+					if(path[i-1].x==SIZE-1){
 						decision=rand() % 2;
 						switch(decision){
 							/* esquerda */
@@ -111,7 +111,7 @@ int pathMaker(POSICAO path[]){
 void printPath(int n, POSICAO path[]){
 	int i;
 	for (i = 0; i < n; ++i){
-		printf("%d,%d\n", (int) path[i].x,(int) path[i].y);
+		printf("%d,%d\n",path[i].x,path[i].y);
 	}
 	printf("%d\n", i);
 }
