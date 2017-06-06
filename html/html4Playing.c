@@ -94,21 +94,13 @@ void imprime_ataques_arqueiro(ESTADO e){
 */
 void imprime_jogadaS(ESTADO e){
 	POSICAO p;
-	p.x=0;p.y=1;
-	criar_jogada(e,p);
-	p.x=1;p.y=0;
-	criar_jogada(e,p);
-	p.x=-1;p.y=0;
-	criar_jogada(e,p);
-	p.x=0;p.y=-1;
-	criar_jogada(e,p);
-	/*for(p.x=-1;p.x<=1;p.x++){
+	for(p.x=-1;p.x<=1;p.x++){
 		for(p.y=-1;p.y<=1;p.y++){
-			if (p.x != 0 || p.y != 0){
+			if ((p.x == 0 || p.y == 0) && p.x!=p.y){
 				criar_jogada(e,p);
 			}
 		}
-	}*/
+	}
 	if(e.classe==2){
 		imprime_ataques_arqueiro(e);
 	}
