@@ -84,11 +84,12 @@ Action map:
 	71 -> BuyShopItem 1
 	72 -> BuyShopItem 2
 	73 -> BuyShopItem 3
+	80 -> Delete item mode
 	81 -> Pick up item SE
 	82 -> Pick up item S
 	83 -> Pick up item SW
 	84 -> Pick up item E
-	85 -> Delete Item Mode
+	85 -> Pick up item Center
 	86 -> Pick up item W
 	87 -> Pick up item NE
 	88 -> Pick up item N

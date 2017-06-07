@@ -73,7 +73,7 @@ void imprimeShop(ESTADO e){
 	}
 
 	char *trashCan[] = {"TrashCan_closed.png","TrashCan_opened.png"};
-	ABRIR_LINK(e.name,"85");
+	ABRIR_LINK(e.name,"80");
 	IMAGEM(500,539,50,50,trashCan[e.isDeletingItems]);
 	FECHAR_LINK;
 

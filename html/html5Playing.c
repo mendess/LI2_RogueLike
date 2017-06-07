@@ -218,7 +218,7 @@ void imprime_inventory(int mode,char *name,INVT bag){
 	IMAGEM(690,260,50,100,"Inv_equipment.png");
 	imprime_equipment(bag);
 	char *trashCan[] = {"TrashCan_closed.png","TrashCan_opened.png"};
-	ABRIR_LINK(name,"85");
+	ABRIR_LINK(name,"80");
 	IMAGEM(745,260,50,50,trashCan[mode]);
 	FECHAR_LINK;
 	IMAGEM(620,210,50,50,"goldcoins.png");

@@ -44,6 +44,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 	}
 	if(ACT_PICK_UP_ITEM){
 		e.feedback=pickUpItem(e.jog,e.bag.inv,e.droppedItems,e.action);
+		e.jog=calcularNovaPosicao(e.jog,e.action-80);
 	}
 	if(PICKING_ITEM_TGT){
 		if(e.complexItem.isBeingUsed){
