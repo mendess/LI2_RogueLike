@@ -146,11 +146,11 @@ ESTADO runGame(){
 int main(){
 
 	ESTADO e = runGame();
-	if(e.screen==4 && e.hp==0){
+	if(e.screen==5 && e.hp==0){
 		if(e.score>99999){/* isto nunca deve acontecer */
 			e.score=99999;/* mas assim tenho a certeza */
 		}				  /* que ao imprimir não causa problemas */
-		updateScoreBoard(e.score);
+		updateScoreBoard(e.name,e.score);
 	}
 
 	imprime(e);
