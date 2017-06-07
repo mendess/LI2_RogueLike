@@ -1,40 +1,24 @@
-# LI2
+#ifndef __ACTION_MAP__
+#define __ACTION_MAP__
 
-HP = 100
-
-Mana = 50
-
-Inventory Slots = 4
-
-Classes:
-
-	Warrior
-	Archer
-	Mage
-
-
-Monster Types:
-
-	Bat
-	Wolf
-	Ogre
-	Ranged enemy
-	Dragon
-
-
-Items:
-	
-	Health Potion (gives +30HP)
-	Mana Potion (gives +8MP)
-	Scroll of.. (takes 1 turn to use)
-		Fire (MP=2; Dmg in a 3x3 area)
-		Ice (MP=1; Low dmg in a line, stops on first enemy hit, freezes for (1/2 turns)
-		(more...)
-	Swords (bronze, iron, steel, Palladium)
-	Armour (bronze, iron, steel, Palladium)
-
-Action map:
-
+#define ACT_GOTO_MENU			e.action==0
+#define ACT_MENU_SCORE_OR_HELP	e.action==54 || e.action==53
+#define ACT_MENU_PLAY			e.action==52
+#define ACT_CLASS_CHOICE		e.action>60 && e.action<70
+#define ACT_MOVE				e.action>0 && e.action<10
+#define ACT_LESSER_TELEPORT		e.action>30 && e.action<40
+#define ACT_ATACK				e.action>10 && e.action<30
+#define ACT_EXIT				e.action==5
+#define ACT_SHOP_CHOICE			e.action>69 && e.action<80
+#define PLR_FACING_LEFT			e.action==9 || e.action==6 || e.action==3
+#define PLR_FACING_RIGHT		e.action==7 || e.action==4 || e.action==1
+#define ACT_USE_ITEM			e.action>39 && e.action<50
+#define ACT_RANGED_ATTACK		e.action>20 && e.action<30
+#define ACT_BOSS_ATTACK			e.action==30
+#define ACT_PICK_UP_ITEM		e.action>80 && e.action<90 && e.action!=85
+#define ACT_DEL_ITEM_MODE		e.action==85
+#define PICKING_ITEM_TGT		e.action>9999
+/*
 	0 -> MainMenu
 	1 -> SW
 	2 -> S
@@ -93,5 +77,8 @@ Action map:
 	87 -> Pick up item NE
 	88 -> Pick up item N
 	89 -> Pick up item NW
-
+	
 	1XXYY -> usar item nas cordenadas XX e YY
+*/
+
+#endif
