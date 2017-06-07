@@ -99,16 +99,6 @@ POSICAO itAct2Pos(int action){
 	p.y = (action - 10000) % 100;
 	return p;
 }
-int hitMonster(ESTADO *e, POSICAO target,int dmg){
-	int monIdx = getMonstro(*e,target);
-	if(monIdx < e->num_monstros){
-		e->monstros[monIdx].hp-=dmg;
-		if(e->monstros[monIdx].hp<1){
-			killMonster(monIdx,e->monstros,--e->num_monstros);
-		}
-	}
-	return monIdx < e->num_monstros;
-}
 void castScroll_Fire(ESTADO *e){
 	POSICAO p = itAct2Pos(e->action);
 	int pXmax=p.x+2;
