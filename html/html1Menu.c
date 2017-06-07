@@ -8,7 +8,7 @@ void imprimeMainMenu(char *name){
 	printf("<rect x=245 y=294 width=310 height=99 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
 	ABRIR_LINK(name,"53");/* Help */
-	printf("<rect x=269 y=402 width=310 height=75 style=opacity:0;></rect>\n");
+	printf("<rect x=269 y=402 width=269 height=75 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
 	ABRIR_LINK(name,"54");/* ScoreBoard */
 	printf("<rect x=269 y=484 width=269 height=75 style=opacity:0;></rect>\n");
