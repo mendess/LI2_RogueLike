@@ -3,6 +3,6 @@
 
 #include "htmlMaster.h"
 
-void imprimeHelp();
+void imprimeCharSelect(char *name);
 
 #endif

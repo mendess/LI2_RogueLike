@@ -3,7 +3,7 @@
 
 #include "../colisions.h"
 #include "../levelMaker.h"
-#include "../jogo.h"
+#include "../estrutura.h"
 #include "IAwolf.h"
 #include "IAarcher.h"
 #include "IAbat.h"
