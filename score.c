@@ -1,61 +1,74 @@
-//#define DEBUG
+/* #define DEBUG */
 
 #include "score.h"
 
-int importScoreBoard(int scoreBoard[]){
+int importScoreBoard(SCORE scoreBoard[]){
 	FILE *scoreFile;
-	scoreFile=fopen("score/scoreBoard","r");
+	int i, flag;
+	i=0;flag=0;
+	scoreFile=fopen("/var/www/html/score/scoreBoard","r");
 	if(!scoreFile){
-		scoreFile=fopen("score/scoreBoard","w");
-		fclose(scoreFile);
+		scoreFile=fopen("/var/www/html/score/scoreBoard","w");
+		if(scoreFile==NULL){
+			perror("Não consegui escrever o ficheiro de scores");
+		}else{
+			fclose(scoreFile);
+		}
 		return 0;
 	}
-	int i=0, flag=0;
 	while(i<SB_SIZE && flag!=-1){
-		flag=fscanf(scoreFile,"%d\n",&scoreBoard[i++]);
+		flag=fscanf(scoreFile,"%[^,],%d\n",scoreBoard[i].name,&scoreBoard[i].score);
+		if(flag!=-1){
+			i++;
+		}
 	}
-
 	fclose(scoreFile);
-
-	return i-1;
+	return i;
 }
-int insertScore(int score, int scoreBoard[], int num_scores){
+int insertScore(char *name, int score, SCORE scoreBoard[], int num_scores){
 	int i=0;
-	while(i<num_scores && score<scoreBoard[i]){
+	SCORE newSC;
+	strcpy(newSC.name,name);
+	newSC.score=score;
+	while(i<num_scores && score<scoreBoard[i].score){
 		i++;
 	}
 	if(i==num_scores){
 		if(num_scores<SB_SIZE){
-			scoreBoard[num_scores++]=score;
+			scoreBoard[num_scores++]=newSC;
 		}
 	}else{
 		while(i<num_scores){
-			int tmp = scoreBoard[i];
-			scoreBoard[i]=score;
-			score=tmp;
+			SCORE tmp = scoreBoard[i];
+			scoreBoard[i]=newSC;
+			newSC=tmp;
 			i++;
 		}
 		if(num_scores<SB_SIZE){
-			scoreBoard[num_scores++]=score;
+			scoreBoard[num_scores++]=newSC;
 		}
 	}
 	return num_scores;
 }
-void exportScoreBoard(int scoreBoard[], int num_scores){
+void exportScoreBoard(SCORE scoreBoard[], int num_scores){
 	FILE *scoreFile;
-	scoreFile=fopen("score/scoreBoard","w");
 	int i;
-	for(i=0;i<num_scores;i++){
-		fprintf(scoreFile,"%d\n", scoreBoard[i]);
+	scoreFile=fopen("/var/www/html/score/scoreBoard","w");
+	if(scoreFile==NULL){
+		perror("Não consegui escrever o ficheiro de scores");
+	}else{
+		for(i=0;i<num_scores;i++){
+			fprintf(scoreFile,"%s,%d\n", scoreBoard[i].name, scoreBoard[i].score);
+		}
+		fclose(scoreFile);
 	}
-	fclose(scoreFile);
 }
-void updateScoreBoard(int score){
-	int scoreBoard[SB_SIZE];
+void updateScoreBoard(char *name, int score){
+	SCORE scoreBoard[SB_SIZE];
 	int num_scores;
 
 	num_scores = importScoreBoard(scoreBoard);
-	num_scores = insertScore(score, scoreBoard, num_scores);
+	num_scores = insertScore(name, score, scoreBoard, num_scores);
 	exportScoreBoard(scoreBoard, num_scores);
 }
 

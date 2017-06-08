@@ -1,10 +1,10 @@
 #include "move_monst.h" 
 
-// ataca_jogador
-//existe_jogador (estado, pos monstro)
+/*  ataca_jogador */
+/* existe_jogador (estado, pos monstro) */
 
-// estado -> turn (nº de jogadas)
-// mover montros
+/*  estado -> turn (nº de jogadas) */
+/*  mover montros */
 
 int inBounds(POSICAO p){
 	if (p.x>0 && p.x< SIZE && p.y>0 && p.y<SIZE){
@@ -29,8 +29,8 @@ int existe_jogador(ESTADO e,POSICAO p){
 	}
 	return 0;
 }
-/*
-// impede que os monstros presos ao procurarem mover-se entrem em ciclos infinitos
+
+/*  impede que os monstros presos ao procurarem mover-se entrem em ciclos infinitos */
 int blocked0 (ESTADO e, POSICAO p){
 	POSICAO p1,p2,p3,p4;
 	int e1,e2,e3,e4,i;
@@ -49,7 +49,7 @@ int blocked0 (ESTADO e, POSICAO p){
 	}
 	return (e1 && e2 && e3 && e4);
 }
-// indica se há posições livres para o monstro se mover.
+/*  indica se há posições livres para o monstro se mover.
 int blocked1 (ESTADO e, POSICAO p){
 	POSICAO p1;
 	int u,i;
@@ -74,7 +74,7 @@ int ve_jogador (ESTADO e,POSICAO p){
 ESTADO mov_bat(ESTADO e,int i,POSICAO p){
 	int q,w;
 		POSICAO p1;
-		srandom(time(NULL));
+		srand(time(NULL));
 		do{
 			q=(rand () % 3) -1;
 			w=(rand () % 3) -1;
@@ -102,7 +102,7 @@ ESTADO mov_ogre(ESTADO e,int i,POSICAO p){
 	}
 	return e;
 }
-// ataca se a dferença de posições for de 3 quadriculas x+y <=3
+/*  ataca se a dferença de posições for de 3 quadriculas x+y <=3 */
 ESTADO mov_archer(ESTADO e,int i,POSICAO p){
 	int q,w;
 	POSICAO p1;
@@ -177,12 +177,12 @@ ESTADO acao_archer(ESTADO e, int i, POSICAO p){
 	}
 	return e;
 }
-// (pos1,pos2,tipo,hp) ->(x,y,z,d,v)
+/*  (pos1,pos2,tipo,hp) ->(x,y,z,d,v) */
 ESTADO move_monstros (ESTADO e){
 	POSICAO p;
 	int i;
-	srandom(time(NULL));
-	for (i=0;i<MAX_MONSTROS;i++){
+	srand(time(NULL));
+	for (i=0;i<e.num_monstros;i++){
 		p.x=e.monstros[i].x;
 		p.y=e.monstros[i].y;
 		if(e.monstros[i].monType == 1){
