@@ -7,6 +7,12 @@ int getDirection(ESTADO e,POSICAO p){
 	if(com_monstros(e,e.jog)){
 		type=10;
 	}
+	if(com_droppedItem(e.droppedItems,e.jog)){
+		type=80;
+	}
+	if(com_chest(e,e.jog)){
+		type=90;
+	}
 	return 7-3*(p.y+1)+p.x+1+type;
 }
 void imprime_texto(int x, int y, char *text, int fontSize){
@@ -46,8 +52,11 @@ void imprime_move(ESTADO e, POSICAO p){
 	}else{
 		new_action=getDirection(e,p);
 	}
-	if (!outOfBounds(e.jog) && !com_pedras(e,e.jog)){
-		int mold = com_monstros(e,e.jog) ? 1 : 0;
+	if ((!outOfBounds(e.jog) && !com_pedras(e,e.jog)) && (p.x!=p.y || com_droppedItem(e.droppedItems,e.jog))){
+		int mold;
+		mold = new_action > 10 ? 1 : 0;
+		mold = new_action > 80 ? 3 : mold;
+		mold = new_action > 90 ? 4 : mold;
 		imprime_link(e.name,e.jog,new_action,mold);
 	}
 }
@@ -85,23 +94,11 @@ void imprime_lesser_teleport(ESTADO e){
 		}
 	}
 }
-void imprime_item_pickUp(ESTADO e){
-	POSICAO dif;
-	for (dif.x = -1; dif.x < 2; dif.x++){
-		for (dif.y = -1; dif.y < 2; dif.y++){
-			POSICAO pos = {e.jog.x + dif.x,e.jog.y + dif.y};
-			if((dif.y==0 || dif.x==0) && !outOfBounds(pos) && com_droppedItem(e.droppedItems,pos) && !com_pedras(e,pos) && !com_monstros(e,pos) && !com_saida(e,pos)){
-				int new_action = 80 + getDirection(e,dif);
-				imprime_link(e.name,pos,new_action,3);
-			}
-		}
-	}
-}
 void imprime_all_moves(ESTADO e){
 	POSICAO p;
 	for(p.x=-1;p.x<=1;p.x++){
 		for(p.y=-1;p.y<=1;p.y++){
-			if ((p.x == 0 || p.y == 0) && p.x!=p.y){
+			if ((p.x == 0 || p.y == 0)){
 				imprime_move(e,p);
 			}
 		}
@@ -112,7 +109,6 @@ void imprime_all_moves(ESTADO e){
 	if(CAN_USE_LESSER_TELEPORT){
 		imprime_lesser_teleport(e);
 	}
-	imprime_item_pickUp(e);
 }
 void imprime_jogador (ESTADO e){
 	char *dir[] = {"Jogador_Viking_Right.png","Jogador_Viking_Left.png"};
@@ -145,15 +141,16 @@ void imprime_chests(CHEST chests[],int num_chests){
 		IMAGEM_FORMATED(chests[i].pos.x,chests[i].pos.y,TAM,TAM,"Chest.png");
 	}
 }
-void imprime_monstros (MSTR monstros[],int num_monstros){
+void imprime_monstros (POSICAO jog, MSTR monstros[],int num_monstros){
 	int i;
 	srand(time(NULL));
 	char *mstrImgs[]={  "Monstro_Lobo_Lateral_1.png"  ,"Monstro_Lobo_Lateral_2.png",
 						"Monstro_Bat_Lateral_1.png"   ,"Monstro_Bat_Lateral_2.png",
 						"Monstro_Ogre_Lateral_1.png"  ,"Monstro_Ogre_Lateral_2.png",
 						"Monstro_Archer_Lateral_1.png","Monstro_Archer_Lateral_2.png"};
+
 	for(i=0;i<num_monstros;i++){
-		int side = rand() % 2;
+		int side = jog.x > monstros[i].x ? 0 : 1;
 		int type = monstros[i].monType;
 		IMAGEM_FORMATED(monstros[i].x,monstros[i].y,TAM,TAM,mstrImgs[(type*2)+side]);
 	}
@@ -284,7 +281,7 @@ void imprimePlaying(ESTADO e){
 	if(e.isInBossBattle){
 		//imprime_boss(e);
 	}else{
-		imprime_monstros(e.monstros,e.num_monstros);
+		imprime_monstros(e.jog,e.monstros,e.num_monstros);
 	}
 	imprime_chests(e.chests,e.num_chests);
 	imprime_hpBar(e.hp);

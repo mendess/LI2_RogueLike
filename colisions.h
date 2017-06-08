@@ -60,5 +60,6 @@ int com_monstros (ESTADO e, POSICAO p);
 @param p Posição a verificar
 */
 int com_chest(ESTADO e, POSICAO p);
+int com_droppedItem(CHEST droppedItems[], POSICAO p);
 int isBoss(ESTADO e, POSICAO p);
 #endif

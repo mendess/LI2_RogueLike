@@ -13,7 +13,7 @@
 								 {-1,21,-1,23,-1},\
 								 {-1,-1,22,-1,-1},}
 
-#define PLAY_FRAMES		{"Moldura_Movimento.png","Moldura_Ataque.png","Moldura_Lesser_Teleport.png","Moldura_PickUp_Item.png"}
+#define PLAY_FRAMES		{"Moldura_Movimento.png","Moldura_Ataque.png","Moldura_Lesser_Teleport.png","Moldura_PickUp_Item.png","Moldura_OpenChest.png"}
 
 #define FEEDBACK_MSGS	{"","Hum... I can't cast that!","I can't carry\nmore items!","There are no targets in range!"}
 
@@ -102,7 +102,7 @@ void imprime_chests(CHEST chests[], int num_chests);
 \brief Imprime os monstros
 @param mostros Lista dos mostros
 */
-void imprime_monstros (MSTR monstros[], int num_monstros);
+void imprime_monstros (POSICAO jog, MSTR monstros[], int num_monstros);
 /**
 \brief Imprime as pedras
 @param pedras Lista dos obstaculos

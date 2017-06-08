@@ -58,6 +58,12 @@ int validItemUse(ESTADO e){
 			|| (e.screen==6 
 				&& e.isDeletingItems));
 }
+int validOpenChest(ESTADO e){
+	POSICAO p = calcularNovaPosicao(e.jog,e.action-90);
+	return e.screen==5
+		&& !com_monstros(e,p)
+		&& com_chest(e,p);
+}
 /*
 int validBossAtack(ESTADO e){ FINISH THIS validAction.c l32
 	return 0;
@@ -104,6 +110,9 @@ int validAction(ESTADO e){
 	}
 	if(PICKING_ITEM_TGT){
 		return e.complexItem.isBeingUsed==1;
+	}
+	if(ACT_OPEN_CHEST){
+		return validOpenChest(e);
 	}
 /*	if(e.action==30){
 		return validBossAtack(e);

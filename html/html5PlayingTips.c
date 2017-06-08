@@ -40,12 +40,18 @@ void imprime_helpInvetory(char *name, INVT bag){
 }
 void imprime_itemDescription(int item){
 	char *ITEM_DESC[] = ITEM_DESCRIPTIONS;
+	char *ITEM_TP[] = ITEM_TYPES;
+	int itemType = 0;
+	itemType = item > 2  ? 1 : 0;
+	itemType = item > 9  ? 2 : itemType;
+	itemType = item > 13 ? 3 : itemType;
+	printf("<text x=600 y=420 style=\"stroke:#000000\">TYPE: %s</text>\n",ITEM_TP[itemType]);
 	imprime_texto(600, 460, ITEM_DESC[item],17);
 }
 void imprime_monsterDescription(MSTR monstro){
 	int BASE_HPS[]    = {MON_HP_WOLF,MON_HP_BAT,MON_HP_OGRE,MON_HP_ARCHER,MON_HP_DRAGON};
 	char *MSTR_DESC[] = {WOLF_DESC  ,BAT_DESC  ,OGRE_DESC  ,ARCHER_DESC  ,DRAGON_DESC  };
-	printf("<text x=600 y=420>MAX HP: %d</text>\n",BASE_HPS[monstro.monType]);
+	printf("<text x=600 y=420 style=\"stroke:#000000\">MAX HP: %d</text>\n",BASE_HPS[monstro.monType]);
 	imprime_texto(600, 440, MSTR_DESC[monstro.monType],15);
 }
 void imprime_monsterAttackArea(ESTADO e, MSTR monstro){

@@ -99,6 +99,27 @@ POSICAO itAct2Pos(int action){
 	p.y = (action - 10000) % 100;
 	return p;
 }
+int getChest(CHEST chests[], int num_chests, POSICAO p){
+	int i, found;
+	i=found=0;
+	while(!found && i<num_chests){
+		if(chests[i].pos.x == p.x && chests[i].pos.y == p.y){
+			found=1;
+		}else{
+			i++;
+		}
+	}
+	return i;
+}
+void removeChest(int i, CHEST chests[], int num_chests){
+	chests[i]=chests[num_chests];
+}
+void openChest(ESTADO *e){
+	POSICAO chest = calcularNovaPosicao(e->jog,e->action-90);
+	int chestIdx = getChest(e->chests, e->num_chests, chest);
+	dropItem(e->droppedItems, &(e->chests[chestIdx].item), e->chests[chestIdx].pos);
+	removeChest(chestIdx, e->chests, e->num_chests--);
+}
 void castScroll_Fire(ESTADO *e){
 	POSICAO p = itAct2Pos(e->action);
 	int pXmax=p.x+2;

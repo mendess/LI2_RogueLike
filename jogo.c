@@ -61,6 +61,9 @@ ESTADO calcularNovoEstado(ESTADO e){
 		e.feedback=pickUpItem(e.jog,e.bag.inv,e.droppedItems,e.action);
 		e.jog=calcularNovaPosicao(e.jog,e.action-80);
 	}
+	if(ACT_OPEN_CHEST){
+		openChest(&e);
+	}
 	if(PICKING_ITEM_TGT){
 		if(e.complexItem.isBeingUsed){
 			e=handleComplexItem(e);

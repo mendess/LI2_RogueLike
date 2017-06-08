@@ -18,6 +18,7 @@
 #define ACT_RANGED_ATTACK		e.action>20 && e.action<30
 #define ACT_BOSS_ATTACK			e.action==30
 #define ACT_PICK_UP_ITEM		e.action>80 && e.action<90
+#define ACT_OPEN_CHEST			e.action>90 && e.action<100
 #define ACT_DEL_ITEM_MODE		e.action==80
 #define PICKING_ITEM_TGT		e.action>9999
 /*
@@ -81,6 +82,15 @@
 	87 -> Pick up item NE
 	88 -> Pick up item N
 	89 -> Pick up item NW
+	91 -> Open chest SE
+	92 -> Open chest S
+	93 -> Open chest SW
+	94 -> Open chest E
+	95 -> Open chest Center
+	96 -> Open chest W
+	97 -> Open chest NE
+	98 -> Open chest N
+	99 -> Open chest NW
 	
 	1XXYY -> usar item nas cordenadas XX e YY
 */

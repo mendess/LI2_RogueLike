@@ -29,6 +29,8 @@
 #define ARMOUR_STEEL_DESC		"I want to see wolfs\ntry and bit through this!"
 #define ARMOUR_PALLADIUM_DESC	"This is made of the\nmost impenetrable\nmaterial ever.\nEven rain can't\nget through!"
 
+#define ITEM_TYPES 				{"Potion","Scroll","Weapon","Armour"}
+
 #define ITEM_DESCRIPTIONS		{"Empty", \
 								 HEALTH_POTION_DESC, \
 								 MANA_POTION_DESC, \
