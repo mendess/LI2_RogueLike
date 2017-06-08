@@ -73,7 +73,7 @@ void imprimeShop(ESTADO e){
 	}
 
 	char *trashCan[] = {"TrashCan_closed.png","TrashCan_opened.png"};
-	ABRIR_LINK(e.name,"85");
+	ABRIR_LINK(e.name,"80");
 	IMAGEM(500,539,50,50,trashCan[e.isDeletingItems]);
 	FECHAR_LINK;
 
@@ -84,7 +84,7 @@ void imprimeShop(ESTADO e){
 	FECHAR_LINK;
 
 	FECHAR_SVG;
-	
+
 	#ifdef DEBUG
 	printf("<p>world_lvl:%d  score:%d  LootTable[%d,%d,%d,%d] Gold:%d Inv[%d,%d,%d,%d,%d,%d] Weapon:%d Armour:%d </p>",
 			e.world_lvl,

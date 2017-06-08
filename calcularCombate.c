@@ -69,26 +69,30 @@ int getMonstro(ESTADO e,POSICAO p){
 	}
 	return i;
 }
+int hitMonster(ESTADO *e, POSICAO target, int dmg){
+	int monIdx = getMonstro(*e,target);
+	if(monIdx < e->num_monstros){
+		e->monstros[monIdx].hp-=dmg;
+		if(e->monstros[monIdx].hp<1){
+			e->score+=updateScore(e->monstros[monIdx].monType);
+			e->bag.gold+=goldDrop(e->monstros[monIdx].monType);
+			dropItemFromMSTR(e->lootTable,e->droppedItems,e->monstros[monIdx].x, e->monstros[monIdx].y);
+			killMonster(monIdx,e->monstros,--e->num_monstros);
+		}
+	}
+	return monIdx < e->num_monstros;
+}
 ESTADO calcularCombate(ESTADO e){
 	POSICAO mon = {-1,-1};
 	char plrDmg;
-	int i;
 	if(e.action<20){
 		mon = calcularNovaPosicao(e.jog,e.action-10);	
 	}else if(e.action<30){
 		mon = calculaRangedAtackPos(e.jog,e.action);
 	}
 	plrDmg = calcPlayerDmg(e.classe,e.bag);
-
-	i = getMonstro(e,mon);
-	if(e.monstros[i].hp <= plrDmg){
-		e.score+=updateScore(e.monstros[i].monType);
-		e.bag.gold+=goldDrop(e.monstros[i].monType);
-		e.num_monstros--;
-		dropItemFromMSTR(e.lootTable,e.droppedItems,e.monstros[i].x, e.monstros[i].y);
-		killMonster(i,e.monstros,e.num_monstros);
-	}else{
-		e.monstros[i].hp -= plrDmg;
+	if(!hitMonster(&e,mon,plrDmg)){
+		perror("Couldn't find monster");
 	}
 	return e;
 }

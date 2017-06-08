@@ -76,6 +76,8 @@ typedef struct estado{
 	int isDeletingItems;
 	/* Guarda se o jogador esta numa "boss battle" */
 	int isInBossBattle;
+	/* Guarda se o jogador esta a pedir ajuda ingame */
+	int isInIngameHelp;
 	/* Codigo de feedback */
 	int feedback;
 	/* Número de chests */

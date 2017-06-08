@@ -25,6 +25,13 @@ ESTADO calcularNovoEstado(ESTADO e){
 	if(PLR_FACING_RIGHT){/* set direction */
 		e.direction=1;
 	}
+	if(ACT_TOGGLE_INGAME_HELP){
+		e.isInIngameHelp = !e.isInIngameHelp;
+		return e;
+	}
+	if(ACT_ASK_INGAME_HELP){
+		return e;
+	}
 	if(ACT_MOVE){/* mover jogador */
 		e.jog=calcularNovaPosicao(e.jog,e.action);
 	}
@@ -52,6 +59,10 @@ ESTADO calcularNovoEstado(ESTADO e){
 	}
 	if(ACT_PICK_UP_ITEM){
 		e.feedback=pickUpItem(e.jog,e.bag.inv,e.droppedItems,e.action);
+		e.jog=calcularNovaPosicao(e.jog,e.action-80);
+	}
+	if(ACT_OPEN_CHEST){
+		openChest(&e);
 	}
 	if(PICKING_ITEM_TGT){
 		if(e.complexItem.isBeingUsed){
@@ -153,11 +164,11 @@ ESTADO runGame(){
 int main(){
 
 	ESTADO e = runGame();
-	if(e.screen==4 && e.hp==0){
+	if(e.screen==5 && e.hp==0){
 		if(e.score>99999){/* isto nunca deve acontecer */
 			e.score=99999;/* mas assim tenho a certeza */
 		}				  /* que ao imprimir não causa problemas */
-		updateScoreBoard(e.score);
+		updateScoreBoard(e.name,e.score);
 	}
 
 	imprime(e);

@@ -99,15 +99,26 @@ POSICAO itAct2Pos(int action){
 	p.y = (action - 10000) % 100;
 	return p;
 }
-int hitMonster(ESTADO *e, POSICAO target,int dmg){
-	int monIdx = getMonstro(*e,target);
-	if(monIdx < e->num_monstros){
-		e->monstros[monIdx].hp-=dmg;
-		if(e->monstros[monIdx].hp<1){
-			killMonster(monIdx,e->monstros,--e->num_monstros);
+int getChest(CHEST chests[], int num_chests, POSICAO p){
+	int i, found;
+	i=found=0;
+	while(!found && i<num_chests){
+		if(chests[i].pos.x == p.x && chests[i].pos.y == p.y){
+			found=1;
+		}else{
+			i++;
 		}
 	}
-	return monIdx < e->num_monstros;
+	return i;
+}
+void removeChest(int i, CHEST chests[], int num_chests){
+	chests[i]=chests[num_chests];
+}
+void openChest(ESTADO *e){
+	POSICAO chest = calcularNovaPosicao(e->jog,e->action-90);
+	int chestIdx = getChest(e->chests, e->num_chests, chest);
+	dropItem(e->droppedItems, &(e->chests[chestIdx].item), e->chests[chestIdx].pos);
+	removeChest(chestIdx, e->chests, e->num_chests--);
 }
 void castScroll_Fire(ESTADO *e){
 	POSICAO p = itAct2Pos(e->action);
