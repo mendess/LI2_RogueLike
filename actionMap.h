@@ -5,6 +5,8 @@
 #define ACT_MENU_SCORE_OR_HELP	e.action==54 || e.action==53
 #define ACT_MENU_PLAY			e.action==52
 #define ACT_CLASS_CHOICE		e.action>60 && e.action<70
+#define ACT_TOGGLE_INGAME_HELP	e.action==10
+#define ACT_ASK_INGAME_HELP		e.isInIngameHelp==1
 #define ACT_MOVE				e.action>0 && e.action<10
 #define ACT_LESSER_TELEPORT		e.action>30 && e.action<40
 #define ACT_ATACK				e.action>10 && e.action<30
@@ -29,6 +31,7 @@
 	7 -> NW
 	8 -> N
 	9 -> NE
+	10 -> Toggle Ingame help
 	11 -> atack SW
 	12 -> atack S
 	13 -> atack SE

@@ -33,7 +33,7 @@ ESTADO colocar_monstro (ESTADO e){
 			placed=1;
 			e.monstros [e.num_monstros].x=p.x;
 			e.monstros [e.num_monstros].y=p.y;
-			e.monstros [e.num_monstros].monType=1;
+			e.monstros [e.num_monstros].monType=e.num_monstros;
 			e.monstros [e.num_monstros].hp=30;
 			e.num_monstros++;
 		}
@@ -49,7 +49,7 @@ ESTADO colocar_pedras (ESTADO e, int pathSize, POSICAO path[]){
 }
 ESTADO colocar_monstros (ESTADO e){
 	int i;
-	for (i=0;i<MAX_MONSTROS;i++){
+	for (i=1;i<MAX_MONSTROS;i++){
 		e=colocar_monstro(e);
 	}
 	return e;
@@ -80,12 +80,12 @@ INVT initINVT(){
 		bag.inv[i]=0;
 	}
 	#ifdef DEBUG
-	bag.inv[0]=10;
-	bag.inv[1]=11;
-	bag.inv[2]=4;
-	bag.inv[3]=3;
-	bag.inv[4]=2;
-	bag.inv[5]=2;
+	bag.inv[0]=14;
+	bag.inv[1]=13;
+	bag.inv[2]=0;
+	bag.inv[3]=17;
+	bag.inv[4]=16;
+	bag.inv[5]=15;
 	#endif
 	bag.weapon=0;
 	bag.armour=0;

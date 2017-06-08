@@ -78,6 +78,12 @@ int validAction(ESTADO e){
 	if(ACT_EXIT){/* saida */
 		return validNewLevel(e);
 	}
+	if(ACT_TOGGLE_INGAME_HELP){
+		return e.screen==5;
+	}
+	if(ACT_ASK_INGAME_HELP){
+		return e.isInIngameHelp;
+	}
 	if(ACT_MOVE){/* mover jogador */
 		return validMove(e);
 	}
