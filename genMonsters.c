@@ -93,6 +93,7 @@ CHEST genChest(ESTADO e,CHEST chest){
 @param e Estado do jogo
 */
 ESTADO genMonsters(ESTADO e){
+	e.num_chests=0;
 	if(e.isInBossBattle){
 		e=genBossBattle(e);
 	}else{
