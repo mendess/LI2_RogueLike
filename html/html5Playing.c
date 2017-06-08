@@ -63,17 +63,13 @@ void imprime_ranged_attack(ESTADO e,POSICAO dif){
 }
 void imprime_all_ranged_attacks(ESTADO e){
 	POSICAO p;
-	for(p.x=-2,p.y=0;p.x<1;p.x++,p.y++){
-		imprime_ranged_attack(e,p);
-		int tmp;
-		tmp=p.x;p.x=p.y;p.y=tmp;
-		imprime_ranged_attack(e,p);
-		tmp=p.x;p.x=p.y;p.y=tmp;
+	for(p.x=-2;p.x<3;p.x++){
+		for(p.y=-2;p.y<3;p.y++){
+			if(p.y==(abs(p.x)-2) || p.y==((-1*abs(p.x))+2)){
+				imprime_ranged_attack(e,p);
+			}
+		}
 	}
-	p.x=p.y=-1;
-	imprime_ranged_attack(e,p);
-	p.x=p.y= 1;
-	imprime_ranged_attack(e,p);
 }
 void imprime_lesser_teleport(ESTADO e){
 	POSICAO dif;
