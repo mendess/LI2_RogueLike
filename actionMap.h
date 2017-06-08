@@ -5,6 +5,8 @@
 #define ACT_MENU_SCORE_OR_HELP	e.action==54 || e.action==53
 #define ACT_MENU_PLAY			e.action==52
 #define ACT_CLASS_CHOICE		e.action>60 && e.action<70
+#define ACT_TOGGLE_INGAME_HELP	e.action==10
+#define ACT_ASK_INGAME_HELP		e.isInIngameHelp==1
 #define ACT_MOVE				e.action>0 && e.action<10
 #define ACT_LESSER_TELEPORT		e.action>30 && e.action<40
 #define ACT_ATACK				e.action>10 && e.action<30
@@ -15,8 +17,8 @@
 #define ACT_USE_ITEM			e.action>39 && e.action<50
 #define ACT_RANGED_ATTACK		e.action>20 && e.action<30
 #define ACT_BOSS_ATTACK			e.action==30
-#define ACT_PICK_UP_ITEM		e.action>80 && e.action<90 && e.action!=85
-#define ACT_DEL_ITEM_MODE		e.action==85
+#define ACT_PICK_UP_ITEM		e.action>80 && e.action<90
+#define ACT_DEL_ITEM_MODE		e.action==80
 #define PICKING_ITEM_TGT		e.action>9999
 /*
 	0 -> MainMenu
@@ -29,6 +31,7 @@
 	7 -> NW
 	8 -> N
 	9 -> NE
+	10 -> Toggle Ingame help
 	11 -> atack SW
 	12 -> atack S
 	13 -> atack SE
@@ -68,11 +71,12 @@
 	71 -> BuyShopItem 1
 	72 -> BuyShopItem 2
 	73 -> BuyShopItem 3
+	80 -> Delete item mode
 	81 -> Pick up item SE
 	82 -> Pick up item S
 	83 -> Pick up item SW
 	84 -> Pick up item E
-	85 -> Delete Item Mode
+	85 -> Pick up item Center
 	86 -> Pick up item W
 	87 -> Pick up item NE
 	88 -> Pick up item N

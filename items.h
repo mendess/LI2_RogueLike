@@ -30,7 +30,6 @@ int getItemSpace(int inv[]);
 int getDroppedItem(POSICAO jog, CHEST droppedItem[],int action);
 int pickUpItem(POSICAO jog, int inv[], CHEST droppedItems[], int action);
 POSICAO itAct2Pos(int action);
-int hitMonster(ESTADO *e,POSICAO target,int dmg);
 void castScroll_Fire(ESTADO *e);
 void castScroll_Teleport(ESTADO *e);
 void castScroll_Lightning(ESTADO *e);

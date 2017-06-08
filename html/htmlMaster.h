@@ -42,6 +42,8 @@
 
 #define IMAGEM(X,Y,WIDTH,HEIGHT,FICHEIRO)	printf("<image x=%d y=%d width=%d height=%d preserveAspectRatio=none xlink:href=%s%s />\n", \
 												X, Y, WIDTH, HEIGHT, IMAGE_PATH, FICHEIRO)
+#define IMAGEM_FORMATED(X,Y,WIDTH,HEIGHT,FICHEIRO)	printf("<image x=%d y=%d width=%d height=%d preserveAspectRatio=none xlink:href=%s%s />\n", \
+																(X+1)*TAM, (Y+1)*TAM, WIDTH, HEIGHT, IMAGE_PATH, FICHEIRO)
 
 /**
 \brief Macro para criar um quadrado
@@ -54,6 +56,8 @@
 												SCALE * X, SCALE* Y, SCALE, SCALE, COR) */              //old one 
 #define SQUARE(X,Y,FILL,F_OPACITY,STROKE,S_OPACITY,SCALE)	printf("<rect x=%d y=%d width=%d height=%d style=fill:%s;fill-opacity:%f;stroke:%s;stroke-opacity:%f;stroke-width:2/></rect>", \
 																		     X,   Y,   SCALE,    SCALE,         FILL,        F_OPACITY,   STROKE,          S_OPACITY)
+#define SQUARE_FORMATED(X,Y,FILL,F_OPACITY,STROKE,S_OPACITY,SCALE)	printf("<rect x=%d y=%d width=%d height=%d style=fill:%s;fill-opacity:%f;stroke:%s;stroke-opacity:%f;stroke-width:2/></rect>", \
+																		    	 (X+1)*TAM,   (Y+1)*TAM,   SCALE,    SCALE,         FILL,        F_OPACITY,   STROKE,          S_OPACITY)
 #define CIRCLE(X,Y,RADIUS,FILL,F_OPACITY,STROKE,S_OPACITY,SCALE)	printf("<circle cx=%d cy=%d r=%d style=fill:%s;fill-opacity:%f;stroke:%s;stroke-opacity:%f;stroke-width:2/></circle>", \
 																                X+SCALE/2,Y+SCALE/2,RADIUS,   FILL,      F_OPACITY,   STROKE,        S_OPACITY)
 

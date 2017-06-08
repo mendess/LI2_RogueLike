@@ -9,9 +9,26 @@ int getDirection(ESTADO e,POSICAO p){
 	}
 	return 7-3*(p.y+1)+p.x+1+type;
 }
+void imprime_texto(int x, int y, char *text, int fontSize){
+	int i=0;
+	int lineNumber=0;
+	printf("<text x=%d y=%d style=\"font-size:%dpx\";>\n",x,y,fontSize);
+	while(text[i]){
+		char line[50];
+		int lineI=0;
+		while(text[i] && text[i]!='\n'){
+			line[lineI++]=text[i++];
+		}
+		line[lineI]='\0';
+		printf("\t<tspan x=%d y=%d >%s</tspan>\n",x,y+((fontSize+1)*lineNumber),line);
+		lineNumber++;
+		if(text[i]=='\n'){i++;};
+	}
+	printf("</text>\n");
+}
 void imprime_move_frame(POSICAO p, int moldura){
 	char *mold[]=PLAY_FRAMES;
-	IMAGEM(TAM*(p.x+1),TAM*(p.y+1),TAM,TAM,mold[moldura]);
+	IMAGEM_FORMATED(p.x,p.y,TAM,TAM,mold[moldura]);
 }
 void imprime_link(char *name, POSICAO target, int new_action, int moldura){
 	char query[5];
@@ -44,19 +61,15 @@ void imprime_ranged_attack(ESTADO e,POSICAO dif){
 		imprime_link(e.name,pos,new_action,1);
 	}
 }
-void imprime_all_ranged_atacks(ESTADO e){
+void imprime_all_ranged_attacks(ESTADO e){
 	POSICAO p;
-	for(p.x=-2,p.y=0;p.x<1;p.x++,p.y++){
-		imprime_ranged_attack(e,p);
-		int tmp;
-		tmp=p.x;p.x=p.y;p.y=tmp;
-		imprime_ranged_attack(e,p);
-		tmp=p.x;p.x=p.y;p.y=tmp;
+	for(p.x=-2;p.x<3;p.x++){
+		for(p.y=-2;p.y<3;p.y++){
+			if(p.y==(abs(p.x)-2) || p.y==((-1*abs(p.x))+2)){
+				imprime_ranged_attack(e,p);
+			}
+		}
 	}
-	p.x=p.y=-1;
-	imprime_ranged_attack(e,p);
-	p.x=p.y= 1;
-	imprime_ranged_attack(e,p);
 }
 void imprime_lesser_teleport(ESTADO e){
 	POSICAO dif;
@@ -77,7 +90,7 @@ void imprime_item_pickUp(ESTADO e){
 	for (dif.x = -1; dif.x < 2; dif.x++){
 		for (dif.y = -1; dif.y < 2; dif.y++){
 			POSICAO pos = {e.jog.x + dif.x,e.jog.y + dif.y};
-			if(!outOfBounds(pos) && com_droppedItem(e.droppedItems,pos) && !com_pedras(e,pos) && !com_monstros(e,pos) && !com_saida(e,pos)){
+			if((dif.y==0 || dif.x==0) && !outOfBounds(pos) && com_droppedItem(e.droppedItems,pos) && !com_pedras(e,pos) && !com_monstros(e,pos) && !com_saida(e,pos)){
 				int new_action = 80 + getDirection(e,dif);
 				imprime_link(e.name,pos,new_action,3);
 			}
@@ -94,7 +107,7 @@ void imprime_all_moves(ESTADO e){
 		}
 	}
 	if(e.classe==2 || e.classe==3){
-		imprime_all_ranged_atacks(e);
+		imprime_all_ranged_attacks(e);
 	}
 	if(CAN_USE_LESSER_TELEPORT){
 		imprime_lesser_teleport(e);
@@ -104,7 +117,7 @@ void imprime_all_moves(ESTADO e){
 void imprime_jogador (ESTADO e){
 	char *dir[] = {"Jogador_Viking_Right.png","Jogador_Viking_Left.png"};
 	IMAGEM(TAM*(e.jog.x+1),TAM*(e.jog.y+1),TAM,TAM,dir[(int) e.direction]);
-	if(!e.isDeletingItems){
+	if(!e.isDeletingItems && !e.isInIngameHelp){
 		if(e.complexItem.isBeingUsed){
 			imprime_castTargets(&e);
 		}else{
@@ -122,14 +135,14 @@ void imprime_droppedItems(CHEST droppedItems[]){
 	char *itemlist[] = ITEM_LIST;
 	for(i=0;i<MAX_DROPPED_ITEMS;i++){
 		if(droppedItems[i].item){
-			IMAGEM(TAM*(droppedItems[i].pos.x+1),TAM*(droppedItems[i].pos.y+1),TAM,TAM,itemlist[droppedItems[i].item]);
+			IMAGEM_FORMATED(droppedItems[i].pos.x,droppedItems[i].pos.y,TAM,TAM,itemlist[droppedItems[i].item]);
 		}
 	}
 }
 void imprime_chests(CHEST chests[],int num_chests){
 	int i;
 	for (i=0;i<num_chests;i++){
-		IMAGEM(TAM*(chests[i].pos.x+1),TAM*(chests[i].pos.y+1),TAM,TAM,"Chest.png");
+		IMAGEM_FORMATED(chests[i].pos.x,chests[i].pos.y,TAM,TAM,"Chest.png");
 	}
 }
 void imprime_monstros (MSTR monstros[],int num_monstros){
@@ -142,22 +155,22 @@ void imprime_monstros (MSTR monstros[],int num_monstros){
 	for(i=0;i<num_monstros;i++){
 		int side = rand() % 2;
 		int type = monstros[i].monType;
-		IMAGEM(TAM*(monstros[i].x+1),TAM*(monstros[i].y+1),TAM,TAM,mstrImgs[(type*2) + side]);
+		IMAGEM_FORMATED(monstros[i].x,monstros[i].y,TAM,TAM,mstrImgs[(type*2)+side]);
 	}
 }
 void imprime_pedras (POSICAO pedras[]){
 	int i;
 	for (i=0;i<MAX_PEDRAS;i++){
-		IMAGEM(TAM*(pedras[i].x+1),TAM*(pedras[i].y+1),TAM,TAM,"Tile_Obstacle.png");
+		IMAGEM_FORMATED(pedras[i].x,pedras[i].y,TAM,TAM,"Tile_Obstacle.png");
 	}
 }
 void imprime_saida (POSICAO p){
-	IMAGEM(TAM*(p.x+1),TAM*(p.y+1),TAM,TAM,"Tile_Exit.png");
+	IMAGEM_FORMATED(p.x,p.y,TAM,TAM,"Tile_Exit.png");
 }
 void imprime_casa (POSICAO p){
 	char *tiles[]={"Tile1.png","Tile2.png","Tile3.png","Tile4.png"};
 	int r = rand() % 4;
-	IMAGEM(TAM*(p.x+1),TAM*(p.y+1),TAM,TAM,tiles[r]);
+	IMAGEM_FORMATED(p.x,p.y,TAM,TAM,tiles[r]);
 }
 void imprime_chao(){
 	int x,y;
@@ -196,10 +209,9 @@ void imprime_inv_slot(char *name, int item,int i){
 		int X = 620+(TAM*(i/2));
 		int Y = 110+(50*!(i%2));
 		char query[4];
-		IMAGEM(X,Y,TAM,TAM,itemlist[item]);
 		sprintf(query,"4%d",i);
 		ABRIR_LINK(name,query);
-		printf("<rect x=%d y=%d width=50 height=50 style=opacity:0;></rect>\n",X,Y);
+		IMAGEM(X,Y,TAM,TAM,itemlist[item]);
 		FECHAR_LINK;
 	}
 }
@@ -227,16 +239,38 @@ void imprime_inventory(int mode,char *name,INVT bag){
 	}
 	IMAGEM(690,260,50,100,"Inv_equipment.png");
 	imprime_equipment(bag);
-	char *trashCan[] = {"TrashCan_closed.png","TrashCan_opened.png"};
-	ABRIR_LINK(name,"85");
+	char *trashCan[] = {"button_trashCan_closed.png","button_trashCan_opened.png"};
+	ABRIR_LINK(name,"80");
 	IMAGEM(745,260,50,50,trashCan[mode]);
 	FECHAR_LINK;
 	IMAGEM(620,210,50,50,"goldcoins.png");
 	imprime_gold(660,225,bag.gold);
 }
 void imprime_feedback(int feedback){
+	IMAGEM(595,400,200,150,"ScreenFeedback.png");
 	char *feedbackMessages[] = FEEDBACK_MSGS;
-	printf("<text x=600 y=480>%s</text>\n",feedbackMessages[feedback]);
+	imprime_texto(600, 480, feedbackMessages[feedback],17);
+}
+void imprime_ingameHelp(ESTADO e){
+	imprime_helpButton(e.name);
+	if(e.isInIngameHelp){
+		imprime_helpEnemies(e.name, e.monstros, e.num_monstros);
+		imprime_helpInvetory(e.name, e.bag);
+		if(ACT_HELP_ITEM){
+			imprime_itemDescription(e.bag.inv[e.action-40]);
+		}
+		if(ACT_HELP_SWORD){
+			imprime_itemDescription(e.bag.weapon);
+		}
+		if(ACT_HELP_ARMOUR){
+			imprime_itemDescription(e.bag.armour);
+		}
+		if(ACT_HELP_MSTR){
+			POSICAO pos = {(e.action / 100)-100 , (e.action % 100)};
+			imprime_monsterDescription(e.monstros[getMonstro(e,pos)]);
+			imprime_monsterAttackArea(e,e.monstros[getMonstro(e,pos)]);
+		}
+	}
 }
 void imprimePlaying(ESTADO e){
 	ABRIR_SVG;
@@ -257,15 +291,16 @@ void imprimePlaying(ESTADO e){
 	imprime_mpBar(e.mp,e.classe);
 	imprime_inventory(e.isDeletingItems,e.name,e.bag);
 	imprime_jogador(e);
+	imprime_feedback(e.feedback);
+	imprime_ingameHelp(e);
 	if(e.hp<1){
 		imprime_gameOverScreen(e.name);
 	}
-	imprime_feedback(e.feedback);
 
 	ABRIR_LINK(e.name,"0");/* back */
 	printf("<rect x=660 y=540 width=140 height=60 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
-	
+
 	FECHAR_SVG;
 
 	#ifdef DEBUG
@@ -293,15 +328,16 @@ void imprimePlaying(ESTADO e){
 			e.droppedItems[9].item,
 			e.droppedItems[10].item,
 			e.droppedItems[11].item);
-	printf("<p>isBeingUsed:%d  type:%d  lastPickedTarget:%d  isBeingCast:%d </p>\n",
+	printf("<p>isBeingUsed:%d  type:%d  lastPickedTarget:%d  isBeingCast:%d | isInIngameHelp:%d</p>\n",
 			e.complexItem.isBeingUsed,
 			e.complexItem.type,
 			e.complexItem.lastPickedTarget,
-			e.complexItem.isBeingCast);
+			e.complexItem.isBeingCast,
+			e.isInIngameHelp);
 	int x;
 	printf("<p>");
 	for(x=0;x<e.num_monstros;x++){
-		printf("x:%d y:%d hp:%d\t", e.monstros[x].x,e.monstros[x].y,e.monstros[x].hp);
+		printf("| x:%d y:%d hp:%d |", e.monstros[x].x,e.monstros[x].y,e.monstros[x].hp);
 	}
 	printf("</p>");
 	#endif

@@ -50,6 +50,7 @@ int updateScore(int type);
 int goldDrop(int type);
 POSICAO calculaRangedAtackPos(POSICAO p,int act);
 int getMonstro(ESTADO e, POSICAO p);
+int hitMonster(ESTADO *e,POSICAO target,int dmg);
 int calcPlayerDmg(int classe, INVT bag);
 ESTADO calcularCombate(ESTADO e);
 
