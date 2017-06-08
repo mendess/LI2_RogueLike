@@ -83,12 +83,12 @@ INVT initINVT(){
 		bag.inv[i]=0;
 	}
 	#ifdef DEBUG
-	bag.inv[0]=14;
-	bag.inv[1]=13;
-	bag.inv[2]=0;
-	bag.inv[3]=17;
-	bag.inv[4]=16;
-	bag.inv[5]=15;
+	bag.inv[0]=10;
+	bag.inv[1]=6;
+	bag.inv[2]=4;
+	bag.inv[3]=3;
+	bag.inv[4]=2;
+	bag.inv[5]=2;
 	#endif
 	bag.weapon=0;
 	bag.armour=0;

@@ -6,11 +6,9 @@ int getDirection(ESTADO e,POSICAO p){
 	int type=0;
 	if(com_monstros(e,e.jog)){
 		type=10;
-	}
-	if(com_droppedItem(e.droppedItems,e.jog)){
+	}else if(com_droppedItem(e.droppedItems,e.jog)){
 		type=80;
-	}
-	if(com_chest(e,e.jog)){
+	}else if(com_chest(e,e.jog)){
 		type=90;
 	}
 	return 7-3*(p.y+1)+p.x+1+type;
@@ -47,7 +45,7 @@ void imprime_move(ESTADO e, POSICAO p){
 	int new_action;
 	e.jog.x += p.x;
 	e.jog.y += p.y;
-	if(com_saida(e,e.jog)){
+	if(com_saida(e,e.jog) && !com_monstros(e,p)){
 		new_action=5;
 	}else{
 		new_action=getDirection(e,p);
@@ -278,12 +276,12 @@ void imprimePlaying(ESTADO e){
 	imprime_saida(e.saida);
 	imprime_pedras(e.pedras);
 	imprime_droppedItems(e.droppedItems);
+	imprime_chests(e.chests,e.num_chests);
 	if(e.isInBossBattle){
 		//imprime_boss(e);
 	}else{
 		imprime_monstros(e.jog,e.monstros,e.num_monstros);
 	}
-	imprime_chests(e.chests,e.num_chests);
 	imprime_hpBar(e.hp);
 	imprime_mpBar(e.mp,e.classe);
 	imprime_inventory(e.isDeletingItems,e.name,e.bag);
