@@ -73,6 +73,8 @@ typedef struct estado{
 	int isInShop;
 	/* Guarda se o jogador esta a apagar items do inventario */
 	int isDeletingItems;
+	/* Guarda se o jogador esta a pedir ajuda ingame */
+	int isInIngameHelp;
 	/* Codigo de feedback */
 	int feedback;
 	/* Se o jogador esta a usar um item */

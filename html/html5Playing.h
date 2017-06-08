@@ -5,6 +5,7 @@
 #include "htmlMaster.h"
 
 #include "html5PlayingSpells.h"
+#include "html5PlayingTips.h"
 
 #define ARCHER_ACTION_MATRIX	{{-1,-1,28,-1,-1},\
 								 {-1,27,-1,29,-1},\
@@ -19,6 +20,14 @@
 #define CAN_USE_LESSER_TELEPORT	e.classe==3 && e.turn % 5 == 0 && e.turn != 0 && e.mp>=LESSER_TP_COST
 
 #define LESSER_TP_COST	10
+
+#define ACT_HELP_ITEM	e.action>39 && e.action<46
+
+#define ACT_HELP_SWORD	e.action==46
+
+#define ACT_HELP_ARMOUR	e.action==47
+
+#define ACT_HELP_MSTR	e.action>9999
 
 /**
 \brief Retorna a direção em que o jogador vai andar
@@ -36,6 +45,14 @@ Valores que a função retorna
 @param p Quanto no eixo dos x e dos y o jogador vai andar
 */
 int getDirection(ESTADO e,POSICAO p);
+/**
+\brief Imprime texto no ecra
+@param x Coordenada x onde deve começar o texto
+@param y Coordenada y onde deve começar o texto
+@param text String de texto a imprimir
+@param font-size Tamanho em pixels da letra
+*/
+void imprime_texto(int x, int y, char *text, int fontSize);
 /**
 \brief Imprime a moldura da jogada
 @param p Posição do movimento
@@ -65,7 +82,7 @@ void imprime_ranged_attack(ESTADO e,POSICAO p);
 \brief Imprime os ataques especiais do arqueiro
 @param e Estado do jogo
 */
-void imprime_all_ranged_atacks(ESTADO e);
+void imprime_all_ranged_attacks(ESTADO e);
 /**
 \brief Imprime todas as jogadas possiveis
 @param e Estado do jogo

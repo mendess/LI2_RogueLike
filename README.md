@@ -45,6 +45,7 @@ Action map:
 	7 -> NW
 	8 -> N
 	9 -> NE
+	10 -> Toggle Ingame help
 	11 -> atack SW
 	12 -> atack S
 	13 -> atack SE

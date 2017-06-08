@@ -22,6 +22,13 @@ ESTADO calcularNovoEstado(ESTADO e){
 	if(PLR_FACING_RIGHT){/* set direction */
 		e.direction=1;
 	}
+	if(ACT_TOGGLE_INGAME_HELP){
+		e.isInIngameHelp = !e.isInIngameHelp;
+		return e;
+	}
+	if(ACT_ASK_INGAME_HELP){
+		return e;
+	}
 	if(ACT_MOVE){/* mover jogador */
 		e.jog=calcularNovaPosicao(e.jog,e.action);
 	}
