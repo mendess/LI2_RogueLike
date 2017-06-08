@@ -1,7 +1,7 @@
 #ifndef ___PATH_H___
 #define ___PATH_H___
 
-#include "jogo.h"
+#include "estrutura.h"
 
 #define MAX_CAMINHO   30
 
