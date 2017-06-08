@@ -15,7 +15,7 @@
 
 #define PLAY_FRAMES		{"Moldura_Movimento.png","Moldura_Ataque.png","Moldura_Lesser_Teleport.png","Moldura_PickUp_Item.png"}
 
-#define FEEDBACK_MSGS	{"","Hum... I can't cast that!","I can't carry more items!","There are no targets in range!"}
+#define FEEDBACK_MSGS	{"","Hum... I can't cast that!","I can't carry\nmore items!","There are no targets in range!"}
 
 #define CAN_USE_LESSER_TELEPORT	e.classe==3 && e.turn % 5 == 0 && e.turn != 0 && e.mp>=LESSER_TP_COST
 

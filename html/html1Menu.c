@@ -13,7 +13,7 @@ void imprimeMainMenu(char *name){
 	ABRIR_LINK(name,"54");/* ScoreBoard */
 	printf("<rect x=269 y=484 width=269 height=75 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
-	
+
 	ABRIR_RESET_LINK;/* back */
 	printf("<rect x=660 y=540 width=140 height=60 style=opacity:0;></rect>\n");
 	FECHAR_LINK;

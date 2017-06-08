@@ -17,7 +17,7 @@
 #define ACT_USE_ITEM			e.action>39 && e.action<50
 #define ACT_RANGED_ATTACK		e.action>20 && e.action<30
 #define ACT_BOSS_ATTACK			e.action==30
-#define ACT_PICK_UP_ITEM		e.action>80 && e.action<90 && e.action!=85
+#define ACT_PICK_UP_ITEM		e.action>80 && e.action<90
 #define ACT_DEL_ITEM_MODE		e.action==80
 #define PICKING_ITEM_TGT		e.action>9999
 /*

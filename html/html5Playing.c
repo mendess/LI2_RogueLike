@@ -90,7 +90,7 @@ void imprime_item_pickUp(ESTADO e){
 	for (dif.x = -1; dif.x < 2; dif.x++){
 		for (dif.y = -1; dif.y < 2; dif.y++){
 			POSICAO pos = {e.jog.x + dif.x,e.jog.y + dif.y};
-			if(!outOfBounds(pos) && com_droppedItem(e.droppedItems,pos) && !com_pedras(e,pos) && !com_monstros(e,pos) && !com_saida(e,pos)){
+			if((dif.y==0 || dif.x==0) && !outOfBounds(pos) && com_droppedItem(e.droppedItems,pos) && !com_pedras(e,pos) && !com_monstros(e,pos) && !com_saida(e,pos)){
 				int new_action = 80 + getDirection(e,dif);
 				imprime_link(e.name,pos,new_action,3);
 			}
@@ -285,7 +285,7 @@ void imprimePlaying(ESTADO e){
 	ABRIR_LINK(e.name,"0");/* back */
 	printf("<rect x=660 y=540 width=140 height=60 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
-	
+
 	FECHAR_SVG;
 
 	#ifdef DEBUG

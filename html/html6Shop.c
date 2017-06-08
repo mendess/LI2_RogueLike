@@ -84,7 +84,7 @@ void imprimeShop(ESTADO e){
 	FECHAR_LINK;
 
 	FECHAR_SVG;
-	
+
 	#ifdef DEBUG
 	printf("<p>world_lvl:%d  score:%d  LootTable[%d,%d,%d,%d] Gold:%d Inv[%d,%d,%d,%d,%d,%d] Weapon:%d Armour:%d </p>",
 			e.world_lvl,

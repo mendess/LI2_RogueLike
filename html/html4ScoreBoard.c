@@ -13,7 +13,7 @@ void imprime_score(int score, int index){
 }
 void imprimeScoreBoard(char *name){
 	ABRIR_SVG;
-	
+
 	SCORE scoreBoard[SB_SIZE];
 	int i;
 	int num_scores = importScoreBoard(scoreBoard);
