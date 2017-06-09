@@ -1,13 +1,10 @@
-// #define DEBUG
-
 #include "jogo.h"
 
 ESTADO calcularNovoEstado(ESTADO e){
-	#ifdef ANTICHEAT
 	if(!validAction(e)){
 		return e;
 	}
-	#endif
+
 	e.feedback=0;
 	if(ACT_GOTO_MENU){/* main menu*/
 		e.screen=1;
@@ -29,7 +26,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 		e.isInIngameHelp = !e.isInIngameHelp;
 		return e;
 	}
-	if(ACT_ASK_INGAME_HELP){
+	if(ASKING_FOR_INGAME_HELP){
 		return e;
 	}
 	if(ACT_MOVE){/* mover jogador */
@@ -53,7 +50,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 			return e;
 		}
 	}
-	if(ACT_DEL_ITEM_MODE){
+	if(ACT_TOGGLE_ITEM_MODE){
 		e.isDeletingItems=!e.isDeletingItems;
 		return e;
 	}
@@ -123,8 +120,8 @@ ESTADO ler_estado (char *args){
 	if(gamestateFile){ 					// Se o jogador escolheu uma save que existe
 		int r=fread(&e, sizeof(ESTADO), 1, gamestateFile);	// Ler o estado
 		fclose(gamestateFile);			// Fechar o ficheiro
-		if(r<1){			// Se o ficheiro for mais pequeno do que é esperado
-			e = estadoZero;	// Inicializar um novo a 0
+		if(r<1){						// Se o ficheiro for mais pequeno do que é esperado
+			e = estadoZero;				// Inicializar um novo a 0
 		}
 	}
 	e.action = act;		// Inicializar a ação
@@ -156,18 +153,15 @@ ESTADO runGame(){
 		e = calcularNovoEstado(e);
 	}
 	escrever_estado(e);
-	#ifdef DEBUG
-	keepLog(e);
-	#endif
 	return e;
 }
 int main(){
 
 	ESTADO e = runGame();
 	if(e.screen==5 && e.hp==0){
-		if(e.score>99999){/* isto nunca deve acontecer */
-			e.score=99999;/* mas assim tenho a certeza */
-		}				  /* que ao imprimir não causa problemas */
+		if(e.score>99999){// isto nunca deve acontecer 
+			e.score=99999;// mas assim tenho a certeza 
+		}				  // que ao imprimir não causa problemas
 		updateScoreBoard(e.name,e.score);
 	}
 
@@ -175,19 +169,3 @@ int main(){
 
 	return 0;
 }
-
-
-
-
-#ifdef DEBUG
-void keepLog(ESTADO e){
-	FILE *fp;
-	char str[50];
-
-	sprintf(str,"/var/www/html/files/gamestate%d",e.turn);
-	fp=fopen(str,"w");
-	fwrite(&e, sizeof(ESTADO), 1, fp);
-	fclose(fp);
-
-}
-#endif

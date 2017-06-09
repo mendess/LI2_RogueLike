@@ -87,7 +87,7 @@ int validAction(ESTADO e){
 	if(ACT_TOGGLE_INGAME_HELP){
 		return e.screen==5;
 	}
-	if(ACT_ASK_INGAME_HELP){
+	if(ASKING_FOR_INGAME_HELP){
 		return e.isInIngameHelp;
 	}
 	if(ACT_MOVE){/* mover jogador */
@@ -105,7 +105,7 @@ int validAction(ESTADO e){
 	if(ACT_USE_ITEM){
 		return validItemUse(e);
 	}
-	if(ACT_DEL_ITEM_MODE){
+	if(ACT_TOGGLE_ITEM_MODE){
 		return e.screen==5 || e.screen==6;
 	}
 	if(PICKING_ITEM_TGT){
