@@ -17,6 +17,12 @@ Definição das funções que imprimem a scoreboard
 */
 void imprime_score(int score, int index);
 /**
+\brief Imprime o nome do jogador num certo indice
+@param name Nome do jogador
+@param index Indice onde imprimir
+*/
+void imprime_name(char name[], int index);
+/**
 \brief Imprime a scoreBoard
 @param name Nome do jogador
 */
