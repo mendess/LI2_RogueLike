@@ -15,9 +15,9 @@ Definição das funções para criação de niveis e de calculo de novas posiç�
 /** \brief Vida base do Warrior */
 #define HP_WARRIOR    100
 /** \brief Vida base do Archer */
-#define HP_ARCHER     90
+#define HP_ARCHER     70
 /** \brief Vida base do Mage */
-#define HP_MAGE       70
+#define HP_MAGE       50
 
 /** \brief Mana base do Warrior */
 #define MP_WARRIOR    50
@@ -27,11 +27,11 @@ Definição das funções para criação de niveis e de calculo de novas posiç�
 #define MP_MAGE       100
 
 /** \brief Bonus de vida ganho ao passar de nível */
-#define NEW_LEVEL_HP_BONUS  30
+#define NEW_LEVEL_HP_BONUS  10
 /** \brief Bonus de mana ganho ao passar de nível */
 #define NEW_LEVEL_MP_BONUS  10
 /** \brief Bonus de score ganho ao passar de nível */
-#define NEW_LEVEL_SC_BONUS  60
+#define NEW_LEVEL_SC_BONUS  30
 
 /**
 \brief Coloca uma pedra numa posição aleatoria válida

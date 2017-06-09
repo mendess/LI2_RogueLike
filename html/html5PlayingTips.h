@@ -37,7 +37,7 @@ Definição das funções que imprimem as ajudas durante o jogo
 /** \brief Descrição do arma de nivel 2 */
 #define SWORD_IRON_DESC			"Now this is a\ndecent weapon."
 /** \brief Descrição do arma de nivel 3 */
-#define SWORD_STEEL_DESC		"Wow its so sharp!"
+#define SWORD_STEEL_DESC		"Steel, "
 /** \brief Descrição do arma de nivel 4 */
 #define SWORD_PALLADIUM_DESC	"This weapon cuts\nthrough anything like\nit's butter. Except\nrock, rock is still\npretty tough."
 /** \brief Descrição do armadura de nivel 1 */
@@ -88,15 +88,15 @@ void imprime_helpEnemies(char *name, MSTR monstros[], int num_monstros);
 */
 void imprime_helpInvetory(char *name, INVT bag);
 /**
-\brief Imprime a descrição do monstro pedido
-@param monstro Monstro pedido
-*/
-void imprime_monsterDescription(MSTR monstro);
-/**
 \brief Imprime a descrição do item pedido
 @param item Item pedido
 */
 void imprime_itemDescription(int item);
+/**
+\brief Imprime a descrição do monstro pedido
+@param monstro Monstro pedido
+*/
+void imprime_monsterDescription(MSTR monstro);
 /**
 \brief Imprime a area de ataque de um monstro
 @param e Estado do jogo

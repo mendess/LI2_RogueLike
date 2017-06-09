@@ -99,6 +99,11 @@ void imprime_all_moves (ESTADO e);
 */
 void imprime_jogador (ESTADO e);
 /**
+\brief Imprime os items no chão
+@param droppedItems Lista dos items no chão
+*/
+void imprime_droppedItems(CHEST droppedItems[]);
+/**
 \brief Imprime as chests
 @param chests Lista de chests
 @param num_chests Número de chests
@@ -171,6 +176,16 @@ void imprime_equipment(INVT bag);
 @param bag Inventario do jogador
 */
 void imprime_inventory(int mode, char *name, INVT bag);
+/**
+\brief Imprime as mensagens de erro para o jogador ver porque é que o que ele quer fazer não é possivel
+@param feedback Número da mensagem a apresentar
+*/
+void imprime_feedback(int feedback);
+/**
+\brief Imprime os botões para apresentar as ajudas ao jogador
+@param e Estado do jogo
+*/
+void imprime_ingameHelp(ESTADO e);
 /**
 \brief Função mestra que chama todas as funções que imprimem a interface do jogo
 @param e Estado do jogo

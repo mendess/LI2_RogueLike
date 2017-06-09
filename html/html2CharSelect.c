@@ -22,7 +22,7 @@ void imprimeCharSelect(char *name){
 
 	// Back
 	ABRIR_LINK(name,"0");
-	printf("<rect x=0 y=540 width=140 height=60 style=opacity:0;></rect>\n");
+	printf("<rect x=0 y=540 width=60 height=60 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
 
 	FECHAR_SVG;

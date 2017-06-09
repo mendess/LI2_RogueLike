@@ -29,10 +29,6 @@ int getMonsterHP(int type){
 	}
 	return monType;
 }
-/**
-\brief Coloca um monstro numa posição aleatoria válida
-@param e Estado do jogo
-*/
 ESTADO placeMonster(ESTADO e, int type){
 	POSICAO p;
 	int placed=0, i=0;
@@ -60,20 +56,15 @@ ESTADO placeOgre(ESTADO e){
 	e.num_chests++;
 	e.chests[0]=chest;
 	return e;
-
-}
-int pos_ocupada_aux(ESTADO e, int x, int y){
-	POSICAO tmp = {x,y};
-	return pos_ocupada(e,tmp) || com_saida(e,tmp) || outOfBounds(tmp);
 }
 CHEST genChest(ESTADO e,CHEST chest){
-	if(      !pos_ocupada_aux(e,chest.pos.x,chest.pos.y-1)){
+	if(      pos_completamente_livre(e,chest.pos.x,chest.pos.y-1)){
 		chest.pos.y--;
-	}else if(!pos_ocupada_aux(e,chest.pos.x+1,chest.pos.y)){
+	}else if(pos_completamente_livre(e,chest.pos.x+1,chest.pos.y)){
 		chest.pos.x++;
-	}else if(!pos_ocupada_aux(e,chest.pos.x-1,chest.pos.y)){
+	}else if(pos_completamente_livre(e,chest.pos.x-1,chest.pos.y)){
 		chest.pos.x--;
-	}else if(!pos_ocupada_aux(e,chest.pos.x,chest.pos.y+1)){
+	}else if(pos_completamente_livre(e,chest.pos.x,chest.pos.y+1)){
 		chest.pos.y++;
 	}
 	int r = rand() % 60;
@@ -86,10 +77,6 @@ CHEST genChest(ESTADO e,CHEST chest){
 	}
 	return chest;
 }
-/**
-\brief Coloca todas os monstros para inicializar o novo nivel
-@param e Estado do jogo
-*/
 ESTADO genMonsters(ESTADO e){
 	e.num_chests=0;
 	if(e.isInBossBattle){

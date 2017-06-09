@@ -70,7 +70,12 @@ ESTADO calcularNovoEstado(ESTADO e){
 		}
 	}
 	if(ACT_MENU_SCORE_OR_HELP){/* escolha do menu */
+		e.turn=0;
 		e.screen = e.action-50;
+		return e;
+	}
+	if(ACT_TOGGLE_SB_TYPE){
+		e.turn = !e.turn;
 		return e;
 	}
 	if(ACT_MENU_PLAY){
@@ -100,6 +105,12 @@ ESTADO calcularNovoEstado(ESTADO e){
 	if(e.mp<1){
 		e.mp=0;
 	}
+	if(e.screen==5 && e.hp==0){
+		if(e.score>99999){// isto nunca deve acontecer 
+			e.score=99999;// mas assim tenho a certeza 
+		}				  // que ao imprimir não causa problemas
+		updateScoreBoard(e.name,e.score);
+	}
 
 	return e;
 }
@@ -108,10 +119,10 @@ ESTADO ler_estado (char *args){
 	char name[100];
 	ESTADO e = estadoZero;
 	if(args[0]=='N' && args[1]=='='){	// Se o jogador submeteu um nome
-		strcpy(name,args+2);			// Guardar o nome
+		strncpy(name,args+2,100);		// Guardar o nome
 		act = 0;						// Por a action a 0 (ir para o main menu)
 	}else{								// Caso contrario
-		sscanf(args,"%[^,],%d",name,&act); // Guardar o nome e a action
+		sscanf(args,"%100[^,],%d",name,&act); // Guardar o nome e a action
 	}
 	FILE *gamestateFile;
 	char path[100];
@@ -124,8 +135,8 @@ ESTADO ler_estado (char *args){
 			e = estadoZero;				// Inicializar um novo a 0
 		}
 	}
-	e.action = act;		// Inicializar a ação
-	strcpy(e.name,name);// Inicializar o nome
+	e.action = act;			// Inicializar a ação
+	strncpy(e.name,name,13);// Inicializar o nome
 	return e;
 }
 void escrever_estado(ESTADO e){
@@ -156,14 +167,8 @@ ESTADO runGame(){
 	return e;
 }
 int main(){
-
+	srand(time(NULL));
 	ESTADO e = runGame();
-	if(e.screen==5 && e.hp==0){
-		if(e.score>99999){// isto nunca deve acontecer 
-			e.score=99999;// mas assim tenho a certeza 
-		}				  // que ao imprimir não causa problemas
-		updateScoreBoard(e.name,e.score);
-	}
 
 	imprime(e);
 

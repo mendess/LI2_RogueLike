@@ -25,7 +25,13 @@ void i_cTarget(int type,POSICAO p);
 @returns Ação convertida
 */
 int cTgT2Int(POSICAO p);
-
+/**
+\brief Verifica se uma posição esta perto do jogador
+@param jog Posição do jogador
+@param p Posição a verificar
+@returns 1 se sim 0 caso contrario
+*/
+int nearPlayer(POSICAO jog, POSICAO p);
 // RED ZONE
 /**
 \brief Imprime os alvos do feitiço vermelho (fogo)

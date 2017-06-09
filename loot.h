@@ -52,15 +52,13 @@ int generatePotion();
 */
 int generateScroll();
 /**
-\brief Devolve uma arma gerada aleatoriamente 
-	conforme o nivel em que o jogador está
+\brief Devolve uma arma gerada aleatoriamente conforme o nível em que o jogador está
 @param world_lvl Nível
 @returns O número da arma gerada
 */
 int generateSword(int world_lvl);
 /**
-\brief Devolve uma armadura gerada aleatoriamente 
-	conforme o nivel em que o jogador está
+\brief Devolve uma armadura gerada aleatoriamente conforme o nível em que o jogador está
 @param world_lvl Nível
 @returns O número da armadura gerada
 */

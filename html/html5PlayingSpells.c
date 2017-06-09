@@ -6,27 +6,6 @@ void i_cTarget(int type,POSICAO p){
 int cTgt2Int(POSICAO p){
 	return 10000+(p.x*100)+p.y;
 }
-int elem(POSICAO targets[], int num_targets, POSICAO new){
-	int found=0;
-	int i=0;
-	while(!found && i<num_targets){
-		if(targets[i].x==new.x && targets[i].y == new.y){
-			found=1;
-		}
-		i++;
-	}
-	return found;
-}
-int isRepeat(POSICAO *picked,int N,POSICAO p){
-	int i;
-	int repeat=0;
-	for (i = 0; i < N && !repeat; ++i){
-		if(picked[i].x==p.x && picked[i].y==p.y){
-			repeat=1;
-		}
-	}
-	return repeat;
-}
 int nearPlayer(POSICAO jog, POSICAO p){
 	int near=0;
 	int i,j;
@@ -109,7 +88,7 @@ void i_confirmCastYellow(ESTADO *e){
 		for (x = -2; x < 3 && !found; ++x){
 			for (y = -2; y < 3 && !found; ++y){
 				POSICAO new = {target.x+x,target.y+y};
-				if(!elem(targets,num_bolts,new) && com_monstros(*e,new)){
+				if(!isRepeat(targets,num_bolts,new) && com_monstros(*e,new)){
 					CIRCLE((new.x+1)*TAM,(new.y+1)*TAM,TAM/2,"black",0.3 - (0.1 * num_bolts),"yellow",1.0,TAM);
 					found=1;
 					target = new;

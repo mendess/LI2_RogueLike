@@ -57,6 +57,12 @@ void equipItem(ESTADO *e,int *item);
 */
 int getSpellCost(int item);
 /**
+\brief Devolve se o feitiço relampago (amarelo) teria alvos se fosse usado
+@param e Estado do Jogo
+@returns 1 se sim 0 caso contrario
+*/
+int lightningHasTargets(ESTADO e);
+/**
 \brief Usa um item e coloca o campo de feedback no valor certo
 @param e Estado do Jogo
 @returns Estado do Jogo alterado
@@ -120,6 +126,14 @@ void castScroll_Fire(ESTADO *e);
 @param e Apontador do Estado do Jogo
 */
 void castScroll_Teleport(ESTADO *e);
+/**
+\brief Verifica se um certa posição ocorre num array de posições
+@param targets Lista de posição
+@param num_targets Número de posições
+@param newTarget Posição a verificar
+@returns 1 se for 0 caso contrario
+*/
+int isRepeat(POSICAO targets[], int num_targets, POSICAO newTarget);
 /**
 \brief Executa o efeito do pergaminho de relampago
 @param e Apontador do Estado do Jogo

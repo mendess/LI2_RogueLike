@@ -3,7 +3,6 @@
 int outOfBounds(POSICAO p){
 	return p.x<0 || p.x>= SIZE || p.y<0 || p.y>=SIZE;
 }
-
 int isOnPath(POSICAO p, int pathSize, POSICAO path[]){ 
 	int i, flag;
 	flag=0;
@@ -16,6 +15,10 @@ int isOnPath(POSICAO p, int pathSize, POSICAO path[]){
 }
 int pos_ocupada (ESTADO e, POSICAO p){
 	return com_jogador(e,p) || com_pedras(e,p) || com_monstros(e,p);
+}
+int pos_completamente_livre(ESTADO e, int x, int y){
+	POSICAO tmp = {x,y};
+	return !pos_ocupada(e,tmp) && !com_saida(e,tmp) && !outOfBounds(tmp) && !com_chest(e,tmp) && !com_droppedItem(e.droppedItems,tmp);
 }
 int com_saida (ESTADO e, POSICAO p){
 	return (e.saida.x==p.x) && (e.saida.y==p.y);

@@ -84,6 +84,13 @@ void dropItem(CHEST droppedItems[], int *item, POSICAO pos);
 */
 void dropItemFromMSTR(int lootTable[], CHEST droppedItems[], int x, int y);
 /**
+\brief Calcula o dano que o jogador vai causar
+@param classe Classe do jogador
+@param bag Inventário do jogador
+@returns O valor do dano
+*/
+int calcPlayerDmg(int classe, INVT bag);
+/**
 \brief Retorna quanto score o jogador ganhou
 @param type Tipo do monstro que morreu
 @returns Quantidade de score ganho
@@ -117,13 +124,6 @@ int getMonstro(ESTADO e, POSICAO p);
 @returns 1 se atingiu um monstro 0 caso contrario
 */
 int hitMonster(ESTADO *e,POSICAO target,int dmg);
-/**
-\brief Calcula o dano que o jogador vai causar
-@param classe Classe do jogador
-@param bag Inventário do jogador
-@returns O valor do dano
-*/
-int calcPlayerDmg(int classe, INVT bag);
 /**
 \brief Função mestra que calcula o combate com ataques basicos
 @param e Estado do jogo

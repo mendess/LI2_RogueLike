@@ -198,7 +198,7 @@ void imprime_mpBar(int mp,int classe){
 void imprime_gameOverScreen(char *name){
 	IMAGEM(0,0,SVG_WIDTH,SVG_HEIGHT,"ScreenGameOver.png");
 	ABRIR_LINK(name,"0");/* back */
-	printf("<rect x=300 y=350 width=200 height=70 style=opacity:0;></rect>\n");
+	printf("<rect x=294 y=344 width=203 height=73 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
 }
 void imprime_inv_slot(char *name, int item,int i){
@@ -296,7 +296,7 @@ void imprimePlaying(ESTADO e){
 		imprime_ingameHelp(e);
 
 		ABRIR_LINK(e.name,"0");/* back */
-		printf("<rect x=660 y=540 width=140 height=60 style=opacity:0;></rect>\n");
+		printf("<rect x=740 y=540 width=60 height=60 style=opacity:0;></rect>\n");
 		FECHAR_LINK;		
 	}
 

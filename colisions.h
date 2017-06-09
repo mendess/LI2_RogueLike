@@ -25,6 +25,14 @@ int isOnPath(POSICAO p, int pathSize, POSICAO path[]);
 */
 int pos_ocupada (ESTADO e, POSICAO p);
 /**
+\brief Verifica se uma posição está completamente vazia
+@param e Estado do jogo
+@param x Coordenada x da posição
+@param y Coordenada y da posição
+@returns 1 se estiver vazia ou 0 caso contrario
+*/
+int pos_completamente_livre(ESTADO e, int x, int y);
+/**
 \brief Verifica se a saida esta num certo par de coordenadas
 @param e Estado do jogo
 @param p Posição a verificar
@@ -46,13 +54,6 @@ int com_jogador (ESTADO e,POSICAO p);
 */
 int com_pedras (ESTADO e, POSICAO p);
 /**
-\brief Verifica se num certo par de coordenadas existe um item no chão
-@param droppedItems Lista dos items no chão
-@param p Posição a verificar
-@returns 1 se existir o item 0 caso contrario
-*/
-int com_droppedItem(CHEST droppedItems[], POSICAO p);
-/**
 \brief Verifica se existem monstros nas coordenadas dadas
 @param e Estado do jogo
 @param p Posição a verificar
@@ -67,10 +68,10 @@ int com_monstros (ESTADO e, POSICAO p);
 */
 int com_chest(ESTADO e, POSICAO p);
 /**
-\brief Verifica se existem items no chão das coordenadas dadas
-@param e Estado do jogo
+\brief Verifica se num certo par de coordenadas existe um item no chão
+@param droppedItems Lista dos items no chão
 @param p Posição a verificar
-@returns 1 se sim 0 caso contrario
+@returns 1 se existir o item 0 caso contrario
 */
 int com_droppedItem(CHEST droppedItems[], POSICAO p);
 /**

@@ -44,8 +44,8 @@ int lightningHasTargets(ESTADO e){
 	found=0;
 	for(i=-2;i<3 && !found;i++){
 		for(j=-2;j<3 && !found;j++){
-			POSICAO new = {e.jog.x+i,e.jog.y+j};
-			if(com_monstros(e,new)){
+			POSICAO newTarget = {e.jog.x+i,e.jog.y+j};
+			if(com_monstros(e,newTarget)){
 				found=1;
 			}
 		}
@@ -160,6 +160,16 @@ void castScroll_Teleport(ESTADO *e){
 	e->jog=itAct2Pos(e->action);
 	e->mp-=SCROLL_COST_TELEPORT;
 }
+int isRepeat(POSICAO targets[], int num_targets, POSICAO newTarget){
+	int i;
+	int repeat=0;
+	for (i = 0; i < num_targets && !repeat; ++i){
+		if(targets[i].x==newTarget.x && targets[i].y==newTarget.y){
+			repeat=1;
+		}
+	}
+	return repeat;
+}
 void castScroll_Lightning(ESTADO *e){
 	POSICAO target = itAct2Pos(e->action);
 	POSICAO targets[(SCROLL_LIGHTNING_DMG/10) + 1];
@@ -172,12 +182,12 @@ void castScroll_Lightning(ESTADO *e){
 		int x,y;
 		for (x = -2; x < 3 && !found; ++x){
 			for (y = -2; y < 3 && !found; ++y){
-				POSICAO new = {target.x+x,target.y+y};
-				if(!elem(targets,num_bolts,new) && com_monstros(*e,new)){
-					hitMonster(e,new,SCROLL_LIGHTNING_DMG - (10*num_bolts));
+				POSICAO newTarget = {target.x+x,target.y+y};
+				if(!isRepeat(targets,num_bolts,newTarget) && com_monstros(*e,newTarget)){
+					hitMonster(e,newTarget,SCROLL_LIGHTNING_DMG - (10*num_bolts));
 					found=1;
-					target = new;
-					targets[num_bolts++]=new;
+					target = newTarget;
+					targets[num_bolts++]=newTarget;
 				}
 			}
 		}

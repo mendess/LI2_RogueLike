@@ -8,6 +8,8 @@ Definição do mapa de ações do jogador
 #define ACT_GOTO_MENU			e.action==0
 /** \brief Ações para aceder aos sub menus de high scores ou ajuda */
 #define ACT_MENU_SCORE_OR_HELP	e.action==54 || e.action==53
+/** \brief Ação para mudar de scoreboard completa para a filtrada e vice-versa */
+#define ACT_TOGGLE_SB_TYPE		e.action==50
 /** \brief Ação para começar o jogo */
 #define ACT_MENU_PLAY			e.action==52
 /** \brief Ação para escolher a classe */
@@ -41,7 +43,7 @@ Definição do mapa de ações do jogador
 /** \brief Ação para o jogador abrir uma chest */
 #define ACT_OPEN_CHEST			e.action>90 && e.action<100
 /** \brief Ação para ligar ou desligar o modo de apagar items do inventário */
-#define ACT_TOGGLE_ITEM_MODE		e.action==80
+#define ACT_TOGGLE_ITEM_MODE	e.action==80
 /** \brief Ação para escolher o alvo de um item complexo */
 #define PICKING_ITEM_TGT		e.action>9999
 
@@ -87,9 +89,10 @@ Definição do mapa de ações do jogador
 	43 -> Use Item 3
 	44 -> Use Item 4
 	45 -> Use Item 5
-	51 -> Go to CharSelect
-	52 -> Go to Help
-	53 -> Go to ScoreBoard
+	50 -> Toggle ScoreBoard Type
+	52 -> Jogar
+	53 -> Go to Help
+	54 -> Go to ScoreBoard
 	61 -> Pick Warrior
 	62 -> Pick Archer
 	63 -> Pick Mage

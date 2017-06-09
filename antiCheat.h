@@ -38,6 +38,12 @@ Se não tem uma parede, ou monstro no caminho
 */
 int validMove(ESTADO e);
 /**
+\brief Verifica se o jogador por usar o teleport menor
+@param e Estado do jogo
+@returns 1 se a jogada for válida 0 se não for
+*/
+int validLesserTeleport(ESTADO e);
+/**
 \brief Verifica se o ataque do jogador é valido
 
 Se tem um monstro para atacar
@@ -61,6 +67,12 @@ Verifica se o item existe
 @returns 1 se a jogada for válida 0 se não for
 */
 int validItemUse(ESTADO e);
+/**
+\brief Verifica se o jogador pode abrir uma chest
+@param e Estado do jogo
+@returns 1 se a jogada for válida 0 se não for
+*/
+int validOpenChest(ESTADO e);
 /**
 \brief Verifica se o jogador está ao alcance do boss para o atacar
 @param e Estado do jogo

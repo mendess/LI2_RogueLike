@@ -15,7 +15,7 @@ void imprimeMainMenu(char *name){
 	FECHAR_LINK;
 
 	ABRIR_RESET_LINK;/* back */
-	printf("<rect x=660 y=540 width=140 height=60 style=opacity:0;></rect>\n");
+	printf("<rect x=740 y=540 width=60 height=60 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
 
 	FECHAR_SVG;

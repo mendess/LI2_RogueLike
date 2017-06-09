@@ -85,7 +85,7 @@ typedef struct estado{
 	/** Mana do jogador */
 	int mp;
 	/** Nome do Jogador */
-	char name[100];
+	char name[14];
 	/** Nivel */
 	int world_lvl;
 	/** Score */

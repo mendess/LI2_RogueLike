@@ -75,9 +75,10 @@ Action map:
 	43 -> Use Item 3
 	44 -> Use Item 4
 	45 -> Use Item 5
-	51 -> Go to CharSelect
-	52 -> Go to Help
-	53 -> Go to ScoreBoard
+	50 -> Toggle ScoreBoard Type
+	52 -> Jogar
+	53 -> Go to Help
+	54 -> Go to ScoreBoard
 	61 -> Pick Warrior
 	62 -> Pick Archer
 	63 -> Pick Mage
@@ -95,5 +96,14 @@ Action map:
 	87 -> Pick up item NE
 	88 -> Pick up item N
 	89 -> Pick up item NW
-
+	91 -> Open chest SE
+	92 -> Open chest S
+	93 -> Open chest SW
+	94 -> Open chest E
+	95 -> Open chest Center
+	96 -> Open chest W
+	97 -> Open chest NE
+	98 -> Open chest N
+	99 -> Open chest NW
+	
 	1XXYY -> usar item nas cordenadas XX e YY
