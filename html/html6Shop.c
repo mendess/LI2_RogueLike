@@ -30,18 +30,23 @@ void imprime_inv_slot_shop(char *name,int item,int i,int isDeletingItems){
 		}
 	}
 }
+void imprime_equipment_shop(int weapon, int armour){		
+	char *itemlist[] = ITEM_LIST;
+	IMAGEM(572,489,TAM,TAM,itemlist[weapon]);
+	IMAGEM(572,539,TAM,TAM,itemlist[armour]);
+}
 void imprime_price(int x, int y, int amount){
 	int digitPos=3;
 	while(amount){
 		int digit = amount % 10;
 		char filepath[15];
 		amount /= 10;
-		sprintf(filepath,"Number%d.png",digit);
+		sprintf(filepath,"Numero_%d.png",digit);
 		IMAGEM(x+(25*digitPos),y,25,25,filepath);
 		digitPos--;
 	}
 }
-void imprime_shop_prices(int lootTable[],int gold){
+void imprime_shop_prices(int lootTable[]){
 	int i;
 	for(i=0;i<LOOT_TABLE_SIZE;i++){
 		int x=45+(197*i);
@@ -50,11 +55,6 @@ void imprime_shop_prices(int lootTable[],int gold){
 		imprime_price(x,y,price);
 	}
 	IMAGEM(400,492,50,50,"goldcoins.png");
-	imprime_price(450,502,gold);
-}
-void imprime_shop_messages(int shopFeedback){
-	char *messages[] = {"Empty","ShopMessage2notEnoughGold.png","ShopMessage3notEnoughSpace.png"};
-	IMAGEM(20,400,150,150,messages[(int) shopFeedback]);
 }
 void imprimeShop(ESTADO e){
 	ABRIR_SVG;
@@ -63,21 +63,23 @@ void imprimeShop(ESTADO e){
 		e.feedback = rand() % 3 + 3;
 	}
 	char *shopScreens[] = SHOP_SCREENS;
-	int i;
 	IMAGEM(0,0,SVG_WIDTH,SVG_HEIGHT,shopScreens[e.feedback]);
+	int i;
 	for (i = 0; i < 4; ++i){
 		imprime_shop_item(e.name,e.lootTable[i],i);
 	}
 	for (i = 0; i < INVT_SIZE; ++i){
 		imprime_inv_slot_shop(e.name,e.bag.inv[i],i,e.isDeletingItems);
 	}
+	imprime_equipment_shop(e.bag.weapon,e.bag.armour);
 
-	char *trashCan[] = {"TrashCan_closed.png","TrashCan_opened.png"};
+	char *trashCan[] = {"button_trashCan_closed.png","button_trashCan_opened.png"};
 	ABRIR_LINK(e.name,"80");
 	IMAGEM(500,539,50,50,trashCan[e.isDeletingItems]);
 	FECHAR_LINK;
 
-	imprime_shop_prices(e.lootTable,e.bag.gold);
+	imprime_shop_prices(e.lootTable);
+	imprime_price(450,502,e.bag.gold);
 
 	ABRIR_LINK(e.name,"5");/* done */
 	printf("<rect x=0 y=540 width=140 height=60 style=opacity:0;></rect>\n");

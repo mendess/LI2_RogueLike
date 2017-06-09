@@ -1,32 +1,35 @@
 #ifndef __HTML5_H__
 #define __HTML5_H__
 
+/**
+@file html5Playing.h
+Definição das funções que imprimem a interface do jogo
+*/
 #include "../colisions.h"
 #include "htmlMaster.h"
 
 #include "html5PlayingSpells.h"
 #include "html5PlayingTips.h"
 
-#define ARCHER_ACTION_MATRIX	{{-1,-1,28,-1,-1},\
+/** \brief Matriz de ações das ações dos ataques à distancia */
+#define RANGED_ACTION_MATRIX	{{-1,-1,28,-1,-1},\
 								 {-1,27,-1,29,-1},\
 								 {24,-1,-1,-1,26},\
 								 {-1,21,-1,23,-1},\
 								 {-1,-1,22,-1,-1},}
-
+/** \brief Lista dos nomes do ficheiro das molduras de jogada */
 #define PLAY_FRAMES		{"Moldura_Movimento.png","Moldura_Ataque.png","Moldura_Lesser_Teleport.png","Moldura_PickUp_Item.png","Moldura_OpenChest.png"}
-
-#define FEEDBACK_MSGS	{"","Hum... I can't cast that!","I can't carry\nmore items!","There are no targets in range!"}
-
+/** \brief Lista das mensagens de erro para quando o jogador tenta fazer algo que não pode */
+#define FEEDBACK_MSGS	{"","Hum... I can't cast that!","Bad idea...\nDrinking that\nwould make me sick","I can't carry\nmore items!","There are no\ntargets in range!"}
+/** \brief Condições para usar o teleport menor */
 #define CAN_USE_LESSER_TELEPORT	e.classe==3 && e.turn % 5 == 0 && e.turn != 0 && e.mp>=LESSER_TP_COST
-
-#define LESSER_TP_COST	10
-
+/** \brief Ações para pedir ajuda sobre um item do inventário */
 #define ACT_HELP_ITEM	e.action>39 && e.action<46
-
+/** \brief Ação para pedir ajuda sobre a arma equipada */
 #define ACT_HELP_SWORD	e.action==46
-
+/** \brief Ação para pedir ajuda sobre a armadura equipada */
 #define ACT_HELP_ARMOUR	e.action==47
-
+/** \brief Ações para pedir ajuda sobre um inimigo */
 #define ACT_HELP_MSTR	e.action>9999
 
 /**
@@ -37,6 +40,7 @@ Valores que a função retorna
 2- S	x==0  ; y==1
 3- SE	x==1  ; y==1
 4- W	x==-1 ; y==0
+5- C	x==0  ; y==0
 6- E	x==1  ; y==0
 7- NW	x==-1 ; y==-1
 8- N	x==0  ; y==-1
@@ -50,12 +54,13 @@ int getDirection(ESTADO e,POSICAO p);
 @param x Coordenada x onde deve começar o texto
 @param y Coordenada y onde deve começar o texto
 @param text String de texto a imprimir
-@param font-size Tamanho em pixels da letra
+@param fontSize Tamanho em pixels da letra
 */
 void imprime_texto(int x, int y, char *text, int fontSize);
 /**
 \brief Imprime a moldura da jogada
-@param p Posição do movimento
+@param p Posição da moldura
+@param moldura Número da moldura
 */
 void imprime_move_frame (POSICAO p, int moldura);
 /**
@@ -63,23 +68,23 @@ void imprime_move_frame (POSICAO p, int moldura);
 @param name Nome do jogador
 @param target Posição da jogada
 @param new_action Nova ação que representa a jogada
-@param moldura Número da imagem que associada à jogada
+@param moldura Número da imagem que associada à moldura
 */
 void imprime_link(char *name, POSICAO target, int new_action, int moldura);
 /**
 \brief Imprime um movimento para as coordenadas dadas
 @param e Estado do jogo
-@param p Posição onde criar o movimento
+@param p Diferencial posição onde criar o movimento relativo ao jogador
 */
-void imprime_move (ESTADO e, POSICAO p);
+void imprime_move (ESTADO e, POSICAO dif);
 /**
-\brief Imprime um ataque ...
+\brief Imprime um ataque à distância
 @param e Estado do jogo
-@param
+@param dif Diferencial posição do ataque à distancia relativo ao jogador
 */
-void imprime_ranged_attack(ESTADO e,POSICAO p);
+void imprime_ranged_attack(ESTADO e,POSICAO dif);
 /**
-\brief Imprime os ataques especiais do arqueiro
+\brief Imprime os ataques à distância
 @param e Estado do jogo
 */
 void imprime_all_ranged_attacks(ESTADO e);
@@ -89,18 +94,21 @@ void imprime_all_ranged_attacks(ESTADO e);
 */
 void imprime_all_moves (ESTADO e);
 /**
-\brief Imprime o jogador
+\brief Imprime o jogador e as suas jogadas possiveis
 @param e Estado do jogo
 */
 void imprime_jogador (ESTADO e);
 /**
 \brief Imprime as chests
-@param e Estado do jogo
+@param chests Lista de chests
+@param num_chests Número de chests
 */
 void imprime_chests(CHEST chests[], int num_chests);
 /**
 \brief Imprime os monstros
+@param jog Posição do jogador
 @param mostros Lista dos mostros
+@param num_monstros Número de monstros
 */
 void imprime_monstros (POSICAO jog, MSTR monstros[], int num_monstros);
 /**
@@ -114,7 +122,7 @@ void imprime_pedras (POSICAO pedras[]);
 */
 void imprime_saida (POSICAO p);
 /**
-\brief Imprime uma casa
+\brief Imprime um quadrado do chão
 @param p Posição a imprimir
 */
 void imprime_casa (POSICAO p);
@@ -130,19 +138,23 @@ void imprime_background (int classe);
 /**
 \brief Imprime a barra que indica a vida do jogador
 @param hp Vida
+@param classe Classe do jogador
 */
 void imprime_hpBar(int hp);
 /**
 \brief Imprime a barra que indica a mana do jogador
 @param mp Mana
+@param classe Classe do jogador
 */
 void imprime_mpBar(int mp, int classe);
 /**
 \brief Imprime o Ecra de fim jogo
+@param name Nome do jogador
 */
 void imprime_gameOverScreen(char *name);
 /**
 \brief Imprime um item do inventario
+@param name Nome do jogador
 @param item Item a ser impresso
 @param i Indice de posição do item
 */
@@ -154,12 +166,13 @@ void imprime_inv_slot(char *name, int item,int i);
 void imprime_equipment(INVT bag);
 /**
 \brief Imprime o inventario do jogador
+@param mode Se está no modo de apagar items (1) ou não (0)
+@param name Nome do jogador
 @param bag Inventario do jogador
 */
 void imprime_inventory(int mode, char *name, INVT bag);
 /**
-\brief Função mestra que chama todas as funções
-de impressão
+\brief Função mestra que chama todas as funções que imprimem a interface do jogo
 @param e Estado do jogo
 */
 void imprimePlaying(ESTADO e);

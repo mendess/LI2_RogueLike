@@ -45,14 +45,23 @@ void imprime_itemDescription(int item){
 	itemType = item > 2  ? 1 : 0;
 	itemType = item > 9  ? 2 : itemType;
 	itemType = item > 13 ? 3 : itemType;
-	printf("<text x=600 y=420 style=\"stroke:#000000\">TYPE: %s</text>\n",ITEM_TP[itemType]);
-	imprime_texto(600, 460, ITEM_DESC[item],17);
+	int itemTier=0;
+	if(item>13){
+		itemTier=item-13;
+	}else if(item>9){
+		itemTier=item-9;
+	}
+	printf("<text x=600 y=410 style=\"stroke:#000000\">TYPE: %s</text>\n",ITEM_TP[itemType]);
+	if(item>9){
+		printf("<text x=600 y=430 style=\"stroke:#000000\">TIER: %d</text>\n",itemTier);
+	}
+	imprime_texto(600, 450, ITEM_DESC[item],17);
 }
 void imprime_monsterDescription(MSTR monstro){
 	int BASE_HPS[]    = {MON_HP_WOLF,MON_HP_BAT,MON_HP_OGRE,MON_HP_ARCHER,MON_HP_DRAGON};
 	char *MSTR_DESC[] = {WOLF_DESC  ,BAT_DESC  ,OGRE_DESC  ,ARCHER_DESC  ,DRAGON_DESC  };
-	printf("<text x=600 y=420 style=\"stroke:#000000\">MAX HP: %d</text>\n",BASE_HPS[monstro.monType]);
-	imprime_texto(600, 440, MSTR_DESC[monstro.monType],15);
+	printf("<text x=600 y=410 style=\"stroke:#000000\">MAX HP: %d</text>\n",BASE_HPS[monstro.monType]);
+	imprime_texto(600, 430, MSTR_DESC[monstro.monType],15);
 }
 void imprime_monsterAttackArea(ESTADO e, MSTR monstro){
 	switch(monstro.monType){

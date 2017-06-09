@@ -6,6 +6,17 @@ void i_cTarget(int type,POSICAO p){
 int cTgt2Int(POSICAO p){
 	return 10000+(p.x*100)+p.y;
 }
+int elem(POSICAO targets[], int num_targets, POSICAO new){
+	int found=0;
+	int i=0;
+	while(!found && i<num_targets){
+		if(targets[i].x==new.x && targets[i].y == new.y){
+			found=1;
+		}
+		i++;
+	}
+	return found;
+}
 int isRepeat(POSICAO *picked,int N,POSICAO p){
 	int i;
 	int repeat=0;
@@ -28,17 +39,19 @@ int nearPlayer(POSICAO jog, POSICAO p){
 	}
 	return near;
 }
-/* RED ZONE */
+// RED ZONE
 void i_castTargetsRed(ESTADO *e){
-	POSICAO castTargets[] = RED_CAST_TARGETS(e->jog);
-	int i;
-	for(i=0;i<37;i++){
-		if(!outOfBounds(castTargets[i]) && !com_pedras(*e,castTargets[i])){
-			char query[4];
-			sprintf(query,"%d",cTgt2Int(castTargets[i]));
-			ABRIR_LINK(e->name,query);
-			i_cTarget(e->complexItem.type,castTargets[i]);
-			FECHAR_LINK;
+	int x,y;
+	for(x=-3;x<4;x++){
+		for(y=-3;y<4;y++){
+			POSICAO p = {e->jog.x + x, e->jog.y +y};
+			if(y<(-1*abs(x)+5) && y>(abs(x)-5) && !outOfBounds(p) && !com_pedras(*e,p)){
+				char query[4];
+				sprintf(query,"%d",cTgt2Int(p));
+				ABRIR_LINK(e->name,query);
+				i_cTarget(e->complexItem.type,p);
+				FECHAR_LINK;
+			}
 		}
 	}
 }
@@ -66,7 +79,7 @@ void i_CastRed(ESTADO *e){
 		}
 	}
 }
-/* YELLOW ZONE */
+// YELLOW ZONE
 void i_castTargetsYellow(ESTADO *e){
 	POSICAO p = e->jog;
 	int pXmax = e->jog.x+3;
@@ -84,8 +97,27 @@ void i_castTargetsYellow(ESTADO *e){
 	}
 }
 void i_confirmCastYellow(ESTADO *e){
-	POSICAO p = itAct2Pos(e->action);
-	CIRCLE((p.x+1)*TAM,(p.y+1)*TAM,TAM/2,"black",0.3,"yellow",1.0,TAM);
+	POSICAO target = itAct2Pos(e->action);
+	POSICAO targets[(SCROLL_LIGHTNING_DMG/10) + 1];
+	int num_bolts=1;
+	targets[0] = target;
+	CIRCLE((target.x+1)*TAM,(target.y+1)*TAM,TAM/2,"black",0.3,"yellow",1.0,TAM);
+	int found;
+	do{
+		found = 0;
+		int x,y;
+		for (x = -2; x < 3 && !found; ++x){
+			for (y = -2; y < 3 && !found; ++y){
+				POSICAO new = {target.x+x,target.y+y};
+				if(!elem(targets,num_bolts,new) && com_monstros(*e,new)){
+					CIRCLE((new.x+1)*TAM,(new.y+1)*TAM,TAM/2,"black",0.3 - (0.1 * num_bolts),"yellow",1.0,TAM);
+					found=1;
+					target = new;
+					targets[num_bolts++]=new;
+				}
+			}
+		}
+	}while(found && SCROLL_LIGHTNING_DMG-(num_bolts*10)>0);
 }
 void i_CastYellow(ESTADO *e){
 	POSICAO p = itAct2Pos(e->action);
@@ -107,9 +139,8 @@ void i_CastYellow(ESTADO *e){
 	}
 	printf("<image x=%d y=%d width=%d height=%d preserveAspectRatio=none transform=\"rotate(%f %d %d)\" xlink:href=%sSpell_Lightning.png />\n",
 			  plrCx*TAM,plrCy*TAM,TAM,height*TAM                                         ,angle,rotX,rotY,  IMAGE_PATH);
-
 }
-/* BLUE ZONE */
+// BLUE ZONE
 void i_castTargetsBlue(ESTADO *e){
 	srand(e->turn);
 	int i=0,placed=0;
@@ -144,15 +175,18 @@ void i_CastBlue(ESTADO *e){
 	POSICAO p = itAct2Pos(e->action);
 	SQUARE(TAM*(p.x+1),TAM*(p.y+1),"black",0.0,"blue",1.0,TAM);
 }
-void imprime_castSpell(ESTADO *e){
+void imprime_castTargets(ESTADO *e){
+	if(e->complexItem.lastPickedTarget>9999){
+		imprime_confirmCast(e);
+	}
 	switch(e->complexItem.type){
-		case 3: i_CastRed(e);
+		case 3: i_castTargetsRed(e);
 				break;
-		case 4: i_CastYellow(e);
+		case 4: i_castTargetsYellow(e);
 				break;
-		/*case 5: i_CastGreen(e):
+		/*case 5: i_castTargetsGree(e);
 				break;*/
-		case 6: i_CastBlue(e);
+		case 6: i_castTargetsBlue(e);
 				break;
 	}
 }
@@ -168,18 +202,15 @@ void imprime_confirmCast(ESTADO *e){
 				break;
 	}
 }
-void imprime_castTargets(ESTADO *e){
-	if(e->complexItem.lastPickedTarget>9999){
-		imprime_confirmCast(e);
-	}
+void imprime_castSpell(ESTADO *e){
 	switch(e->complexItem.type){
-		case 3: i_castTargetsRed(e);
+		case 3: i_CastRed(e);
 				break;
-		case 4: i_castTargetsYellow(e);
+		case 4: i_CastYellow(e);
 				break;
-		/*case 5: i_castTargetsGree(e);
+		/*case 5: i_CastGreen(e):
 				break;*/
-		case 6: i_castTargetsBlue(e);
+		case 6: i_CastBlue(e);
 				break;
 	}
 }

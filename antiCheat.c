@@ -50,7 +50,7 @@ int validItemPickup(ESTADO e){
 	POSICAO p = calcularNovaPosicao(e.jog,e.action-80);
 	return e.screen==5
 		&& !com_monstros(e,p)
-		&& getDroppedItem(e.jog,e.droppedItems,e.action)!=MAX_DROPPED_ITEMS;
+		&& com_droppedItem(e.droppedItems,p);
 }
 int validItemUse(ESTADO e){
 	return e.bag.inv[e.action-40]!=0

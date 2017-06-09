@@ -6,7 +6,7 @@ void imprime_score(int score, int index){
 		int digit = score % 10;
 		char filepath[15];
 		score = score / 10;
-		sprintf(filepath,"Number%d.png",digit);
+		sprintf(filepath,"Numero_%d.png",digit);
 		IMAGEM(680-(33*digitPos),155+(41*index),33,33,filepath);
 		digitPos++;
 	}

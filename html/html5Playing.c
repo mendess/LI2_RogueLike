@@ -16,7 +16,7 @@ int getDirection(ESTADO e,POSICAO p){
 void imprime_texto(int x, int y, char *text, int fontSize){
 	int i=0;
 	int lineNumber=0;
-	printf("<text x=%d y=%d style=\"font-size:%dpx\";>\n",x,y,fontSize);
+	printf("<text x=%d y=%d style=\"font-size:%dpx\">\n",x,y,fontSize);
 	while(text[i]){
 		char line[50];
 		int lineI=0;
@@ -41,16 +41,16 @@ void imprime_link(char *name, POSICAO target, int new_action, int moldura){
 	imprime_move_frame(target,moldura);
 	FECHAR_LINK;
 }
-void imprime_move(ESTADO e, POSICAO p){
+void imprime_move(ESTADO e, POSICAO dif){
 	int new_action;
-	e.jog.x += p.x;
-	e.jog.y += p.y;
-	if(com_saida(e,e.jog) && !com_monstros(e,p)){
+	e.jog.x += dif.x;
+	e.jog.y += dif.y;
+	if(com_saida(e,e.jog) && !com_monstros(e,e.jog)){
 		new_action=5;
 	}else{
-		new_action=getDirection(e,p);
+		new_action=getDirection(e,dif);
 	}
-	if ((!outOfBounds(e.jog) && !com_pedras(e,e.jog)) && (p.x!=p.y || com_droppedItem(e.droppedItems,e.jog))){
+	if ((!outOfBounds(e.jog) && !com_pedras(e,e.jog)) && (dif.x!=dif.y || com_droppedItem(e.droppedItems,e.jog))){
 		int mold;
 		mold = new_action > 10 ? 1 : 0;
 		mold = new_action > 80 ? 3 : mold;
@@ -63,7 +63,7 @@ void imprime_ranged_attack(ESTADO e,POSICAO dif){
 	pos.x=dif.x+e.jog.x;
 	pos.y=dif.y+e.jog.y;
 	if(!outOfBounds(pos) && com_monstros(e,pos)){
-		int actions[5][5] = ARCHER_ACTION_MATRIX;
+		int actions[5][5] = RANGED_ACTION_MATRIX;
 		int new_action=actions[dif.y+2][dif.x+2];
 		imprime_link(e.name,pos,new_action,1);
 	}
@@ -84,7 +84,7 @@ void imprime_lesser_teleport(ESTADO e){
 		for (dif.y = -1; dif.y < 2; dif.y++){
 			if(abs(dif.x)!=abs(dif.y)){
 				POSICAO pos = {e.jog.x + dif.x*3,e.jog.y + dif.y*3};
-				if(!outOfBounds(pos) && !com_pedras(e,pos) && !com_monstros(e,pos) && !com_saida(e,pos)){
+				if(!outOfBounds(pos) && !com_pedras(e,pos) && !com_monstros(e,pos) && !com_saida(e,pos) && !com_chest(e,pos)){
 					int new_action = 30 + getDirection(e,dif);
 					imprime_link(e.name,pos,new_action,2);
 				}
@@ -109,8 +109,11 @@ void imprime_all_moves(ESTADO e){
 	}
 }
 void imprime_jogador (ESTADO e){
-	char *dir[] = {"Jogador_Viking_Right.png","Jogador_Viking_Left.png"};
-	IMAGEM(TAM*(e.jog.x+1),TAM*(e.jog.y+1),TAM,TAM,dir[(int) e.direction]);
+	char *dir[] = {"Right.png","Left.png"};
+	char *classe[] = {"","Warrior","Archer","Mage"};
+	char plrImg[30];
+	sprintf(plrImg,"Jogador_%s_%s",classe[e.classe],dir[e.direction]);
+	IMAGEM(TAM*(e.jog.x+1),TAM*(e.jog.y+1),TAM,TAM,plrImg);
 	if(!e.isDeletingItems && !e.isInIngameHelp){
 		if(e.complexItem.isBeingUsed){
 			imprime_castTargets(&e);
@@ -180,7 +183,7 @@ void imprime_chao(){
 }
 void imprime_background (int classe){
 	char *background[] = {"Ingame_Viking.png","Ingame_Archer.png","Ingame_Mage.png"};
-	IMAGEM(0,0,SVG_WIDTH,SVG_HEIGHT,background[(int) classe-1]);
+	IMAGEM(0,0,SVG_WIDTH,SVG_HEIGHT,background[classe-1]);
 }
 void imprime_hpBar(int hp){
 	IMAGEM(600,10,200,50,"BarHealthIcon.png");
@@ -221,7 +224,7 @@ void imprime_gold(int x, int y, int amount){
 		int digit = amount % 10;
 		char filepath[15];
 		amount /= 10;
-		sprintf(filepath,"Number%d.png",digit);
+		sprintf(filepath,"Numero_%d.png",digit);
 		IMAGEM(x+(25*digitPos),y,25,25,filepath);
 		digitPos--;
 	}
@@ -242,9 +245,9 @@ void imprime_inventory(int mode,char *name,INVT bag){
 	imprime_gold(660,225,bag.gold);
 }
 void imprime_feedback(int feedback){
-	IMAGEM(595,400,200,150,"ScreenFeedback.png");
+	IMAGEM(595,390,200,150,"ScreenFeedback.png");
 	char *feedbackMessages[] = FEEDBACK_MSGS;
-	imprime_texto(600, 480, feedbackMessages[feedback],17);
+	imprime_texto(600, 470, feedbackMessages[feedback],17);
 }
 void imprime_ingameHelp(ESTADO e){
 	imprime_helpButton(e.name);
@@ -270,36 +273,37 @@ void imprime_ingameHelp(ESTADO e){
 void imprimePlaying(ESTADO e){
 	ABRIR_SVG;
 
-	srand(e.pedras[0].x);
-	imprime_background(e.classe);
-	imprime_chao();
-	imprime_saida(e.saida);
-	imprime_pedras(e.pedras);
-	imprime_droppedItems(e.droppedItems);
-	imprime_chests(e.chests,e.num_chests);
-	if(e.isInBossBattle){
-		//imprime_boss(e);
-	}else{
-		imprime_monstros(e.jog,e.monstros,e.num_monstros);
-	}
-	imprime_hpBar(e.hp);
-	imprime_mpBar(e.mp,e.classe);
-	imprime_inventory(e.isDeletingItems,e.name,e.bag);
-	imprime_jogador(e);
-	imprime_feedback(e.feedback);
-	imprime_ingameHelp(e);
 	if(e.hp<1){
 		imprime_gameOverScreen(e.name);
-	}
+	}else{
+		srand(e.pedras[0].x);
+		imprime_background(e.classe);
+		imprime_chao();
+		imprime_saida(e.saida);
+		imprime_pedras(e.pedras);
+		imprime_droppedItems(e.droppedItems);
+		imprime_chests(e.chests,e.num_chests);
+		if(e.isInBossBattle){
+			//imprime_boss(e);
+		}else{
+			imprime_monstros(e.jog,e.monstros,e.num_monstros);
+		}
+		imprime_hpBar(e.hp);
+		imprime_mpBar(e.mp,e.classe);
+		imprime_inventory(e.isDeletingItems,e.name,e.bag);
+		imprime_jogador(e);
+		imprime_feedback(e.feedback);
+		imprime_ingameHelp(e);
 
-	ABRIR_LINK(e.name,"0");/* back */
-	printf("<rect x=660 y=540 width=140 height=60 style=opacity:0;></rect>\n");
-	FECHAR_LINK;
+		ABRIR_LINK(e.name,"0");/* back */
+		printf("<rect x=660 y=540 width=140 height=60 style=opacity:0;></rect>\n");
+		FECHAR_LINK;		
+	}
 
 	FECHAR_SVG;
 
 	#ifdef DEBUG
-	printf("<p>hp:%d  mp:%d  world_lvl:%d  score:%d  turn:%d  LootTable[%d,%d,%d,%d] jog.x:%x jog.y:%d drops[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]</p>\n",
+	printf("<p>hp:%d  mp:%d  world_lvl:%d  score:%d  turn:%d  LootTable[%d,%d,%d,%d] jog.x:%x jog.y:%d drops[%d,%d,%d,%d,%d,%d,%d]</p>\n",
 			e.hp,
 			e.mp,
 			e.world_lvl,
@@ -317,12 +321,7 @@ void imprimePlaying(ESTADO e){
 			e.droppedItems[3].item,
 			e.droppedItems[4].item,
 			e.droppedItems[5].item,
-			e.droppedItems[6].item,
-			e.droppedItems[7].item,
-			e.droppedItems[8].item,
-			e.droppedItems[9].item,
-			e.droppedItems[10].item,
-			e.droppedItems[11].item);
+			e.droppedItems[6].item);
 	printf("<p>isBeingUsed:%d  type:%d  lastPickedTarget:%d  isBeingCast:%d | isInIngameHelp:%d</p>\n",
 			e.complexItem.isBeingUsed,
 			e.complexItem.type,

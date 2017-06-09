@@ -22,6 +22,8 @@
 #define INVT_SIZE       	6
 /** \brief Número maximo de items que um nível pode ter no chão */
 #define MAX_DROPPED_ITEMS	LOOT_TABLE_SIZE+MAX_CHESTS
+/** \brief Custo do teleport menor */
+#define LESSER_TP_COST	10
 
 /** \brief Estrutura que armazena uma posição */
 typedef struct posicao{

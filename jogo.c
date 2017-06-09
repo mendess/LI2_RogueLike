@@ -34,7 +34,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 	}
 	if(ACT_LESSER_TELEPORT){
 		e.jog=calcularLesserTeleport(e.jog,e.action);
-		e.mp-=5;
+		e.mp-=LESSER_TP_COST;
 	}
 	if(ACT_ATACK){/* ataque normal */
 		e=calcularCombate(e);
