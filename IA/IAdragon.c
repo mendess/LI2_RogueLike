@@ -71,7 +71,6 @@ ESTADO dragon_movement0 (ESTADO e){
 	}
 	return e;
 }
-// 1-fireball;2-wingAttack;3-fireCone
 ESTADO estrat_dragon0 (ESTADO e){
 	if(e.dragon.pos.x>9){
 		e.dragon.pos.x=4;
@@ -108,7 +107,6 @@ ESTADO estrat_dragon0 (ESTADO e){
     }
 	return e;
 }
-
 ESTADO fireCone1(ESTADO e){
 	if(e.jog.x>=(e.dragon.pos.x+1)+((((e.jog.y-1)-e.dragon.pos.y)/2)-1) && e.jog.x<=(e.dragon.pos.x+2)-(((e.jog.y-1)-e.dragon.pos.y)/2)-1 && e.jog.y<e.dragon.pos.y) {
 		e=ataca_jogador(e,8);
@@ -175,7 +173,7 @@ ESTADO estrat_dragon1 (ESTADO e){
 	if(e.dragon.pos.x>9){
 		e.dragon.pos.x=4;
 		e.dragon.pos.y=6;
-		e.dragon.attack=0;<
+		e.dragon.attack=0;
 	}
 	if(e.dragon.hp>0){
 		if(e.jog.y>=(e.dragon.pos.y)){
