@@ -99,6 +99,8 @@ typedef struct dragao{
 	POSICAO pos;
 	/** Guarda a vida do dragão */
 	int hp;
+	/** Poison counter */
+	int poison;
 }BOSS;
 
 /** \brief Estrutura que guarda o estado do jogo */

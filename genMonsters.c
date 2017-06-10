@@ -7,6 +7,7 @@ ESTADO genBoss(ESTADO e){
 	e.dragon.attack = 0;
 	e.dragon.num_fireballs = 0;
 	e.dragon.hp = MON_HP_DRAGON;
+	e.dragon.poison = 0;
 	return e;
 }
 ESTADO genBossBattle(ESTADO e){
@@ -43,6 +44,7 @@ ESTADO placeMonster(ESTADO e, int type){
 			e.monstros[e.num_monstros].y=p.y;
 			e.monstros[e.num_monstros].monType=type;
 			e.monstros[e.num_monstros].hp=getMonsterHP(e.monstros[e.num_monstros].monType);
+			e.monstros[e.num_monstros].poison=0;
 		}
 	}
 	e.num_monstros++;

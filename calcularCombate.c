@@ -86,12 +86,10 @@ int hitMonster(ESTADO *e, POSICAO target, int dmg){
 			e->dragon.hp-=dmg;
 			if(e->dragon.hp<1){
 				dropItemFromDragon(e->lootTable,e->droppedItems,e->dragon.pos);
-				if(e->jog.x!=2 && e->jog.y!=0){
-					e->saida.x=0;
-				}else{
-					e->saida.x=3;
-				}
-				e->saida.y=2;
+				do{
+					e->saida.x= rand() % SIZE;
+					e->saida.y= rand() % SIZE;
+				}while(!pos_completamente_livre(*e,e->saida.x,e->saida.y));
 			}
 			isHit=1;
 		}else{
@@ -128,12 +126,19 @@ ESTADO calcularCombate(ESTADO e){
 }
 
 void poison_monstros(ESTADO *e){
-	int i;
-	for(i=0;i<e->num_monstros;i++){
-		if(e->monstros[i].poison){
-			POSICAO target = {e->monstros[i].x,e->monstros[i].y};
-			e->monstros[i].poison--;
-			hitMonster(e,target,POISON_DMG);
+	if(e->isInBossBattle){
+		if(e->dragon.poison){
+			e->dragon.poison--;
+			hitMonster(e,e->dragon.pos,POISON_DMG);
+		}
+	}else{
+		int i;
+		for(i=0;i<e->num_monstros;i++){
+			if(e->monstros[i].poison){
+				POSICAO target = {e->monstros[i].x,e->monstros[i].y};
+				e->monstros[i].poison--;
+				hitMonster(e,target,POISON_DMG);
+			}
 		}
 	}
 }
