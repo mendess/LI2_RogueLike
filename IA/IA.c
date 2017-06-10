@@ -177,28 +177,33 @@ ESTADO iaMoves (ESTADO e,int i){
 ESTADO move_monstros (ESTADO e){
    POSICAO p,q;
    int i;
-   q=quemAtaca(e);
-   srandom(time(NULL));
-   for (i=0;i<e.num_monstros;i++){
-        if(i==q.x || i== q.y){
-           e=iaMoves(e,i);
-        }
-        if(i!=q.x && i!= q.y){
-          p.x=e.monstros[i].x;
-          p.y=e.monstros[i].y;
-          if(e.monstros[i].monType == 0){// por 0
-            e=acao_wolf(e,i,p);
+   if(e.isInBossBattle==1){
+      e=estrat_dragon(e);
+   }
+   else{
+     q=quemAtaca(e);
+     srandom(time(NULL));
+     for (i=0;i<e.num_monstros;i++){
+          if(i==q.x || i== q.y){
+             e=iaMoves(e,i);
           }
-        	if(e.monstros[i].monType == 1){
-            e=acao_bat(e,i,p);
-        	} 
-         if(e.monstros[i].monType == 2 && (e.turn%2 == 0)){
-   	    	  e=estrat_ogre(e,i,p);
-         }
-         if(e.monstros[i].monType == 3){// por 3
-            e=acao_archer(e,i,p);
-         }
-        }
-  }
+          if(i!=q.x && i!= q.y){
+            p.x=e.monstros[i].x;
+            p.y=e.monstros[i].y;
+            if(e.monstros[i].monType == 0){// por 0
+              e=acao_wolf(e,i,p);
+            }
+            if(e.monstros[i].monType == 1){
+              e=acao_bat(e,i,p);
+           	} 
+            if(e.monstros[i].monType == 2 && (e.turn%2 == 0)){
+   	     	    e=estrat_ogre(e,i,p);
+            }
+            if(e.monstros[i].monType == 3){// por 3
+              e=acao_archer(e,i,p);
+            }
+          }
+     }
+   }
   return e;
 }
