@@ -326,17 +326,34 @@ void imprimePlaying(ESTADO e){
 			e.droppedItems[4].item,
 			e.droppedItems[5].item,
 			e.droppedItems[6].item);
+	if(e.isInBossBattle){
+		printf("<p>Dragon: attack:%d  num_fireballs:%d  firebalCent[(%d,%d),(%d,%d),(%d,%d),(%d,%d)] x:%d y:%d hp:%d</p>\n",
+			e.dragon.attack,
+			e.dragon.num_fireballs,
+			e.dragon.fireballCenters[0].x,
+			e.dragon.fireballCenters[0].y,
+			e.dragon.fireballCenters[1].x,
+			e.dragon.fireballCenters[1].y,
+			e.dragon.fireballCenters[2].x,
+			e.dragon.fireballCenters[2].y,
+			e.dragon.fireballCenters[3].x,
+			e.dragon.fireballCenters[3].y,
+			e.dragon.pos.x,
+			e.dragon.pos.y,
+			e.dragon.hp);
+	}else{
+		int x;
+		printf("<p>");
+		for(x=0;x<e.num_monstros;x++){
+			printf("| x:%d y:%d hp:%d |", e.monstros[x].x,e.monstros[x].y,e.monstros[x].hp);
+		}
+		printf("</p>");
+	}
 	printf("<p>isBeingUsed:%d  type:%d  lastPickedTarget:%d  isBeingCast:%d | isInIngameHelp:%d</p>\n",
 			e.complexItem.isBeingUsed,
 			e.complexItem.type,
 			e.complexItem.lastPickedTarget,
 			e.complexItem.isBeingCast,
 			e.isInIngameHelp);
-	int x;
-	printf("<p>");
-	for(x=0;x<e.num_monstros;x++){
-		printf("| x:%d y:%d hp:%d |", e.monstros[x].x,e.monstros[x].y,e.monstros[x].hp);
-	}
-	printf("</p>");
 	#endif
 }
