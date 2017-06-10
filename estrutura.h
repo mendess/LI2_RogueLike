@@ -90,7 +90,7 @@ typedef struct dragao{
 	/** Guarda, se o proximo ataque for "fireball", o número de fireballs */
 	int num_fireballs;
 	/** Guarda, se o proximo ataque for "fireball", as posições das mesmas */
-	POSICAO fireballCenters[4];
+	POSICAO fireballCenters[8];
 	/** Guarda a posição do dragao */
 	POSICAO pos;
 	/** Guarda a vida do dragão */

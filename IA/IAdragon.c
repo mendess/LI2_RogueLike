@@ -9,13 +9,13 @@ ESTADO fireCone(ESTADO e){
 ESTADO Wing_attack (ESTADO e){
 	if(e.jog.x>=1 && e.jog.x<=8 && e.jog.y>=e.dragon.pos.y+4 && e.jog.y<=e.dragon.pos.y+7){
 		e.hp-=10;
-	}
-	if(e.jog.y+3<10){
-		e.jog.y+=3;
-	}
-	if(e.jog.y+3>9){
-		e.jog.y=9;
-	}
+    	if(e.jog.y+3<10){
+	    	e.jog.y+=3;
+    	}
+    	if(e.jog.y+3>9){
+		    e.jog.y=9;
+    	}
+    }
 	return e;
 }
 ESTADO fireball_damage (ESTADO e){
@@ -61,7 +61,7 @@ ESTADO dragon_movement (ESTADO e){
 	if(e.dragon.attack==2 && abs(e.jog.y-p.y)==1 && p.y>0){
 		e.dragon.pos.y-=1;
 	}
-	if(e.dragon.attack==2 && abs(e.jog.y-p.y)>3){
+	if(e.dragon.attack==2 && abs(e.jog.y-p.y)>3 && p.y){
 		e.dragon.pos.y+=1;
 	}
 	if(p.y>3){
