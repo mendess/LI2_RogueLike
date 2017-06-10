@@ -72,7 +72,7 @@ int com_droppedItem(CHEST droppedItems[], POSICAO p){
 	return foundItem;
 }
 int com_boss(ESTADO e, POSICAO p){
-	return (e.isInBossBattle &&
+	return (e.isInBossBattle && e.dragon.hp>0 &&
 			p.x>=e.dragon.pos.x && p.x<=e.dragon.pos.x+3 &&
 			p.y>=e.dragon.pos.y && p.y<=e.dragon.pos.y+2   );
 }

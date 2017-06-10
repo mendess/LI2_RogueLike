@@ -46,7 +46,7 @@ void i_fireCone(ESTADO e){
 				if(e.turn % 2){
 					IMAGEM_FORMATED(tmp.x,tmp.y,TAM,TAM,"Spell_Warning.png");
 				}else{
-					IMAGEM_FORMATED(tmp.x,tmp.y,TAM,TAM,"Spell_Warning.png");
+					IMAGEM_FORMATED(tmp.x,tmp.y,TAM,TAM,"Spell_Fire.png");
 				}
 			}
 		}
