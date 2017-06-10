@@ -94,10 +94,11 @@ ESTADO calcularNovoEstado(ESTADO e){
 	if(ACT_OPEN_CHEST){
 		openChest(&e);
 	}
+	
+	e.turn++;
 
 	e=move_monstros(e);
 
-	e.turn++;
 
 	if(e.hp<1){
 		e.hp=0;
