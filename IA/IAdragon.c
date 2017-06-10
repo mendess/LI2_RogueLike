@@ -45,23 +45,26 @@ ESTADO fireball_attack (ESTADO e){
 }
 ESTADO dragon_movement (ESTADO e){
 	int flag=1;
-	if (e.jog.x<=e.dragon.pos.x+1 && e.dragon.pos.x>0){
+	POSICAO p;
+	p.x=e.dragon.pos.x;
+	p.y=e.dragon.pos.y;
+	if (e.jog.x<=p.x+1 && p.x>0){
 		e.dragon.pos.x-=1;
 		flag=0;
 	}
-	if(flag && e.jog.x>=e.dragon.pos.x+2 && e.dragon.pos.x+3<9){
+	if(flag && e.jog.x>=p.x+2 && p.x+3<9){
 		e.dragon.pos.x+=1;
 	}
-	if(e.dragon.attack==1 && abs(e.jog.y-e.dragon.pos.y)>=1){
-  e.dragon.pos.y+=1;
+	if(e.dragon.attack==1 && abs(e.jog.y-p.y)>=1){
+        e.dragon.pos.y+=1;
 	}
-	if(e.dragon.attack==2 && abs(e.jog.y-e.dragon.pos.y)==1 && e.dragon.pos.y>0){
+	if(e.dragon.attack==2 && abs(e.jog.y-p.y)==1 && p.y>0){
 		e.dragon.pos.y-=1;
 	}
-	if(e.dragon.attack==2 && abs(e.jog.y-e.dragon.pos.y)>3){
+	if(e.dragon.attack==2 && abs(e.jog.y-p.y)>3){
 		e.dragon.pos.y+=1;
 	}
-	if(e.dragon.pos.y>3){
+	if(p.y>3){
 		e.dragon.pos.y-=1;
 	}
 	return e;
