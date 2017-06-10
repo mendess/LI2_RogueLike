@@ -5,7 +5,7 @@
 #include "IAbat.h"
 
 int livre (ESTADO e,int x,int y){
-	int i,flag;
+	int flag;
 	POSICAO pos;
 	pos.x=x;
 	pos.y=y;
@@ -13,11 +13,7 @@ int livre (ESTADO e,int x,int y){
 	if(inBounds(pos)!=1){
 		flag=0;
 	}
-	for(i=0;i<e.num_monstros;i++){
-		if (flag && (e.monstros[i].x==pos.x && e.monstros[i].y==pos.y)){
-			flag=0;
-		}
-	}
+	if(com_monstros(e,pos)) flag=0;
 	return flag;
 }
 POSICAO buscaBat1 (ESTADO e,int a[SIZE][SIZE]){

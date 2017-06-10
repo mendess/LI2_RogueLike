@@ -39,7 +39,7 @@ ESTADO fireball_attack (ESTADO e){
 		do{
 			b.x=(rand() % 10);
 			b.y=(rand() % 10);
-		}while(outOfBounds(b) || com_boss(e,b) || b.y<y);	//b1<y||b1>y+3||(b2<e.jog.x-2)|| b2>(e.jog.x+2)|| b2>9 || b2<0);
+		}while(outOfBounds(b) || com_boss(e,b) || b.y<=y);	//b1<y||b1>y+3||(b2<e.jog.x-2)|| b2>(e.jog.x+2)|| b2>9 || b2<0);
 		e.dragon.fireballCenters[x].x=b.x;
 		e.dragon.fireballCenters[x].y=b.y;
 	}
@@ -49,7 +49,7 @@ ESTADO dragon_movement (ESTADO e){
 	int flag=1;
 	POSICAO p;
 	p.x=e.dragon.pos.x;
-	p.y=e.dragon.pos.y;
+	p.y=e.dragon.pos.y+2;
 	if (e.jog.x<=p.x+1 && p.x>0){
 		e.dragon.pos.x-=1;
 		flag=0;
@@ -57,16 +57,16 @@ ESTADO dragon_movement (ESTADO e){
 	if(flag && e.jog.x>=p.x+2 && p.x+3<9){
 		e.dragon.pos.x+=1;
 	}
-	if(e.dragon.attack==1 && p.y<(e.jog.y-3)){
+	if(e.dragon.attack==1 && p.y<(e.jog.y-1)){
 		e.dragon.pos.y+=1;
 	}
-	if(e.dragon.attack==2 && abs(e.jog.y-p.y)==1 && p.y>0){
+	if(e.dragon.attack==2 && abs(e.jog.y-p.y)==1 && (p.y-2)>0){
 		e.dragon.pos.y-=1;
 	}
-	if(e.dragon.attack==2 && abs(e.jog.y-p.y)>3){
+	if(e.dragon.attack==2 && abs(e.jog.y-p.y)>2){
 		e.dragon.pos.y+=1;
 	}
-	if(p.y>1){
+	if((p.y-2)>1){
 		e.dragon.pos.y-=1;
 	}
 	return e;
