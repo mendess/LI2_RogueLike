@@ -30,10 +30,12 @@ ESTADO fireball_damage (ESTADO e){
 ESTADO fireball_attack (ESTADO e){
 	int i,x,y;
 	y=e.dragon.pos.y+3;// minimo
-	i=(rand() % 7)+1;
+	i=(rand() % 8)+8;
 	e.dragon.num_fireballs=i;
 	POSICAO b;
-	for(x=0;x<i;x++){
+	e.dragon.fireballCenters[0].x=e.jog.x;
+	e.dragon.fireballCenters[0].y=e.jog.y;
+	for(x=1;x<i;x++){
 		do{
 			b.x=(rand() % 10);
 			b.y=(rand() % 10);
