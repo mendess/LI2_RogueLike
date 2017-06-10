@@ -18,16 +18,16 @@ int poslivre(ESTADO e, POSICAO p){
 	return flag;
 }
 ESTADO ataca_jogador(ESTADO e,int i){
-	if(e.bag.armor==ARMOUR_BRONZE){
+	if(e.bag.armour==ARMOUR_BRONZE){
 		e.hp-=(i*0.9);
 	}
-	if(e.bag.armor==ARMOUR_IRON){
+	if(e.bag.armour==ARMOUR_IRON){
 		e.hp-=(i*0.75);
 	}
-	if(e.bag.armor==ARMOUR_STEEL){
+	if(e.bag.armour==ARMOUR_STEEL){
 		e.hp-=(i*0.65);
 	}
-	if(e.bag.armor==ARMOUR_PALLADIUM){
+	if(e.bag.armour==ARMOUR_PALLADIUM){
 		e.hp-=(i*0.5);
 	}
 	else e.hp-=i;

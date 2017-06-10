@@ -38,7 +38,7 @@ int poslivre(ESTADO e, POSICAO p);
 @param e Estado do jogo
 @param i dano que o monstro causa
 */
-void ataca_jogador(ESTADO e,int i);
+ESTADO ataca_jogador(ESTADO e,int i);
 /**
 \brief Verifica se o jogador pode ser atacado.
 Serve para morcegos e para lobos.
