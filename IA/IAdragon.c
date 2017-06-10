@@ -28,20 +28,21 @@ ESTADO fireball_damage (ESTADO e){
 	return e;
 }
 ESTADO fireball_attack (ESTADO e){
-   int i,x,y,b1,b2;
-   y=e.dragon.pos.y+3;// minimo
-   i=(rand() % 7)+1;
-   e.dragon.num_fireballs=i;
-   for(x=0;x<i;x++){
-     do{
-     	 b1=(rand() % 10);
-     	 b2=(rand() % 10);
-     }while(b1<y||b1>y+3||(b2<e.jog.x-2)|| b2>(e.jog.x+2)|| b2>9 || b2<0);
-     e.dragon.fireballCenters[x].x=b2;
-     e.dragon.fireballCenters[x].y=b1;
-   }
-   e=fireball_damage(e);
-   return e;
+	int i,x,y;
+	y=e.dragon.pos.y+3;// minimo
+	i=(rand() % 7)+1;
+	e.dragon.num_fireballs=i;
+	POSICAO b;
+	for(x=0;x<i;x++){
+		do{
+			b.x=(rand() % 10);
+			b.y=(rand() % 10);
+		}while(outOfBounds(b) || com_boss(e,b));	//b1<y||b1>y+3||(b2<e.jog.x-2)|| b2>(e.jog.x+2)|| b2>9 || b2<0);
+		e.dragon.fireballCenters[x].x=b.x;
+		e.dragon.fireballCenters[x].y=b.y;
+	}
+	e=fireball_damage(e);
+	return e;
 }
 ESTADO dragon_movement (ESTADO e){
 	int flag=1;
@@ -56,7 +57,7 @@ ESTADO dragon_movement (ESTADO e){
 		e.dragon.pos.x+=1;
 	}
 	if(e.dragon.attack==1 && abs(e.jog.y-p.y)>=1){
-        e.dragon.pos.y+=1;
+		e.dragon.pos.y+=1;
 	}
 	if(e.dragon.attack==2 && abs(e.jog.y-p.y)==1 && p.y>0){
 		e.dragon.pos.y-=1;
@@ -73,19 +74,19 @@ ESTADO dragon_movement (ESTADO e){
 ESTADO estrat_dragon (ESTADO e){
 	e=dragon_movement(e);
 	if(e.turn%2!=0){
-   	srand(time(NULL));
-   	e.dragon.attack=(rand() % 3)+1;
- }
- if(e.turn !=0 && e.turn%2==0){
- 	if(e.dragon.attack==1){
-      	e=fireball_attack(e);
-    }
-    if(e.dragon.attack==2){
-      	e=Wing_attack(e);
-    }
-    if(e.dragon.attack==3){
-       e=fireCone(e);
-    }
- }
- return e;
+	srand(time(NULL));
+	e.dragon.attack=(rand() % 3)+1;
+	}
+	if(e.turn !=0 && e.turn%2==0){
+		if(e.dragon.attack==1){
+			e=fireball_attack(e);
+		}
+		if(e.dragon.attack==2){
+			e=Wing_attack(e);
+		}
+		if(e.dragon.attack==3){
+			e=fireCone(e);
+		}
+	}
+	return e;
 }
