@@ -48,27 +48,6 @@ void i_fireCone(ESTADO e){
 			}
 		}
 	}
-
-	/*int linha=1;
-	int flag=0;
-	POSICAO startingP = {e.dragon.pos.x+2,e.dragon.pos.y+2};
-	while((startingP.y+linha)<SIZE){
-		int i;
-		for(i=0;i<lineSize*2;i++){
-			POSICAO tmp = {startingP.x-linha+i,startingP.y+linha};
-			if(!outOfBounds(tmp)){
-				if(e.turn % 2){
-					IMAGEM_FORMATED(tmp.x,tmp.y,TAM,TAM,"Spell_Warning.png");
-				}else{
-					IMAGEM_FORMATED(tmp.x,tmp.y,TAM,TAM,"Spell_Fire.png");
-				}
-			}
-		}
-		linha++;
-		if(flag=!flag){
-			lineSize++;
-		}
-	}*/
 }
 void imprime_boss(ESTADO e){
 	if(e.dragon.hp>0){
