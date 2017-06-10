@@ -25,6 +25,7 @@ typedef struct score{
 
 /**
 \brief Adiciona um elemeto á lista ligada de scoreboards
+@param scB Lista de scores
 @param name Nome do jogador
 @param score Score do jogador
 */
