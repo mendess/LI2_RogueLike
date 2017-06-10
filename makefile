@@ -29,6 +29,7 @@ doc:
 clean:
 	rm -rf *.o roguel install
 	(cd html;make clean)
+	(cd IA;make clean)
 
 hardclean:
 	sudo rm -r /var/www/html/*
