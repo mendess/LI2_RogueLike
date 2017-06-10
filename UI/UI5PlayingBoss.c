@@ -16,7 +16,7 @@ void i_fireballs(ESTADO e){
 	}
 }
 void i_wingAttack(ESTADO e){
-	POSICAO p = {e.dragon.pos.x-3,e.dragon.pos.y+3};
+	POSICAO p = {e.dragon.pos.x-2,e.dragon.pos.y+4};
 	while(p.x<0){
 		p.x++;
 	}
@@ -27,7 +27,7 @@ void i_wingAttack(ESTADO e){
 	if(e.turn % 2){
 		int x,y;
 		for(x=p.x;x<p.x+width;x++){
-			for(y=p.y;y<2;y++){
+			for(y=p.y;y<p.y+2;y++){
 				IMAGEM_FORMATED(x,y,TAM,TAM,"Spell_Warning.png");
 			}
 		}
@@ -39,7 +39,7 @@ void i_fireCone(ESTADO e){
 	int x,y;
 	for(x=0;x<SIZE;x++){
 		for(y=0;y<SIZE;y++){
-			if(x>=((e.dragon.pos.x+1)-(((y-e.dragon.pos.y)/2)-2)) && x<=((e.dragon.pos.x+2)+((y-e.dragon.pos.y)/2)-2) && y>e.dragon.pos.y) {
+			if(x>=((e.dragon.pos.x+1)-(((y-e.dragon.pos.y)/2)-2)) && x<=((e.dragon.pos.x+2)+((y-e.dragon.pos.y)/2)-2)) {
 				if(e.turn % 2){
 					IMAGEM_FORMATED(x,y,TAM,TAM,"Spell_Warning.png");
 				}else{
