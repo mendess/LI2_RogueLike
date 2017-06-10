@@ -56,7 +56,7 @@ ESTADO dragon_movement (ESTADO e){
 	if(flag && e.jog.x>=p.x+2 && p.x+3<9){
 		e.dragon.pos.x+=1;
 	}
-	if(e.dragon.attack==1 && abs(e.jog.y-p.y)>=1){
+	if(e.dragon.attack==1 && abs(e.jog.y-p.y)>1){
 		e.dragon.pos.y+=1;
 	}
 	if(e.dragon.attack==2 && abs(e.jog.y-p.y)==1 && p.y>0){
