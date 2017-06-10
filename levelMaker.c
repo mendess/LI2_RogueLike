@@ -20,7 +20,6 @@ ESTADO colocar_pedra (ESTADO e, int pathSize, POSICAO path[]){
 	}
 	return e;
 }
-
 ESTADO colocar_monstro (ESTADO e){
 	POSICAO p;
 	int placed=0, i=0;
@@ -159,7 +158,6 @@ ESTADO inicializar(ESTADO e){
 	initDroppedItems(e.droppedItems); /* Limpa o chão de items */
 	return e;
 }
-
 ESTADO newLevel(ESTADO e){
 
 	POSICAO path[MAX_CAMINHO];

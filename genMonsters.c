@@ -15,12 +15,12 @@ ESTADO genBossBattle(ESTADO e){
 	e.saida.y=SIZE+2;
 	return genBoss(e);
 }
-char getNumMonst(char world_lvl){
-	char num_monstros = (world_lvl/3)+4;
+int getNumMonst(int world_lvl){
+	int num_monstros = (world_lvl/3)+4;
 	return ((num_monstros>MAX_MONSTROS) ? MAX_MONSTROS : num_monstros);
 }
-char getMonsterHP(char type){
-	char monType;
+int getMonsterHP(int type){
+	int monType;
 	switch(type){
 		case 0: monType = MON_HP_WOLF;
 		case 1: monType = MON_HP_BAT;
@@ -29,25 +29,19 @@ char getMonsterHP(char type){
 	}
 	return monType;
 }
-/**
-\brief Coloca um monstro numa posição aleatoria válida
-@param e Estado do jogo
-*/
-ESTADO placeMonster(ESTADO e, char type){
+ESTADO placeMonster(ESTADO e, int type){
 	POSICAO p;
 	int placed=0, i=0;
 	while(!placed && i<20){
 		i++;
-		int x=rand() % SIZE;
-		int y=rand() % (SIZE-2);
-		p.x=(char) x;
-		p.y=(char) y;
+		p.x=rand() % SIZE;
+		p.y=rand() % (SIZE-2);
 		if (!pos_ocupada(e,p) && !com_chest(e,p)){
 			placed=1;
-			e.monstros[(int) e.num_monstros].x=p.x;
-			e.monstros[(int) e.num_monstros].y=p.y;
-			e.monstros[(int) e.num_monstros].monType=type;
-			e.monstros[(int) e.num_monstros].hp=getMonsterHP(e.monstros[(int) e.num_monstros].monType);
+			e.monstros[e.num_monstros].x=p.x;
+			e.monstros[e.num_monstros].y=p.y;
+			e.monstros[e.num_monstros].monType=type;
+			e.monstros[e.num_monstros].hp=getMonsterHP(e.monstros[e.num_monstros].monType);
 		}
 	}
 	e.num_monstros++;
@@ -62,20 +56,15 @@ ESTADO placeOgre(ESTADO e){
 	e.num_chests++;
 	e.chests[0]=chest;
 	return e;
-
-}
-int pos_ocupada_aux(ESTADO e, char x, char y){
-	POSICAO tmp = {x,y};
-	return pos_ocupada(e,tmp) || com_saida(e,tmp) || outOfBounds(tmp);
 }
 CHEST genChest(ESTADO e,CHEST chest){
-	if(      !pos_ocupada_aux(e,chest.pos.x,chest.pos.y-1)){
+	if(      pos_completamente_livre(e,chest.pos.x,chest.pos.y-1)){
 		chest.pos.y--;
-	}else if(!pos_ocupada_aux(e,chest.pos.x+1,chest.pos.y)){
+	}else if(pos_completamente_livre(e,chest.pos.x+1,chest.pos.y)){
 		chest.pos.x++;
-	}else if(!pos_ocupada_aux(e,chest.pos.x-1,chest.pos.y)){
+	}else if(pos_completamente_livre(e,chest.pos.x-1,chest.pos.y)){
 		chest.pos.x--;
-	}else if(!pos_ocupada_aux(e,chest.pos.x,chest.pos.y+1)){
+	}else if(pos_completamente_livre(e,chest.pos.x,chest.pos.y+1)){
 		chest.pos.y++;
 	}
 	int r = rand() % 60;
@@ -88,10 +77,6 @@ CHEST genChest(ESTADO e,CHEST chest){
 	}
 	return chest;
 }
-/**
-\brief Coloca todas os monstros para inicializar o novo nivel
-@param e Estado do jogo
-*/
 ESTADO genMonsters(ESTADO e){
 	e.num_chests=0;
 	if(e.isInBossBattle){
@@ -110,10 +95,10 @@ ESTADO genMonsters(ESTADO e){
 			range=1;
 		}
 		int target_num_monst = getNumMonst(e.world_lvl);
-		int i=(int) e.num_monstros;
+		int i=e.num_monstros;
 		while(i<target_num_monst){
 			int type = rand() % range;
-			e=placeMonster(e,(char) type);
+			e=placeMonster(e,type);
 			i++;
 		}
 	}

@@ -20,7 +20,7 @@ void dropItem(CHEST droppedItems[], int *item, POSICAO pos){
 	}
 }
 void dropItemFromMSTR(int lootTable[], CHEST droppedItems[], int x, int y){
-	int chance = rand() % 1;
+	int chance = rand() % 2;
 	if(chance==0){
 		int i=0;
 		while(lootTable[i]==0 && i<LOOT_TABLE_SIZE){
