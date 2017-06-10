@@ -6,11 +6,10 @@
 Definição das funções que definem o comportamento dos items
 */
 
-#include "levelMaker.h"
 #include "estrutura.h"
+#include "levelMaker.h"
 #include "calcularCombate.h"
 #include "colisions.h"
-#include "loot.h"
 
 /** \brief Quantidade de vida restaurada pela poção de vida */
 #define HP_POT_POWER			30

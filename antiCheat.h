@@ -10,9 +10,6 @@ Definição das funções que impedem o jogador de fazer batota mudando a Query 
 #include "actionMap.h"
 #include "levelMaker.h"
 #include "calcularCombate.h"
-#include "items.h"
-#include "shop.h"
-#include "UI/UI5Playing.h"
 
 /**
 \brief Verifica se voltar ao menu é uma "jogada" válida

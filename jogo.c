@@ -10,65 +10,6 @@ ESTADO calcularNovoEstado(ESTADO e){
 		e.screen=1;
 		return e;
 	}
-	if(ACT_EXIT){/* saida */
-		if(e.isInBossBattle == 1){
-			e.isInBossBattle=0;
-		}
-		return newLevel(e);
-	}
-	if(PLR_FACING_LEFT){/* set direction */
-		e.direction=0;
-	}
-	if(PLR_FACING_RIGHT){/* set direction */
-		e.direction=1;
-	}
-	if(ACT_TOGGLE_INGAME_HELP){
-		e.isInIngameHelp = !e.isInIngameHelp;
-		return e;
-	}
-	if(ASKING_FOR_INGAME_HELP){
-		return e;
-	}
-	if(ACT_MOVE){/* mover jogador */
-		e.jog=calcularNovaPosicao(e.jog,e.action);
-	}
-	if(ACT_LESSER_TELEPORT){
-		e.jog=calcularLesserTeleport(e.jog,e.action);
-		e.mp-=LESSER_TP_COST;
-	}
-	if(ACT_ATACK){/* ataque normal */
-		e=calcularCombate(e);
-	}
-	#ifdef BOSS
-	if(ACT_BOSS_ATTACK){
-		e=calcularDanoBoss(e);
-	}
-	#endif
-	if(ACT_USE_ITEM){
-		e=useItem(e);
-		if(e.complexItem.isBeingUsed || e.isDeletingItems){
-			return e;
-		}
-	}
-	if(ACT_TOGGLE_ITEM_MODE){
-		e.isDeletingItems=!e.isDeletingItems;
-		return e;
-	}
-	if(ACT_PICK_UP_ITEM){
-		e.feedback=pickUpItem(e.jog,e.bag.inv,e.droppedItems,e.action);
-		e.jog=calcularNovaPosicao(e.jog,e.action-80);
-	}
-	if(ACT_OPEN_CHEST){
-		openChest(&e);
-	}
-	if(PICKING_ITEM_TGT){
-		if(e.complexItem.isBeingUsed){
-			e=handleComplexItem(e);
-			if(!e.complexItem.isBeingCast){
-				return e;
-			}
-		}
-	}
 	if(ACT_MENU_SCORE_OR_HELP){/* escolha do menu */
 		e.turn=0;
 		e.screen = e.action-50;
@@ -90,9 +31,68 @@ ESTADO calcularNovoEstado(ESTADO e){
 		e.classe = e.action-60;
 		return inicializar(e);
 	}
+	if(ACT_EXIT){/* saida */
+		if(e.isInBossBattle == 1){
+			e.isInBossBattle=0;
+		}
+		return newLevel(e);
+	}
+	if(ACT_TOGGLE_INGAME_HELP){
+		e.isInIngameHelp = !e.isInIngameHelp;
+		return e;
+	}
+	if(ASKING_FOR_INGAME_HELP){
+		return e;
+	}
+	if(ACT_USE_ITEM){
+		e=useItem(e);
+		if(e.complexItem.isBeingUsed || e.isDeletingItems){
+			return e;
+		}
+	}
+	if(ACT_TOGGLE_ITEM_MODE){
+		e.isDeletingItems=!e.isDeletingItems;
+		return e;
+	}
+	if(PICKING_ITEM_TGT){
+		if(e.complexItem.isBeingUsed){
+			e=handleComplexItem(e);
+			if(!e.complexItem.isBeingCast){
+				return e;
+			}
+		}
+	}
 	if(ACT_SHOP_CHOICE){/* loja */
 		e.feedback=buyItem(e.action,e.lootTable,&(e.bag));
 		return e;
+	}
+	if(PLR_FACING_LEFT){/* set direction */
+		e.direction=0;
+	}
+	if(PLR_FACING_RIGHT){/* set direction */
+		e.direction=1;
+	}
+	if(ACT_MOVE){/* mover jogador */
+		e.jog=calcularNovaPosicao(e.jog,e.action);
+	}
+	if(ACT_LESSER_TELEPORT){
+		e.jog=calcularLesserTeleport(e.jog,e.action);
+		e.mp-=LESSER_TP_COST;
+	}
+	if(ACT_ATACK){/* ataque normal */
+		e=calcularCombate(e);
+	}
+	#ifdef BOSS
+	if(ACT_BOSS_ATTACK){
+		e=calcularDanoBoss(e);
+	}
+	#endif
+	if(ACT_PICK_UP_ITEM){
+		e.feedback=pickUpItem(e.jog,e.bag.inv,e.droppedItems,e.action);
+		e.jog=calcularNovaPosicao(e.jog,e.action-80);
+	}
+	if(ACT_OPEN_CHEST){
+		openChest(&e);
 	}
 
 	e=move_monstros(e);

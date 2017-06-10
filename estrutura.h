@@ -22,6 +22,8 @@
 #define INVT_SIZE       	6
 /** \brief Número maximo de items que um nível pode ter no chão */
 #define MAX_DROPPED_ITEMS	LOOT_TABLE_SIZE+MAX_CHESTS
+/** \brief Condições para usar o teleport menor */
+#define CAN_USE_LESSER_TELEPORT	e.classe==3 && e.turn % 5 == 0 && e.turn != 0 && e.mp>=LESSER_TP_COST
 /** \brief Custo do teleport menor */
 #define LESSER_TP_COST	10
 
