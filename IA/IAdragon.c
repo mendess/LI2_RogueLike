@@ -7,7 +7,7 @@ ESTADO fireCone(ESTADO e){
 	return e;
 }
 ESTADO Wing_attack (ESTADO e){
-	if(e.jog.x>=1 && e.jog.x<=8 && e.jog.y>=e.dragon.pos.y+4 && e.jog.y<=e.dragon.pos.y+7){
+	if(e.jog.x>=1 && e.jog.x<=8 && e.jog.y>=(e.dragon.pos.y+4) && e.jog.y<=(e.dragon.pos.y+7)){
 		e.hp-=10;
     	if(e.jog.y+3<10){
 	    	e.jog.y+=3;
@@ -72,20 +72,22 @@ ESTADO dragon_movement (ESTADO e){
 }
 // 1-fireball;2-wingAttack;3-fireCone
 ESTADO estrat_dragon (ESTADO e){
-	e=dragon_movement(e);
-	if(e.turn%2!=0){
-	srand(time(NULL));
-	e.dragon.attack=(rand() % 3)+1;
-	}
-	if(e.turn !=0 && e.turn%2==0){
-		if(e.dragon.attack==1){
-			e=fireball_attack(e);
+	if(e.dragon.hp>0){
+	   	e=dragon_movement(e);
+		if(e.turn%2!=0){
+		srand(time(NULL));
+		e.dragon.attack=(rand() % 3)+1;
 		}
-		if(e.dragon.attack==2){
-			e=Wing_attack(e);
-		}
-		if(e.dragon.attack==3){
-			e=fireCone(e);
+		if(e.turn !=0 && e.turn%2==0){
+			if(e.dragon.attack==1){
+				e=fireball_attack(e);
+			}
+			if(e.dragon.attack==2){
+				e=Wing_attack(e);
+			}
+			if(e.dragon.attack==3){
+				e=fireCone(e);
+			}
 		}
 	}
 	return e;
