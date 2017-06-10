@@ -82,6 +82,7 @@ ESTADO estrat_dragon0 (ESTADO e){
 			e.dragon.side=1;
 			e.dragon.pos.x=SIZE+2;
 			e.dragon.pos.x=SIZE+2;
+			e.dragon.attack=0;
 		}
 		if(e.dragon.side==0){
     		if(e.turn%2!=0){
@@ -174,6 +175,7 @@ ESTADO estrat_dragon1 (ESTADO e){
 	if(e.dragon.pos.x>9){
 		e.dragon.pos.x=4;
 		e.dragon.pos.y=6;
+		e.dragon.attack=0;<
 	}
 	if(e.dragon.hp>0){
 		if(e.jog.y>=(e.dragon.pos.y)){
