@@ -30,7 +30,7 @@ void imprime_inv_slot_shop(char *name,int item,int i,int isDeletingItems){
 		}
 	}
 }
-void imprime_equipment_shop(int weapon, int armour){		
+void imprime_equipment_shop(int weapon, int armour){
 	char *itemlist[] = ITEM_LIST;
 	IMAGEM(572,489,TAM,TAM,itemlist[weapon]);
 	IMAGEM(572,539,TAM,TAM,itemlist[armour]);

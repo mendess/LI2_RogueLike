@@ -85,6 +85,6 @@ int com_droppedItem(CHEST droppedItems[], POSICAO p);
 @param p Posição a verificar
 @returns 1 se sim 0 caso contrario
 */
-int isBoss(ESTADO e, POSICAO p);
+int com_boss(ESTADO e, POSICAO p);
 
 #endif

@@ -49,7 +49,7 @@ int validItemPickup(ESTADO e){
 int validItemUse(ESTADO e){
 	return e.bag.inv[e.action-40]!=0
 		&& ((e.screen==5 && e.hp>0)
-			|| (e.screen==6 
+			|| (e.screen==6
 				&& e.isDeletingItems));
 }
 int validOpenChest(ESTADO e){
@@ -59,8 +59,8 @@ int validOpenChest(ESTADO e){
 		&& com_chest(e,p);
 }
 int validBossAtack(ESTADO e){
-	return e.screen==5 
-		&& e.hp>0 
+	return e.screen==5
+		&& e.hp>0
 		&& e.isInBossBattle;
 }
 int isInMenu(ESTADO e){

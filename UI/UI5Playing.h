@@ -9,9 +9,9 @@ Definição das funções que imprimem a interface do jogo
 #include "../levelMaker.h"
 #include "UIMaster.h"
 
+#include "UI5PlayingBoss.h"
 #include "UI5PlayingSpells.h"
 #include "UI5PlayingTips.h"
-#include "UI5PlayingBoss.h"
 
 /** \brief Matriz de ações das ações dos ataques à distancia */
 #define RANGED_ACTION_MATRIX	{{-1,-1,28,-1,-1},\
