@@ -8,6 +8,7 @@
 #include "IAarcher.h"
 #include "IAbat.h"
 #include "IAogre.h"
+#include "IAdragon.h"
 
 
 #define WOLF_DMG      10
