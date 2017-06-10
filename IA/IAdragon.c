@@ -80,9 +80,9 @@ ESTADO estrat_dragon (ESTADO e){
 			if(e.dragon.attack==1){
 				e=fireball_attack(e);
 			}
+			e=dragon_movement(e);
 		}
 		if(e.turn !=0 && e.turn%2==0){
-			e=dragon_movement(e);
 			if(e.dragon.attack==1){
 				e=fireball_damage(e);
 			}
