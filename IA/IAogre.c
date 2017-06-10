@@ -89,7 +89,7 @@ int next2chest(ESTADO e,POSICAO p){
 ESTADO estrat_ogre (ESTADO e,int i,POSICAO p){
 	int flag=1;
 	if (existe_jogador(e,p)){
-		e.hp+=-OGRE_DMG;
+		e=ataca_jogador(e,OGRE_DMG);
 		flag=0;
 	}
 	if(flag && next2chest(e,p)){
