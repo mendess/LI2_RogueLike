@@ -19,6 +19,16 @@ void dropItem(CHEST droppedItems[], int *item, POSICAO pos){
 		*item=0;
 	}
 }
+void dropItemFromDragon(int lootTable[], CHEST droppedItems[], POSICAO pos){
+	POSICAO dropPoint;
+	int i=0;
+	for(dropPoint.x = pos.x+1 ; dropPoint.x<pos.x+3 ; dropPoint.x++){
+		for(dropPoint.y = pos.y ; dropPoint.y<pos.y+2 ; dropPoint.y++){
+			dropItem(droppedItems,&lootTable[i],dropPoint);
+			i++;
+		}
+	}
+}
 void dropItemFromMSTR(int lootTable[], CHEST droppedItems[], int x, int y){
 	int chance = rand() % 2;
 	if(chance==0){
@@ -70,17 +80,31 @@ int getMonstro(ESTADO e,POSICAO p){
 	return i;
 }
 int hitMonster(ESTADO *e, POSICAO target, int dmg){
-	int monIdx = getMonstro(*e,target);
-	if(monIdx < e->num_monstros){
-		e->monstros[monIdx].hp-=dmg;
-		if(e->monstros[monIdx].hp<1){
-			e->score+=updateScore(e->monstros[monIdx].monType);
-			e->bag.gold+=goldDrop(e->monstros[monIdx].monType);
-			dropItemFromMSTR(e->lootTable,e->droppedItems,e->monstros[monIdx].x, e->monstros[monIdx].y);
-			killMonster(monIdx,e->monstros,--e->num_monstros);
+	if(e->isInBossBattle){
+		int isHit;
+		if(com_boss(*e,target)){
+			e->dragon.hp-=dmg;
+			if(e->dragon.hp<1){
+				dropItemFromDragon(e->lootTable,e->droppedItems,e->dragon.pos);
+			}
+			isHit=1;
+		}else{
+			isHit=0;
 		}
+		return isHit;
+	}else{
+		int monIdx = getMonstro(*e,target);
+		if(monIdx < e->num_monstros){
+			e->monstros[monIdx].hp-=dmg;
+			if(e->monstros[monIdx].hp<1){
+				e->score+=updateScore(e->monstros[monIdx].monType);
+				e->bag.gold+=goldDrop(e->monstros[monIdx].monType);
+				dropItemFromMSTR(e->lootTable,e->droppedItems,e->monstros[monIdx].x, e->monstros[monIdx].y);
+				killMonster(monIdx,e->monstros,--e->num_monstros);
+			}
+		}
+		return monIdx < e->num_monstros;
 	}
-	return monIdx < e->num_monstros;
 }
 ESTADO calcularCombate(ESTADO e){
 	POSICAO mon = {-1,-1};

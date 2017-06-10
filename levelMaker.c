@@ -176,7 +176,8 @@ ESTADO newLevel(ESTADO e){
 	}
 	if(!((e.world_lvl+1) % 10)){
 		e.isInBossBattle=1;
-	}else{
+	}
+	if(!((e.world_lvl-1) % 10)){
 		e.isInBossBattle=0;
 	}
 	n=pathMaker(path);

@@ -3,9 +3,7 @@
 ESTADO genBoss(ESTADO e){
 	e.dragon.pos.x   = (SIZE / 2) - 2;
 	e.dragon.pos.y   = 1;
-	e.dragon.fireball = 0;
-	e.dragon.wingAttack = 0;
-	e.dragon.fireCone = 0;
+	e.dragon.attack = 0;
 	e.dragon.num_fireballs = 0;
 	e.dragon.hp      = MON_HP_DRAGON;
 	return e;

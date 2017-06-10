@@ -1,29 +1,17 @@
 #include "UI5PlayingBoss.h"
 
-void i_warningFireball(ESTADO *e){
-	POSICAO p = itAct2Pos(e->action);
-	int pXmax=p.x+2;
-	int pYmax=p.y+2;
-	for(p.x=pXmax-3;p.x<pXmax;p.x++){
-		for (p.y=pYmax-3;p.y < pYmax; p.y++){
-			if(!outOfBounds(p) && !com_pedras(*e,p) && !com_boss(*e,p)){
-				IMAGEM(TAM*(p.x+1),TAM*(p.y+1),TAM,TAM,"Spell_Warning.png");
-			}
-		}
-	}
-}
 void i_fireballs(ESTADO e){
 	if(e.turn % 2){
 		int i;
-		for(i=0;i<dragon.num_fireballs;i++){
-			e.action = cTgT2Int(e.dragon.fireballCenters[i]);
-			i_warningFireball(&e);
+		for(i=0;i<e.dragon.num_fireballs;i++){
+			POSICAO p = e.dragon.fireballCenters[i];
+			IMAGEM_FORMATED(p.x,p.y,TAM,TAM,"Spell_Warning.png");
 		}
 	}else{
 		int i;
-		for(i=0;i<dragon.num_fireballs;i++){
-			e.action = cTgT2Int(e.dragon.fireballCenters[i]);
-			i_castRed(&e);
+		for(i=0;i<e.dragon.num_fireballs;i++){
+			POSICAO p = e.dragon.fireballCenters[i];
+			IMAGEM_FORMATED(p.x,p.y,TAM,TAM,"Spell_Fire.png");
 		}
 	}
 }
@@ -37,6 +25,7 @@ void i_wingAttack(ESTADO e){
 		width--;
 	}
 	if(e.turn % 2){
+		int x,y;
 		for(x=p.x;x<2;x++){
 			for(y=p.y;y<width;y++){
 				IMAGEM_FORMATED(x,y,TAM,TAM,"Spell_Warning.png");
@@ -52,7 +41,7 @@ void i_fireCone(ESTADO e){
 	while((startingP.y+linha)<SIZE){
 		int i;
 		for(i=0;i<linha*2;i++){
-			POSICAO tmp = {startingP.x-linha+i;startingP.y+linha}
+			POSICAO tmp = {startingP.x-linha+i,startingP.y+linha};
 			if(!outOfBounds(tmp)){
 				if(e.turn % 2){
 					IMAGEM_FORMATED(tmp.x,tmp.y,TAM,TAM,"Spell_Warning.png");

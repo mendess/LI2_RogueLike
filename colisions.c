@@ -39,9 +39,13 @@ int com_pedras (ESTADO e, POSICAO p){
 int com_monstros (ESTADO e, POSICAO p){
 	int i,flag;
 	flag=0;
-	for (i=0;i<e.num_monstros && !flag;i++){
-		if (e.monstros[i].x == p.x && e.monstros[i].y == p.y){
-			flag=1;
+	if(e.isInBossBattle){
+		flag=com_boss(e,p);
+	}else{
+		for (i=0;i<e.num_monstros && !flag;i++){
+			if (e.monstros[i].x == p.x && e.monstros[i].y == p.y){
+				flag=1;
+			}
 		}
 	}
 	return flag;

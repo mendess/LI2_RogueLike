@@ -9,11 +9,6 @@ Definição das funções que imprimem os ataques do dragão
 #include "UI5Playing.h"
 
 /**
-\brief Imprime as zonas que vão ser afetadas pelas "fireballs" do dragão
-@param e Apontador para o Estado do Jogo
-*/
-void i_warningFireball(ESTADO *e);
-/**
 \brief Imprime as zonas que vão ser afetadas pelas "fireballs" do dragão ou as "fireballs" em si
 @param e Estado do Jogo
 */
