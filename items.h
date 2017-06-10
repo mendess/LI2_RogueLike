@@ -6,11 +6,10 @@
 Definição das funções que definem o comportamento dos items
 */
 
-#include "levelMaker.h"
 #include "estrutura.h"
+#include "levelMaker.h"
 #include "calcularCombate.h"
 #include "colisions.h"
-#include "loot.h"
 
 /** \brief Quantidade de vida restaurada pela poção de vida */
 #define HP_POT_POWER			30
@@ -77,7 +76,7 @@ int getItemSpace(int inv[]);
 /**
 \brief Devolve o indice do item que o jogador quer apanhar
 @param droppedItem Lista dos items dropados
-@param jog Posição do item
+@param pos Posição do item
 @returns Indice do item ou MAX_DROPPED_ITEMS se não existir
 */
 int getDroppedItem(CHEST droppedItem[], POSICAO pos);
@@ -98,7 +97,7 @@ int pickUpItem(POSICAO jog, int inv[], CHEST droppedItems[], int action);
 POSICAO itAct2Pos(int action);
 /**
 \brief Devolve o indice da chest que o jogador quer abrir
-@param droppedItem Lista das chests
+@param chests Lista das chests
 @param num_chests Número de chests
 @param p Posição da chest
 @returns Indice da chest ou MAX_CHESTS se não existir
@@ -106,7 +105,7 @@ POSICAO itAct2Pos(int action);
 int getChest(CHEST chests[], int num_chests, POSICAO p);
 /**
 \brief Remove uma chest na lista
-@param Indice da chest
+@param i Indice da chest
 @param chests Lista das chests
 @param num_chests Número de chests
 */

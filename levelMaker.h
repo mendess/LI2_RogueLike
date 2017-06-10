@@ -61,13 +61,13 @@ ESTADO colocar_pedras (ESTADO e, int pathSize, POSICAO path[]);
 @returns Estado do jogo alterado
 */
 ESTADO colocar_monstros (ESTADO e);
-/*
+/**
 \brief Retorna o hp inicial da classe dada como argumento
 @param type O numero da classe
 @returns A vida base do jogador
 */
 int getClassHp(int type);
-/*
+/**
 \brief Retorna o mp inicial da classe dada como argumento
 @param type O numero da classe
 @returns A mana base do jogador

@@ -3,14 +3,13 @@
 
 
 /**
-@file genMonster.h
+@file genMonsters.h
 Definição das funções que geram os monstros para cada nível
 */
-#include <math.h>
 
+#include "estrutura.h"
 #include "colisions.h"
 #include "loot.h"
-#include "jogo.h"
 
 /** \brief Vida base do lobo */
 #define MON_HP_WOLF		10

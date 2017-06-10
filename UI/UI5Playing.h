@@ -6,6 +6,7 @@
 Definição das funções que imprimem a interface do jogo
 */
 #include "../colisions.h"
+#include "../levelMaker.h"
 #include "UIMaster.h"
 
 #include "UI5PlayingSpells.h"
@@ -22,8 +23,6 @@ Definição das funções que imprimem a interface do jogo
 #define PLAY_FRAMES		{"Moldura_Movimento.png","Moldura_Ataque.png","Moldura_Lesser_Teleport.png","Moldura_PickUp_Item.png","Moldura_OpenChest.png"}
 /** \brief Lista das mensagens de erro para quando o jogador tenta fazer algo que não pode */
 #define FEEDBACK_MSGS	{"","Hum... I can't cast that!","Bad idea...\nDrinking that\nwould make me sick","I can't carry\nmore items!","There are no\ntargets in range!"}
-/** \brief Condições para usar o teleport menor */
-#define CAN_USE_LESSER_TELEPORT	e.classe==3 && e.turn % 5 == 0 && e.turn != 0 && e.mp>=LESSER_TP_COST
 /** \brief Ações para pedir ajuda sobre um item do inventário */
 #define ACT_HELP_ITEM	e.action>39 && e.action<46
 /** \brief Ação para pedir ajuda sobre a arma equipada */
@@ -146,7 +145,7 @@ void imprime_background (int classe);
 @param hp Vida
 @param classe Classe do jogador
 */
-void imprime_hpBar(int hp);
+void imprime_hpBar(int hp, int classe);
 /**
 \brief Imprime a barra que indica a mana do jogador
 @param mp Mana

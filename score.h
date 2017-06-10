@@ -18,13 +18,17 @@ Definição das funções que tratam do registo da scoreboard
 \brief Estrutura que armazena os scores
 */
 typedef struct score{
+	/** \brief Nome do jogador */
 	char name[13];
+	/** \brief Score do jogador */
 	int score;
+	/** \brief Apontador para o proximo jogador */
 	struct score *prox;
 }*SCORE;
 
 /**
 \brief Adiciona um elemeto á lista ligada de scoreboards
+@param scB Lista de scores
 @param name Nome do jogador
 @param score Score do jogador
 */

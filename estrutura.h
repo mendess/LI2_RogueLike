@@ -22,6 +22,8 @@
 #define INVT_SIZE       	6
 /** \brief Número maximo de items que um nível pode ter no chão */
 #define MAX_DROPPED_ITEMS	LOOT_TABLE_SIZE+MAX_CHESTS
+/** \brief Condições para usar o teleport menor */
+#define CAN_USE_LESSER_TELEPORT	e.classe==3 && e.turn % 5 == 0 && e.turn != 0 && e.mp>=LESSER_TP_COST
 /** \brief Custo do teleport menor */
 #define LESSER_TP_COST	10
 
@@ -56,6 +58,7 @@ typedef struct inventory{
 	int armour;
 }INVT;
 
+/** \brief Estrutura que guarda uma chest */
 typedef struct chest{
 	/** Posição da chest */
 	POSICAO pos;
@@ -75,24 +78,25 @@ typedef struct itemUsedata{
 	int isBeingCast;
 }ITEM_U_DAT;
 
+/** \brief Estrutura que armazena os dados do dragão */
 typedef struct dragao{
-
+	/** Guarda se o proximo ataque vai ser "fireball" */
 	int fireball;
-
+	/** Guarda se o proximo ataque vai ser "wingAttack" */
 	int wingAttack;
-
+	/** Guarda se o proximo ataque vai ser "fireCone" */
 	int fireCone;
-
+	/** Guarda, se o proximo ataque for "fireball", o número de fireballs */
 	int num_fireballs;
-
+	/** Guarda, se o proximo ataque for "fireball", as posições das mesmas */
 	POSICAO fireballCenters[4];
-
+	/** Guarda a posição do dragao */
 	POSICAO pos;
-
+	/** Guarda a vida do dragão */
 	int hp;
-
 }BOSS;
 
+/** \brief Estrutura que guarda o estado do jogo */
 typedef struct estado{
 	/** Ecra em que o jogo está {Form=0; Main Menu=1; ScoreBoard=2; Help=3; Character Selection=4; Playing=5; Store=6} */
 	int screen;

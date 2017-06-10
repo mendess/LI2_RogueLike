@@ -185,15 +185,19 @@ void imprime_background (int classe){
 	char *background[] = {"Ingame_Viking.png","Ingame_Archer.png","Ingame_Mage.png"};
 	IMAGEM(0,0,SVG_WIDTH,SVG_HEIGHT,background[classe-1]);
 }
-void imprime_hpBar(int hp){
-	IMAGEM(600,10,200,50,"BarHealthIcon.png");
-	IMAGEM(641,10,(int) ((hp)*1.5),50,"BarHealthBar.png");
+void imprime_hpBar(int hp, int classe){
+	int maxHP = getClassHp(classe);
+	IMAGEM(600                        ,10,200                    ,50,"BarHealthIcon.png");
+	IMAGEM((int) (641+(maxHP*1.5)),10,(int) (150-(maxHP*1.5)),50,"BarBlock.png");
+	IMAGEM(641                        ,10,(int) (hp*1.5)         ,50,"BarHealthBar.png");
 }
-void imprime_mpBar(int mp,int classe){
+void imprime_mpBar(int mp, int classe){
 	char *icons[] = {"BarEnergyIcon.png","BarManaIcon.png"};
 	char *bars[] = {"BarEnergyBar.png","BarManaBar.png"};
-	IMAGEM(600,55,			   200,50,(classe <3) ? icons[0] : icons[1]);
-	IMAGEM(641,55,(int) ((mp)*1.5),50,(classe <3) ? bars[0]  : bars[1]);
+	int maxMP = getClassMp(classe);
+	IMAGEM(600                        ,55,200                    ,50,(classe <3) ? icons[0] : icons[1]);
+	IMAGEM((int) (641+(maxMP*1.5)),55,(int) (150-(maxMP*1.5)),50,"BarBlock.png");
+	IMAGEM(641                        ,55,(int) (mp*1.5)         ,50,(classe <3) ? bars[0]  : bars[1]);
 }
 void imprime_gameOverScreen(char *name){
 	IMAGEM(0,0,SVG_WIDTH,SVG_HEIGHT,"ScreenGameOver.png");
@@ -288,7 +292,7 @@ void imprimePlaying(ESTADO e){
 		}else{
 			imprime_monstros(e.jog,e.monstros,e.num_monstros);
 		}
-		imprime_hpBar(e.hp);
+		imprime_hpBar(e.hp,e.classe);
 		imprime_mpBar(e.mp,e.classe);
 		imprime_inventory(e.isDeletingItems,e.name,e.bag);
 		imprime_jogador(e);
