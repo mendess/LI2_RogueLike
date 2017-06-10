@@ -52,7 +52,7 @@ void i_CastRed(ESTADO *e){
 	int pYmax=p.y+2;
 	for(p.x=pXmax-3;p.x<pXmax;p.x++){
 		for (p.y=pYmax-3;p.y < pYmax; p.y++){
-			if(!outOfBounds(p) && !com_pedras(*e,p)){
+			if(!outOfBounds(p) && !com_pedras(*e,p) && !com_boss(*e,p)){
 				IMAGEM(TAM*(p.x+1),TAM*(p.y+1),TAM,TAM,FIRE_IMAGE);
 			}
 		}

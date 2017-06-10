@@ -67,8 +67,8 @@ int com_droppedItem(CHEST droppedItems[], POSICAO p){
 	}
 	return foundItem;
 }
-int isBoss(ESTADO e, POSICAO p){
+int com_boss(ESTADO e, POSICAO p){
 	return (e.isInBossBattle &&
-			p.x>=e.monstros[0].x && p.x<=e.monstros[0].x+3 &&
-			p.y>=e.monstros[0].y && p.y<=e.monstros[0].y+2   );
+			p.x>=e.dragon.pos.x && p.x<=e.dragon.pos.x+3 &&
+			p.y>=e.dragon.pos.y && p.y<=e.dragon.pos.y+2   );
 }
