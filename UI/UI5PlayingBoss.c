@@ -26,8 +26,8 @@ void i_wingAttack(ESTADO e){
 	}
 	if(e.turn % 2){
 		int x,y;
-		for(x=p.x;x<2;x++){
-			for(y=p.y;y<width;y++){
+		for(x=p.x;x<p.x+width;x++){
+			for(y=p.y;y<2;y++){
 				IMAGEM_FORMATED(x,y,TAM,TAM,"Spell_Warning.png");
 			}
 		}

@@ -6,7 +6,7 @@ ESTADO fireCone(ESTADO e){
 	}
 	return e;
 }
-ESTADO Wing_attack (ESTADO e){
+ESTADO wing_attack (ESTADO e){
 	if(e.jog.x>=1 && e.jog.x<=8 && e.jog.y>=(e.dragon.pos.y+4) && e.jog.y<(e.dragon.pos.y+6)){
 		e.hp-=10;
 		if(e.jog.y+3<10){
@@ -85,7 +85,7 @@ ESTADO estrat_dragon (ESTADO e){
 				e=fireball_damage(e);
 			}
 			if(e.dragon.attack==2){
-				e=Wing_attack(e);
+				e=wing_attack(e);
 			}
 			if(e.dragon.attack==3){
 				e=fireCone(e);
