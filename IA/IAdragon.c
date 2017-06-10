@@ -7,12 +7,14 @@ ESTADO fireCone0(ESTADO e){
 	return e;
 }
 ESTADO wing_attack0 (ESTADO e){
+	int flag=1;
 	if(e.jog.x>=(e.dragon.pos.x-2) && e.jog.x<=(e.dragon.pos.x+6) && e.jog.y>=(e.dragon.pos.y+4) && e.jog.y<(e.dragon.pos.y+6)){
 		e=ataca_jogador(e,12);
 		if(e.jog.y+3<10){
 			e.jog.y+=3;
+			flag=0;
 		}
-		if(e.jog.y+3>9){
+		if(flag && e.jog.y+3>9){
 			e.jog.y=9;
 		}
 	}
@@ -108,18 +110,20 @@ ESTADO estrat_dragon0 (ESTADO e){
 	return e;
 }
 ESTADO fireCone1(ESTADO e){
-	if(e.jog.x>=((e.dragon.pos.x+1)+(((abs(e.jog.y-1)-e.dragon.pos.y)/2)-1) && e.jog.x<=(e.dragon.pos.x+2)-(abs((e.jog.y-1)-e.dragon.pos.y)/2)-1) && e.jog.y<e.dragon.pos.y) {
+	if(e.jog.x-1>=((e.dragon.pos.x+1)+((((e.jog.y-1)-e.dragon.pos.y)/2)-1))+1 && e.jog.x+1<=((e.dragon.pos.x+2)-(((e.jog.y-1)-e.dragon.pos.y)/2)-1)+1 && e.jog.y<(e.dragon.pos.y)) {
 		e=ataca_jogador(e,8);
 	}
 	return e;
 }
 ESTADO wing_attack1 (ESTADO e){
-	if(e.jog.x>=(e.dragon.pos.x-2) && e.jog.x<=(e.dragon.pos.x+6) && e.jog.y<=(e.dragon.pos.y-2) && e.jog.y<(e.dragon.pos.y-4)){
+	int flag=1;
+	if(e.jog.x>=(e.dragon.pos.x-2) && e.jog.x<=(e.dragon.pos.x+6) && e.jog.y<=(e.dragon.pos.y-2) && e.jog.y>(e.dragon.pos.y-4)){
 		e=ataca_jogador(e,12);
 		if(e.jog.y-3>=0){
 			e.jog.y-=3;
+			flag=0;
 		}
-		if(e.jog.y-3<0){
+		if(flag && e.jog.y-3<0){
 			e.jog.y=0;
 		}
 	}
