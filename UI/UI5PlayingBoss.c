@@ -36,11 +36,25 @@ void i_wingAttack(ESTADO e){
 	}
 }
 void i_fireCone(ESTADO e){
-	int linha=1;
+	int x,y;
+	for(x=0;x<SIZE;x++){
+		for(y=0;y<SIZE;y++){
+			if(x>=((e.dragon.pos.x+1)-((y-e.dragon.pos.y)/2)) && x<=((e.dragon.pos.x+2)+(y-e.dragon.pos.y)/2) && y>e.dragon.pos.y+3 ) {
+				if(e.turn % 2){
+					IMAGEM_FORMATED(x,y,TAM,TAM,"Spell_Warning.png");
+				}else{
+					IMAGEM_FORMATED(x,y,TAM,TAM,"Spell_Fire.png");
+				}
+			}
+		}
+	}
+
+	/*int linha=1;
+	int flag=0;
 	POSICAO startingP = {e.dragon.pos.x+2,e.dragon.pos.y+2};
 	while((startingP.y+linha)<SIZE){
 		int i;
-		for(i=0;i<linha*2;i++){
+		for(i=0;i<lineSize*2;i++){
 			POSICAO tmp = {startingP.x-linha+i,startingP.y+linha};
 			if(!outOfBounds(tmp)){
 				if(e.turn % 2){
@@ -51,7 +65,10 @@ void i_fireCone(ESTADO e){
 			}
 		}
 		linha++;
-	}
+		if(flag=!flag){
+			lineSize++;
+		}
+	}*/
 }
 void imprime_boss(ESTADO e){
 	if(e.dragon.hp>0){
