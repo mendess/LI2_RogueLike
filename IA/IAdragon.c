@@ -1,7 +1,7 @@
 #include "IAdragon.h"
 
 ESTADO fireCone(ESTADO e){
-	if(e.jog.x>=((e.dragon.pos.x+1)-((e.jog.y-e.dragon.pos.y)/2)) && e.jog.x<=((e.dragon.pos.x+2)+(e.jog.y-e.dragon.pos.y)/2) && e.jog.y>e.dragao.pos.y+3 ) {
+	if(e.jog.x>=((e.dragon.pos.x+1)-(((e.jog.y-e.dragon.pos.y)/2)-2)) && e.jog.x<=((e.dragon.pos.x+2)+((e.jog.y-e.dragon.pos.y)/2)-2) && e.jog.y>e.dragon.pos.y+2) {
 		e.hp-=5;
 	}
 	return e;
