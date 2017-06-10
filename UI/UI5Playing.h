@@ -6,6 +6,7 @@
 Definição das funções que imprimem a interface do jogo
 */
 #include "../colisions.h"
+#include "../levelMaker.h"
 #include "UIMaster.h"
 
 #include "UI5PlayingSpells.h"
@@ -145,7 +146,7 @@ void imprime_background (int classe);
 @param hp Vida
 @param classe Classe do jogador
 */
-void imprime_hpBar(int hp);
+void imprime_hpBar(int hp, int classe);
 /**
 \brief Imprime a barra que indica a mana do jogador
 @param mp Mana
