@@ -75,7 +75,7 @@ typedef struct itemUsedata{
 	int isBeingCast;
 }ITEM_U_DAT;
 
-typedef struct dragon{
+typedef struct dragao{
 
 	int fireball;
 
@@ -91,7 +91,7 @@ typedef struct dragon{
 
 	int hp;
 
-}DRAGON;
+}BOSS;
 
 typedef struct estado{
 	/** Ecra em que o jogo está {Form=0; Main Menu=1; ScoreBoard=2; Help=3; Character Selection=4; Playing=5; Store=6} */
@@ -144,6 +144,8 @@ typedef struct estado{
 	int num_pedras;
 	/**  Posições dos monstros */
 	MSTR monstros [MAX_MONSTROS];
+	/** Estrutura do boss */
+	BOSS dragon;
 	/**  Posições da pedras */
 	POSICAO pedras [MAX_PEDRAS];
 	/** Lista de items no chão */

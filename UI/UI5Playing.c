@@ -156,9 +156,9 @@ void imprime_monstros (POSICAO jog, MSTR monstros[],int num_monstros){
 		IMAGEM_FORMATED(monstros[i].x,monstros[i].y,TAM,TAM,mstrImgs[(type*2)+side]);
 	}
 }
-void imprime_pedras (POSICAO pedras[]){
+void imprime_pedras (POSICAO pedras[], int num_pedras){
 	int i;
-	for (i=0;i<MAX_PEDRAS;i++){
+	for (i=0;i<num_pedras;i++){
 		IMAGEM_FORMATED(pedras[i].x,pedras[i].y,TAM,TAM,"Tile_Obstacle.png");
 	}
 }
@@ -280,11 +280,11 @@ void imprimePlaying(ESTADO e){
 		imprime_background(e.classe);
 		imprime_chao();
 		imprime_saida(e.saida);
-		imprime_pedras(e.pedras);
+		imprime_pedras(e.pedras,e.num_pedras);
 		imprime_droppedItems(e.droppedItems);
 		imprime_chests(e.chests,e.num_chests);
 		if(e.isInBossBattle){
-			//imprime_boss(e);
+			imprime_boss(e);
 		}else{
 			imprime_monstros(e.jog,e.monstros,e.num_monstros);
 		}

@@ -10,6 +10,7 @@ Definição das funções que imprimem a interface do jogo
 
 #include "UI5PlayingSpells.h"
 #include "UI5PlayingTips.h"
+#include "UI5PlayingBoss.h"
 
 /** \brief Matriz de ações das ações dos ataques à distancia */
 #define RANGED_ACTION_MATRIX	{{-1,-1,28,-1,-1},\
@@ -120,7 +121,7 @@ void imprime_monstros (POSICAO jog, MSTR monstros[], int num_monstros);
 \brief Imprime as pedras
 @param pedras Lista dos obstaculos
 */
-void imprime_pedras (POSICAO pedras[]);
+void imprime_pedras (POSICAO pedras[], int num_pedras);
 /**
 \brief Imprime a saida
 @param p Posição da saida

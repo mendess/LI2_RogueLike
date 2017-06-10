@@ -136,7 +136,7 @@ ESTADO inicializar(ESTADO e){
 	e.screen=5;							/* Ecra de jogo */
 	e.hp=getClassHp(e.classe);			/* Vida do jogador */
 	e.mp=getClassMp(e.classe);			/* Mana do jogador */
-	e.world_lvl=1;						/* Nivel */
+	e.world_lvl=9;						/* Nivel */
 	e.score=0;							/* Score */
 	e.turn=0;							/* Turno */
 	e.direction=0;						/* Lado para que o jogador esta a olhar 0:drt e 1:esq */
@@ -173,6 +173,11 @@ ESTADO newLevel(ESTADO e){
 			e.feedback=0;
 			return e;
 		}
+	}
+	if(!((e.world_lvl+1) % 10)){
+		e.isInBossBattle=1;
+	}else{
+		e.isInBossBattle=0;
 	}
 	n=pathMaker(path);
 	srand(time(NULL));
