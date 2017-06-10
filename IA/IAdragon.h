@@ -1,5 +1,8 @@
 #include "IA.h"
-
+/**
+@file actionMap.h
+Movimentos e ataques do dragão
+*/
 ESTADO fireCone(ESTADO e);
 ESTADO wing_attack (ESTADO e);
 ESTADO fireball_damage (ESTADO e);

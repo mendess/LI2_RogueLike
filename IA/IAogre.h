@@ -8,6 +8,10 @@
 #include "IA.h"
 
 /**
+@file actionMap.h
+Movimentos e ataques do ogre
+*/
+/**
 \brief verifica se para onde o ogre se vai mover existem pedras
 @param e Estado do jogo
 @param p posição atual do ogre

@@ -7,9 +7,25 @@
 #include <time.h>
 #include "IA.h"
 
+/**
+@file actionMap.h
+Movimentos e ataques do dragão
+*/
+/**
+Verifica seo arqueiro está entre o jogador e a saida e se a saida está nordeste do jogador
+*/
 #define BLOQUEAVEL_NE	e.jog.y>p.y && e.jog.x<p.x && p.x<e.saida.x && e.saida.y<p.y && e.saida.x>e.jog.x && e.saida.y<e.jog.y
+/**
+Verifica seo arqueiro está entre o jogador e a saida e se a saida está noroeste do jogador
+*/
 #define BLOQUEAVEL_NO   e.jog.y>p.y && e.jog.x>p.x && e.saida.x<p.x && e.saida.y<p.y && e.saida.x<e.jog.x && e.saida.y<e.jog.y
+/**
+Verifica seo arqueiro está entre o jogador e a saida e se a saida está sudeste do jogador
+*/
 #define BLOQUEAVEL_SE   e.jog.y<p.y && e.jog.x<p.x && e.saida.x<p.x && e.saida.y>p.y && e.saida.x<e.jog.x && e.saida.y>e.jog.y
+/**
+Verifica seo arqueiro está entre o jogador e a saida e se a saida está sudoeste do jogador
+*/
 #define BLOQUEAVEL_SO   e.jog.y<p.y && e.jog.x>p.x && e.saida.x>p.x && e.saida.y>p.y && e.saida.x>e.jog.x && e.saida.y>e.jog.y
 /**
 \brief Se o jogador estiver a sudeste do lobo este persegue-o nessa direção

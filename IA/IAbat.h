@@ -1,7 +1,10 @@
 #ifndef __BAT_H__
 #define __BAT_H__
 #include "IA.h"
-
+/**
+@file actionMap.h
+Movimentos e ataques do morcego
+*/
 /**
 \brief percorre a matriz a procura do primeiro zero a aparecer 
 acima do jogador e á direita.
