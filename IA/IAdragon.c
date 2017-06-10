@@ -1,7 +1,7 @@
 #include "IAdragon.h"
 
 ESTADO fireCone(ESTADO e){
-	if(e.jog.x>=((e.dragon.pos.x+1)-(((e.jog.y-e.dragon.pos.y)/2)-2)) && e.jog.x<=((e.dragon.pos.x+2)+((e.jog.y-e.dragon.pos.y)/2)-2) && e.jog.y>e.dragon.pos.y+2) {
+	if(e.jog.x>=(e.dragon.pos.x+1)-((((e.jog.y-1)-e.dragon.pos.y)/2)-1) && e.jog.x<=(e.dragon.pos.x+2)+(((e.jog.y-1)-e.dragon.pos.y)/2)-1 && e.jog.y>e.dragon.pos.y) {
 		e.hp-=5;
 	}
 	return e;
@@ -57,13 +57,13 @@ ESTADO dragon_movement (ESTADO e){
 	if(flag && e.jog.x>=p.x+2 && p.x+3<9){
 		e.dragon.pos.x+=1;
 	}
-	if(e.dragon.attack==1 && abs(e.jog.y-p.y)>1){
+	if(e.dragon.attack==1 && p.y<(e.jog.y-3)){
 		e.dragon.pos.y+=1;
 	}
 	if(e.dragon.attack==2 && abs(e.jog.y-p.y)==1 && p.y>0){
 		e.dragon.pos.y-=1;
 	}
-	if(e.dragon.attack==2 && abs(e.jog.y-p.y)>3 && p.y){
+	if(e.dragon.attack==2 && abs(e.jog.y-p.y)>3){
 		e.dragon.pos.y+=1;
 	}
 	if(p.y>1){

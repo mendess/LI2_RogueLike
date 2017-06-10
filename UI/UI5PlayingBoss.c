@@ -39,7 +39,7 @@ void i_fireCone(ESTADO e){
 	int x,y;
 	for(x=0;x<SIZE;x++){
 		for(y=0;y<SIZE;y++){
-			if(x>=((e.dragon.pos.x+1)-(((y-e.dragon.pos.y)/2)-2)) && x<=((e.dragon.pos.x+2)+((y-e.dragon.pos.y)/2)-2) && y>e.dragon.pos.y) {
+			if(x>=((e.dragon.pos.x+1)-((((y-1)-e.dragon.pos.y)/2)-1)) && x<=((e.dragon.pos.x+2)+(((y-1)-e.dragon.pos.y)/2)-1) && y>(e.dragon.pos.y+2)) {
 				if(e.turn % 2){
 					IMAGEM_FORMATED(x,y,TAM,TAM,"Spell_Warning.png");
 				}else{
