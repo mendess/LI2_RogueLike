@@ -178,7 +178,12 @@ ESTADO move_monstros (ESTADO e){
 	POSICAO p,q;
 	int i;
 	if(e.isInBossBattle==1){
-		e=estrat_dragon(e);
+		if(e.dragon.side ==0){
+		   e=estrat_dragon0(e);
+		}
+		else{
+			e=estrat_dragon1(e);
+		}
 	}
 	else{
 		q=quemAtaca(e);
