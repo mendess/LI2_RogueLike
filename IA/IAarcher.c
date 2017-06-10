@@ -5,7 +5,7 @@
 #include "IA.h"
 
 
-ESTADO persegue_NO(ESTADO e,int a[10][10],int i,POSICAO p){
+ESTADO persegue_NO(ESTADO e,int a[SIZE][SIZE],int i,POSICAO p){
 	int x,y,flag;
 	flag=1;
 	y=p.y-1;
@@ -29,7 +29,7 @@ ESTADO persegue_NO(ESTADO e,int a[10][10],int i,POSICAO p){
 	}
 	return e;
 }
-ESTADO persegue_SO(ESTADO e,int a[10][10],int i,POSICAO p){
+ESTADO persegue_SO(ESTADO e,int a[SIZE][SIZE],int i,POSICAO p){
 	int x,y,flag;
 	flag=1;
 	y=p.y+1;
@@ -53,7 +53,7 @@ ESTADO persegue_SO(ESTADO e,int a[10][10],int i,POSICAO p){
 	}
 	return e;
 }
-ESTADO persegue_NE(ESTADO e,int a[10][10],int i,POSICAO p){
+ESTADO persegue_NE(ESTADO e,int a[SIZE][SIZE],int i,POSICAO p){
 	int x,y,flag;
 	flag=1;
 	y=p.y-1;
@@ -77,7 +77,7 @@ ESTADO persegue_NE(ESTADO e,int a[10][10],int i,POSICAO p){
 	}
 	return e;
 }
-ESTADO persegue_SE(ESTADO e,int a[10][10],int i,POSICAO p){
+ESTADO persegue_SE(ESTADO e,int a[SIZE][SIZE],int i,POSICAO p){
 	int x,y,flag;
 	flag=1;
 	y=p.y+1;
@@ -101,7 +101,7 @@ ESTADO persegue_SE(ESTADO e,int a[10][10],int i,POSICAO p){
 	}
 	return e;
 }
-ESTADO persegue_arch(ESTADO e,int a[10][10],int i,POSICAO p){
+ESTADO persegue_arch(ESTADO e,int a[SIZE][SIZE],int i,POSICAO p){
 	int flag=1;
 	if (p.x>=e.jog.x && p.y>=e.jog.y){
 		e=persegue_NO(e,a,i,p);
@@ -120,7 +120,7 @@ ESTADO persegue_arch(ESTADO e,int a[10][10],int i,POSICAO p){
 	}
 	return e;
 }
-ESTADO desvia_right(int a[10][10],ESTADO e,int i,POSICAO p){
+ESTADO desvia_right(int a[SIZE][SIZE],ESTADO e,int i,POSICAO p){
 	int flag=1;
 	if(a[p.x+1][p.y] != 50 && (p.x+1)<10){
 		e.monstros[i].x+=1;
@@ -135,7 +135,7 @@ ESTADO desvia_right(int a[10][10],ESTADO e,int i,POSICAO p){
 	}
 	return e;
 }
-ESTADO desvia_left(int a[10][10],ESTADO e,int i,POSICAO p){
+ESTADO desvia_left(int a[SIZE][SIZE],ESTADO e,int i,POSICAO p){
 	int flag=1;
 	if(a[p.x-1][p.y] != 50 && (p.x-1)>=0){
 		e.monstros[i].x-=1;
@@ -150,7 +150,7 @@ ESTADO desvia_left(int a[10][10],ESTADO e,int i,POSICAO p){
 	}
 	return e;
 }
-ESTADO desvia_down(int a[10][10],ESTADO e,int i,POSICAO p){
+ESTADO desvia_down(int a[SIZE][SIZE],ESTADO e,int i,POSICAO p){
 	int flag=1;
 	if(a[p.x][p.y+1] != 50 && (p.y+1)<10){
 		e.monstros[i].y+=1;
@@ -165,7 +165,7 @@ ESTADO desvia_down(int a[10][10],ESTADO e,int i,POSICAO p){
 	}
 	return e;
 }
-ESTADO desvia_up(int a[10][10],ESTADO e,int i,POSICAO p){
+ESTADO desvia_up(int a[SIZE][SIZE],ESTADO e,int i,POSICAO p){
 	int flag=1;
 	if(a[p.x][p.y-1] != 50 && (p.y-1)>=0){
 		e.monstros[i].y-=1;
@@ -180,7 +180,7 @@ ESTADO desvia_up(int a[10][10],ESTADO e,int i,POSICAO p){
 	}
 	return e;
 }
-ESTADO desvia(ESTADO e,int a[10][10],int i,POSICAO p){
+ESTADO desvia(ESTADO e,int a[SIZE][SIZE],int i,POSICAO p){
 	if(p.x>e.jog.x){
 		e=desvia_right(a,e,i,p);
 	}
@@ -201,7 +201,7 @@ int in_range(ESTADO e,POSICAO p){
 	if(abs(p.x-e.jog.x)+abs(p.y-e.jog.y)==1) flag=1;
 	return flag;
 }
-ESTADO defArcher_NO (ESTADO e,int a[10][10], int i, POSICAO p){
+ESTADO defArcher_NO (ESTADO e,int a[SIZE][SIZE], int i, POSICAO p){
 	int x,y,flag;
 	flag=1;
 	y=p.y+1;
@@ -225,7 +225,7 @@ ESTADO defArcher_NO (ESTADO e,int a[10][10], int i, POSICAO p){
 	}
 	return e;
 }
-ESTADO defArcher_NE (ESTADO e,int a[10][10],int i, POSICAO p){
+ESTADO defArcher_NE (ESTADO e,int a[SIZE][SIZE],int i, POSICAO p){
 	int x,y,flag;
 	flag=1;
 	y=p.y+1;
@@ -249,7 +249,7 @@ ESTADO defArcher_NE (ESTADO e,int a[10][10],int i, POSICAO p){
 	}
 	return e;
 }
-ESTADO defArcher_SO (ESTADO e,int a[10][10],int i, POSICAO p){
+ESTADO defArcher_SO (ESTADO e,int a[SIZE][SIZE],int i, POSICAO p){
 	int x,y,flag;
 	flag=1;
 	y=p.y-1;
@@ -273,7 +273,7 @@ ESTADO defArcher_SO (ESTADO e,int a[10][10],int i, POSICAO p){
 	}
 	return e;
 }
-ESTADO defArcher_SE (ESTADO e,int a[10][10],int i, POSICAO p){
+ESTADO defArcher_SE (ESTADO e,int a[SIZE][SIZE],int i, POSICAO p){
 	int x,y,flag;
 	flag=1;
 	y=p.y-1;
@@ -298,7 +298,7 @@ ESTADO defArcher_SE (ESTADO e,int a[10][10],int i, POSICAO p){
 	return e;
 }
 // i-> valor da prox casa
-void distancia_ARCHER (ESTADO e,int a[10][10],int x,int y,int i){
+void distancia_ARCHER (ESTADO e,int a[SIZE][SIZE],int x,int y,int i){
 	int a1,a2;
 	POSICAO pos;
 	if(x>=0 && x<10 && y<10 && y>=0){
@@ -322,7 +322,7 @@ void distancia_ARCHER (ESTADO e,int a[10][10],int x,int y,int i){
 }
 ESTADO estrat_archer (ESTADO e,int i,POSICAO p){
 	int flag=1;
-	int a[10][10];
+	int a[SIZE][SIZE];
 	preenche_matriz(a);
 	distancia_ARCHER(e,a,e.jog.x,e.jog.y,0);
 	if(in_range(e,p)==1){

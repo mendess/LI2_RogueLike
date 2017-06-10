@@ -83,7 +83,7 @@ POSICAO buscaBat4 (ESTADO e,int a[SIZE][SIZE]){
 // como metade da distancia em x e y entre monstro e jogador
 POSICAO mapa3 (ESTADO e,POSICAO p,int num){
 	int d,x,y;
-	int a[10][10];
+	int a[SIZE][SIZE];
 	POSICAO intersect;
 	d=(abs(e.jog.x-p.x)+abs(e.jog.y-p.y))/2-1;
 	for(y=0;y<10;y++){

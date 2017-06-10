@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "IAwolf.h"
 
-ESTADO persegue_wolf_SE (ESTADO e,int i,POSICAO p,int a[10][10]){
+ESTADO persegue_wolf_SE (ESTADO e,int i,POSICAO p,int a[SIZE][SIZE]){
 	int x,y,flag;
 	POSICAO pos;
 	flag=1;
@@ -19,7 +19,7 @@ ESTADO persegue_wolf_SE (ESTADO e,int i,POSICAO p,int a[10][10]){
 	}
 	return e;
 }
-ESTADO persegue_wolf_NE (ESTADO e,int i,POSICAO p,int a[10][10]){
+ESTADO persegue_wolf_NE (ESTADO e,int i,POSICAO p,int a[SIZE][SIZE]){
 	int x,y,flag;
 	POSICAO pos;
 	flag=1;
@@ -36,7 +36,7 @@ ESTADO persegue_wolf_NE (ESTADO e,int i,POSICAO p,int a[10][10]){
 	}
 	return e;
 }
-ESTADO persegue_wolf_SO (ESTADO e,int i,POSICAO p,int a[10][10]){
+ESTADO persegue_wolf_SO (ESTADO e,int i,POSICAO p,int a[SIZE][SIZE]){
 	int x,y,flag;
 	POSICAO pos;
 	flag=1;
@@ -53,7 +53,7 @@ ESTADO persegue_wolf_SO (ESTADO e,int i,POSICAO p,int a[10][10]){
 	}
 	return e;
 }
-ESTADO persegue_wolf_NO (ESTADO e,int i,POSICAO p,int a[10][10]){
+ESTADO persegue_wolf_NO (ESTADO e,int i,POSICAO p,int a[SIZE][SIZE]){
 	int x,y,flag;
 	POSICAO pos;
 	flag=1;
@@ -70,7 +70,7 @@ ESTADO persegue_wolf_NO (ESTADO e,int i,POSICAO p,int a[10][10]){
 	}
 	return e;
 }
-ESTADO persegue_wolf (ESTADO e,int i,POSICAO p,int a[10][10]){
+ESTADO persegue_wolf (ESTADO e,int i,POSICAO p,int a[SIZE][SIZE]){
 	int flag=1;
 	/* // implementar modo mais inteligente no nivel 8
 	if(e.world_lvl>10) {
@@ -96,7 +96,7 @@ ESTADO persegue_wolf (ESTADO e,int i,POSICAO p,int a[10][10]){
 	}
 	return e;
 }
-ESTADO defesa_WOLF_NE (ESTADO e, int i,POSICAO p,int a[10][10]){
+ESTADO defesa_WOLF_NE (ESTADO e, int i,POSICAO p,int a[SIZE][SIZE]){
 	int x,y,d,flag;
 	POSICAO pos;
 	flag=1;
@@ -114,7 +114,7 @@ ESTADO defesa_WOLF_NE (ESTADO e, int i,POSICAO p,int a[10][10]){
 	}
 	return e;
 }
-ESTADO defesa_WOLF_NO (ESTADO e, int i,POSICAO p,int a[10][10]){
+ESTADO defesa_WOLF_NO (ESTADO e, int i,POSICAO p,int a[SIZE][SIZE]){
 	int x,y,d,flag;
 	POSICAO pos;
 	flag=1;
@@ -132,7 +132,7 @@ ESTADO defesa_WOLF_NO (ESTADO e, int i,POSICAO p,int a[10][10]){
 	}
 	return e;
 }
-ESTADO defesa_WOLF_SE (ESTADO e, int i,POSICAO p,int a[10][10]){
+ESTADO defesa_WOLF_SE (ESTADO e, int i,POSICAO p,int a[SIZE][SIZE]){
 	int x,y,d,flag;
 	POSICAO pos;
 	flag=1;
@@ -150,7 +150,7 @@ ESTADO defesa_WOLF_SE (ESTADO e, int i,POSICAO p,int a[10][10]){
 	}
 	return e;
 }
-ESTADO defesa_WOLF_SO (ESTADO e, int i,POSICAO p,int a[10][10]){
+ESTADO defesa_WOLF_SO (ESTADO e, int i,POSICAO p,int a[SIZE][SIZE]){
 	int x,y,d,flag;
 	POSICAO pos;
 	flag=1;
@@ -168,7 +168,7 @@ ESTADO defesa_WOLF_SO (ESTADO e, int i,POSICAO p,int a[10][10]){
 	}
 	return e;
 }
-void distancia_WOLF (ESTADO e,int a[10][10],int x,int y,int i){
+void distancia_WOLF (ESTADO e,int a[SIZE][SIZE],int x,int y,int i){
 		int a1,a2;
 		POSICAO pos;
 		if(x<10 && x>=0 && y<10 && y>=0){
@@ -187,7 +187,7 @@ void distancia_WOLF (ESTADO e,int a[10][10],int x,int y,int i){
 			}
 		}
 }
-void preenche_matriz(int a[10][10]){
+void preenche_matriz(int a[SIZE][SIZE]){
 	int x,y;
 	for(x=0;x<10;x++){
 		for(y=0;y<10;y++){
@@ -197,7 +197,7 @@ void preenche_matriz(int a[10][10]){
 }
 ESTADO estrat_wolf (ESTADO e,int i,POSICAO p){
 	int flag=1;
-	int a[10][10];
+	int a[SIZE][SIZE];
 	preenche_matriz(a);
 	distancia_WOLF(e,a,e.jog.x,e.jog.y,0);
 	if (existe_jogador(e,p)){
