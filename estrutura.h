@@ -28,15 +28,6 @@ typedef struct monster{
 	int hp;
 }MSTR;
 
-typedef struct dragon{
-	int fireball;
-	int wingAttack;
-	int fireCone;
-	int num_fireballs;
-	POSICAO fireballCenters[4];
-	POSICAO pos;
-	int hp;
-}DRAGON;
 typedef struct inventory{
 	int gold;
 	int inv[INVT_SIZE];
