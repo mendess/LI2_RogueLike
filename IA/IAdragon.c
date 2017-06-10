@@ -7,7 +7,7 @@ ESTADO fireCone(ESTADO e){
 	return e;
 }
 ESTADO Wing_attack (ESTADO e){
-	if(e.jog.x>=1 && e.jog.x<=8 && e.jog.y>=(e.dragon.pos.y+4) && e.jog.y<=(e.dragon.pos.y+7)){
+	if(e.jog.x>=1 && e.jog.x<=8 && e.jog.y>=(e.dragon.pos.y+4) && e.jog.y<(e.dragon.pos.y+7)){
 		e.hp-=10;
     	if(e.jog.y+3<10){
 	    	e.jog.y+=3;
