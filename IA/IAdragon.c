@@ -108,7 +108,7 @@ ESTADO estrat_dragon0 (ESTADO e){
 	return e;
 }
 ESTADO fireCone1(ESTADO e){
-	if(e.jog.x>=(e.dragon.pos.x+1)+((((e.jog.y-1)-e.dragon.pos.y)/2)-1) && e.jog.x<=(e.dragon.pos.x+2)-(((e.jog.y-1)-e.dragon.pos.y)/2)-1 && e.jog.y<e.dragon.pos.y) {
+	if(e.jog.x>=((e.dragon.pos.x+1)+((((e.jog.y-1)-e.dragon.pos.y)/2)-1)+1 && e.jog.x<=(e.dragon.pos.x+2)-(((e.jog.y-1)-e.dragon.pos.y)/2)-1)+1 && e.jog.y<e.dragon.pos.y) {
 		e=ataca_jogador(e,8);
 	}
 	return e;
