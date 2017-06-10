@@ -74,7 +74,6 @@ ESTADO dragon_movement (ESTADO e){
 // 1-fireball;2-wingAttack;3-fireCone
 ESTADO estrat_dragon (ESTADO e){
 	if(e.dragon.hp>0){
-		e=dragon_movement(e);
 		if(e.turn%2!=0){
 			srand(time(NULL));
 			e.dragon.attack=(rand() % 3)+1;
@@ -83,6 +82,7 @@ ESTADO estrat_dragon (ESTADO e){
 			}
 		}
 		if(e.turn !=0 && e.turn%2==0){
+			e=dragon_movement(e);
 			if(e.dragon.attack==1){
 				e=fireball_damage(e);
 			}
