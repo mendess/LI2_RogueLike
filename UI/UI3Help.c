@@ -1,4 +1,4 @@
-#include "html3Help.h"
+#include "UI3Help.h"
 
 void imprimeHelp(char *name){
 	ABRIR_SVG;

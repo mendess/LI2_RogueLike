@@ -1,13 +1,13 @@
-#ifndef __HTML6_H__
-#define __HTML6_H__
+#ifndef __UI6_H__
+#define __UI6_H__
 
 /**
-@file html6Shop.h
+@file UI6Shop.h
 Definição das funções para imprimir a interface da loja
 */
 #include "../shop.h"
 
-#include "htmlMaster.h"
+#include "UIMaster.h"
 
 /** \brief Ecras da loja */
 #define SHOP_SCREENS	{"ScreenShop.png","ScreenShop1.png","ScreenShop2.png","ScreenShop3.png","ScreenShop4.png","ScreenShop5.png"}

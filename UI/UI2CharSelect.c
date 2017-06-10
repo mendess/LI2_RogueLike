@@ -1,4 +1,4 @@
-#include "html2CharSelect.h"
+#include "UI2CharSelect.h"
 
 void imprimeCharSelect(char *name){
 	ABRIR_SVG;

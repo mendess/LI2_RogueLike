@@ -2,7 +2,7 @@
 CFLAGS= -Wall -Wextra -pedantic -g
 FICHEIROS=(wildcard *.c) (wildcard *.h) makefile
 OBJECTS:=$(patsubst %.c,%.o,$(wildcard *.c))
-OBJ_HTML:=$(patsubst %.c,%.o,$(wildcard html/*.c))
+OBJ_UI:=$(patsubst %.c,%.o,$(wildcard UI/*.c))
 
 LIBS=-lm
 
@@ -15,8 +15,8 @@ install: roguel
 	sudo cp imagens/* /var/www/html/imagens
 	touch install
 
-roguel: $(OBJ_HTML) $(OBJECTS)
-	cc -o roguel $(OBJECTS) $(OBJ_HTML) $(LIBS)
+roguel: $(OBJ_UI) $(OBJECTS)
+	cc -o roguel $(OBJECTS) $(OBJ_UI) $(LIBS)
 
 exemplo.zip: $(FICHEIROS)
 	zip -9 exemplo.zip $(FICHEIROS)
@@ -27,12 +27,12 @@ doc:
 
 clean:
 	rm -rf *.o roguel install
-	(cd html;make clean)
+	(cd UI;make clean)
 
 hardclean:
 	sudo rm -r /var/www/html/*
 	rm -rf *.o roguel install
-	(cd html;make clean)
+	(cd UI;make clean)
 
 givegdbpermits:
 	sudo chmod a+rw /var/www/html/files/*

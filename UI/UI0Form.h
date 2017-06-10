@@ -1,11 +1,11 @@
-#ifndef __HTML1_H__
-#define __HTML1_H__
+#ifndef __UI1_H__
+#define __UI1_H__
 
 /**
-@file html0Form.h
+@file UI0Form.h
 Definição da função que imprime a interface para o jogadro escolher o seu nome
 */
-#include "htmlMaster.h"
+#include "UIMaster.h"
 
 /**
 \brief Imprime a interface do escolha do nome

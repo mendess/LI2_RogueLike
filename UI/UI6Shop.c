@@ -1,6 +1,6 @@
 #define DEBUG
 
-#include "html6Shop.h"
+#include "UI6Shop.h"
 
 void imprime_shop_item(char *name, int item, int index){
 	if(item){

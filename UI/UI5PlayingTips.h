@@ -1,12 +1,12 @@
-#ifndef __HTML_5_TIPS_H__
-#define __HTML_5_TIPS_H__
+#ifndef __UI_5_TIPS_H__
+#define __UI_5_TIPS_H__
 
 /**
-@file html5PlayingTips.h
+@file UI5PlayingTips.h
 Definição das funções que imprimem as ajudas durante o jogo
 */
 
-#include "html5Playing.h"
+#include "UI5Playing.h"
 #include "../items.h"
 #include "../genMonsters.h"
 

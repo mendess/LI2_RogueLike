@@ -1,4 +1,4 @@
-#include "html5PlayingSpells.h"
+#include "UI5PlayingSpells.h"
 void i_cTarget(int type,POSICAO p){
 	char *targetMolds[] = TARGET_MOLDS;
 	SQUARE(TAM*(p.x+1),TAM*(p.y+1),"black",0.0,targetMolds[type-3],1.0,TAM);

@@ -1,14 +1,14 @@
-#ifndef __HTML4_H__
-#define __HTML4_H__
+#ifndef __UI4_H__
+#define __UI4_H__
 
 /**
-@file html4ScoreBoard.h
+@file UI4ScoreBoard.h
 Definição das funções que imprimem a scoreboard
 */
 
 #include "../score.h"
 
-#include "htmlMaster.h"
+#include "UIMaster.h"
 
 /**
 \brief Imprime um score num certo indice

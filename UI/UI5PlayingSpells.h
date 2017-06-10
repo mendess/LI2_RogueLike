@@ -1,11 +1,11 @@
-#ifndef __HTML_5_SPELLS_H__
-#define __HTML_5_SPELLS_H__
+#ifndef __UI_5_SPELLS_H__
+#define __UI_5_SPELLS_H__
 
 /**
-@file html5PlayingSpells.h
+@file UI5PlayingSpells.h
 Definição da interface de uso de items complexos
 */
-#include "html5Playing.h"
+#include "UI5Playing.h"
 #include "../items.h"
 
 /** \brief Cores das molduras de dos feitiços */

@@ -17,7 +17,7 @@ Define as funções principais do jogo. As que controlam e todo o estado.
 #include "shop.h"
 #include "score.h"
 #include "items.h"
-#include "html/htmlMaster.h"
+#include "UI/UIMaster.h"
 
 /** \brief Caminho para os ficheiros de jogador */
 #define FILEPATH	"/var/www/html/files/"

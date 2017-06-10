@@ -1,11 +1,11 @@
-#ifndef __HTML2_H__
-#define __HTML2_H__
+#ifndef __UI2_H__
+#define __UI2_H__
 
 /**
-@file html2CharSelect.h
+@file UI2CharSelect.h
 Definição da função que imprime a interface de escolha de classe
 */
-#include "htmlMaster.h"
+#include "UIMaster.h"
 
 /**
 \brief Imprime a interface de escolha de classe

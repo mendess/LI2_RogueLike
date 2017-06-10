@@ -1,4 +1,4 @@
-#include "html0Form.h"
+#include "UI0Form.h"
 
 void imprimeForm(){
 	printf("<form action=\"roguel\" method=\"GET\">\n");

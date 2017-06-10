@@ -1,4 +1,4 @@
-#include "html4ScoreBoard.h"
+#include "UI4ScoreBoard.h"
 
 void imprime_score(int score, int index){
 	int digitPos=0;

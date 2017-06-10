@@ -1,4 +1,4 @@
-#include "html5PlayingTips.h"
+#include "UI5PlayingTips.h"
 
 void imprime_helpButton(char *name){
 	ABRIR_LINK(name,"10");

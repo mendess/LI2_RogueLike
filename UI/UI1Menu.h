@@ -1,11 +1,11 @@
-#ifndef __HTML0_H__
-#define __HTML0_H__
+#ifndef __UI0_H__
+#define __UI0_H__
 
 /**
-@file html1Menu.h
+@file UI1Menu.h
 Definição da função que imprime do menu principal
 */
-#include "htmlMaster.h"
+#include "UIMaster.h"
 
 /**
 \brief Imprime a interface do menu principal

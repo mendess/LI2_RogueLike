@@ -1,20 +1,20 @@
-#ifndef ___HTML_MASTER_H___
-#define ___HTML_MASTER_H___
+#ifndef ___UI_MASTER_H___
+#define ___UI_MASTER_H___
 
 /**
-@file htmlMaster.h
+@file UIMaster.h
 Definição das funções que controlam a interface
 */
 
 #include "../estrutura.h"
 
-#include "html0Form.h"
-#include "html1Menu.h"
-#include "html2CharSelect.h"
-#include "html3Help.h"
-#include "html4ScoreBoard.h"
-#include "html5Playing.h"
-#include "html6Shop.h"
+#include "UI0Form.h"
+#include "UI1Menu.h"
+#include "UI2CharSelect.h"
+#include "UI3Help.h"
+#include "UI4ScoreBoard.h"
+#include "UI5Playing.h"
+#include "UI6Shop.h"
 
 /** \brief Lista das imagens do items */
 #define ITEM_LIST				{"Empty",\
@@ -115,9 +115,9 @@ Definição das funções que controlam a interface
 /** \brief Macro para fechar um link */
 #define FECHAR_LINK				printf("</a>\n")
 
-/** \brief Imprime o header do html */
+/** \brief Imprime o header do UI */
 void print_header();
-/* \brief Imprime o footer do html */
+/* \brief Imprime o footer do UI */
 void print_footer();
 /**
 \brief Função mestra que imprime toda a interfaçe 

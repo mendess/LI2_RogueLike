@@ -1,15 +1,15 @@
-#ifndef __HTML5_H__
-#define __HTML5_H__
+#ifndef __UI5_H__
+#define __UI5_H__
 
 /**
-@file html5Playing.h
+@file UI5Playing.h
 Definição das funções que imprimem a interface do jogo
 */
 #include "../colisions.h"
-#include "htmlMaster.h"
+#include "UIMaster.h"
 
-#include "html5PlayingSpells.h"
-#include "html5PlayingTips.h"
+#include "UI5PlayingSpells.h"
+#include "UI5PlayingTips.h"
 
 /** \brief Matriz de ações das ações dos ataques à distancia */
 #define RANGED_ACTION_MATRIX	{{-1,-1,28,-1,-1},\
