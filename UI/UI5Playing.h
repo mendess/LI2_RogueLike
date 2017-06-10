@@ -74,7 +74,7 @@ void imprime_link(char *name, POSICAO target, int new_action, int moldura);
 /**
 \brief Imprime um movimento para as coordenadas dadas
 @param e Estado do jogo
-@param p Diferencial posição onde criar o movimento relativo ao jogador
+@param dif Diferencial posição onde criar o movimento relativo ao jogador
 */
 void imprime_move (ESTADO e, POSICAO dif);
 /**
@@ -112,7 +112,7 @@ void imprime_chests(CHEST chests[], int num_chests);
 /**
 \brief Imprime os monstros
 @param jog Posição do jogador
-@param mostros Lista dos mostros
+@param monstros Lista dos mostros
 @param num_monstros Número de monstros
 */
 void imprime_monstros (POSICAO jog, MSTR monstros[], int num_monstros);

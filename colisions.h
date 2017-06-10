@@ -1,6 +1,11 @@
 #ifndef __COLISIONS_H__
 #define __COLISIONS_H__
 
+
+/**
+@file colisions.h
+Definição das funções que verificam se alguma entidade existe num certo sitio
+*/
 #include "estrutura.h"
 
 /**
@@ -11,8 +16,8 @@
 int outOfBounds(POSICAO p);
 /**
 \brief Verifica se esta posição está em cima do caminho entre o jogador e a saida
-@param e Estado do jogo
 @param p Posição a verificar
+@param pathSize Tamanho do caminho
 @param path Array de posições do caminho
 @returns 1 se a posição estiver no caminho 0 caso contrario
 */

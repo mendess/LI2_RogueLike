@@ -1,6 +1,11 @@
 #ifndef __ESTRUTURA_H__
 #define __ESTRUTURA_H__
 
+/**
+@file estrutura.h
+Definição de algumas constantes e das estruturas do jogo
+*/
+
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>

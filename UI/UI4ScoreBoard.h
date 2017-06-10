@@ -40,6 +40,7 @@ void i_scoreBoardFiltered(char *name);
 /**
 \brief Imprime a scoreBoard
 @param name Nome do jogador
+@param filtered Se é para imprimir a scoreboard filtrada
 */
 void imprimeScoreBoard(char *name, int filtered);
 

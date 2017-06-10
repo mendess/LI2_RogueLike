@@ -13,7 +13,7 @@ Define as funções principais do jogo. As que controlam e todo o estado.
 #include "antiCheat.h"
 #include "levelMaker.h"
 #include "calcularCombate.h"
-#include "move_monst.h"
+#include "IA/IA.h"
 #include "shop.h"
 #include "score.h"
 #include "items.h"

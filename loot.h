@@ -1,6 +1,11 @@
 #ifndef __LOOT_H_
 #define __LOOT_H_
 
+/**
+@file loot.h
+Definição das funções que geram os items por nivel
+*/
+
 #include <math.h>
 
 #include "estrutura.h"
