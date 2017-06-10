@@ -12,6 +12,8 @@ Definição da interface de uso de items complexos
 #define TARGET_MOLDS	{"red","yellow","green","blue"}
 /** \brief Nome da imagem do spell de fogo */
 #define FIRE_IMAGE		"Spell_Fire.png"
+/** \brief Nome da imagem do feitiço de veneno */
+#define POISON_IMAGE	"Spell_Poison.png"
 
 /**
 \brief Imprime um quadrado sombreado onde o feitiço vai ter efeito
@@ -32,6 +34,7 @@ int cTgT2Int(POSICAO p);
 @returns 1 se sim 0 caso contrario
 */
 int nearPlayer(POSICAO jog, POSICAO p);
+
 // RED ZONE
 /**
 \brief Imprime os alvos do feitiço vermelho (fogo)
@@ -82,6 +85,23 @@ void i_confirmCastBlue(ESTADO *e);
 @param e Apontador para o Estado do Jogo
 */
 void i_CastBlue(ESTADO *e);
+
+// GREEN ZONE
+/**
+\brief Imprime os alvos do feitiço verde (veneno)
+@param e Apontador para o Estado do Jogo
+*/
+void i_castTargetsGreen(ESTADO *e);
+/**
+\brief Sombreia as zona onde o feitiço verde (veneno) vai ter efeito
+@param e Apontador para o Estado do Jogo
+*/
+void i_confirmCastGreen(ESTADO *e);
+/**
+\brief Imprime o efeito do feitiço verde (veneno)
+@param e Apontador para o Estado do Jogo
+*/
+void i_CastGreen(ESTADO *e);
 
 /**
 \brief Imprime os alvos do feitiço

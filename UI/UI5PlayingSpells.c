@@ -52,8 +52,8 @@ void i_CastRed(ESTADO *e){
 	int pYmax=p.y+2;
 	for(p.x=pXmax-3;p.x<pXmax;p.x++){
 		for (p.y=pYmax-3;p.y < pYmax; p.y++){
-			if(!outOfBounds(p) && !com_pedras(*e,p) && !com_boss(*e,p)){
-				IMAGEM(TAM*(p.x+1),TAM*(p.y+1),TAM,TAM,FIRE_IMAGE);
+			if(!outOfBounds(p) && !com_pedras(*e,p)){
+				IMAGEM_FORMATED(p.x,p.y,TAM,TAM,FIRE_IMAGE);
 			}
 		}
 	}
@@ -154,6 +154,31 @@ void i_CastBlue(ESTADO *e){
 	POSICAO p = itAct2Pos(e->action);
 	SQUARE(TAM*(p.x+1),TAM*(p.y+1),"black",0.0,"blue",1.0,TAM);
 }
+// GREEN ZONE
+void i_castTargetsGreen(ESTADO *e){
+	POSICAO p = e->jog;
+	int pXmax = e->jog.x+3;
+	int pYmax = e->jog.y+3;
+	for(p.x=pXmax-5; p.x < pXmax; ++p.x){
+		for(p.y=pYmax-5; p.y < pYmax; ++p.y){
+			if(com_monstros(*e,p)){
+				char query[4];
+				sprintf(query,"%d",cTgt2Int(p));
+				ABRIR_LINK(e->name,query);
+				CIRCLE((p.x+1)*TAM,(p.y+1)*TAM,TAM/2,"black",0.0,"green",1.0,TAM);
+				FECHAR_LINK;
+			}
+		}
+	}
+}
+void i_confirmCastGreen(ESTADO *e){
+	POSICAO target = itAct2Pos(e->action);
+	CIRCLE((target.x+1)*TAM,(target.y+1)*TAM,TAM/2,"black",0.3,"green",1.0,TAM);
+}
+void i_CastGreen(ESTADO *e){
+	POSICAO p = itAct2Pos(e->action);
+	IMAGEM_FORMATED(p.x,p.y,TAM,TAM,POISON_IMAGE);
+}
 void imprime_castTargets(ESTADO *e){
 	if(e->complexItem.lastPickedTarget>9999){
 		imprime_confirmCast(e);
@@ -163,8 +188,8 @@ void imprime_castTargets(ESTADO *e){
 				break;
 		case 4: i_castTargetsYellow(e);
 				break;
-		/*case 5: i_castTargetsGree(e);
-				break;*/
+		case 5: i_castTargetsGreen(e);
+				break;
 		case 6: i_castTargetsBlue(e);
 				break;
 	}
@@ -175,8 +200,8 @@ void imprime_confirmCast(ESTADO *e){
 				break;
 		case 4: i_confirmCastYellow(e);
 				break;
-		/*case 5: i_confirmCastGreen(e):
-				break;*/
+		case 5: i_confirmCastGreen(e);
+				break;
 		case 6: i_confirmCastBlue(e);
 				break;
 	}
@@ -187,8 +212,8 @@ void imprime_castSpell(ESTADO *e){
 				break;
 		case 4: i_CastYellow(e);
 				break;
-		/*case 5: i_CastGreen(e):
-				break;*/
+		case 5: i_CastGreen(e);
+				break;
 		case 6: i_CastBlue(e);
 				break;
 	}

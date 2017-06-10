@@ -12,10 +12,13 @@ int generateScroll(){
 	int r = rand() % 3;
 	switch(r){
 		case 0: return SCROLL_FIRE;
-
+				break;
 		case 1: return SCROLL_LIGHTNING;
-
+				break;
 		case 2: return SCROLL_TELEPORT;
+				break;
+		case 3: return SCROLL_POISON;
+				break;
 	}
 	return SCROLL_FIRE;
 }

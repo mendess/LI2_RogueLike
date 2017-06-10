@@ -6,6 +6,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 	}
 
 	e.feedback=0;
+	poison_monstros(&e);
 	if(ACT_GOTO_MENU){/* main menu*/
 		e.screen=1;
 		return e;
@@ -98,7 +99,6 @@ ESTADO calcularNovoEstado(ESTADO e){
 	e.turn++;
 
 	e=move_monstros(e);
-
 
 	if(e.hp<1){
 		e.hp=0;

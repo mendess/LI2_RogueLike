@@ -49,6 +49,8 @@ typedef struct monster{
 	int monType;
 	/** Vida do monstro */
 	int hp;
+	/** Poison counter */
+	int poison;
 }MSTR;
 
 /** \brief Estrutura que armazena o inventário do jogador */

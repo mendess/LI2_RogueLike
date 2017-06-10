@@ -60,7 +60,7 @@ int getSpellCost(int item);
 @param e Estado do Jogo
 @returns 1 se sim 0 caso contrario
 */
-int lightningHasTargets(ESTADO e);
+int hasTargets(ESTADO e);
 /**
 \brief Usa um item e coloca o campo de feedback no valor certo
 @param e Estado do Jogo
@@ -138,6 +138,11 @@ int isRepeat(POSICAO targets[], int num_targets, POSICAO newTarget);
 @param e Apontador do Estado do Jogo
 */
 void castScroll_Lightning(ESTADO *e);
+/**
+\brief Executa o efeito do pergaminho de veneno
+@param e Apontador do Estado do Jogo
+*/
+void castScroll_Poison(ESTADO *e);
 /**
 \brief Executa o efeito de um pergaminho
 @param e Estado do Jogo

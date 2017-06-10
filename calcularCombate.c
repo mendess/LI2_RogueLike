@@ -120,3 +120,14 @@ ESTADO calcularCombate(ESTADO e){
 	}
 	return e;
 }
+
+void poison_monstros(ESTADO *e){
+	int i;
+	for(i=0;i<e->num_monstros;i++){
+		if(e->monstros[i].poison){
+			POSICAO target = {e->monstros[i].x,e->monstros[i].y};
+			e->monstros[i].poison--;
+			hitMonster(e,target,POISON_DMG);
+		}
+	}
+}

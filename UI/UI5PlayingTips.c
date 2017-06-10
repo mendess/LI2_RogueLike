@@ -2,7 +2,7 @@
 
 void imprime_helpButton(char *name){
 	ABRIR_LINK(name,"10");
-	IMAGEM(745,310,TAM,TAM,"button_toggle_help.png");
+	IMAGEM(745,310,TAM,TAM,"button_help_toggle.png");
 	FECHAR_LINK;
 }
 void imprime_helpEnemies(char *name, MSTR monstros[], int num_monstros){
@@ -10,7 +10,7 @@ void imprime_helpEnemies(char *name, MSTR monstros[], int num_monstros){
 		char query[5];
 		sprintf(query,"%d",10000+(monstros[num_monstros].x*100)+monstros[num_monstros].y);
 		ABRIR_LINK(name,query);
-		IMAGEM_FORMATED(monstros[num_monstros].x,monstros[num_monstros].y,TAM,TAM,"button_ask_help.png");
+		IMAGEM_FORMATED(monstros[num_monstros].x,monstros[num_monstros].y,TAM,TAM,"button_help_ask.png");
 		FECHAR_LINK;
 	}
 }
@@ -23,18 +23,18 @@ void imprime_helpInvetory(char *name, INVT bag){
 		char query[4];
 		sprintf(query,"4%d",i);
 		ABRIR_LINK(name,query);
-		IMAGEM(X,Y,TAM,TAM,"button_ask_help.png");
+		IMAGEM(X,Y,TAM,TAM,"button_help_ask.png");
 		FECHAR_LINK;
 		}
 	}
 	if(bag.weapon){
 		ABRIR_LINK(name,"46");
-		IMAGEM(690,260,TAM,TAM,"button_ask_help.png");
+		IMAGEM(690,260,TAM,TAM,"button_help_ask.png");
 		FECHAR_LINK;
 	}
 	if(bag.armour){
 		ABRIR_LINK(name,"47");
-		IMAGEM(690,310,TAM,TAM,"button_ask_help.png");
+		IMAGEM(690,310,TAM,TAM,"button_help_ask.png");
 		FECHAR_LINK;
 	}
 }
