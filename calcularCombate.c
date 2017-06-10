@@ -86,6 +86,12 @@ int hitMonster(ESTADO *e, POSICAO target, int dmg){
 			e->dragon.hp-=dmg;
 			if(e->dragon.hp<1){
 				dropItemFromDragon(e->lootTable,e->droppedItems,e->dragon.pos);
+				if(e->jog.x!=2 && e->jog.y!=0){
+					e->saida.x=0;
+				}else{
+					e->saida.x=3;
+				}
+				e->saida.y=2;
 			}
 			isHit=1;
 		}else{

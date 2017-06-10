@@ -288,7 +288,11 @@ void imprimePlaying(ESTADO e){
 		imprime_droppedItems(e.droppedItems);
 		imprime_chests(e.chests,e.num_chests);
 		if(e.isInBossBattle){
-			imprime_boss(e);
+			if(e.dragon.side==0){
+				imprime_boss0(e);
+			}else{
+				imprime_boss1(e);
+			}
 		}else{
 			imprime_monstros(e.jog,e.monstros,e.num_monstros);
 		}
