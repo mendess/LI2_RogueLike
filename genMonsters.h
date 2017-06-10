@@ -3,7 +3,7 @@
 
 
 /**
-@file genMonster.h
+@file genMonsters.h
 Definição das funções que geram os monstros para cada nível
 */
 #include <math.h>

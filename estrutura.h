@@ -56,6 +56,7 @@ typedef struct inventory{
 	int armour;
 }INVT;
 
+/** \brief Estrutura que guarda uma chest */
 typedef struct chest{
 	/** Posição da chest */
 	POSICAO pos;
@@ -75,24 +76,7 @@ typedef struct itemUsedata{
 	int isBeingCast;
 }ITEM_U_DAT;
 
-typedef struct dragon{
-
-	int fireball;
-
-	int wingAttack;
-
-	int fireCone;
-
-	int num_fireballs;
-
-	POSICAO fireballCenters[4];
-
-	POSICAO pos;
-
-	int hp;
-
-}DRAGON;
-
+/** \brief Estrutura que guarda o estado do jogo */
 typedef struct estado{
 	/** Ecra em que o jogo está {Form=0; Main Menu=1; ScoreBoard=2; Help=3; Character Selection=4; Playing=5; Store=6} */
 	int screen;

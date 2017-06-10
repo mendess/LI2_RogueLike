@@ -13,7 +13,7 @@ Definição das funções que geram o caminho garantido para a saida
 \brief Cria um caminho a ser evitado quando o mapa está a ser gerado 
 	   para garantir que há pelo menos um caminho possivel para chegar a saida.
 	   Esta função também define a posição inicial do jogador e de saida
-@param Array de posições do caminho a ser evitado
+@param path Array de posições do caminho a ser evitado
 @returns Tamanho final do caminho
 */
 int pathMaker(POSICAO path[]);
