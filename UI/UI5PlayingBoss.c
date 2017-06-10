@@ -54,14 +54,16 @@ void i_fireCone(ESTADO e){
 	}
 }
 void imprime_boss(ESTADO e){
-	IMAGEM((e.dragon.pos.x+1)*TAM,(e.dragon.pos.y+1)*TAM,200,150,"Monstro_Dragon_1.png");
-	switch(e.dragon.attack){
-		case 0: break;
-		case 1: i_fireballs(e);
-				break;
-		case 2: i_wingAttack(e);
-				break;
-		case 3: i_fireCone(e);
-				break;
+	if(e.dragon.hp>0){
+		IMAGEM((e.dragon.pos.x+1)*TAM,(e.dragon.pos.y+1)*TAM,200,150,"Monstro_Dragon_1.png");
+		switch(e.dragon.attack){
+			case 0: break;
+			case 1: i_fireballs(e);
+					break;
+			case 2: i_wingAttack(e);
+					break;
+			case 3: i_fireCone(e);
+					break;
+		}
 	}
 }
