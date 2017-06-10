@@ -45,21 +45,6 @@ int blocked0 (ESTADO e, POSICAO p){
 	}
 	return (e1 && e2 && e3 && e4);
 }
-/*  indica se há posições livres para o monstro se mover.
-int blocked1 (ESTADO e, POSICAO p){
-	POSICAO p1;
-	int u,i;
-	u=1;
-	for ((p1.x)=(p.x-1);(p1.x)<=(p.x+1);(p1.x)++){
-		for((p1.y)=(p.y-1);p1.y<p.y+1;p1.y++){
-			for (i=0;i<MAX_PEDRAS;i++){
-				if (p1.x==e.pedras[i].x && p1.y== e.pedras[i].y) u=0;
-			}
-		}
-	}
-	return u;
-}
-*/
 int ve_jogador (ESTADO e,POSICAO p){
 	int p1,p2;
 	p1=abs(p.x-e.jog.x);
@@ -82,21 +67,6 @@ ESTADO mov_bat(ESTADO e,int i,POSICAO p){
 			e.monstros[i].y=p1.y;
 		}
 		return e;
-}
-ESTADO mov_ogre(ESTADO e,int i,POSICAO p){
-	int q,w;
-	POSICAO p1;
-	do{
-		q=(rand () % 3) -1;
-		w=(rand () % 3) -1;
-	}while((q==0 && w==0) || (q!=0 && w!=0));
-	p1.x=p.x+q;
-	p1.y=p.y+w;
-	if (!pos_ocupada(e,p1) && inBounds(p1)){
-		e.monstros[i].x=p1.x;
-		e.monstros[i].y=p1.y;
-	}
-	return e;
 }
 /*  ataca se a dferença de posições for de 3 quadriculas x+y <=3 */
 ESTADO mov_archer(ESTADO e,int i,POSICAO p){
@@ -148,17 +118,6 @@ ESTADO acao_wolf (ESTADO e,int i, POSICAO p){
 	}
 	if(flag){
 		e=mov_wolf(e,i,p);
-	}
-	return e;
-}
-ESTADO acao_ogre(ESTADO e,int i,POSICAO p){
-	int flag=1;
-	if (existe_jogador(e,p)){
-		e.hp-=OGRE_DMG;
-		flag=0;
-	}
-	if(flag){
-		e=mov_ogre(e,i,p);
 	}
 	return e;
 }
@@ -234,7 +193,7 @@ ESTADO move_monstros (ESTADO e){
             e=acao_bat(e,i,p);
         	} 
          if(e.monstros[i].monType == 2 && (e.turn%2 == 0)){
-   	    	  e=acao_ogre(e,i,p);
+   	    	  e=estrat_ogre(e,i,p);
          }
          if(e.monstros[i].monType == 3){// por 3
             e=acao_archer(e,i,p);

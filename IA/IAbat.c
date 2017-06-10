@@ -5,7 +5,7 @@
 #include "IAbat.h"
 
 
-POSICAO buscaB1 (ESTADO e,int a[SIZE][SIZE]){
+POSICAO buscaBat1 (ESTADO e,int a[SIZE][SIZE]){
   int x,y,flag;
   POSICAO intersect;
   flag=1;
@@ -20,7 +20,7 @@ POSICAO buscaB1 (ESTADO e,int a[SIZE][SIZE]){
   }
  return intersect;
 }
-POSICAO buscaB2 (ESTADO e,int a[SIZE][SIZE]){
+POSICAO buscaBat2 (ESTADO e,int a[SIZE][SIZE]){
   int x,y,flag;
   POSICAO intersect;
   flag=1;
@@ -35,8 +35,8 @@ POSICAO buscaB2 (ESTADO e,int a[SIZE][SIZE]){
   }
   return intersect;
 }
-POSICAO buscaB3 (ESTADO e,int a[SIZE][SIZE]){
-    int x,y,flag;
+POSICAO buscaBat3 (ESTADO e,int a[SIZE][SIZE]){
+  int x,y,flag;
   POSICAO intersect;
   flag=1;
   for(y=0;y<10;y--){
@@ -50,7 +50,7 @@ POSICAO buscaB3 (ESTADO e,int a[SIZE][SIZE]){
   }
   return intersect;
 }
-POSICAO buscaB4 (ESTADO e,int a[SIZE][SIZE]){
+POSICAO buscaBat4 (ESTADO e,int a[SIZE][SIZE]){
   int x,y,flag;
   POSICAO intersect;
   flag=1;
@@ -66,7 +66,7 @@ POSICAO buscaB4 (ESTADO e,int a[SIZE][SIZE]){
   return intersect;
 }// previsão da posição em que o jogador estará daqui a tantas jogadas
 // como metade da distancia em x e y entre monstro e jogador
-POSICAO mapa3 (ESTADO e,POSICAO p,int q){
+POSICAO mapa3 (ESTADO e,POSICAO p,int num){
   int d,x,y;
   int a[10][10];
   POSICAO intersect;
@@ -81,10 +81,10 @@ POSICAO mapa3 (ESTADO e,POSICAO p,int q){
        } 
     }
   }
-  if(q==1) intersect=buscaB1(e,a);
-  if(q==2) intersect=buscaB2(e,a);
-  if(q==3) intersect=buscaB3(e,a);
-  if(q==4) intersect=buscaB4(e,a);
+  if(num==1) intersect=buscaBat1(e,a);
+  if(num==2) intersect=buscaBat2(e,a);
+  if(num==3) intersect=buscaBat3(e,a);
+  if(num==4) intersect=buscaBat4(e,a);
   return intersect;
 }
 int livre (ESTADO e,int x,int y){
@@ -93,14 +93,13 @@ int livre (ESTADO e,int x,int y){
   pos.x=x;
   pos.y=y;
   flag=1;
-  for(i=0;i<e.num_monstros;i++){
-    if(inBounds(pos)!=1){
+  if(inBounds(pos)!=1){
       flag=0;
     }
+  for(i=0;i<e.num_monstros;i++){
      if (flag && (e.monstros[i].x==pos.x && e.monstros[i].y==pos.y)){
       flag=0;
      }
-     printf("%d",flag );
   }
   return flag;
 }
@@ -147,7 +146,7 @@ ESTADO estrat_bat1 (ESTADO e, int i, POSICAO intersect){
    }
    return e;
 }
-ESTADO defB (ESTADO e, int i,POSICAO p,int num){
+ESTADO defesaBat (ESTADO e, int i,POSICAO p,int num){
   POSICAO intersect;
   intersect= mapa3(e,p,num);
   e=estrat_bat1(e,i,intersect);
@@ -160,19 +159,19 @@ ESTADO estrat_bat(ESTADO e,int i,POSICAO p){
       flag=0;
    } // J M →ŧ
    if(flag && e.jog.x<p.x && e.jog.y>p.y && e.saida.x>p.x && e.saida.y<p.y && e.saida.x>e.jog.x && e.saida.y<e.jog.y){
-     e=defB(e,i,p,1);
+     e=defesaBat(e,i,p,1);
      flag=0;
    } // J M←ŧ
    if(flag && e.jog.x>p.x && e.jog.y>p.y && e.saida.x<p.x && e.saida.y<p.y && e.saida.x<e.jog.x && e.saida.y<e.jog.y){
-     e= defB(e,i,p,2);
+     e= defesaBat(e,i,p,2);
      flag=0;
    } // J M←↓
    if(flag && e.jog.x>p.x && e.jog.y<p.y && e.saida.x<p.x && e.saida.y>p.y && e.saida.x<e.jog.x && e.saida.y>e.jog.y){
-     e=defB(e,i,p,3);
+     e=defesaBat(e,i,p,3);
      flag=0;
    } // J M→↓
    if(flag && e.jog.x<p.x && e.jog.y<p.y && e.saida.x>p.x && e.saida.y>p.y && e.saida.x>e.jog.x && e.saida.y>e.jog.y){
-     e=defB(e,i,p,4);
+     e=defesaBat(e,i,p,4);
      flag=0;
    }
    if(flag) e=estrat_bat1(e,i,e.jog);

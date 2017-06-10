@@ -193,19 +193,19 @@ ESTADO estrat_wolf (ESTADO e,int i,POSICAO p){
     e.hp-=WOLF_DMG;
   	flag=0;
   } // J M →ŧ
-  if(flag && e.jog.x<p.x && BLOQUEAVEL_NE){
+  if(flag && BLOQUEAVEL_NE){
     e=defesa_WOLF_NE(e,i,p,a);
     flag=0;
   } // J M←ŧ
-  if(flag && e.jog.x>p.x && BLOQUEAVEL_NO){
+  if(flag && BLOQUEAVEL_NO){
     e= defesa_WOLF_NO(e,i,p,a);
     flag=0;
   } // J M←↓
-  if(flag && e.jog.x>p.x && BLOQUEAVEL_SE){
+  if(flag && BLOQUEAVEL_SE){
     e=defesa_WOLF_SE(e,i,p,a);
     flag=0;
   } // J M→↓
-  if(flag && e.jog.x<p.x && BLOQUEAVEL_SO){
+  if(flag && BLOQUEAVEL_SO){
     e=defesa_WOLF_SO(e,i,p,a);
     flag=0;
   } // na persegue dá-se primasia as diagonais

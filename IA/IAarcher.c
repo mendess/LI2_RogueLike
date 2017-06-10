@@ -4,24 +4,7 @@
 #include <time.h>
 #include "IA.h"
  
-/*
-int sem_monstros(ESTADO e,int n,int x,int y){
-  int i,flag;
-  flag=1;
-  for(i=0;i<n;i++){
-    if(e.monstros[i].x==x && e.monstros[i].y == y) return 0;
-  }
-    return flag;
-}
-int sem_pedras(ESTADO e,int n,int x,int y){
-  int i,flag;
-  flag=1;
-  for(i=0;i<n;i++){
-    if(e.pedras[i].x==x && e.pedras[i].y == y) return 0;
-  }
-    return flag;
-}
-*/
+
 ESTADO persegue_NO(ESTADO e,int a[10][10],int i,POSICAO p){
   int x,y,flag;
   flag=1;
