@@ -10,21 +10,21 @@ ESTADO persegue_NO(ESTADO e,int a[10][10],int i,POSICAO p){
   flag=1;
   y=p.y-1;
   x=p.x-1;
-  if(a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y]){
+  if(a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y] && y>=0){
     e.monstros[i].y-=1;
    flag=0;
   }
-  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y]){
+  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y] && x>=0){
    e.monstros[i].x-=1;
    flag=0;
   }
   y=p.y+1;
   x=p.x+1;
-  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y]){
+  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y] && x<10){
     e.monstros[i].x+=1;
    flag=0;
   }
-  if(flag && a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y]){
+  if(flag && a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y] && y<10){
     e.monstros[i].y+=1;
   }
   return e;
@@ -34,21 +34,21 @@ ESTADO persegue_SO(ESTADO e,int a[10][10],int i,POSICAO p){
   flag=1;
   y=p.y+1;
   x=p.x-1;
-  if(a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y]){
+  if(a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y] && y<10){
     e.monstros[i].y+=1;
     flag=0;
   }
-  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y]){
+  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y] && x>=0){
    e.monstros[i].x-=1;
    flag=0;
   }
   y=p.y-1;
-  x=p.x-1;
-  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y]){
+  x=p.x+1;
+  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y] && x<10){
     e.monstros[i].x+=1;
     flag=0;
   }
-  if(flag && a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y]){
+  if(flag && a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y] && y>=0){
     e.monstros[i].y-=1;
   }
   return e;
@@ -58,21 +58,21 @@ ESTADO persegue_NE(ESTADO e,int a[10][10],int i,POSICAO p){
   flag=1;
   y=p.y-1;
   x=p.x+1;
-  if(a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y]){
+  if(a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y] && y>=0){
     e.monstros[i].y-=1;
    flag=0;
   }
-   if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y]){
+   if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y] && x<10){
     e.monstros[i].x+=1;
    flag=0;
   }
   y=p.y+1;
   x=p.x-1;
-  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y]){
+  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y] && x>=0){
    e.monstros[i].x-=1;
    flag=0;
   }
-  if(flag && a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y]){
+  if(flag && a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y] && y<10){
     e.monstros[i].y+=1;
   }
   return e;
@@ -82,21 +82,21 @@ ESTADO persegue_SE(ESTADO e,int a[10][10],int i,POSICAO p){
   flag=1;
   y=p.y+1;
   x=p.x+1;
-  if(a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y]){
+  if(a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y] && y<10){
    e.monstros[i].y+=1;
    flag=0;
   }
-  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y]){
+  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y] && x<10){
    e.monstros[i].x+=1;
    flag=0;
   }
   y=p.y-1;
   x=p.x-1;
-  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y]){
+  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y] && x>=0){
    e.monstros[i].x-=1;
    flag=0;
   }
-  if(flag && a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y]){
+  if(flag && a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y] && y>=0){
     e.monstros[i].y-=1;
   }
   return e;
@@ -206,21 +206,21 @@ ESTADO defArcher_NO (ESTADO e,int a[10][10], int i, POSICAO p){
   flag=1;
   y=p.y+1;
   x=p.x+1;
-   if(a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y]){
+   if(a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y] && y<10){
     e.monstros[i].y+=1;
     flag=0;
   }
-  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y]){
+  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y] && x<10){
     e.monstros[i].x+=1;
    flag=0;
   }
   y=p.y-1;
   x=p.x-1;
-  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y]){
+  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y] && x>=0){
    e.monstros[i].x-=1;
    flag=0;
   }
-  if(flag && a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y]){
+  if(flag && a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y] && y>=0){
     e.monstros[i].y-=1;
   }
   return e;
@@ -230,21 +230,21 @@ ESTADO defArcher_NE (ESTADO e,int a[10][10],int i, POSICAO p){
   flag=1;
   y=p.y+1;
   x=p.x-1;
-  if(a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y]){
+  if(a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y] && y<10){
     e.monstros[i].y+=1;
     flag=0;
   }
-  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y]){
+  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y] && x>=0){
    e.monstros[i].x-=1;
    flag=0;
   }
   y=p.y-1;
-  x=p.x-1;
-  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y]){
+  x=p.x+1;
+  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y] && x<10){
     e.monstros[i].x+=1;
     flag=0;
   }
-  if(flag && a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y]){
+  if(flag && a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y] && y>=0){
     e.monstros[i].y-=1;
   }
   return e;
@@ -254,21 +254,21 @@ ESTADO defArcher_SO (ESTADO e,int a[10][10],int i, POSICAO p){
   flag=1;
   y=p.y-1;
   x=p.x+1;
-  if(a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y]){
+  if(a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y] && y>=0){
     e.monstros[i].y-=1;
    flag=0;
   }
-   if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y]){
+   if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y] && x<10){
     e.monstros[i].x+=1;
    flag=0;
   }
   y=p.y+1;
   x=p.x-1;
-  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y]){
+  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y] && x>=0){
    e.monstros[i].x-=1;
    flag=0;
   }
-  if(flag && a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y]){
+  if(flag && a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y] && y<10){
     e.monstros[i].y+=1;
   }
   return e;
@@ -278,21 +278,21 @@ ESTADO defArcher_SE (ESTADO e,int a[10][10],int i, POSICAO p){
   flag=1;
   y=p.y-1;
   x=p.x-1;
-  if(a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y]){
+  if(a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y] && x>=0){
     e.monstros[i].y-=1;
    flag=0;
   }
-  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y]){
+  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y] && y>=0){
    e.monstros[i].x-=1;
    flag=0;
   }
   y=p.y+1;
   x=p.x+1;
-  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y]){
+  if(flag && a[x][p.y]!=50 && a[x][p.y]<=a[p.x][p.y] && x<10){
     e.monstros[i].x+=1;
    flag=0;
   }
-  if(flag && a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y]){
+  if(flag && a[p.x][y]!=50 && a[p.x][y]<= a[p.x][p.y] && y<10){
     e.monstros[i].y+=1;
   }
   return e;
