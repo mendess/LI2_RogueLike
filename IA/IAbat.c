@@ -4,7 +4,22 @@
 #include <time.h>
 #include "IAbat.h"
 
-
+int livre (ESTADO e,int x,int y){
+  int i,flag;
+  POSICAO pos;
+  pos.x=x;
+  pos.y=y;
+  flag=1;
+  if(inBounds(pos)!=1){
+      flag=0;
+    }
+  for(i=0;i<e.num_monstros;i++){
+     if (flag && (e.monstros[i].x==pos.x && e.monstros[i].y==pos.y)){
+      flag=0;
+     }
+  }
+  return flag;
+}
 POSICAO buscaBat1 (ESTADO e,int a[SIZE][SIZE]){
   int x,y,flag;
   POSICAO intersect;
@@ -86,22 +101,6 @@ POSICAO mapa3 (ESTADO e,POSICAO p,int num){
   if(num==3) intersect=buscaBat3(e,a);
   if(num==4) intersect=buscaBat4(e,a);
   return intersect;
-}
-int livre (ESTADO e,int x,int y){
-  int i,flag;
-  POSICAO pos;
-  pos.x=x;
-  pos.y=y;
-  flag=1;
-  if(inBounds(pos)!=1){
-      flag=0;
-    }
-  for(i=0;i<e.num_monstros;i++){
-     if (flag && (e.monstros[i].x==pos.x && e.monstros[i].y==pos.y)){
-      flag=0;
-     }
-  }
-  return flag;
 }
 ESTADO estrat_bat1 (ESTADO e, int i, POSICAO intersect){
    POSICAO p;
