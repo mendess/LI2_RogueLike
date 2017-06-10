@@ -49,9 +49,20 @@ void i_fireCone(ESTADO e){
 		}
 	}
 }
+int getDragonImg(int turn){
+	if(turn % 2){
+		while(turn>3){
+			turn-=4;
+		}
+	}else{
+		turn=2;
+	}
+	return turn-1;
+}
 void imprime_boss(ESTADO e){
 	if(e.dragon.hp>0){
-		IMAGEM((e.dragon.pos.x+1)*TAM,(e.dragon.pos.y+1)*TAM,200,150,"Monstro_Dragon_1.png");
+		char *dragonImgs[] = {"Monstro_Dragon_2.png","Monstro_Dragon_1.png","Monstro_Dragon_3.png"};
+		IMAGEM((e.dragon.pos.x+1)*TAM,(e.dragon.pos.y+1)*TAM,200,150,dragonImgs[getDragonImg(e.turn)]);
 		switch(e.dragon.attack){
 			case 0: break;
 			case 1: i_fireballs(e);
