@@ -150,7 +150,7 @@ ESTADO defesaBat (ESTADO e, int i,POSICAO p,int num){
 ESTADO estrat_bat(ESTADO e,int i,POSICAO p){
 	int flag=1;
 	if (existe_jogador(e,p)){
-		e.hp-=BAT_DMG;
+		e=ataca_jogador(e,BAT_DMG);
 		flag=0;
 	} // J M →ŧ
 	if(flag && e.jog.x<p.x && e.jog.y>p.y && e.saida.x>p.x && e.saida.y<p.y && e.saida.x>e.jog.x && e.saida.y<e.jog.y){
