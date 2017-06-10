@@ -75,7 +75,7 @@ ESTADO dragon_movement0 (ESTADO e){
 ESTADO estrat_dragon0 (ESTADO e){
 	if(e.dragon.pos.x>9){
 		e.dragon.pos.x=4;
-		e.dragon.pos.y=6;
+		e.dragon.pos.y=1;
 	}
 	if(e.dragon.hp>0){
 		if(e.jog.y<=(e.dragon.pos.y+2)){
