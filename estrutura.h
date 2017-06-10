@@ -49,6 +49,8 @@ typedef struct monster{
 	int monType;
 	/** Vida do monstro */
 	int hp;
+	/** Poison counter */
+	int poison;
 }MSTR;
 
 /** \brief Estrutura que armazena o inventário do jogador */
@@ -82,6 +84,20 @@ typedef struct itemUsedata{
 	/** Guarda se o jogador esta a "disparar" o item */
 	int isBeingCast;
 }ITEM_U_DAT;
+
+/** \brief Estrutura que armazena os dados do dragão */
+typedef struct dragao{
+	/** Guarda qual o proximo ataque {1="fireball";2="wingAttack";3="fireCone"} */
+	int attack;
+	/** Guarda, se o proximo ataque for "fireball", o número de fireballs */
+	int num_fireballs;
+	/** Guarda, se o proximo ataque for "fireball", as posições das mesmas */
+	POSICAO fireballCenters[8];
+	/** Guarda a posição do dragao */
+	POSICAO pos;
+	/** Guarda a vida do dragão */
+	int hp;
+}BOSS;
 
 /** \brief Estrutura que guarda o estado do jogo */
 typedef struct estado{
@@ -135,6 +151,8 @@ typedef struct estado{
 	int num_pedras;
 	/**  Posições dos monstros */
 	MSTR monstros [MAX_MONSTROS];
+	/** Estrutura do boss */
+	BOSS dragon;
 	/**  Posições da pedras */
 	POSICAO pedras [MAX_PEDRAS];
 	/** Lista de items no chão */

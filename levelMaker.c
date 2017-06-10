@@ -83,9 +83,9 @@ INVT initINVT(){
 	}
 	#ifdef DEBUG
 	bag.inv[0]=10;
-	bag.inv[1]=6;
-	bag.inv[2]=4;
-	bag.inv[3]=3;
+	bag.inv[1]=5;
+	bag.inv[2]=5;
+	bag.inv[3]=5;
 	bag.inv[4]=2;
 	bag.inv[5]=2;
 	#endif

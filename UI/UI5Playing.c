@@ -335,7 +335,7 @@ void imprimePlaying(ESTADO e){
 	int x;
 	printf("<p>");
 	for(x=0;x<e.num_monstros;x++){
-		printf("| x:%d y:%d hp:%d |", e.monstros[x].x,e.monstros[x].y,e.monstros[x].hp);
+		printf("| x:%d y:%d hp:%d t:%d p:%d |", e.monstros[x].x,e.monstros[x].y,e.monstros[x].hp,e.monstros[x].monType,e.monstros[x].poison);
 	}
 	printf("</p>");
 	#endif

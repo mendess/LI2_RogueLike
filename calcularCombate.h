@@ -54,6 +54,8 @@ Definição das funções para calcular o dano que o jogador vai dar aos monstro
 /** \brief Array de dano das armas */
 #define WEAPON_DMG_ARRAY 	{0,SWORD_BRONZE_DMG,SWORD_IRON_DMG,SWORD_STEEL_DMG,SWORD_PALLADIUM_DMG}
 
+/** \brief Dano do veneno */
+#define POISON_DMG	5
 /**
 \brief Verifica se um monstro está numa certa posição
 @param monPos Posição a verificar
@@ -130,5 +132,10 @@ int hitMonster(ESTADO *e,POSICAO target,int dmg);
 @returns Estado do jogo alterado
 */
 ESTADO calcularCombate(ESTADO e);
+/**
+\brief Função que tira vida/mata monstros envenenados
+@param e Apontador para o Estado do jogo
+*/
+void poison_monstros(ESTADO *e);
 
 #endif

@@ -39,7 +39,7 @@ int getSpellCost(int item){
 	int costs[] = COST_ARRAY;
 	return costs[item-3];
 }
-int lightningHasTargets(ESTADO e){
+int hasTargets(ESTADO e){
 	int found,i,j;
 	found=0;
 	for(i=-2;i<3 && !found;i++){
@@ -60,10 +60,10 @@ ESTADO useItem(ESTADO e){
 		if(*item<3){
 			e.feedback=usePotion(&e,item);
 		}else if(*item<10){
-			int hasTargets = *item==SCROLL_LIGHTNING ? lightningHasTargets(e) : 1;
+			int hasTgts = (*item==SCROLL_LIGHTNING || *item==SCROLL_POISON) ? hasTargets(e) : 1;
 			int hasMana = e.mp>=getSpellCost(*item);
 			if(hasMana){
-				if(hasTargets){
+				if(hasTgts){
 					e.complexItem.isBeingUsed=1;
 					e.complexItem.type=*item;
 					e.complexItem.lastPickedTarget=-1;
@@ -194,11 +194,18 @@ void castScroll_Lightning(ESTADO *e){
 	}while(found && SCROLL_LIGHTNING_DMG-(num_bolts*10)>0);
 	e->mp-=SCROLL_COST_LIGHTNING;
 }
+void castScroll_Poison(ESTADO *e){
+	POSICAO target = itAct2Pos(e->action);
+	int mIdx = getMonstro(*e,target);
+	e->monstros[mIdx].poison+=3;
+}
 ESTADO castScroll(ESTADO e){
 	switch(e.complexItem.type){
 		case 3: castScroll_Fire(&e);
 				break;
 		case 4: castScroll_Lightning(&e);
+				break;
+		case 5: castScroll_Poison(&e);
 				break;
 		case 6: castScroll_Teleport(&e);
 				break;
