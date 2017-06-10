@@ -86,7 +86,7 @@ ESTADO calcularCombate(ESTADO e){
 	POSICAO mon = {-1,-1};
 	char plrDmg;
 	if(e.action<20){
-		mon = calcularNovaPosicao(e.jog,e.action-10);	
+		mon = calcularNovaPosicao(e.jog,e.action-10);
 	}else if(e.action<30){
 		mon = calculaRangedAtackPos(e.jog,e.action);
 	}

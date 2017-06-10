@@ -30,7 +30,7 @@ int existe_jogador(ESTADO e,POSICAO p){
 int blocked0 (ESTADO e, POSICAO p){
 	POSICAO p1,p2,p3,p4;
 	int e1,e2,e3,e4,i;
-	e1=e2=e3=e4=0; 
+	e1=e2=e3=e4=0;
 	p1.x=p3.x=p.x;
 	p2.y=p4.y= p.y;
 	p2.x=p.x+1;
@@ -54,19 +54,19 @@ int ve_jogador (ESTADO e,POSICAO p){
 }
 ESTADO mov_bat(ESTADO e,int i,POSICAO p){
 	int q,w;
-		POSICAO p1;
-		srand(time(NULL));
-		do{
-			q=(rand () % 3) -1;
-			w=(rand () % 3) -1;
-		}while(q==0 && w==0);
-			p1.x=p.x+q;
-			p1.y=p.y+w;
-		if (!pos_ocupada(e,p1) && inBounds(p1)){
-			e.monstros[i].x=p1.x;
-			e.monstros[i].y=p1.y;
-		}
-		return e;
+	POSICAO p1;
+	srand(time(NULL));
+	do{
+		q=(rand () % 3) -1;
+		w=(rand () % 3) -1;
+	}while(q==0 && w==0);
+		p1.x=p.x+q;
+		p1.y=p.y+w;
+	if (!pos_ocupada(e,p1) && inBounds(p1)){
+		e.monstros[i].x=p1.x;
+		e.monstros[i].y=p1.y;
+	}
+	return e;
 }
 /*  ataca se a dferença de posições for de 3 quadriculas x+y <=3 */
 ESTADO mov_archer(ESTADO e,int i,POSICAO p){
@@ -134,76 +134,76 @@ ESTADO acao_archer(ESTADO e, int i, POSICAO p){
 }
 // certo devolve 2 monstros
 POSICAO quemAtaca(ESTADO e){
-  POSICAO w;
-  int i,j,i1,i2;
-  w.x=10;
-  w.y=10;
-  i1=1;i2=0;
-  for (i=0;i<e.num_monstros;i++){
-     j=abs(e.monstros[i].x-e.jog.x) + abs(e.monstros[i].y-e.jog.y);
-     if(e.monstros[i].monType==4) j-=3;
-     if (j<=w.x && w.x>=w.y){
-       w.x=j;
-       i1=i;
-     }
-      if (w.x != j && j<w.y && w.y>=w.x){
-       w.y=j;
-       i2=i;
-     }
-  }
-  w.x=i1;
-  w.y=i2;
-  return w;
+	POSICAO w;
+	int i,j,i1,i2;
+	w.x=10;
+	w.y=10;
+	i1=1;i2=0;
+	for (i=0;i<e.num_monstros;i++){
+		j=abs(e.monstros[i].x-e.jog.x) + abs(e.monstros[i].y-e.jog.y);
+		if(e.monstros[i].monType==4) j-=3;
+		if (j<=w.x && w.x>=w.y){
+			w.x=j;
+			i1=i;
+		}
+		if (w.x != j && j<w.y && w.y>=w.x){
+			w.y=j;
+			i2=i;
+		}
+	}
+	w.x=i1;
+	w.y=i2;
+	return w;
 }
 ESTADO iaMoves (ESTADO e,int i){
-  POSICAO p;
-  int flag=1;
-  p.x=e.monstros[i].x;
-  p.y=e.monstros[i].y;
-  if(e.monstros[i].monType == 0 && flag){ // por 0
-     e=estrat_wolf(e,i,p);
-  }
-  if(e.monstros[i].monType == 1  && flag){
-     e=estrat_bat(e,i,p);
- 	} 
-  if(e.monstros[i].monType == 2 && (e.turn%2 == 0) && flag){
-     e=estrat_ogre(e,i,p);
-  }
-  if(e.monstros[i].monType == 3 && flag){ // por 3
-     e=estrat_archer(e,i,p);
-  }
-  return e;
+	POSICAO p;
+	int flag=1;
+	p.x=e.monstros[i].x;
+	p.y=e.monstros[i].y;
+	if(e.monstros[i].monType == 0 && flag){ // por 0
+		e=estrat_wolf(e,i,p);
+	}
+	if(e.monstros[i].monType == 1  && flag){
+		e=estrat_bat(e,i,p);
+	} 
+	if(e.monstros[i].monType == 2 && (e.turn%2 == 0) && flag){
+		e=estrat_ogre(e,i,p);
+	}
+	if(e.monstros[i].monType == 3 && flag){ // por 3
+		e=estrat_archer(e,i,p);
+	}
+	return e;
 }
 ESTADO move_monstros (ESTADO e){
-   POSICAO p,q;
-   int i;
-   if(e.isInBossBattle==1){
-      e=estrat_dragon(e);
-   }
-   else{
-     q=quemAtaca(e);
-     srandom(time(NULL));
-     for (i=0;i<e.num_monstros;i++){
-          if(i==q.x || i== q.y){
-             e=iaMoves(e,i);
-          }
-          if(i!=q.x && i!= q.y){
-            p.x=e.monstros[i].x;
-            p.y=e.monstros[i].y;
-            if(e.monstros[i].monType == 0){// por 0
-              e=acao_wolf(e,i,p);
-            }
-            if(e.monstros[i].monType == 1){
-              e=acao_bat(e,i,p);
-           	} 
-            if(e.monstros[i].monType == 2 && (e.turn%2 == 0)){
-   	     	    e=estrat_ogre(e,i,p);
-            }
-            if(e.monstros[i].monType == 3){// por 3
-              e=acao_archer(e,i,p);
-            }
-          }
-     }
-   }
-  return e;
+	POSICAO p,q;
+	int i;
+	if(e.isInBossBattle==1){
+		e=estrat_dragon(e);
+	}
+	else{
+		q=quemAtaca(e);
+		srandom(time(NULL));
+		for (i=0;i<e.num_monstros;i++){
+			if(i==q.x || i== q.y){
+				e=iaMoves(e,i);
+			}
+			if(i!=q.x && i!= q.y){
+				p.x=e.monstros[i].x;
+				p.y=e.monstros[i].y;
+				if(e.monstros[i].monType == 0){// por 0
+					e=acao_wolf(e,i,p);
+				}
+				if(e.monstros[i].monType == 1){
+					e=acao_bat(e,i,p);
+				}
+				if(e.monstros[i].monType == 2 && (e.turn%2 == 0)){
+					e=estrat_ogre(e,i,p);
+				}
+				if(e.monstros[i].monType == 3){// por 3
+					e=acao_archer(e,i,p);
+				}
+			}
+		}
+	}
+	return e;
 }

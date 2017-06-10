@@ -3,7 +3,7 @@
 int outOfBounds(POSICAO p){
 	return p.x<0 || p.x>= SIZE || p.y<0 || p.y>=SIZE;
 }
-int isOnPath(POSICAO p, int pathSize, POSICAO path[]){ 
+int isOnPath(POSICAO p, int pathSize, POSICAO path[]){
 	int i, flag;
 	flag=0;
 	for (i=1;i<pathSize && !flag;i++){
