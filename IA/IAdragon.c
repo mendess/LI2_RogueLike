@@ -7,7 +7,7 @@ ESTADO fireCone(ESTADO e){
 	return e;
 }
 ESTADO Wing_attack (ESTADO e){
-	if(e.jog.x>=1 && e.jog.x<=8 && e.jog.y>=(e.dragon.pos.y+4) && e.jog.y<(e.dragon.pos.y+7)){
+	if(e.jog.x>=1 && e.jog.x<=8 && e.jog.y>=(e.dragon.pos.y+4) && e.jog.y<(e.dragon.pos.y+6)){
 		e.hp-=10;
     	if(e.jog.y+3<10){
 	    	e.jog.y+=3;
@@ -37,7 +37,7 @@ ESTADO fireball_attack (ESTADO e){
 		do{
 			b.x=(rand() % 10);
 			b.y=(rand() % 10);
-		}while(outOfBounds(b) || com_boss(e,b));	//b1<y||b1>y+3||(b2<e.jog.x-2)|| b2>(e.jog.x+2)|| b2>9 || b2<0);
+		}while(outOfBounds(b) || com_boss(e,b) || b.y<y);	//b1<y||b1>y+3||(b2<e.jog.x-2)|| b2>(e.jog.x+2)|| b2>9 || b2<0);
 		e.dragon.fireballCenters[x].x=b.x;
 		e.dragon.fireballCenters[x].y=b.y;
 	}
@@ -65,7 +65,7 @@ ESTADO dragon_movement (ESTADO e){
 	if(e.dragon.attack==2 && abs(e.jog.y-p.y)>3 && p.y){
 		e.dragon.pos.y+=1;
 	}
-	if(p.y>3){
+	if(p.y>1){
 		e.dragon.pos.y-=1;
 	}
 	return e;
