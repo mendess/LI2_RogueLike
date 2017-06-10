@@ -23,19 +23,15 @@ exemplo.zip: $(FICHEIROS)
 	zip -9 exemplo.zip $(FICHEIROS)
 
 doc:
-	doxygen -g
 	doxygen Doxyfile
 
 clean:
-	rm -rf *.o roguel install
+	rm -rf *.o roguel install latex html Doxyfile.bak
 	(cd UI;make clean)
 	(cd IA;make clean)
 
-hardclean:
+hardclean: clean
 	sudo rm -r /var/www/html/*
-	rm -rf *.o roguel install latex html Doxyfile*
-	(cd UI;make clean)
-	(cd IA;make clean)
 
 givegdbpermits:
 	sudo chmod a+rw /var/www/html/files/*
