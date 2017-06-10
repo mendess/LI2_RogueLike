@@ -1,13 +1,7 @@
 #include "antiCheat.h"
 
 int validMenu(ESTADO e){
-	return 1
-		|| e.screen==0
-		|| e.screen==1
-		|| e.screen==2
-		|| e.screen==3
-		|| e.screen==4
-		|| (e.screen==5 && e.hp<=0);
+	return e.screen!=6;
 }
 int validNewLevel(ESTADO e){
 	POSICAO cima;
@@ -19,7 +13,7 @@ int validNewLevel(ESTADO e){
 	baixo.x		=e.jog.x;	baixo.y		=e.jog.y+1;
 	esquerda.x	=e.jog.x-1;	esquerda.y	=e.jog.y;
 	return e.screen==6
-		|| (e.screen==5
+		|| (e.screen==5 && e.hp>0
 			&& (com_saida(e,cima)
 				|| com_saida(e,direita)
 				|| com_saida(e,baixo)
@@ -27,13 +21,13 @@ int validNewLevel(ESTADO e){
 }
 int validMove(ESTADO e){
 	POSICAO tmp = calcularNovaPosicao(e.jog, e.action);
-	return e.screen==5
+	return e.screen==5 && e.hp>0
 		&& !outOfBounds(tmp)
 		&& !pos_ocupada(e,tmp)
 		&& !com_saida(e,tmp);
 }
 int validLesserTeleport(ESTADO e){
-	return e.screen==5
+	return e.screen==5 && e.hp>0
 		&& CAN_USE_LESSER_TELEPORT;
 }
 int validAtack(ESTADO e){
@@ -43,31 +37,32 @@ int validAtack(ESTADO e){
 	}else{
 		tmp = calcularNovaPosicao(e.jog, e.action-10);
 	}
-	return e.screen==5
+	return e.screen==5 && e.hp>0
 		&& com_monstros(e,tmp);
 }
 int validItemPickup(ESTADO e){
 	POSICAO p = calcularNovaPosicao(e.jog,e.action-80);
-	return e.screen==5
+	return e.screen==5 && e.hp>0
 		&& !com_monstros(e,p)
-		&& getDroppedItem(e.jog,e.droppedItems,e.action)!=MAX_DROPPED_ITEMS;
+		&& com_droppedItem(e.droppedItems,p);
 }
 int validItemUse(ESTADO e){
 	return e.bag.inv[e.action-40]!=0
-		&& (e.screen==5
+		&& ((e.screen==5 && e.hp>0)
 			|| (e.screen==6 
 				&& e.isDeletingItems));
 }
 int validOpenChest(ESTADO e){
 	POSICAO p = calcularNovaPosicao(e.jog,e.action-90);
-	return e.screen==5
+	return e.screen==5 && e.hp>0
 		&& !com_monstros(e,p)
 		&& com_chest(e,p);
 }
-/*
-int validBossAtack(ESTADO e){ FINISH THIS validAction.c l32
-	return 0;
-}*/
+int validBossAtack(ESTADO e){
+	return e.screen==5 
+		&& e.hp>0 
+		&& e.isInBossBattle;
+}
 int isInMenu(ESTADO e){
 	return e.screen==1;
 }
@@ -85,9 +80,9 @@ int validAction(ESTADO e){
 		return validNewLevel(e);
 	}
 	if(ACT_TOGGLE_INGAME_HELP){
-		return e.screen==5;
+		return e.screen==5 && e.hp>0;
 	}
-	if(ACT_ASK_INGAME_HELP){
+	if(ASKING_FOR_INGAME_HELP){
 		return e.isInIngameHelp;
 	}
 	if(ACT_MOVE){/* mover jogador */
@@ -105,8 +100,8 @@ int validAction(ESTADO e){
 	if(ACT_USE_ITEM){
 		return validItemUse(e);
 	}
-	if(ACT_DEL_ITEM_MODE){
-		return e.screen==5 || e.screen==6;
+	if(ACT_TOGGLE_ITEM_MODE){
+		return (e.screen==5 && e.hp>0) || e.screen==6;
 	}
 	if(PICKING_ITEM_TGT){
 		return e.complexItem.isBeingUsed==1;
@@ -114,11 +109,14 @@ int validAction(ESTADO e){
 	if(ACT_OPEN_CHEST){
 		return validOpenChest(e);
 	}
-/*	if(e.action==30){
+	if(ACT_BOSS_ATTACK){
 		return validBossAtack(e);
 	}
-*/	if(ACT_MENU_SCORE_OR_HELP || ACT_MENU_PLAY){/* escolha do menu */
+	if(ACT_MENU_SCORE_OR_HELP || ACT_MENU_PLAY){/* escolha do menu */
 		return isInMenu(e);
+	}
+	if(ACT_TOGGLE_SB_TYPE){
+		return e.screen==4;
 	}
 	if(ACT_CLASS_CHOICE){/* novo jogo */
 		return isInCharSelect(e);

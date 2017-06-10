@@ -1,12 +1,6 @@
 /* #define DEBUG */
 #include "path.h"
 
-/**
-\brief Cria um caminho a ser evitado quando o mapa está a ser gerado 
-	   para garantir que há pelo menos um caminho possivel para chegar a saida.
-	   Esta função também define a posição inicial do jogador e de saida
-@param Array de posições do caminho a ser evitado
-*/
 int pathMaker(POSICAO path[]){
 	int plrX;
 	int decision, i;

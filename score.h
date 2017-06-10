@@ -1,41 +1,63 @@
 #ifndef ___SCORE_H___
 #define ___SCORE_H___
 
+/**
+@file score.h
+Definição das funções que tratam do registo da scoreboard
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
 
-#define SB_SIZE 	10
+/** \brief Caminho para o ficheiro de scores */
+#define SCORE_PATH	"/var/www/html/score/scoreBoard"
 
+/**
+\brief Estrutura que armazena os scores
+*/
 typedef struct score{
-	char name[50];
+	/** \brief Nome do jogador */
+	char name[13];
+	/** \brief Score do jogador */
 	int score;
-}SCORE;
+	/** \brief Apontador para o proximo jogador */
+	struct score *prox;
+}*SCORE;
 
 /**
-\brief Importa a scoreBoard de um ficheiro para um array 
-	e devolve o numero de scores lidos
-@param scoreBoard Array onde vai ser colocada a scoreBoard lida
-@return numero de items lidos
+\brief Adiciona um elemeto á lista ligada de scoreboards
+@param scB Lista de scores
+@param name Nome do jogador
+@param score Score do jogador
 */
-int importScoreBoard(SCORE scoreBoard[]);
+void add2List(SCORE *scB, char name[], int score);
 /**
-\brief Insere o score no array de scores
-	e devolve o numero de scores no array
+\brief Importa a scoreBoard de um ficheiro para uma lista ligada
+@param scB Lista onde vai ser colocada a scoreBoard lida
+*/
+void importScoreBoard(SCORE *scB);
+/**
+\brief Insere um score ordenadamente na lista de scores
+@param scB Lista onde vai ser inserido
+@param name Nome do jogador
 @param score Score a inserir
-@param scoreBoard Array onde vai ser inserido
-@param num_scores Na scoreBoard
 */
-int insertScore(char *name, int score, SCORE scoreBoard[], int num_scores);
+void insertOrd (SCORE *scB, char *name, int score);
 /**
-\brief Exporta a scoreBoard do array para o ficheiro
-@param scoreBoard Array de scores
-@param num_scores Número de scores
+\brief Exporta a scoreBoard da lista para o ficheiro
+@param scB Lista de scores
 */
-void exportScoreBoard(SCORE scoreBoard[], int num_scores);
+void exportScoreBoard(SCORE scB);
+/**
+\brief Liberta a memória alocado pela lista ligada
+@param scB ScoreBoard
+*/
+void freeScB(SCORE scB);
 /**
 \brief Função mestra que controla a atualização da scoreBoard
+@param name Nome do jogador
 @param score Score com que o jogador acabou o jogo
 */
 void updateScoreBoard(char *name, int score);

@@ -1,89 +1,94 @@
-/* #define DEBUG */
-
 #include "score.h"
 
-int importScoreBoard(SCORE scoreBoard[]){
+void add2List(SCORE *scB, char name[], int score){
+	if(*scB==NULL){
+		SCORE newSB;
+		newSB = malloc(sizeof(struct score));
+		strcpy(newSB -> name, name);
+		newSB -> score = score;
+		newSB -> prox = NULL;
+		*scB = newSB;
+	}else{
+		while((*scB) -> prox!=NULL){
+			scB = &((*scB) -> prox);
+		}
+		SCORE newSB;
+		newSB = malloc(sizeof(struct score));
+		strcpy(newSB -> name, name);
+		newSB -> score = score;
+		newSB -> prox = NULL;
+		(*scB) -> prox = newSB;
+	}
+}
+void importScoreBoard(SCORE *scB){
 	FILE *scoreFile;
-	int i, flag;
-	i=0;flag=0;
-	scoreFile=fopen("/var/www/html/score/scoreBoard","r");
+	scoreFile=fopen(SCORE_PATH,"r");
 	if(!scoreFile){
-		scoreFile=fopen("/var/www/html/score/scoreBoard","w");
+		scoreFile=fopen(SCORE_PATH,"w");
 		if(scoreFile==NULL){
 			perror("Não consegui escrever o ficheiro de scores");
 		}else{
 			fclose(scoreFile);
 		}
-		return 0;
-	}
-	while(i<SB_SIZE && flag!=-1){
-		flag=fscanf(scoreFile,"%[^,],%d\n",scoreBoard[i].name,&scoreBoard[i].score);
-		if(flag!=-1){
-			i++;
-		}
-	}
-	fclose(scoreFile);
-	return i;
-}
-int insertScore(char *name, int score, SCORE scoreBoard[], int num_scores){
-	int i=0;
-	SCORE newSC;
-	strcpy(newSC.name,name);
-	newSC.score=score;
-	while(i<num_scores && score<scoreBoard[i].score){
-		i++;
-	}
-	if(i==num_scores){
-		if(num_scores<SB_SIZE){
-			scoreBoard[num_scores++]=newSC;
-		}
 	}else{
-		while(i<num_scores){
-			SCORE tmp = scoreBoard[i];
-			scoreBoard[i]=newSC;
-			newSC=tmp;
-			i++;
-		}
-		if(num_scores<SB_SIZE){
-			scoreBoard[num_scores++]=newSC;
-		}
-	}
-	return num_scores;
-}
-void exportScoreBoard(SCORE scoreBoard[], int num_scores){
-	FILE *scoreFile;
-	int i;
-	scoreFile=fopen("/var/www/html/score/scoreBoard","w");
-	if(scoreFile==NULL){
-		perror("Não consegui escrever o ficheiro de scores");
-	}else{
-		for(i=0;i<num_scores;i++){
-			fprintf(scoreFile,"%s,%d\n", scoreBoard[i].name, scoreBoard[i].score);
+		int flag = 0;
+		while(flag!=-1){
+			char name[20];
+			int score;
+			flag=fscanf(scoreFile,"%[^,],%d\n",name,&score);
+			if(flag!=-1){
+				add2List(scB, name, score);
+			}
 		}
 		fclose(scoreFile);
 	}
 }
-void updateScoreBoard(char *name, int score){
-	SCORE scoreBoard[SB_SIZE];
-	int num_scores;
-
-	num_scores = importScoreBoard(scoreBoard);
-	num_scores = insertScore(name, score, scoreBoard, num_scores);
-	exportScoreBoard(scoreBoard, num_scores);
+void insertOrd (SCORE *scB, char *name, int score){
+    SCORE newSB = malloc(sizeof(struct score));
+    strcpy(newSB -> name, name);
+    newSB -> score = score;
+    if(*scB==NULL){
+        newSB -> prox = NULL;
+        *scB = newSB;
+    }else if((*scB) -> score < score){
+        newSB -> prox = *scB;
+        *scB = newSB;
+    }else{
+        SCORE prev, next;
+        prev = *scB;
+        next = prev -> prox;
+        while(next != NULL && next -> score > score){
+            prev = next;
+            next = next -> prox;
+        }
+        newSB -> prox = next;
+        prev -> prox = newSB;
+    }
 }
-
-#ifdef DEBUG
-void printSB(int scoreBoard[], int num_scores){
-	int i=0;
-	while(i < num_scores){
-		printf("%d\n", scoreBoard[i++]);
+void exportScoreBoard(SCORE scB){
+	FILE *scoreFile;
+	scoreFile=fopen(SCORE_PATH,"w");
+	if(scoreFile==NULL){
+		perror("Não consegui escrever o ficheiro de scores");
+	}else{
+		while(scB!=NULL){
+			fprintf(scoreFile,"%s,%d\n", scB -> name, scB -> score);
+			scB = scB -> prox;
+		}
+		fclose(scoreFile);
 	}
 }
-int main(){
-	srand(time(NULL));
-	int x = rand() % 20;
-	printf("%d\n",x);
-	updateScoreBoard(x);
-	return 0;
+void freeScB(SCORE scB){
+	while(scB!=NULL){
+		SCORE tmp = scB;
+		scB = scB -> prox;
+		free(tmp);
+	}
 }
-#endif
+void updateScoreBoard(char *name, int score){
+	SCORE scB=NULL;
+	importScoreBoard(&scB);
+	insertOrd(&scB,name,score);
+	exportScoreBoard(scB);
+	freeScB(scB);
+}
