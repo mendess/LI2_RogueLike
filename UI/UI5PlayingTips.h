@@ -130,7 +130,6 @@ void i_archerAttackArea(ESTADO e, MSTR monstro);
 /**
 \brief Imprime a area de ataque de um dragão
 @param e Estado do jogo
-@param monstro Monstro pedido
 */
 void i_dragonAttackArea(ESTADO e);
 

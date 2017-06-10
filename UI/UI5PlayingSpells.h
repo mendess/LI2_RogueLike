@@ -15,13 +15,13 @@ Definição da interface de uso de items complexos
 
 /**
 \brief Imprime um quadrado sombreado onde o feitiço vai ter efeito
-@param Tipo de feitiço
+@param type Tipo de feitiço
 @param p Posição do quadrado
 */
 void i_cTarget(int type,POSICAO p);
 /**
 \brief Comverte um par de coordenadas X e Y numa ação no formato 1XXYY
-@param Posição a converter
+@param p Posição a converter
 @returns Ação convertida
 */
 int cTgT2Int(POSICAO p);
