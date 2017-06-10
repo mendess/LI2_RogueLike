@@ -85,7 +85,7 @@ typedef struct itemUsedata{
 
 /** \brief Estrutura que armazena os dados do dragão */
 typedef struct dragao{
-	/** Guarda qual o proximo ataque {0="fireball";1="wingAttack";2="fireCone"} */
+	/** Guarda qual o proximo ataque {1="fireball";2="wingAttack";3="fireCone"} */
 	int attack;
 	/** Guarda, se o proximo ataque for "fireball", o número de fireballs */
 	int num_fireballs;
