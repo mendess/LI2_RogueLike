@@ -89,7 +89,7 @@ typedef struct itemUsedata{
 typedef struct dragao{
 	/** Lado do mapa */
 	int side;
-	/** Guarda qual o proximo ataque {1="fireball";2="wingAttack";3="fireCone"} */
+	/** Guarda qual o proximo ataque {1="fireball";2="wingAttack";3="fireCone";4-mudar se side} */
 	int attack;
 	/** Guarda, se o proximo ataque for "fireball", o número de fireballs */
 	int num_fireballs;
@@ -99,8 +99,6 @@ typedef struct dragao{
 	POSICAO pos;
 	/** Guarda a vida do dragão */
 	int hp;
-	/** Poison counter */
-	int poison;
 }BOSS;
 
 /** \brief Estrutura que guarda o estado do jogo */
