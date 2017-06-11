@@ -29,6 +29,7 @@ mais proximo da saida do que o jogador esta função é chamada.
 @param a[SIZE][SIZE] matriz do numero de jogadas para chegar ao jogador
 @param i posição do arqueiro no array dos monstros
 @param p posição atual do arqueiro
+@returns estado do jogo depois do arqueiro se ter movido
 */
 ESTADO persegue_NO(ESTADO e,int a[SIZE][SIZE],int i,POSICAO p);
 /**
@@ -38,6 +39,7 @@ mais proximo da saida do que o jogador esta função é chamada.
 @param a[SIZE][SIZE] matriz do numero de jogadas para chegar ao jogador
 @param i posição do arqueiro no array dos monstros
 @param p posição atual do arqueiro
+@returns estado do jogo depois do arqueiro se ter movido
 */
 ESTADO persegue_SO(ESTADO e,int a[SIZE][SIZE],int i,POSICAO p);
 /**
@@ -47,6 +49,7 @@ mais proximo da saida do que o jogador esta função é chamada.
 @param a[SIZE][SIZE] matriz do numero de jogadas para chegar ao jogador
 @param i posição do arqueiro no array dos monstros
 @param p posição atual do arqueiro
+@returns estado do jogo depois do arqueiro se ter movido
 */
 ESTADO persegue_NE(ESTADO e,int a[SIZE][SIZE],int i,POSICAO p);
 /**
@@ -56,6 +59,7 @@ mais proximo da saida do que o jogador esta função é chamada.
 @param a[SIZE][SIZE] matriz do numero de jogadas para chegar ao jogador
 @param i posição do arqueiro no array dos monstros
 @param p posição atual do arqueiro
+@returns estado do jogo depois do arqueiro se ter movido
 */
 ESTADO persegue_SE(ESTADO e,int a[SIZE][SIZE],int i,POSICAO p);
 /**
@@ -66,6 +70,7 @@ Esta função coordena as 4 diferentes ocorrencias de perseguição.
 @param a[SIZE][SIZE] matriz do numero de jogadas para chegar ao jogador
 @param i posição do arqueiro no array dos monstros
 @param p posição atual do arqueiro
+@returns estado do jogo depois do arqueiro se ter movido
 */
 ESTADO persegue_arch(ESTADO e,int a[SIZE][SIZE],int i,POSICAO p);
 /**
@@ -84,6 +89,7 @@ fugir para a esquerda e depois para cima e para baixo.
 @param e Estado do jogo
 @param i posição do arqueiro no array dos monstros
 @param p posição atual do arqueiro
+@returns estado do jogo depois do arqueiro se ter desviado do jogador
 */
 ESTADO desvia_left(int a[SIZE][SIZE],ESTADO e,int i,POSICAO p);
 /**
@@ -93,6 +99,7 @@ fugir para baixo e depois para os lados.
 @param e Estado do jogo
 @param i posição do arqueiro no array dos monstros
 @param p posição atual do arqueiro
+@returns estado do jogo depois do arqueiro se ter desviado do jogador
 */
 ESTADO desvia_down(int a[SIZE][SIZE],ESTADO e,int i,POSICAO p);
 /**
@@ -102,6 +109,7 @@ fugir para cima e depois para os lados.
 @param e Estado do jogo
 @param i posição do arqueiro no array dos monstros
 @param p posição atual do arqueiro
+@returns estado do jogo depois do arqueiro se ter desviado do jogador
 */
 ESTADO desvia_up(int a[SIZE][SIZE],ESTADO e,int i,POSICAO p);
 /**
@@ -111,12 +119,14 @@ no proximo turno o arqueiro foge dele.
 @param a[SIZE][SIZE] matriz do numero de jogadas para chegar ao jogador
 @param i posição do arqueiro no array dos monstros
 @param p posição atual do arqueiro
+@returns estado do jogo depois do arqueiro se ter desviado do jogador
 */
 ESTADO desvia(ESTADO e,int a[SIZE][SIZE],int i,POSICAO p);
 /**
 \brief verifica se o jogador está ao alcance do ataque do arqueiro.
 @param e Estado do jogo
 @param p posição do monstro
+@returns 1 se o jogador estiver ao alcance do arqueiro
 */
 int in_range(ESTADO e,POSICAO p);
 /**
@@ -127,6 +137,7 @@ entre ambos.
 @param a[SIZE][SIZE] matriz do numero de jogadas para chegar ao jogador
 @param i posição do arqueiro no array dos monstros
 @param p posição atual do arqueiro
+@returns estado do jogo depois do arqueiro se ter movido
 */
 ESTADO defArcher_NO (ESTADO e,int a[SIZE][SIZE], int i, POSICAO p);
 /**
@@ -137,6 +148,7 @@ entre ambos.
 @param a[SIZE][SIZE] matriz do numero de jogadas para chegar ao jogador
 @param i posição do arqueiro no array dos monstros
 @param p posição atual do arqueiro
+@returns estado do jogo depois do arqueiro se ter movido
 */
 ESTADO defArcher_NE (ESTADO e,int a[SIZE][SIZE], int i, POSICAO p);
 /**
@@ -147,6 +159,7 @@ entre ambos.
 @param a[SIZE][SIZE] matriz do numero de jogadas para chegar ao jogador
 @param i posição do arqueiro no array dos monstros
 @param p posição atual do arqueiro
+@returns estado do jogo depois do arqueiro se ter movido
 */
 ESTADO defArcher_SO (ESTADO e,int a[SIZE][SIZE], int i, POSICAO p);
 /**
@@ -157,6 +170,7 @@ entre ambos.
 @param a[SIZE][SIZE] matriz do numero de jogadas para chegar ao jogador
 @param i posição do arqueiro no array dos monstros
 @param p posição atual do arqueiro
+@returns estado do jogo depois do arqueiro se ter movido
 */
 ESTADO defArcher_SE (ESTADO e,int a[SIZE][SIZE], int i, POSICAO p);
 /**
@@ -184,6 +198,8 @@ e a saida e se sim bloqueia-a, ou então persegue o jogador.
 @param i i  posição do array onde estão guardadas as coordenadas
 do arqueiro em questão
 @param p posicao atual do arqueiro
+@returns estado do jogo depois do arqueiro se ter movido, 
+desviado do jogador ou atacado o jogador.
 */
 ESTADO estrat_archer (ESTADO e,int i,POSICAO p);
 

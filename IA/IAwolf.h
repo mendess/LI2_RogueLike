@@ -43,6 +43,7 @@ ESTADO persegue_wolf_SE (ESTADO e,int i,POSICAO p,int a[SIZE][SIZE]);
 @param p posição atual do lobo
 @param a[SIZE][SIZE] matriz do numero de jogadas necessarias para intersetar
 o jogador
+@returns o estado do jogo depois do lobo se ter movido
 */
 ESTADO persegue_wolf_NE (ESTADO e,int i,POSICAO p,int a[SIZE][SIZE]);
 /**
@@ -52,6 +53,7 @@ ESTADO persegue_wolf_NE (ESTADO e,int i,POSICAO p,int a[SIZE][SIZE]);
 @param p posição atual do lobo
 @param a[SIZE][SIZE] matriz do numero de jogadas necessarias para intersetar
 o jogador
+@returns o estado do jogo depois do lobo se ter movido
 */
 ESTADO persegue_wolf_SO (ESTADO e,int i,POSICAO p,int a[SIZE][SIZE]);
 /**
@@ -61,6 +63,7 @@ ESTADO persegue_wolf_SO (ESTADO e,int i,POSICAO p,int a[SIZE][SIZE]);
 @param p posição atual do lobo
 @param a[SIZE][SIZE] matriz do numero de jogadas necessarias para intersetar
 o jogador
+@returns o estado do jogo depois do lobo se ter movido
 */
 ESTADO persegue_wolf_NO (ESTADO e,int i,POSICAO p,int a[SIZE][SIZE]);
 /**
@@ -70,6 +73,7 @@ ESTADO persegue_wolf_NO (ESTADO e,int i,POSICAO p,int a[SIZE][SIZE]);
 @param p posição atual do lobo
 @param a[SIZE][SIZE] matriz do numero de jogadas necessarias para intersetar
 o jogador
+@returns o estado do jogo depois do lobo se ter movido
 */
 ESTADO persegue_wolf (ESTADO e,int i,POSICAO p,int a[SIZE][SIZE]);
 /**
@@ -90,6 +94,7 @@ este vai bloquear a passagem ao jogador.
 @param p posição atual do lobo
 @param a[SIZE][SIZE] matriz do numero de jogadas necessarias para intersetar
 o jogador
+@returns o estado do jogo depois do lobo se ter movido
 */
 ESTADO defesa_WOLF_NO (ESTADO e, int i,POSICAO p,int a[SIZE][SIZE]);
 /**
@@ -100,6 +105,7 @@ este vai bloquear a passagem ao jogador.
 @param p posição atual do lobo
 @param a[SIZE][SIZE] matriz do numero de jogadas necessarias para intersetar
 o jogador
+@returns o estado do jogo depois do lobo se ter movido
 */
 ESTADO defesa_WOLF_SE (ESTADO e, int i,POSICAO p,int a[SIZE][SIZE]);
 /**
@@ -110,6 +116,7 @@ este vai bloquear a passagem ao jogador.
 @param p posição atual do lobo
 @param a[SIZE][SIZE] matriz do numero de jogadas necessarias para intersetar
 o jogador 
+@returns o estado do jogo depois do lobo se ter movido
 */
 ESTADO defesa_WOLF_SO (ESTADO e, int i,POSICAO p,int a[SIZE][SIZE]);
 /**
@@ -137,6 +144,8 @@ a saida ao jogador senão perseguilo-a.
 @param e Estado do jogo
 @param i posição no array dos monstros onde estão as coordendas do lobo
 @param p posição atual do lobo  
+@returns o estado do jogo depois do lobo se ter movido ou atacado
+o jogador
 */
 ESTADO estrat_wolf (ESTADO e,int i,POSICAO p);
 

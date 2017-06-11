@@ -162,7 +162,7 @@ ESTADO dragon_movement1 (ESTADO e){
 	if(e.dragon.attack==1 && p.y>(e.jog.y+1)){
 		e.dragon.pos.y-=1;
 	}
-	if(e.dragon.attack==2 && abs(e.jog.y-p.y)==1 && (p.y+3)<9){
+	if(e.dragon.attack==2 && abs(e.jog.y-p.y)==1 && (p.y+2)<9){
 		e.dragon.pos.y+=1;
 	}
 	if(e.dragon.attack==2 && abs(e.jog.y-p.y)>2){
