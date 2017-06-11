@@ -176,8 +176,12 @@ void i_confirmCastGreen(ESTADO *e){
 	CIRCLE((target.x+1)*TAM,(target.y+1)*TAM,TAM/2,"black",0.3,"green",1.0,TAM);
 }
 void i_CastGreen(ESTADO *e){
-	POSICAO p = itAct2Pos(e->action);
-	IMAGEM_FORMATED(p.x,p.y,TAM,TAM,POISON_IMAGE);
+	if(e->isInBossBattle){
+		IMAGEM((e->dragon.pos.x+1)*TAM,(e->dragon.pos.y+1)*TAM,200,150,POISON_IMAGE_BOSS);
+	}else{
+		POSICAO p = itAct2Pos(e->action);
+		IMAGEM_FORMATED(p.x,p.y,TAM,TAM,POISON_IMAGE);
+	}
 }
 void imprime_castTargets(ESTADO *e){
 	if(e->complexItem.lastPickedTarget>9999){

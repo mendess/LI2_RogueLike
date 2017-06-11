@@ -36,14 +36,23 @@ Definição das funções que imprimem a interface do jogo
 \brief Retorna a direção em que o jogador vai andar
 
 Valores que a função retorna
+
 1- SW	x==-1 ; y==1
+
 2- S	x==0  ; y==1
+
 3- SE	x==1  ; y==1
+
 4- W	x==-1 ; y==0
+
 5- C	x==0  ; y==0
+
 6- E	x==1  ; y==0
+
 7- NW	x==-1 ; y==-1
+
 8- N	x==0  ; y==-1
+
 9- NE	x==1  ; y==-1
 @param e Estado do jogo
 @param p Quanto no eixo dos x e dos y o jogador vai andar

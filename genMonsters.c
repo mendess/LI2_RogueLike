@@ -1,11 +1,13 @@
 #include "genMonsters.h"
 
 ESTADO genBoss(ESTADO e){
-	e.dragon.pos.x   = (SIZE / 2) - 2;
-	e.dragon.pos.y   = 1;
+	e.dragon.side = 0;
+	e.dragon.pos.x = (SIZE / 2) - 2;
+	e.dragon.pos.y = 1;
 	e.dragon.attack = 0;
 	e.dragon.num_fireballs = 0;
-	e.dragon.hp      = MON_HP_DRAGON;
+	e.dragon.hp = MON_HP_DRAGON;
+	e.dragon.poison = 0;
 	return e;
 }
 ESTADO genBossBattle(ESTADO e){
@@ -42,6 +44,7 @@ ESTADO placeMonster(ESTADO e, int type){
 			e.monstros[e.num_monstros].y=p.y;
 			e.monstros[e.num_monstros].monType=type;
 			e.monstros[e.num_monstros].hp=getMonsterHP(e.monstros[e.num_monstros].monType);
+			e.monstros[e.num_monstros].poison=0;
 		}
 	}
 	e.num_monstros++;

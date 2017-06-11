@@ -330,7 +330,7 @@ ESTADO estrat_archer (ESTADO e,int i,POSICAO p){
 		if(p.x!=e.monstros[i].x || p.y!=e.monstros[i].y) flag=0;
 	}
 	if(in_range(e,p)==2){
-		e.hp-=ARCHER_DMG;
+		e=ataca_jogador(e,ARCHER_DMG);
 		flag=0;
 	}
 	// J M →ŧ

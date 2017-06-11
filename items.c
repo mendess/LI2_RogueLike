@@ -144,11 +144,15 @@ void openChest(ESTADO *e){
 }
 void castScroll_Fire(ESTADO *e){
 	POSICAO p = itAct2Pos(e->action);
+	int hitBoss=0;
 	int pXmax=p.x+2;
 	int pYmax=p.y+2;
-	for(p.x=pXmax-3;p.x<pXmax;p.x++){
-		for (p.y=pYmax-3;p.y < pYmax; p.y++){
-			hitMonster(e,p,SCROLL_FIRE_DMG);
+	for(p.x=pXmax-3;p.x<pXmax && !hitBoss;p.x++){
+		for (p.y=pYmax-3;p.y < pYmax && !hitBoss; p.y++){
+			int hit = hitMonster(e,p,SCROLL_FIRE_DMG);
+			if(hit && e->isInBossBattle){
+				hitBoss=1;
+			}
 			if(com_jogador(*e,p)){
 				e->hp-=SCROLL_FIRE_DMG;
 			}
@@ -172,32 +176,38 @@ int isRepeat(POSICAO targets[], int num_targets, POSICAO newTarget){
 }
 void castScroll_Lightning(ESTADO *e){
 	POSICAO target = itAct2Pos(e->action);
-	POSICAO targets[(SCROLL_LIGHTNING_DMG/10) + 1];
-	int num_bolts=1;
-	targets[0] = target;
 	hitMonster(e,target,SCROLL_LIGHTNING_DMG);
-	int found;
-	do{
-		found = 0;
-		int x,y;
-		for (x = -2; x < 3 && !found; ++x){
-			for (y = -2; y < 3 && !found; ++y){
-				POSICAO newTarget = {target.x+x,target.y+y};
-				if(!isRepeat(targets,num_bolts,newTarget) && com_monstros(*e,newTarget)){
-					hitMonster(e,newTarget,SCROLL_LIGHTNING_DMG - (10*num_bolts));
-					found=1;
-					target = newTarget;
-					targets[num_bolts++]=newTarget;
+	if(!e->isInBossBattle){
+		POSICAO targets[(SCROLL_LIGHTNING_DMG/10) + 1];
+		int num_bolts=1;
+		targets[0] = target;
+		int found;
+		do{
+			found = 0;
+			int x,y;
+			for (x = -2; x < 3 && !found; ++x){
+				for (y = -2; y < 3 && !found; ++y){
+					POSICAO newTarget = {target.x+x,target.y+y};
+					if(!isRepeat(targets,num_bolts,newTarget) && com_monstros(*e,newTarget)){
+						hitMonster(e,newTarget,SCROLL_LIGHTNING_DMG - (10*num_bolts));
+						found=1;
+						target = newTarget;
+						targets[num_bolts++]=newTarget;
+					}
 				}
 			}
-		}
-	}while(found && SCROLL_LIGHTNING_DMG-(num_bolts*10)>0);
+		}while(found && SCROLL_LIGHTNING_DMG-(num_bolts*10)>0);
+	}
 	e->mp-=SCROLL_COST_LIGHTNING;
 }
 void castScroll_Poison(ESTADO *e){
 	POSICAO target = itAct2Pos(e->action);
-	int mIdx = getMonstro(*e,target);
-	e->monstros[mIdx].poison+=3;
+	if(e->isInBossBattle){
+		e->dragon.poison+=3;
+	}else{
+		int mIdx = getMonstro(*e,target);
+		e->monstros[mIdx].poison+=3;
+	}
 }
 ESTADO castScroll(ESTADO e){
 	switch(e.complexItem.type){

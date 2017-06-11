@@ -17,8 +17,21 @@ int poslivre(ESTADO e, POSICAO p){
 	if (com_monstros(e,p)) flag=0;
 	return flag;
 }
-void ataca_jogador(ESTADO e,int i){
-	e.hp-=i;
+ESTADO ataca_jogador(ESTADO e,int i){
+	if(e.bag.armour==ARMOUR_BRONZE){
+		e.hp-=(i*0.9);
+	}
+	if(e.bag.armour==ARMOUR_IRON){
+		e.hp-=(i*0.75);
+	}
+	if(e.bag.armour==ARMOUR_STEEL){
+		e.hp-=(i*0.65);
+	}
+	if(e.bag.armour==ARMOUR_PALLADIUM){
+		e.hp-=(i*0.5);
+	}
+	else e.hp-=i;
+	return e;
 }
 int existe_jogador(ESTADO e,POSICAO p){
 	int flag=0;
@@ -102,7 +115,7 @@ ESTADO mov_wolf (ESTADO e,int i,POSICAO p){
 ESTADO acao_bat(ESTADO e, int i, POSICAO p){
 	int flag=1;
 	if (existe_jogador(e,p)){
-		e.hp-=BAT_DMG;
+		e=ataca_jogador(e,BAT_DMG);
 		flag=0;
 	}
 	if(flag){
@@ -113,7 +126,7 @@ ESTADO acao_bat(ESTADO e, int i, POSICAO p){
 ESTADO acao_wolf (ESTADO e,int i, POSICAO p){
 	int flag=1;
 	if (existe_jogador(e,p)){
-		e.hp-=WOLF_DMG;
+		e=ataca_jogador(e,WOLF_DMG);
 		flag=0;
 	}
 	if(flag){
@@ -124,7 +137,7 @@ ESTADO acao_wolf (ESTADO e,int i, POSICAO p){
 ESTADO acao_archer(ESTADO e, int i, POSICAO p){
 	int flag=1;
 	if (ve_jogador(e,p)){
-		e.hp-=ARCHER_DMG;
+		e=ataca_jogador(e,ARCHER_DMG);
 		flag=0;
 	}
 	if(flag){
@@ -178,7 +191,12 @@ ESTADO move_monstros (ESTADO e){
 	POSICAO p,q;
 	int i;
 	if(e.isInBossBattle==1){
-		e=estrat_dragon(e);
+		if(e.dragon.side ==0){
+		   e=estrat_dragon0(e);
+		}
+		else{
+			e=estrat_dragon1(e);
+		}
 	}
 	else{
 		q=quemAtaca(e);

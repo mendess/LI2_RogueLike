@@ -288,7 +288,11 @@ void imprimePlaying(ESTADO e){
 		imprime_droppedItems(e.droppedItems);
 		imprime_chests(e.chests,e.num_chests);
 		if(e.isInBossBattle){
-			imprime_boss(e);
+			if(e.dragon.side==0){
+				imprime_boss0(e);
+			}else{
+				imprime_boss1(e);
+			}
 		}else{
 			imprime_monstros(e.jog,e.monstros,e.num_monstros);
 		}
@@ -327,7 +331,7 @@ void imprimePlaying(ESTADO e){
 			e.droppedItems[5].item,
 			e.droppedItems[6].item);
 	if(e.isInBossBattle){
-		printf("<p>Dragon: attack:%d  num_fireballs:%d  firebalCent[(%d,%d),(%d,%d),(%d,%d),(%d,%d)] x:%d y:%d hp:%d</p>\n",
+		printf("<p>Dragon: attack:%d  num_fireballs:%d  firebalCent[(%d,%d),(%d,%d),(%d,%d),(%d,%d)] x:%d y:%d hp:%d p:%d</p>\n",
 			e.dragon.attack,
 			e.dragon.num_fireballs,
 			e.dragon.fireballCenters[0].x,
@@ -340,7 +344,8 @@ void imprimePlaying(ESTADO e){
 			e.dragon.fireballCenters[3].y,
 			e.dragon.pos.x,
 			e.dragon.pos.y,
-			e.dragon.hp);
+			e.dragon.hp,
+			e.dragon.poison);
 	}else{
 		int x;
 		printf("<p>");

@@ -201,7 +201,7 @@ ESTADO estrat_wolf (ESTADO e,int i,POSICAO p){
 	preenche_matriz(a);
 	distancia_WOLF(e,a,e.jog.x,e.jog.y,0);
 	if (existe_jogador(e,p)){
-		e.hp-=WOLF_DMG;
+		e=ataca_jogador(e,WOLF_DMG);
 		flag=0;
 	} // J M →ŧ
 	if(flag && BLOQUEAVEL_NE){
