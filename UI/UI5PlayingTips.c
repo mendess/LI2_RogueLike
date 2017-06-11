@@ -5,6 +5,13 @@ void imprime_helpButton(char *name){
 	IMAGEM(745,310,TAM,TAM,"button_help_toggle.png");
 	FECHAR_LINK;
 }
+void imprime_helpBoss(char *name, POSICAO pos){
+	char query[6];
+	sprintf(query,"%d",10000+(pos.x*100)+pos.y);
+	ABRIR_LINK(name,query);
+	IMAGEM((pos.x+1)*TAM,(pos.y+1)*TAM,200,150,"button_help_ask.png");
+	FECHAR_LINK;
+}
 void imprime_helpEnemies(char *name, MSTR monstros[], int num_monstros){
 	int i;
 	for(i=0;i<num_monstros;i++){
@@ -58,14 +65,18 @@ void imprime_itemDescription(int item){
 	}
 	imprime_texto(600, 450, ITEM_DESC[item],17);
 }
-void imprime_monsterDescription(MSTR monstro){
+void imprime_monsterDescription(int isInBossBattle, MSTR monstro){
+	int select = isInBossBattle ? 4 : monstro.monType;
+
 	int BASE_HPS[]    = {MON_HP_WOLF,MON_HP_BAT,MON_HP_OGRE,MON_HP_ARCHER,MON_HP_DRAGON};
 	char *MSTR_DESC[] = {WOLF_DESC  ,BAT_DESC  ,OGRE_DESC  ,ARCHER_DESC  ,DRAGON_DESC  };
-	printf("<text x=600 y=410 style=\"stroke:#000000\">MAX HP: %d</text>\n",BASE_HPS[monstro.monType]);
-	imprime_texto(600, 430, MSTR_DESC[monstro.monType],15);
+	
+	printf("<text x=600 y=410 style=\"stroke:#000000\">MAX HP: %d</text>\n",BASE_HPS[select]);
+	imprime_texto(600, 430, MSTR_DESC[select],15);
 }
 void imprime_monsterAttackArea(ESTADO e, MSTR monstro){
-	switch(monstro.monType){
+	int select = e.isInBossBattle ? 4 : monstro.monType;
+	switch(select){
 		case 0: i_wolfAttackArea(e,monstro);
 				break;
 		case 1: i_batAttackArea(e,monstro);

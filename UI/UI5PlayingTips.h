@@ -19,7 +19,7 @@ Definição das funções que imprimem as ajudas durante o jogo
 /** \brief Descrição do arqueiro */
 #define ARCHER_DESC	"Archers attack at range!\nThey don't have a lot of\nhealth but if you're not\ncarefull you might die\nbefore you can\nreach one."
 /** \brief Descrição do dragão */
-#define DRAGON_DESC	"The Dragon is the strongest\nenemy you'll encounter!\nbe carefull around him\nhe can attack both at\nrange and up close\nTIP: Watch for the patterns!"
+#define DRAGON_DESC	"The Dragon is the\nstrongest enemy you'll\nencounter!\nBe carefull around him\nhe has many different\nkinds of attacks"
 /** \brief Descrição da poção de vida */
 #define HEALTH_POTION_DESC		"Restores health."
 /** \brief Descrição da poção de mana */
@@ -82,6 +82,12 @@ void imprime_helpButton(char *name);
 */
 void imprime_helpEnemies(char *name, MSTR monstros[], int num_monstros);
 /**
+\brief Imprime o botão para pedir ajuda sobre o boss
+@param name Nome do jogador
+@param pos Posição do dragão
+*/
+void imprime_helpBoss(char *name, POSICAO pos);
+/**
 \brief Imprime os botões para pedir ajuda sobre os items no inventário
 @param name Nome do jogador
 @param bag Inventario do jogador
@@ -96,7 +102,7 @@ void imprime_itemDescription(int item);
 \brief Imprime a descrição do monstro pedido
 @param monstro Monstro pedido
 */
-void imprime_monsterDescription(MSTR monstro);
+void imprime_monsterDescription(int isInBossBattle, MSTR monstro);
 /**
 \brief Imprime a area de ataque de um monstro
 @param e Estado do jogo

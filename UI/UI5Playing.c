@@ -256,7 +256,11 @@ void imprime_feedback(int feedback){
 void imprime_ingameHelp(ESTADO e){
 	imprime_helpButton(e.name);
 	if(e.isInIngameHelp){
-		imprime_helpEnemies(e.name, e.monstros, e.num_monstros);
+		if(e.isInBossBattle){
+			imprime_helpBoss(e.name,e.dragon.pos);
+		}else{
+			imprime_helpEnemies(e.name, e.monstros, e.num_monstros);
+		}
 		imprime_helpInvetory(e.name, e.bag);
 		if(ACT_HELP_ITEM){
 			imprime_itemDescription(e.bag.inv[e.action-40]);
@@ -269,7 +273,7 @@ void imprime_ingameHelp(ESTADO e){
 		}
 		if(ACT_HELP_MSTR){
 			POSICAO pos = {(e.action / 100)-100 , (e.action % 100)};
-			imprime_monsterDescription(e.monstros[getMonstro(e,pos)]);
+			imprime_monsterDescription(e.isInBossBattle,e.monstros[getMonstro(e,pos)]);
 			imprime_monsterAttackArea(e,e.monstros[getMonstro(e,pos)]);
 		}
 	}
