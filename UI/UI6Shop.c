@@ -68,9 +68,11 @@ void imprimeShop(ESTADO e){
 	for (i = 0; i < 4; ++i){
 		imprime_shop_item(e.name,e.lootTable[i],i);
 	}
+	IMAGEM(638,489,150,100,"Inv_bag.png");
 	for (i = 0; i < INVT_SIZE; ++i){
 		imprime_inv_slot_shop(e.name,e.bag.inv[i],i,e.isDeletingItems);
 	}
+	IMAGEM(572,489,50,100,"Inv_equipment.png");
 	imprime_equipment_shop(e.bag.weapon,e.bag.armour);
 
 	char *trashCan[] = {"button_trashCan_closed.png","button_trashCan_opened.png"};

@@ -1,8 +1,5 @@
 #include "UIMaster.h"
 
-/**
-\brief Imprime o inicio do html
-*/
 void print_header (){
 	printf ("Content-Type: text/html; charset=utf-8\n\n");
 	printf ("<!DOCTYPE html>\n");
@@ -10,17 +7,11 @@ void print_header (){
 	printf ("<head><title> Rogue Like </title></head>\n");
 	printf ("<body>\n");
 }
-/**
-\brief Imprime o fim do html
-*/
 void print_footer () {
 
 	printf("</body>\n");
 	printf("</html>\n");
 }
-/**
-\brief Função principal que chama todas as outras
-*/
 void imprime(ESTADO e){
 	print_header();
 	switch(e.screen){
