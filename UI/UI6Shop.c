@@ -5,7 +5,7 @@
 void imprime_shop_item(char *name, int item, int index){
 	if(item){
 		char *itemlist[] = ITEM_LIST;
-		char query[4];
+		char query[3];
 		sprintf(query,"7%d",index);
 		ABRIR_LINK(name,query);
 		IMAGEM(73+(197*index),310,75,75,itemlist[(int) item]);
@@ -16,7 +16,7 @@ void imprime_inv_slot_shop(char *name,int item,int i,int isDeletingItems){
 	char *itemlist[] = ITEM_LIST;
 	if(item!=0){
 		if(isDeletingItems){
-			char query[4];
+			char query[3];
 			sprintf(query,"4%d",i);
 			ABRIR_LINK(name,query);
 		}

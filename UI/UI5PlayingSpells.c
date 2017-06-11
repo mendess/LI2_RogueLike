@@ -25,7 +25,7 @@ void i_castTargetsRed(ESTADO *e){
 		for(y=-3;y<4;y++){
 			POSICAO p = {e->jog.x + x, e->jog.y +y};
 			if(y<(-1*abs(x)+5) && y>(abs(x)-5) && !outOfBounds(p) && !com_pedras(*e,p)){
-				char query[4];
+				char query[6];
 				sprintf(query,"%d",cTgt2Int(p));
 				ABRIR_LINK(e->name,query);
 				i_cTarget(e->complexItem.type,p);
@@ -66,7 +66,7 @@ void i_castTargetsYellow(ESTADO *e){
 	for(p.x=pXmax-5; p.x < pXmax; ++p.x){
 		for(p.y=pYmax-5; p.y < pYmax; ++p.y){
 			if(com_monstros(*e,p)){
-				char query[4];
+				char query[6];
 				sprintf(query,"%d",cTgt2Int(p));
 				ABRIR_LINK(e->name,query);
 				CIRCLE((p.x+1)*TAM,(p.y+1)*TAM,TAM/2,"black",0.0,"yellow",1.0,TAM);
@@ -132,7 +132,7 @@ void i_castTargetsBlue(ESTADO *e){
 		p.y= y;
 		if (!pos_ocupada(*e,p) && !nearPlayer(e->jog,p) && !isRepeat(picked,i,p) /*&& !com_chest(e,p)*/){
 			placed=1;
-			char query[4];
+			char query[6];
 			sprintf(query,"%d",cTgt2Int(p));
 			ABRIR_LINK(e->name,query);
 			//i_cTarget(e->complexItem.type,p);
@@ -162,7 +162,7 @@ void i_castTargetsGreen(ESTADO *e){
 	for(p.x=pXmax-5; p.x < pXmax; ++p.x){
 		for(p.y=pYmax-5; p.y < pYmax; ++p.y){
 			if(com_monstros(*e,p)){
-				char query[4];
+				char query[6];
 				sprintf(query,"%d",cTgt2Int(p));
 				ABRIR_LINK(e->name,query);
 				CIRCLE((p.x+1)*TAM,(p.y+1)*TAM,TAM/2,"black",0.0,"green",1.0,TAM);

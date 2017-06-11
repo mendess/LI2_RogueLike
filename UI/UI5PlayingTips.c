@@ -6,11 +6,12 @@ void imprime_helpButton(char *name){
 	FECHAR_LINK;
 }
 void imprime_helpEnemies(char *name, MSTR monstros[], int num_monstros){
-	while(num_monstros--){
-		char query[5];
-		sprintf(query,"%d",10000+(monstros[num_monstros].x*100)+monstros[num_monstros].y);
+	int i;
+	for(i=0;i<num_monstros;i++){
+		char query[6];
+		sprintf(query,"%d",10000+(monstros[i].x*100)+monstros[i].y);
 		ABRIR_LINK(name,query);
-		IMAGEM_FORMATED(monstros[num_monstros].x,monstros[num_monstros].y,TAM,TAM,"button_help_ask.png");
+		IMAGEM_FORMATED(monstros[i].x,monstros[i].y,TAM,TAM,"button_help_ask.png");
 		FECHAR_LINK;
 	}
 }
@@ -20,7 +21,7 @@ void imprime_helpInvetory(char *name, INVT bag){
 		if(bag.inv[i]!=0){
 		int X = 620+(TAM*(i/2));
 		int Y = 110+(50*!(i%2));
-		char query[4];
+		char query[3];
 		sprintf(query,"4%d",i);
 		ABRIR_LINK(name,query);
 		IMAGEM(X,Y,TAM,TAM,"button_help_ask.png");

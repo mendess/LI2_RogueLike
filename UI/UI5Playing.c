@@ -35,7 +35,7 @@ void imprime_move_frame(POSICAO p, int moldura){
 	IMAGEM_FORMATED(p.x,p.y,TAM,TAM,mold[moldura]);
 }
 void imprime_link(char *name, POSICAO target, int new_action, int moldura){
-	char query[5];
+	char query[6];
 	sprintf(query,"%d",new_action);
 	ABRIR_LINK(name,query);
 	imprime_move_frame(target,moldura);
@@ -210,7 +210,7 @@ void imprime_inv_slot(char *name, int item,int i){
 	if(item!=0){
 		int X = 620+(TAM*(i/2));
 		int Y = 110+(50*!(i%2));
-		char query[4];
+		char query[3];
 		sprintf(query,"4%d",i);
 		ABRIR_LINK(name,query);
 		IMAGEM(X,Y,TAM,TAM,itemlist[item]);
