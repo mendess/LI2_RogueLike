@@ -15,14 +15,37 @@ Movimentos e ataques dos monstros
 #include "IAogre.h"
 #include "IAdragon.h"
 
-
+/**
+@param wolf damage
+*/
 #define WOLF_DMG      10
-#define WOLF_HP       10
+/**
+@param wolf life
+*/
+#define WOLF_HP       1
+/**
+@param bat damage
+*/
 #define BAT_DMG       7
+/**
+@param bat life
+*/
 #define BAT_HP        10
+/**
+@param archer damage
+*/
 #define ARCHER_DMG    8
+/**
+@param archer life
+*/
 #define ARCHER_HP     8
+/**
+@param ogre damage
+*/
 #define OGRE_DMG      15
+/**
+@param ogre life
+*/
 #define OGRE_HP       15
 
 /**

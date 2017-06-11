@@ -59,7 +59,7 @@ ESTADO protect_it(ESTADO e,int i,POSICAO p);
 \brief Verifica se o ogre está a beira de um cofre
 @param e Estado do jogo
 @param p posição atual do ogre
-@vreturns 1 se o ogre está a beira do cofre
+@returns 1 se o ogre está a beira do cofre
 */
 int next2chest(ESTADO e,POSICAO p);
 /**
