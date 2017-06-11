@@ -53,7 +53,7 @@ Definição das funções que geram os items por nivel
 int generatePotion();
 /**
 \brief Devolve um scroll gerada aleatoriamente
-@returns O número do pergaminho gerado
+@returns O número do pergaminho gerada
 */
 int generateScroll();
 /**
