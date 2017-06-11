@@ -182,8 +182,8 @@ void castScroll_Lightning(ESTADO *e){
 	POSICAO target = itAct2Pos(e->action);
 	hitMonster(e,target,SCROLL_LIGHTNING_DMG);
 	int num_bolts=1;
+	e->complexItem.boltTargets[0] = target;
 	if(!e->isInBossBattle){
-		e->complexItem.boltTargets[0] = target;
 		int found;
 		do{
 			found = 0;

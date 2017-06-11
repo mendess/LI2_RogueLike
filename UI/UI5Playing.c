@@ -135,11 +135,19 @@ void imprime_monstros (POSICAO jog, MSTR monstros[],int num_monstros){
 						"Monstro_Bat_Lateral_1.png"   ,"Monstro_Bat_Lateral_2.png",
 						"Monstro_Ogre_Lateral_1.png"  ,"Monstro_Ogre_Lateral_2.png",
 						"Monstro_Archer_Lateral_1.png","Monstro_Archer_Lateral_2.png"};
+	char *mstrImgs_Poison[]={   "Monstro_Lobo_Lateral_1_Poison.png"  ,"Monstro_Lobo_Lateral_2_Poison.png",
+								"Monstro_Bat_Lateral_1_Poison.png"   ,"Monstro_Bat_Lateral_2_Poison.png",
+								"Monstro_Ogre_Lateral_1_Poison.png"  ,"Monstro_Ogre_Lateral_2_Poison.png",
+								"Monstro_Archer_Lateral_1_Poison.png","Monstro_Archer_Lateral_2_Poison.png"};
 
 	for(i=0;i<num_monstros;i++){
 		int side = jog.x > monstros[i].x ? 0 : 1;
 		int type = monstros[i].monType;
-		IMAGEM_FORMATED(monstros[i].x,monstros[i].y,TAM,TAM,mstrImgs[(type*2)+side]);
+		if(monstros[i].poison){
+			IMAGEM_FORMATED(monstros[i].x,monstros[i].y,TAM,TAM,mstrImgs_Poison[(type*2)+side]);
+		}else{
+			IMAGEM_FORMATED(monstros[i].x,monstros[i].y,TAM,TAM,mstrImgs[(type*2)+side]);
+		}
 	}
 }
 void imprime_pedras (POSICAO pedras[], int num_pedras){
@@ -174,8 +182,8 @@ void imprime_background (int classe){
 void imprime_hpBar(int hp, int classe){
 	int maxHP = getClassHp(classe);
 	IMAGEM(600                        ,10,200                    ,50,"BarHealthIcon.png");
-	IMAGEM((int) (641+(maxHP*1.5)),10,(int) (150-(maxHP*1.5)),50,"BarBlock.png");
-	IMAGEM(641                        ,10,(int) (hp*1.5)         ,50,"BarHealthBar.png");
+	IMAGEM((int) (641+(maxHP*1)),10,(int) (150-(maxHP*1)),50,"BarBlock.png");
+	IMAGEM(641                        ,10,(int) (hp*1)         ,50,"BarHealthBar.png");
 }
 void imprime_mpBar(int mp, int classe){
 	char *icons[] = {"BarEnergyIcon.png","BarManaIcon.png"};

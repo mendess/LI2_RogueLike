@@ -38,9 +38,9 @@ Definição das funções que imprimem as ajudas durante o jogo
 /** \brief Descrição do arma de nivel 1 */
 #define SWORD_BRONZE_DESC		"It's not very good\nbut it's better\nthan punching."
 /** \brief Descrição do arma de nivel 2 */
-#define SWORD_IRON_DESC			"Now this is a\ndecent weapon."
+#define SWORD_IRON_DESC			"Now this can\ncut things."
 /** \brief Descrição do arma de nivel 3 */
-#define SWORD_STEEL_DESC		"Steel, "
+#define SWORD_STEEL_DESC		"A steel sword.\nNothing beats\nthe classics!"
 /** \brief Descrição do arma de nivel 4 */
 #define SWORD_PALLADIUM_DESC	"This weapon cuts\nthrough anything like\nit's butter. Except\nrock, rock is still\npretty tough."
 /** \brief Descrição do armadura de nivel 1 */

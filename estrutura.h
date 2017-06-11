@@ -165,10 +165,6 @@ typedef struct estado{
 	int isInIngameHelp;
 	/** Codigo de feedback */
 	int feedback;
-	/** Número de chests */
-	int num_chests;
-	/** Lista de chests */
-	CHEST chests[MAX_CHESTS];
 	/** Se o jogador esta a usar um item */
 	ITEM_U_DAT complexItem;
 	/**  Inventario do jogador */
@@ -177,16 +173,20 @@ typedef struct estado{
 	POSICAO jog;
 	/**  Posição da saida */
 	POSICAO saida;
-	/**  Numero de Monstros */
-	int num_monstros;
 	/**  Numero de pedras */
 	int num_pedras;
-	/**  Posições dos monstros */
-	MSTR monstros [MAX_MONSTROS];
-	/** Estrutura do boss */
-	BOSS dragon;
 	/**  Posições da pedras */
 	POSICAO pedras [MAX_PEDRAS];
+	/**  Numero de Monstros */
+	int num_monstros;
+	/**  Posições dos monstros */
+	MSTR monstros [MAX_MONSTROS];
+	/** Número de chests */
+	int num_chests;
+	/** Lista de chests */
+	CHEST chests[MAX_CHESTS];
+	/** Estrutura do boss */
+	BOSS dragon;
 	/** Lista de items no chão */
 	CHEST droppedItems[MAX_DROPPED_ITEMS];
 }ESTADO;

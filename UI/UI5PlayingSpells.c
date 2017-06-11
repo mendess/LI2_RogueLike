@@ -1,4 +1,5 @@
 #include "UI5PlayingSpells.h"
+
 void i_cTarget(int type,POSICAO p){
 	char *targetMolds[] = TARGET_MOLDS;
 	SQUARE(TAM*(p.x+1),TAM*(p.y+1),"black",0.0,targetMolds[type-3],1.0,TAM);
@@ -81,22 +82,24 @@ void i_confirmCastYellow(ESTADO *e){
 	int num_bolts=1;
 	targets[0] = target;
 	CIRCLE((target.x+1)*TAM,(target.y+1)*TAM,TAM/2,"black",0.3,"yellow",1.0,TAM);
-	int found;
-	do{
-		found = 0;
-		int x,y;
-		for (x = -2; x < 3 && !found; ++x){
-			for (y = -2; y < 3 && !found; ++y){
-				POSICAO new = {target.x+x,target.y+y};
-				if(!isRepeat(targets,num_bolts,new) && com_monstros(*e,new)){
-					CIRCLE((new.x+1)*TAM,(new.y+1)*TAM,TAM/2,"black",0.3 - (0.1 * num_bolts),"yellow",1.0,TAM);
-					found=1;
-					target = new;
-					targets[num_bolts++]=new;
+	if(!e->isInBossBattle){
+		int found;
+		do{
+			found = 0;
+			int x,y;
+			for (x = -2; x < 3 && !found; ++x){
+				for (y = -2; y < 3 && !found; ++y){
+					POSICAO new = {target.x+x,target.y+y};
+					if(!isRepeat(targets,num_bolts,new) && com_monstros(*e,new)){
+						CIRCLE((new.x+1)*TAM,(new.y+1)*TAM,TAM/2,"black",0.3 - (0.1 * num_bolts),"yellow",1.0,TAM);
+						found=1;
+						target = new;
+						targets[num_bolts++]=new;
+					}
 				}
 			}
-		}
-	}while(found && SCROLL_LIGHTNING_DMG-(num_bolts*10)>0);
+		}while(found && SCROLL_LIGHTNING_DMG-(num_bolts*10)>0);
+	}
 }
 void i_CastYellow(ESTADO *e){
 	POSICAO from,to;

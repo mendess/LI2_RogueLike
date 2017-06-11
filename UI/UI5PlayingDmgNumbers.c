@@ -7,7 +7,22 @@ void i_dmgTaken(POSICAO jog, int dmgTaken){
 }
 void i_dmgDealtSpells_Fire(ESTADO *e){
 	if(e->isInBossBattle){
-		DMG_NUM(e->dragon.pos.x+3,e->dragon.pos.y,SCROLL_FIRE_DMG,"blood_orange.png");
+		POSICAO p = itAct2Pos(e->action);
+		int hitBoss=0;
+		int pXmax=p.x+2;
+		int pYmax=p.y+2;
+		for(p.x=pXmax-3;p.x<pXmax && !hitBoss;p.x++){
+			for (p.y=pYmax-3;p.y < pYmax && !hitBoss; p.y++){
+				int hit = 0;
+				if(!com_pedras(*e,p)){
+					hit = hitMonster(e,p,SCROLL_FIRE_DMG);
+				}
+				if(hit){
+					DMG_NUM(e->dragon.pos.x+3,e->dragon.pos.y,SCROLL_FIRE_DMG,"blood_orange.png");
+					hitBoss=1;
+				}
+			}
+		}
 	}else{
 		POSICAO p = itAct2Pos(e->action);
 		int pXmax=p.x+2;

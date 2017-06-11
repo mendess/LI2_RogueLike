@@ -15,22 +15,14 @@ Movimentos e ataques dos monstros
 #include "IAogre.h"
 #include "IAdragon.h"
 
-/**
-\brief wolf damage
-*/
-#define WOLF_DMG      10
-/**
-\brief bat damage
-*/
-#define BAT_DMG       7
-/**
-\brief archer damage
-*/
-#define ARCHER_DMG    8
-/**
-\brief ogre damage
-*/
-#define OGRE_DMG      15
+/** \brief wolf damage */
+#define WOLF_DMG      5
+/** \brief bat damage */
+#define BAT_DMG       3
+/** \brief archer damage */
+#define ARCHER_DMG    3
+/** \brief ogre damage */
+#define OGRE_DMG      20
 
 /**
 \brief Verifica se a jogada que será feita pelo monstro 

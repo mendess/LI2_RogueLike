@@ -1,4 +1,6 @@
-//#define DEBUG
+#define TEST_SHOP
+//#define TEST_BOSS
+#define TEST_ITEMS
 
 #include "levelMaker.h"
 
@@ -83,13 +85,13 @@ INVT initINVT(){
 	}
 	bag.weapon=0;
 	bag.armour=0;
-	#ifdef DEBUG
+	#ifdef TEST_ITEMS
 	bag.inv[0]=3;
 	bag.inv[1]=4;
 	bag.inv[2]=5;
 	bag.inv[3]=2;
-	bag.inv[4]=2;
-	bag.inv[5]=2;
+	bag.inv[4]=1;
+	bag.inv[5]=12;
 	bag.weapon=10;
 	bag.armour=14;
 	#endif
@@ -159,7 +161,14 @@ ESTADO inicializar(ESTADO e){
 	e=colocar_pedras(e,n,path);			/* Posições da pedras */
 	e.num_monstros=0;					/* Numero de Monstros */
 	e=genMonsters(e);					/* Posições dos monstros */
-	initDroppedItems(e.droppedItems); /* Limpa o chão de items */
+	initDroppedItems(e.droppedItems); 	/* Limpa o chão de items */
+	#ifdef TEST_SHOP
+	e.world_lvl=5;
+	e.bag.gold=100;
+	#endif
+	#ifdef TEST_BOSS
+	e.world_lvl=9;
+	#endif
 	return e;
 }
 ESTADO newLevel(ESTADO e){
