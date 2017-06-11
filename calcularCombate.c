@@ -6,39 +6,41 @@ int samePos(POSICAO monPos, MSTR monster){
 void killMonster(int i, MSTR monstros[], int num_monstros){
 	monstros[i]=monstros[num_monstros];
 }
-void dropItem(CHEST droppedItems[], int *item, POSICAO pos){
+void dropItem(ESTADO *e, int *item, POSICAO pos){
 	int j=0;
-	while(droppedItems[j].item!=0 && j<MAX_DROPPED_ITEMS){
-		j++;
-	}
-	if(j==MAX_DROPPED_ITEMS){
-		perror("Not enough space to drop item!");
-	}else{
-		droppedItems[j].item = *item;
-		droppedItems[j].pos = pos;
-		*item=0;
+	if(!com_pedras(*e,pos)){
+		while(e->droppedItems[j].item!=0 && j<MAX_DROPPED_ITEMS){
+			j++;
+		}
+		if(j==MAX_DROPPED_ITEMS){
+			perror("Not enough space to drop item!");
+		}else{
+			e->droppedItems[j].item = *item;
+			e->droppedItems[j].pos = pos;
+			*item=0;
+		}
 	}
 }
-void dropItemFromDragon(int lootTable[], CHEST droppedItems[], POSICAO pos){
+void dropItemFromDragon(ESTADO *e, POSICAO pos){
 	POSICAO dropPoint;
 	int i=0;
 	for(dropPoint.x = pos.x+1 ; dropPoint.x<pos.x+3 ; dropPoint.x++){
 		for(dropPoint.y = pos.y ; dropPoint.y<pos.y+2 ; dropPoint.y++){
-			dropItem(droppedItems,&lootTable[i],dropPoint);
+			dropItem(e,&(e->lootTable[i]),dropPoint);
 			i++;
 		}
 	}
 }
-void dropItemFromMSTR(int lootTable[], CHEST droppedItems[], int x, int y){
+void dropItemFromMSTR(ESTADO *e, int x, int y){
 	int chance = rand() % 2;
 	if(chance==0){
 		int i=0;
-		while(lootTable[i]==0 && i<LOOT_TABLE_SIZE){
+		while(e->lootTable[i]==0 && i<LOOT_TABLE_SIZE){
 			i++;
 		}
 		if(i!=LOOT_TABLE_SIZE){
 			POSICAO pos = {x,y};
-			dropItem(droppedItems,&lootTable[i],pos);
+			dropItem(e,&(e->lootTable[i]),pos);
 		}
 	}
 }
@@ -80,23 +82,23 @@ int getMonstro(ESTADO e,POSICAO p){
 	}
 	return i;
 }
+void spawnExit(ESTADO *e){
+	POSICAO newExit;
+	do{
+		newExit.x= rand() % SIZE;
+		newExit.y= rand() % SIZE;
+	}while(!pos_completamente_livre(*e,newExit.x,newExit.y));
+	e->saida = newExit;
+}
 int hitMonster(ESTADO *e, POSICAO target, int dmg){
 	if(e->isInBossBattle){
 		int isHit;
-		if(com_boss(*e,target)){
+		if((isHit = com_boss(*e,target))){
 			e->dragon.hp-=dmg;
 			if(e->dragon.hp<1){
-				POSICAO newExit;
-				dropItemFromDragon(e->lootTable,e->droppedItems,e->dragon.pos);
-				do{
-					newExit.x= rand() % SIZE;
-					newExit.y= rand() % SIZE;
-				}while(!pos_completamente_livre(*e,newExit.x,newExit.y));
-				e->saida = newExit;
+				dropItemFromDragon(e,e->dragon.pos);
+				spawnExit(e);
 			}
-			isHit=1;
-		}else{
-			isHit=0;
 		}
 		return isHit;
 	}else{
@@ -106,7 +108,7 @@ int hitMonster(ESTADO *e, POSICAO target, int dmg){
 			if(e->monstros[monIdx].hp<1){
 				e->score+=updateScore(e->monstros[monIdx].monType);
 				e->bag.gold+=goldDrop(e->monstros[monIdx].monType);
-				dropItemFromMSTR(e->lootTable,e->droppedItems,e->monstros[monIdx].x, e->monstros[monIdx].y);
+				dropItemFromMSTR(e,e->monstros[monIdx].x, e->monstros[monIdx].y);
 				killMonster(monIdx,e->monstros,--e->num_monstros);
 			}
 		}

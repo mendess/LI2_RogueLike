@@ -100,6 +100,7 @@ void imprime_helpInvetory(char *name, INVT bag);
 void imprime_itemDescription(int item);
 /**
 \brief Imprime a descrição do monstro pedido
+@param isInBossBattle Se está numa boss battle
 @param monstro Monstro pedido
 */
 void imprime_monsterDescription(int isInBossBattle, MSTR monstro);

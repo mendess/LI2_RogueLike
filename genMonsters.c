@@ -22,14 +22,18 @@ int getNumMonst(int world_lvl){
 	return ((num_monstros>MAX_MONSTROS) ? MAX_MONSTROS : num_monstros);
 }
 int getMonsterHP(int type){
-	int monType;
+	int monHp = 0;
 	switch(type){
-		case 0: monType = MON_HP_WOLF;
-		case 1: monType = MON_HP_BAT;
-		case 2: monType = MON_HP_OGRE;
-		case 3: monType = MON_HP_ARCHER;
+		case 0: monHp = MON_HP_WOLF;
+				break;
+		case 1: monHp = MON_HP_BAT;
+				break;
+		case 2: monHp = MON_HP_OGRE;
+				break;
+		case 3: monHp = MON_HP_ARCHER;
+				break;
 	}
-	return monType;
+	return monHp;
 }
 ESTADO placeMonster(ESTADO e, int type){
 	POSICAO p;
@@ -43,7 +47,7 @@ ESTADO placeMonster(ESTADO e, int type){
 			e.monstros[e.num_monstros].x=p.x;
 			e.monstros[e.num_monstros].y=p.y;
 			e.monstros[e.num_monstros].monType=type;
-			e.monstros[e.num_monstros].hp=getMonsterHP(e.monstros[e.num_monstros].monType);
+			e.monstros[e.num_monstros].hp=getMonsterHP(type);
 			e.monstros[e.num_monstros].poison=0;
 		}
 	}

@@ -72,7 +72,7 @@ void imprime_boss0(ESTADO e){
 		if(e.dragon.pos.x==SIZE+2){
 			i_shadow(e.dragon.side);
 		}else{
-			char *dragonImgs[] = {"Monstro_Dragon_2.png","Monstro_Dragon_1.png","Monstro_Dragon_3.png"};
+			char *dragonImgs[] = {"Monstro_Dragon_2_0.png","Monstro_Dragon_1_0.png","Monstro_Dragon_3_0.png"};
 			IMAGEM((e.dragon.pos.x+1)*TAM,(e.dragon.pos.y+1)*TAM,200,150,dragonImgs[getDragonImg(e.turn)]);
 			switch(e.dragon.attack){
 				case 1: i_fireballs(e);
@@ -126,7 +126,7 @@ void imprime_boss1(ESTADO e){
 		if(e.dragon.pos.x==SIZE+2){
 			i_shadow(e.dragon.side);
 		}else{
-			char *dragonImgs[] = {"Monstro_Dragon_2.png","Monstro_Dragon_1.png","Monstro_Dragon_3.png"};
+			char *dragonImgs[] = {"Monstro_Dragon_2_1.png","Monstro_Dragon_1_1.png","Monstro_Dragon_3_1.png"};
 			IMAGEM((e.dragon.pos.x+1)*TAM,(e.dragon.pos.y+1)*TAM,200,150,dragonImgs[getDragonImg(e.turn)]);
 			switch(e.dragon.attack){
 				case 1: i_fireballs(e);

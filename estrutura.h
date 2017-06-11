@@ -12,45 +12,47 @@ Definição de algumas constantes e das estruturas do jogo
 #include <stdio.h>
 
 /** \brief Tamanho em pixeis de cada quadrado no mapa */
-#define TAM					50
+#define TAM						50
 /** \brief Número maximo de monstros que um nível pode ter */
-#define MAX_MONSTROS		20
+#define MAX_MONSTROS			20
 /** \brief Número maximo de obstaculos de um nível */
-#define MAX_PEDRAS			25
+#define MAX_PEDRAS				25
 /** \brief Número maximo de chests que um nível pode ter */
-#define MAX_CHESTS			3
+#define MAX_CHESTS				3
 /** \brief Tamanho do mapa */
-#define SIZE          		10
+#define SIZE          			10
 /** \brief Tamanho da tabela de items que se pode obter por nível */
-#define LOOT_TABLE_SIZE 	4
+#define LOOT_TABLE_SIZE 		4
 /** \brief Tamanho do inventário */
-#define INVT_SIZE       	6
+#define INVT_SIZE       		6
 /** \brief Número maximo de items que um nível pode ter no chão */
-#define MAX_DROPPED_ITEMS	LOOT_TABLE_SIZE+MAX_CHESTS
+#define MAX_DROPPED_ITEMS		LOOT_TABLE_SIZE+MAX_CHESTS
 /** \brief Condições para usar o teleport menor */
 #define CAN_USE_LESSER_TELEPORT	e.classe==3 && e.turn % 5 == 0 && e.turn != 0 && e.mp>=LESSER_TP_COST
 /** \brief Custo do teleport menor */
-#define LESSER_TP_COST	10
+#define LESSER_TP_COST			10
 /** \brief Dano causado pelo pergaminho de fogo */
-#define SCROLL_FIRE_DMG			35
+#define SCROLL_FIRE_DMG			20
 /** \brief Dano causado pelo pergaminho de relampago */
-#define SCROLL_LIGHTNING_DMG	40
+#define SCROLL_LIGHTNING_DMG	30
 /** \brief Dano do veneno */
-#define POISON_DMG	5
+#define POISON_DMG				5
+/** \brief Quantos turnos fica envenenado */
+#define POISON_COUNTERS			8
 /** \brief Dano base do Warrior */
-#define WARRIOR_BASE_DMG	20
+#define WARRIOR_BASE_DMG		10
 /** \brief Dano base do Archer */
-#define ARCHER_BASE_DMG		15
+#define ARCHER_BASE_DMG			9
 /** \brief Dano base do Mage */
-#define MAGE_BASE_DMG		13
+#define MAGE_BASE_DMG			9
 /** \brief Dano base da arma de nível 1 */
-#define SWORD_BRONZE_DMG	5
+#define SWORD_BRONZE_DMG		5
 /** \brief Dano base da arma de nível 2 */
-#define SWORD_IRON_DMG		10
+#define SWORD_IRON_DMG			10
 /** \brief Dano base da arma de nível 3 */
-#define SWORD_STEEL_DMG		15
+#define SWORD_STEEL_DMG			15
 /** \brief Dano base da arma de nível 4 */
-#define SWORD_PALLADIUM_DMG	20
+#define SWORD_PALLADIUM_DMG		20
 
 /** \brief Estrutura que armazena uma posição */
 typedef struct posicao{

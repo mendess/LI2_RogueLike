@@ -12,15 +12,15 @@ Definição das funções que geram os monstros para cada nível
 #include "loot.h"
 
 /** \brief Vida base do lobo */
-#define MON_HP_WOLF		10
+#define MON_HP_WOLF		30
 /** \brief Vida base do morcego */
-#define MON_HP_BAT		5
+#define MON_HP_BAT		15
 /** \brief Vida base do ogre */
-#define MON_HP_OGRE		35
+#define MON_HP_OGRE		50
 /** \brief Vida base do arqueiro */
 #define MON_HP_ARCHER	10
 /** \brief Vida base do dragão */
-#define MON_HP_DRAGON	80
+#define MON_HP_DRAGON	300
 
 /**
 \brief Gera o boss

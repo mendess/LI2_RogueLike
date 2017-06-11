@@ -54,19 +54,24 @@ int samePos(POSICAO monPos, MSTR monster);
 void killMonster(int i, MSTR monstros[], int num_monstros);
 /**
 \brief Coloca um item no chão
-@param droppedItems Lista de espaços no chão para por items
+@param e Apontador para o Estado do Jogo
 @param item Item a colocar no chão
 @param pos Posição onde colocar o item
 */
-void dropItem(CHEST droppedItems[], int *item, POSICAO pos);
+void dropItem(ESTADO *e, int *item, POSICAO pos);
+/**
+\brief Coloca 4 items no chão no lugar onde o dragao estava
+@param e Apontador para o Estado do Jogo
+@param pos Posição do dragão
+*/
+void dropItemFromDragon(ESTADO *e, POSICAO pos);
 /**
 \brief Coloca um item no chão na posição de um monstro
-@param lootTable Tabla de items que podem sair
-@param droppedItems Lista dos espaços no chão para por items
+@param e Apontador para o Estado do Jogo
 @param x Coordenada x do monstro que morreu
 @param y Coordenada y do monstro que morreu
 */
-void dropItemFromMSTR(int lootTable[], CHEST droppedItems[], int x, int y);
+void dropItemFromMSTR(ESTADO *, int x, int y);
 /**
 \brief Calcula o dano que o jogador vai causar
 @param classe Classe do jogador

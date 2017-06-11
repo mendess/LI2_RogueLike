@@ -104,8 +104,8 @@ void i_CastYellow(ESTADO *e){
 	from = e->jog;
 	to = e->complexItem.boltTargets[i];
 	while(i<e->complexItem.num_bolts){
-		int plrCx = from.x+1;
-		int plrCy = from.y+2;
+		double plrCx = from.x+1;
+		double plrCy = from.y+1.5;
 		int rotX = ((from.x+1)*TAM)+TAM/2;
 		int rotY = ((from.y+1)*TAM)+TAM/2;
 		
@@ -120,7 +120,7 @@ void i_CastYellow(ESTADO *e){
 		}else{
 			angle=atan((double)to.y/(double)to.x)*(180/M_PI)+(to.x<0 ? 90 : -90);
 		}
-		printf("<image x=%d y=%d width=%d height=%d preserveAspectRatio=none transform=\"rotate(%f %d %d)\" xlink:href=%sSpell_Lightning.png />\n",
+		printf("<image x=%f y=%f width=%d height=%d preserveAspectRatio=none transform=\"rotate(%f %d %d)\" xlink:href=%sSpell_Lightning.png />\n",
 				  plrCx*TAM,plrCy*TAM,TAM,height*TAM                                         ,angle,rotX,rotY,  IMAGE_PATH);
 		i++;
 		if(i<e->complexItem.num_bolts){
@@ -145,7 +145,6 @@ void i_castTargetsBlue(ESTADO *e){
 			char query[6];
 			sprintf(query,"%d",cTgt2Int(p));
 			ABRIR_LINK(e->name,query);
-			//i_cTarget(e->complexItem.type,p);
 			CIRCLE((p.x+1)*TAM,(p.y+1)*TAM,TAM/2,"white",0.0,"blue",1.0,TAM);
 			FECHAR_LINK;
 			picked[i]=p;

@@ -139,7 +139,7 @@ void removeChest(int i, CHEST chests[], int num_chests){
 void openChest(ESTADO *e){
 	POSICAO chest = calcularNovaPosicao(e->jog,e->action-90);
 	int chestIdx = getChest(e->chests, e->num_chests, chest);
-	dropItem(e->droppedItems, &(e->chests[chestIdx].item), e->chests[chestIdx].pos);
+	dropItem(e, &(e->chests[chestIdx].item), e->chests[chestIdx].pos);
 	removeChest(chestIdx, e->chests, e->num_chests--);
 }
 void castScroll_Fire(ESTADO *e){
@@ -149,12 +149,16 @@ void castScroll_Fire(ESTADO *e){
 	int pYmax=p.y+2;
 	for(p.x=pXmax-3;p.x<pXmax && !hitBoss;p.x++){
 		for (p.y=pYmax-3;p.y < pYmax && !hitBoss; p.y++){
-			int hit = hitMonster(e,p,SCROLL_FIRE_DMG);
+			int hit = 0;
+			if(!com_pedras(*e,p)){
+				hit = hitMonster(e,p,SCROLL_FIRE_DMG);
+			}
 			if(hit && e->isInBossBattle){
 				hitBoss=1;
 			}
 			if(com_jogador(*e,p)){
 				e->hp-=SCROLL_FIRE_DMG;
+				e->dmgTaken+=SCROLL_FIRE_DMG;
 			}
 		}
 	}
@@ -203,11 +207,12 @@ void castScroll_Lightning(ESTADO *e){
 void castScroll_Poison(ESTADO *e){
 	POSICAO target = itAct2Pos(e->action);
 	if(e->isInBossBattle){
-		e->dragon.poison+=3;
+		e->dragon.poison+=POISON_COUNTERS;
 	}else{
 		int mIdx = getMonstro(*e,target);
-		e->monstros[mIdx].poison+=3;
+		e->monstros[mIdx].poison+=POISON_COUNTERS;
 	}
+	e->mp-=SCROLL_COST_POISON;
 }
 ESTADO castScroll(ESTADO e){
 	switch(e.complexItem.type){

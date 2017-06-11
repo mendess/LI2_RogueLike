@@ -1,12 +1,19 @@
 #ifndef __UI5_DMGNUM__
 #define __UI5_DMGNUM__
-
+/**
+@file UI5PlayingDmgNumbers.h
+Definição das funções que imprimem os números do dano causado
+*/
 #include "../calcularCombate.h"
 
 #include "UI5Playing.h"
 
 /** \brief Macro que imprime o dano causado */
-#define DMG_NUM(X,Y,DMG)	printf("<text x=%d y=%d style=\"fill:#000000;stroke:#000000\">-%d</text>\n",((X+1)*TAM)+TAM/2,((Y+1)*TAM)+TAM/5,DMG);
+#define DMG_NUM(X,Y,DMG,IMG)	int xxx = ((X+1)*TAM)+TAM/2; \
+								int yyy = ((Y+1)*TAM)+TAM/5; \
+								IMAGEM(xxx-(TAM/10),yyy-(TAM/2),40,35,IMG);\
+								printf("<text x=%d y=%d style=\"fill:#ffffff;stroke:#ffffff\">-%2d</text>\n",xxx,yyy,DMG)
+
 
 /**
 \brief Imprime o dano que o jogador levou

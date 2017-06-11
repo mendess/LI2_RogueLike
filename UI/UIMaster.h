@@ -102,7 +102,7 @@ Definição das funções que controlam a interface
 @param S_OPACITY Opacidade do contorno do quadrado
 @param SCALE A escala do quadrado
 */
-#define CIRCLE(X,Y,RADIUS,FILL,F_OPACITY,STROKE,S_OPACITY,SCALE)	printf("<circle cx=%d cy=%d r=%d style=fill:%s;fill-opacity:%f;stroke:%s;stroke-opacity:%f;stroke-width:2/></circle>\n", \
+#define CIRCLE(X,Y,RADIUS,FILL,F_OPACITY,STROKE,S_OPACITY,SCALE)	printf("<circle cx=%d cy=%d r=%d style=fill:%s;fill-opacity:%f;stroke:%s;stroke-opacity:%f;stroke-width:5/></circle>\n", \
 																                X+SCALE/2,Y+SCALE/2,RADIUS,   FILL,      F_OPACITY,   STROKE,        S_OPACITY)
 /**
 \brief Macro para abrir um link
@@ -117,7 +117,7 @@ Definição das funções que controlam a interface
 
 /** \brief Imprime o header do UI */
 void print_header();
-/* \brief Imprime o footer do UI */
+/** \brief Imprime o footer do UI */
 void print_footer();
 /**
 \brief Função mestra que imprime toda a interfaçe 

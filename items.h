@@ -17,7 +17,7 @@ Definição das funções que definem o comportamento dos items
 #define MP_POT_POWER			10
 
 /** \brief Custo de mana do pergaminho de fogo */
-#define SCROLL_COST_FIRE		40
+#define SCROLL_COST_FIRE		30
 /** \brief Custo de mana do pergaminho de relampago */
 #define SCROLL_COST_LIGHTNING	25
 /** \brief Custo de mana do pergaminho de veneno */
