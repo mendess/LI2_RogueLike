@@ -1,5 +1,5 @@
-#ifndef __UI5_DMGNUM__
-#define __UI5_DMGNUM__
+#ifndef __UI5_DMGNUM_H__
+#define __UI5_DMGNUM_H__
 /**
 @file UI5PlayingDmgNumbers.h
 Definição das funções que imprimem os números do dano causado

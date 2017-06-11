@@ -1,5 +1,5 @@
-#ifndef __UI5_BOSS__
-#define __UI5_BOSS__
+#ifndef __UI5_BOSS_H__
+#define __UI5_BOSS_H__
 
 /**
 @file UI5PlayingBoss.h

@@ -1,5 +1,5 @@
-#ifndef __UIMACROS_H__
-#define __UIMACROS_H__
+#ifndef __UI_MACROS_H__
+#define __UI_MACROS_H__
 
 /**
 @file UIMacros.h

@@ -1,5 +1,5 @@
-#ifndef __UI0_H__
-#define __UI0_H__
+#ifndef __UI1_H__
+#define __UI1_H__
 
 /**
 @file UI1Menu.h
