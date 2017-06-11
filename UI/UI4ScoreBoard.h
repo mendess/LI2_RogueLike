@@ -6,9 +6,10 @@
 Definição das funções que imprimem a scoreboard
 */
 
-#include "../score.h"
+#include <stdio.h>
 
-#include "UIMaster.h"
+#include "../score.h"
+#include "UIMacros.h"
 
 /**
 \brief Imprime um score num certo indice

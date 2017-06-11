@@ -6,7 +6,11 @@
 Definição das funções que imprimem os ataques do dragão
 */
 
-#include "UI5Playing.h"
+#include <stdio.h>
+
+#include "../estrutura.h"
+#include "UIMacros.h"
+
 /**
 \brief Decide qual a imagem do dragao conforme o turno
 @param turn Turno do jogo

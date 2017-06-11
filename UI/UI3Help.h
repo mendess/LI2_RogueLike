@@ -5,7 +5,9 @@
 @file UI3Help.h
 Definição da função que imprime o ecra de ajuda
 */
-#include "UIMaster.h"
+#include <stdio.h>
+
+#include "UIMacros.h"
 
 /**
 \brief Imprime o ecra de ajuda

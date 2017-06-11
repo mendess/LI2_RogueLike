@@ -5,7 +5,8 @@
 @file UI0Form.h
 Definição da função que imprime a interface para o jogadro escolher o seu nome
 */
-#include "UIMaster.h"
+#include <stdio.h>
+#include "UIMacros.h"
 
 /**
 \brief Imprime a interface do escolha do nome

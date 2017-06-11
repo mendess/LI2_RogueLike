@@ -5,9 +5,11 @@
 @file UI6Shop.h
 Definição das funções para imprimir a interface da loja
 */
-#include "../shop.h"
+#include <stdio.h>
 
-#include "UIMaster.h"
+#include "../estrutura.h"
+#include "../shop.h"
+#include "UIMacros.h"
 
 /** \brief Ecras da loja */
 #define SHOP_SCREENS	{"ScreenShop.png","ScreenShop1.png","ScreenShop2.png","ScreenShop3.png","ScreenShop4.png","ScreenShop5.png"}

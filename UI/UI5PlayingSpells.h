@@ -5,8 +5,11 @@
 @file UI5PlayingSpells.h
 Definição da interface de uso de items complexos
 */
-#include "UI5Playing.h"
+#include <stdio.h>
+
+#include "../estrutura.h"
 #include "../items.h"
+#include "UIMacros.h"
 
 /** \brief Cores das molduras de dos feitiços */
 #define TARGET_MOLDS		{"red","yellow","green","blue"}

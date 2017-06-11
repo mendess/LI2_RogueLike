@@ -5,9 +5,9 @@
 @file UI5Playing.h
 Definição das funções que imprimem a interface do jogo
 */
-#include "../colisions.h"
-#include "../levelMaker.h"
-#include "UIMaster.h"
+#include <stdio.h>
+
+#include "UIMacros.h"
 
 #include "UI5PlayingBoss.h"
 #include "UI5PlayingSpells.h"
@@ -22,8 +22,6 @@ Definição das funções que imprimem a interface do jogo
 								 {-1,-1,22,-1,-1},}
 /** \brief Lista dos nomes do ficheiro das molduras de jogada */
 #define PLAY_FRAMES		{"Moldura_Movimento.png","Moldura_Ataque.png","Moldura_Lesser_Teleport.png","Moldura_PickUp_Item.png","Moldura_OpenChest.png"}
-/** \brief Lista das mensagens de erro para quando o jogador tenta fazer algo que não pode */
-#define FEEDBACK_MSGS	{"","Hum... I can't cast that!","Bad idea...\nDrinking that\nwould make me sick","I can't carry\nmore items!","There are no\ntargets in range!"}
 /** \brief Ações para pedir ajuda sobre um item do inventário */
 #define ACT_HELP_ITEM	e.action>39 && e.action<46
 /** \brief Ação para pedir ajuda sobre a arma equipada */
@@ -59,14 +57,6 @@ Valores que a função retorna
 @param p Quanto no eixo dos x e dos y o jogador vai andar
 */
 int getDirection(ESTADO e,POSICAO p);
-/**
-\brief Imprime texto no ecra
-@param x Coordenada x onde deve começar o texto
-@param y Coordenada y onde deve começar o texto
-@param text String de texto a imprimir
-@param fontSize Tamanho em pixels da letra
-*/
-void imprime_texto(int x, int y, char *text, int fontSize);
 /**
 \brief Imprime a moldura da jogada
 @param p Posição da moldura
@@ -187,11 +177,6 @@ void imprime_equipment(INVT bag);
 @param bag Inventario do jogador
 */
 void imprime_inventory(int mode, char *name, INVT bag);
-/**
-\brief Imprime as mensagens de erro para o jogador ver porque é que o que ele quer fazer não é possivel
-@param feedback Número da mensagem a apresentar
-*/
-void imprime_feedback(int feedback);
 /**
 \brief Imprime os botões para apresentar as ajudas ao jogador
 @param e Estado do jogo

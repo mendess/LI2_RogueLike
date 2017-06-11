@@ -13,23 +13,6 @@ int getDirection(ESTADO e,POSICAO p){
 	}
 	return 7-3*(p.y+1)+p.x+1+type;
 }
-void imprime_texto(int x, int y, char *text, int fontSize){
-	int i=0;
-	int lineNumber=0;
-	printf("<text x=%d y=%d style=\"fill:#FFFFFF;font-size:%dpx\">\n",x,y,fontSize);
-	while(text[i]){
-		char line[50];
-		int lineI=0;
-		while(text[i] && text[i]!='\n'){
-			line[lineI++]=text[i++];
-		}
-		line[lineI]='\0';
-		printf("\t<tspan x=%d y=%d >%s</tspan>\n",x,y+((fontSize+1)*lineNumber),line);
-		lineNumber++;
-		if(text[i]=='\n'){i++;};
-	}
-	printf("</text>\n");
-}
 void imprime_move_frame(POSICAO p, int moldura){
 	char *mold[]=PLAY_FRAMES;
 	IMAGEM_FORMATED(p.x,p.y,TAM,TAM,mold[moldura]);
@@ -83,11 +66,14 @@ void imprime_lesser_teleport(ESTADO e){
 	for (dif.x = -1; dif.x < 2; dif.x++){
 		for (dif.y = -1; dif.y < 2; dif.y++){
 			if(abs(dif.x)!=abs(dif.y)){
-				POSICAO pos = {e.jog.x + dif.x*3,e.jog.y + dif.y*3};
-				if(!outOfBounds(pos) && !com_pedras(e,pos) && !com_monstros(e,pos) && !com_saida(e,pos) && !com_chest(e,pos)){
+				POSICAO pos = e.jog;
+				e.jog.x +=dif.x*3;
+				e.jog.y +=dif.y*3;
+				if(!outOfBounds(e.jog) && !com_pedras(e,e.jog) && !com_monstros(e,e.jog) && !com_saida(e,e.jog) && !com_chest(e,e.jog)){
 					int new_action = 30 + getDirection(e,dif);
-					imprime_link(e.name,pos,new_action,2);
+					imprime_link(e.name,e.jog,new_action,2);
 				}
+				e.jog=pos;
 			}
 		}
 	}
@@ -247,11 +233,6 @@ void imprime_inventory(int mode,char *name,INVT bag){
 	FECHAR_LINK;
 	IMAGEM(620,210,50,50,"goldcoins.png");
 	imprime_gold(660,225,bag.gold);
-}
-void imprime_feedback(int feedback){
-	IMAGEM(595,390,200,150,"ScreenFeedback.png");
-	char *feedbackMessages[] = FEEDBACK_MSGS;
-	imprime_texto(600, 470, feedbackMessages[feedback],17);
 }
 void imprime_ingameHelp(ESTADO e){
 	imprime_helpButton(e.name);

@@ -5,7 +5,9 @@
 @file UI2CharSelect.h
 Definição da função que imprime a interface de escolha de classe
 */
-#include "UIMaster.h"
+#include <stdio.h>
+
+#include "UIMacros.h"
 
 /**
 \brief Imprime a interface de escolha de classe

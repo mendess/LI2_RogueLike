@@ -6,9 +6,12 @@
 Definição das funções que imprimem as ajudas durante o jogo
 */
 
-#include "UI5Playing.h"
-#include "../items.h"
+#include <stdio.h>
+
+#include "../estrutura.h"
+#include "../colisions.h"
 #include "../genMonsters.h"
+#include "UIMacros.h"
 
 /** \brief Descrição do lobo */
 #define WOLF_DESC	"Wolfs are fast and\ncan attack diagonaly\nbut don't deal\nmuch damage.\nThey are known\nto attack in groups!"
@@ -69,6 +72,17 @@ Definição das funções que imprimem as ajudas durante o jogo
 								 ARMOUR_IRON_DESC, \
 								 ARMOUR_STEEL_DESC, \
 								 ARMOUR_PALLADIUM_DESC}
+/** \brief Lista das mensagens de erro para quando o jogador tenta fazer algo que não pode */
+#define FEEDBACK_MSGS	{"","Hum... I can't cast that!","Bad idea...\nDrinking that\nwould make me sick","I can't carry\nmore items!","There are no\ntargets in range!"}
+
+/**
+\brief Imprime texto no ecra
+@param x Coordenada x onde deve começar o texto
+@param y Coordenada y onde deve começar o texto
+@param text String de texto a imprimir
+@param fontSize Tamanho em pixels da letra
+*/
+void imprime_texto(int x, int y, char *text, int fontSize);
 /**
 \brief Imprime o botão para ligar ou desligar as ajudas
 @param name Nome do jogador
@@ -139,5 +153,10 @@ void i_archerAttackArea(ESTADO e, MSTR monstro);
 @param e Estado do jogo
 */
 void i_dragonAttackArea(ESTADO e);
+/**
+\brief Imprime as mensagens de erro para o jogador ver porque é que o que ele quer fazer não é possivel
+@param feedback Número da mensagem a apresentar
+*/
+void imprime_feedback(int feedback);
 
 #endif

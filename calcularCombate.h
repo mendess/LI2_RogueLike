@@ -71,7 +71,7 @@ void dropItemFromDragon(ESTADO *e, POSICAO pos);
 @param x Coordenada x do monstro que morreu
 @param y Coordenada y do monstro que morreu
 */
-void dropItemFromMSTR(ESTADO *, int x, int y);
+void dropItemFromMSTR(ESTADO *e, int x, int y);
 /**
 \brief Calcula o dano que o jogador vai causar
 @param classe Classe do jogador

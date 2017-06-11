@@ -1,5 +1,22 @@
 #include "UI5PlayingTips.h"
 
+void imprime_texto(int x, int y, char *text, int fontSize){
+	int i=0;
+	int lineNumber=0;
+	printf("<text x=%d y=%d style=\"fill:#FFFFFF;font-size:%dpx\">\n",x,y,fontSize);
+	while(text[i]){
+		char line[50];
+		int lineI=0;
+		while(text[i] && text[i]!='\n'){
+			line[lineI++]=text[i++];
+		}
+		line[lineI]='\0';
+		printf("\t<tspan x=%d y=%d >%s</tspan>\n",x,y+((fontSize+1)*lineNumber),line);
+		lineNumber++;
+		if(text[i]=='\n'){i++;};
+	}
+	printf("</text>\n");
+}
 void imprime_helpButton(char *name){
 	ABRIR_LINK(name,"10");
 	IMAGEM(745,310,TAM,TAM,"button_help_toggle.png");
@@ -143,4 +160,9 @@ void i_dragonAttackArea(ESTADO e){
 			}
 		}
 	}
+}
+void imprime_feedback(int feedback){
+	IMAGEM(595,390,200,150,"ScreenFeedback.png");
+	char *feedbackMessages[] = FEEDBACK_MSGS;
+	imprime_texto(600, 470, feedbackMessages[feedback],17);
 }
