@@ -7,15 +7,11 @@ void imprimeMainMenu(char *name){
 	ABRIR_LINK(name,"52");/* Play */
 	printf("<rect x=245 y=294 width=310 height=99 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
-	ABRIR_LINK(name,"53");/* Help */
+	ABRIR_LINK(name,"54");/* ScoreBoard */
 	printf("<rect x=269 y=402 width=269 height=75 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
-	ABRIR_LINK(name,"54");/* ScoreBoard */
-	printf("<rect x=269 y=484 width=269 height=75 style=opacity:0;></rect>\n");
-	FECHAR_LINK;
-
 	ABRIR_RESET_LINK;/* back */
-	printf("<rect x=740 y=540 width=60 height=60 style=opacity:0;></rect>\n");
+	printf("<rect x=269 y=484 width=269 height=75 style=opacity:0;></rect>\n");
 	FECHAR_LINK;
 
 	FECHAR_SVG;
