@@ -16,7 +16,7 @@ int getDirection(ESTADO e,POSICAO p){
 void imprime_texto(int x, int y, char *text, int fontSize){
 	int i=0;
 	int lineNumber=0;
-	printf("<text x=%d y=%d style=\"font-size:%dpx\">\n",x,y,fontSize);
+	printf("<text x=%d y=%d style=\"fill:#FFFFFF;font-size:%dpx\">\n",x,y,fontSize);
 	while(text[i]){
 		char line[50];
 		int lineI=0;
@@ -306,6 +306,7 @@ void imprimePlaying(ESTADO e){
 		imprime_jogador(e);
 		imprime_feedback(e.feedback);
 		imprime_ingameHelp(e);
+		imprime_dmgNum(&e);
 
 		ABRIR_LINK(e.name,"0");/* back */
 		printf("<rect x=740 y=540 width=60 height=60 style=opacity:0;></rect>\n");

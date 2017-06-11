@@ -135,6 +135,7 @@ ESTADO inicializar(ESTADO e){
 	srand(time(NULL));
 	e.screen=5;							/* Ecra de jogo */
 	e.hp=getClassHp(e.classe);			/* Vida do jogador */
+	e.dmgTaken=0;
 	e.mp=getClassMp(e.classe);			/* Mana do jogador */
 	e.world_lvl=9;						/* Nivel */
 	e.score=0;							/* Score */

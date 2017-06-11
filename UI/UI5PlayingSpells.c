@@ -99,25 +99,35 @@ void i_confirmCastYellow(ESTADO *e){
 	}while(found && SCROLL_LIGHTNING_DMG-(num_bolts*10)>0);
 }
 void i_CastYellow(ESTADO *e){
-	POSICAO p = itAct2Pos(e->action);
-	int plrCx = e->jog.x+1;
-	int plrCy = e->jog.y+2;
-	int rotX = ((e->jog.x+1)*TAM)+TAM/2;
-	int rotY = ((e->jog.y+1)*TAM)+TAM/2;
-
-	int height = sqrt((pow(p.x-e->jog.x,2)+pow(p.y-e->jog.y,2)));
-	p.x-=e->jog.x;
-	p.y-=e->jog.y;
-	double angle;
-	if(p.y==0){
-		angle=p.x<0 ? 90 : -90;
-	}else if(p.x==0){
-		angle=p.y<0 ? 180 : 0;
-	}else{
-		angle=atan((double)p.y/(double)p.x)*(180/M_PI)+(p.x<0 ? 90 : -90);
+	POSICAO from,to;
+	int i=0;
+	from = e->jog;
+	to = e->complexItem.boltTargets[i];
+	while(i<e->complexItem.num_bolts){
+		int plrCx = from.x+1;
+		int plrCy = from.y+2;
+		int rotX = ((from.x+1)*TAM)+TAM/2;
+		int rotY = ((from.y+1)*TAM)+TAM/2;
+		
+		int height = sqrt((pow(to.x-from.x,2)+pow(to.y-from.y,2)));
+		to.x-=from.x;
+		to.y-=from.y;
+		double angle;
+		if(to.y==0){
+			angle=to.x<0 ? 90 : -90;
+		}else if(to.x==0){
+			angle=to.y<0 ? 180 : 0;
+		}else{
+			angle=atan((double)to.y/(double)to.x)*(180/M_PI)+(to.x<0 ? 90 : -90);
+		}
+		printf("<image x=%d y=%d width=%d height=%d preserveAspectRatio=none transform=\"rotate(%f %d %d)\" xlink:href=%sSpell_Lightning.png />\n",
+				  plrCx*TAM,plrCy*TAM,TAM,height*TAM                                         ,angle,rotX,rotY,  IMAGE_PATH);
+		i++;
+		if(i<e->complexItem.num_bolts){
+			from=e->complexItem.boltTargets[i-1];
+			to=e->complexItem.boltTargets[i];
+		}
 	}
-	printf("<image x=%d y=%d width=%d height=%d preserveAspectRatio=none transform=\"rotate(%f %d %d)\" xlink:href=%sSpell_Lightning.png />\n",
-			  plrCx*TAM,plrCy*TAM,TAM,height*TAM                                         ,angle,rotX,rotY,  IMAGE_PATH);
 }
 // BLUE ZONE
 void i_castTargetsBlue(ESTADO *e){

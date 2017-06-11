@@ -16,11 +16,6 @@ Definição das funções que definem o comportamento dos items
 /** \brief Quantidade de mana restaurada pela poção de mana */
 #define MP_POT_POWER			10
 
-/** \brief Dano causado pelo pergaminho de fogo */
-#define SCROLL_FIRE_DMG			35
-/** \brief Dano causado pelo pergaminho de relampago */
-#define SCROLL_LIGHTNING_DMG	40
-
 /** \brief Custo de mana do pergaminho de fogo */
 #define SCROLL_COST_FIRE		40
 /** \brief Custo de mana do pergaminho de relampago */

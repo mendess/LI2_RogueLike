@@ -1,0 +1,71 @@
+#include "UI5PlayingDmgNumbers.h"
+
+void i_dmgTaken(POSICAO jog, int dmgTaken){
+	if(dmgTaken){
+		DMG_NUM(jog.x,jog.y,dmgTaken);
+	}
+}
+void i_dmgDealtSpells_Fire(ESTADO *e){
+	if(e->isInBossBattle){
+		DMG_NUM(e->dragon.pos.x+3,e->dragon.pos.y,SCROLL_FIRE_DMG);
+	}else{
+		POSICAO p = itAct2Pos(e->action);
+		int pXmax=p.x+2;
+		int pYmax=p.y+2;
+		for(p.x=pXmax-3;p.x<pXmax;p.x++){
+			for (p.y=pYmax-3;p.y < pYmax; p.y++){
+				if(com_monstros(*e,p) && !outOfBounds(p) && !com_pedras(*e,p)){
+					DMG_NUM(p.x,p.y,SCROLL_FIRE_DMG);
+				}
+			}
+		}
+	}
+}
+void i_dmgDealtSpells_Lightning(ESTADO *e){
+	int i;
+	for(i=0;i<e->complexItem.num_bolts;i++){
+		DMG_NUM(e->complexItem.boltTargets[i].x,e->complexItem.boltTargets[i].y,SCROLL_LIGHTNING_DMG);
+	}
+}
+void i_dmgDealtSpells_Poison(ESTADO *e){
+	if(e->isInBossBattle){
+		if(e->dragon.poison){
+			DMG_NUM(e->dragon.pos.x+3,e->dragon.pos.y,POISON_DMG);
+		}
+	}else{
+		int i;
+		for(i=0;i<e->num_monstros;i++){
+			if(e->monstros[i].poison){
+				DMG_NUM(e->monstros[i].x,e->monstros[i].y,POISON_DMG);
+			}
+		}
+	}
+}
+void i_dmgDealtSpells(ESTADO *e){
+	switch(e->complexItem.type){
+		case 3: i_dmgDealtSpells_Fire(e);
+				break;
+		case 4: i_dmgDealtSpells_Lightning(e);
+				break;
+		case 5: i_dmgDealtSpells_Poison(e);
+				break;
+	}
+}
+void i_dmgDealtNormal(ESTADO *e){
+	POSICAO tgt;
+	if(e->action<20){
+		tgt = calcularNovaPosicao(e->jog,e->action-10);
+	}else if(e->action<30){
+		tgt = calculaRangedAtackPos(e->jog,e->action);
+	}
+	DMG_NUM(tgt.x,tgt.y,calcPlayerDmg(e->classe,e->bag));
+}
+void imprime_dmgNum(ESTADO *e){
+	i_dmgTaken(e->jog,e->dmgTaken);
+	if(e->complexItem.isBeingCast){
+		i_dmgDealtSpells(e);
+	}
+	if(e->action>10 && e->action<31){
+		i_dmgDealtNormal(e);
+	}
+}

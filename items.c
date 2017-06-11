@@ -177,10 +177,9 @@ int isRepeat(POSICAO targets[], int num_targets, POSICAO newTarget){
 void castScroll_Lightning(ESTADO *e){
 	POSICAO target = itAct2Pos(e->action);
 	hitMonster(e,target,SCROLL_LIGHTNING_DMG);
+	int num_bolts=1;
 	if(!e->isInBossBattle){
-		POSICAO targets[(SCROLL_LIGHTNING_DMG/10) + 1];
-		int num_bolts=1;
-		targets[0] = target;
+		e->complexItem.boltTargets[0] = target;
 		int found;
 		do{
 			found = 0;
@@ -188,16 +187,17 @@ void castScroll_Lightning(ESTADO *e){
 			for (x = -2; x < 3 && !found; ++x){
 				for (y = -2; y < 3 && !found; ++y){
 					POSICAO newTarget = {target.x+x,target.y+y};
-					if(!isRepeat(targets,num_bolts,newTarget) && com_monstros(*e,newTarget)){
+					if(!isRepeat(e->complexItem.boltTargets,num_bolts,newTarget) && com_monstros(*e,newTarget)){
 						hitMonster(e,newTarget,SCROLL_LIGHTNING_DMG - (10*num_bolts));
 						found=1;
 						target = newTarget;
-						targets[num_bolts++]=newTarget;
+						e->complexItem.boltTargets[num_bolts++]=newTarget;
 					}
 				}
 			}
 		}while(found && SCROLL_LIGHTNING_DMG-(num_bolts*10)>0);
 	}
+	e->complexItem.num_bolts=num_bolts;
 	e->mp-=SCROLL_COST_LIGHTNING;
 }
 void castScroll_Poison(ESTADO *e){

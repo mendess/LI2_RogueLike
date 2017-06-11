@@ -9,9 +9,9 @@ Definição da interface de uso de items complexos
 #include "../items.h"
 
 /** \brief Cores das molduras de dos feitiços */
-#define TARGET_MOLDS	{"red","yellow","green","blue"}
+#define TARGET_MOLDS		{"red","yellow","green","blue"}
 /** \brief Nome da imagem do spell de fogo */
-#define FIRE_IMAGE		"Spell_Fire.png"
+#define FIRE_IMAGE			"Spell_Fire.png"
 /** \brief Nome da imagem do feitiço de veneno */
 #define POISON_IMAGE		"Spell_Poison.png"
 /** \brief Nome da imagem do feitiço de veneno quando jogada no Boss */

@@ -32,30 +32,12 @@ Definição das funções para calcular o dano que o jogador vai dar aos monstro
 /** \brief Array de ganho de dinheiro */
 #define GOLD_DROP_ARRAY		{WOLF_GOLD,BAT_GOLD,OGRE_GOLD,ARCHER_GOLD}
 
-/** \brief Dano base do Warrior */
-#define WARRIOR_BASE_DMG	20
-/** \brief Dano base do Archer */
-#define ARCHER_BASE_DMG		15
-/** \brief Dano base do Mage */
-#define MAGE_BASE_DMG		13
-
 /** \brief Array de dano base */
 #define BASE_DMG_ARRAY		{0,WARRIOR_BASE_DMG,ARCHER_BASE_DMG,MAGE_BASE_DMG}
-
-/** \brief Dano base da arma de nível 1 */
-#define SWORD_BRONZE_DMG	5
-/** \brief Dano base da arma de nível 2 */
-#define SWORD_IRON_DMG		10
-/** \brief Dano base da arma de nível 3 */
-#define SWORD_STEEL_DMG		15
-/** \brief Dano base da arma de nível 4 */
-#define SWORD_PALLADIUM_DMG	20
 
 /** \brief Array de dano das armas */
 #define WEAPON_DMG_ARRAY 	{0,SWORD_BRONZE_DMG,SWORD_IRON_DMG,SWORD_STEEL_DMG,SWORD_PALLADIUM_DMG}
 
-/** \brief Dano do veneno */
-#define POISON_DMG	5
 /**
 \brief Verifica se um monstro está numa certa posição
 @param monPos Posição a verificar

@@ -31,6 +31,26 @@ Definição de algumas constantes e das estruturas do jogo
 #define CAN_USE_LESSER_TELEPORT	e.classe==3 && e.turn % 5 == 0 && e.turn != 0 && e.mp>=LESSER_TP_COST
 /** \brief Custo do teleport menor */
 #define LESSER_TP_COST	10
+/** \brief Dano causado pelo pergaminho de fogo */
+#define SCROLL_FIRE_DMG			35
+/** \brief Dano causado pelo pergaminho de relampago */
+#define SCROLL_LIGHTNING_DMG	40
+/** \brief Dano do veneno */
+#define POISON_DMG	5
+/** \brief Dano base do Warrior */
+#define WARRIOR_BASE_DMG	20
+/** \brief Dano base do Archer */
+#define ARCHER_BASE_DMG		15
+/** \brief Dano base do Mage */
+#define MAGE_BASE_DMG		13
+/** \brief Dano base da arma de nível 1 */
+#define SWORD_BRONZE_DMG	5
+/** \brief Dano base da arma de nível 2 */
+#define SWORD_IRON_DMG		10
+/** \brief Dano base da arma de nível 3 */
+#define SWORD_STEEL_DMG		15
+/** \brief Dano base da arma de nível 4 */
+#define SWORD_PALLADIUM_DMG	20
 
 /** \brief Estrutura que armazena uma posição */
 typedef struct posicao{
@@ -83,6 +103,10 @@ typedef struct itemUsedata{
 	int lastPickedTarget;
 	/** Guarda se o jogador esta a "disparar" o item */
 	int isBeingCast;
+	/** Guarda o numero de inimigos em que o relampago acertou */
+	int num_bolts;
+	/** Guarda as posições em que o relampago acertou */
+	POSICAO boltTargets[(SCROLL_LIGHTNING_DMG/10) + 1];
 }ITEM_U_DAT;
 
 /** \brief Estrutura que armazena os dados do dragão */

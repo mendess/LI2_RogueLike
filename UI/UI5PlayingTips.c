@@ -59,9 +59,9 @@ void imprime_itemDescription(int item){
 	}else if(item>9){
 		itemTier=item-9;
 	}
-	printf("<text x=600 y=410 style=\"stroke:#000000\">TYPE: %s</text>\n",ITEM_TP[itemType]);
+	printf("<text x=600 y=410 style=\"stroke:#FFFFFF;fill:#FFFFFF;\">TYPE: %s</text>\n",ITEM_TP[itemType]);
 	if(item>9){
-		printf("<text x=600 y=430 style=\"stroke:#000000\">TIER: %d</text>\n",itemTier);
+		printf("<text x=600 y=430 style=\"stroke:#FFFFFF;fill:#FFFFFF;\">TIER: %d</text>\n",itemTier);
 	}
 	imprime_texto(600, 450, ITEM_DESC[item],17);
 }
@@ -71,7 +71,7 @@ void imprime_monsterDescription(int isInBossBattle, MSTR monstro){
 	int BASE_HPS[]    = {MON_HP_WOLF,MON_HP_BAT,MON_HP_OGRE,MON_HP_ARCHER,MON_HP_DRAGON};
 	char *MSTR_DESC[] = {WOLF_DESC  ,BAT_DESC  ,OGRE_DESC  ,ARCHER_DESC  ,DRAGON_DESC  };
 	
-	printf("<text x=600 y=410 style=\"stroke:#000000\">MAX HP: %d</text>\n",BASE_HPS[select]);
+	printf("<text x=600 y=410 style=\"stroke:#FFFFFF;fill:#FFFFFF;\">MAX HP: %d</text>\n",BASE_HPS[select]);
 	imprime_texto(600, 430, MSTR_DESC[select],15);
 }
 void imprime_monsterAttackArea(ESTADO e, MSTR monstro){
