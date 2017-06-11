@@ -1,6 +1,11 @@
 #ifndef __IA_H__
 #define __IA_H__
 
+/**
+@file IA.h
+Movimentos e ataques dos monstros
+*/
+
 #include "../colisions.h"
 #include "../levelMaker.h"
 #include "../estrutura.h"

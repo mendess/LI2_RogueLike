@@ -8,7 +8,7 @@
 #include "IA.h"
 
 /**
-@file actionMap.h
+@file IAogre.h
 Movimentos e ataques do ogre
 */
 /**

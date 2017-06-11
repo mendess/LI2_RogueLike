@@ -2,7 +2,7 @@
 #define __BAT_H__
 #include "IA.h"
 /**
-@file actionMap.h
+@file IAbat.h
 Movimentos e ataques do morcego
 */
 /**

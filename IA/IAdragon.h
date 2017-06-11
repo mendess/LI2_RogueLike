@@ -1,6 +1,6 @@
 #include "IA.h"
 /**
-@file actionMap.h
+@file IAdragon.h
 Movimentos e ataques do dragão
 */
 ESTADO fireCone0 (ESTADO e);

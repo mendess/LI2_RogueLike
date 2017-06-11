@@ -2,7 +2,7 @@
 #define __ARCHER_H__
 #include "IA.h"
 /**
-@file actionMap.h
+@file IAarcher.h
 Movimentos e ataques do arquero
 */
 /**

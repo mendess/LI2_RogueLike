@@ -8,7 +8,7 @@
 #include "IA.h"
 
 /**
-@file actionMap.h
+@file IAwolf.h
 Movimentos e ataques do dragão
 */
 /**

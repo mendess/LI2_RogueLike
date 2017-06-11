@@ -122,12 +122,13 @@ void imprime_chests(CHEST chests[], int num_chests);
 \brief Imprime os monstros
 @param jog Posição do jogador
 @param monstros Lista dos mostros
-@param num_monstros Número de monstros
+@param num_monstros Número de monstros a imprimir
 */
 void imprime_monstros (POSICAO jog, MSTR monstros[], int num_monstros);
 /**
 \brief Imprime as pedras
 @param pedras Lista dos obstaculos
+@param num_pedras Número de pedras a imprimir
 */
 void imprime_pedras (POSICAO pedras[], int num_pedras);
 /**

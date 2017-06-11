@@ -7,6 +7,11 @@ Definição das funções que imprimem os ataques do dragão
 */
 
 #include "UI5Playing.h"
+/**
+\brief Decide qual a imagem do dragao conforme o turno
+@param turn Turno do jogo
+@returns Indice da imagem
+*/
 int getDragonImg(int turn);
 /**
 \brief Imprime as zonas que vão ser afetadas pelas "fireballs" do dragão ou as "fireballs" em si

@@ -45,7 +45,8 @@ void dropItemFromMSTR(int lootTable[], CHEST droppedItems[], int x, int y){
 int calcPlayerDmg(int classe, INVT bag){
 	int weaponDmgs[] = WEAPON_DMG_ARRAY;
 	int plrDmgs[] = BASE_DMG_ARRAY;
-	return weaponDmgs[bag.weapon-9] + plrDmgs[classe];
+	int wep = bag.weapon==0 ? 0 : bag.weapon-SWORD_BRONZE-1;
+	return weaponDmgs[wep] + plrDmgs[classe];
 }
 int updateScore(int type){
 	int scores[] = SCORE_GAIN_ARRAY;
