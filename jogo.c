@@ -12,7 +12,7 @@ ESTADO calcularNovoEstado(ESTADO e){
 		e.screen=1;
 		return e;
 	}
-	if(ACT_MENU_SCORE_OR_HELP){/* escolha do menu */
+	if(ACT_MENU_SCORE){/* escolha do menu */
 		e.turn=0;
 		e.screen = e.action-50;
 		return e;

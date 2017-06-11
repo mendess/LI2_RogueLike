@@ -16,37 +16,21 @@ Movimentos e ataques dos monstros
 #include "IAdragon.h"
 
 /**
-@param wolf damage
+\brief wolf damage
 */
 #define WOLF_DMG      10
 /**
-@param wolf life
-*/
-#define WOLF_HP       1
-/**
-@param bat damage
+\brief bat damage
 */
 #define BAT_DMG       7
 /**
-@param bat life
-*/
-#define BAT_HP        10
-/**
-@param archer damage
+\brief archer damage
 */
 #define ARCHER_DMG    8
 /**
-@param archer life
-*/
-#define ARCHER_HP     8
-/**
-@param ogre damage
+\brief ogre damage
 */
 #define OGRE_DMG      15
-/**
-@param ogre life
-*/
-#define OGRE_HP       15
 
 /**
 \brief Verifica se a jogada que será feita pelo monstro 
@@ -102,52 +86,41 @@ ESTADO mov_bat(ESTADO e,int i,POSICAO p);
 \brief  Quando não é selecionado para atacar faz com que o arqueiro 
 se mova pelo mapa
 @param e Estado do jogo
-@param i posição do array onde estão guardadas as coordenadas
-do arqueiro em questão
+@param i posição do array onde estão guardadas as coordenadas do arqueiro em questão
 @param p posição do arqueiro em questão
-@returns estado do jogo alterado depois do arqueiro se ter movido 
-aleatóriamente
+@returns estado do jogo alterado depois do arqueiro se ter movido aleatóriamente
 */
 ESTADO mov_archer(ESTADO e,int i,POSICAO p);
 /**
-\brief Quando não é selecionado para atacar faz com que o lobo 
-se mova pelo mapa
+\brief Quando não é selecionado para atacar faz com que o lobo se mova pelo mapa
 @param e Estado do jogo
-@param i posição do array onde estão guardadas as coordenadas
-do lobo em questão
+@param i posição do array onde estão guardadas as coordenadasdo lobo em questão
 @param p posição do lobo em questão
-@returns estado do jogo alterado depois do lobo se ter movido 
-aleatóriamente
+@returns estado do jogo alterado depois do lobo se ter movido aleatóriamente
 */
 ESTADO mov_wolf (ESTADO e,int i,POSICAO p);
 /**
 \brief Decide se o morcego ataca ou se se mexe pelo mapa
 @param e Estado do jogo
-@param i posição do array onde estão guardadas as coordenadas
-do morcego em questão
+@param i posição do array onde estão guardadas as coordenadas do morcego em questão
 @param p posição do morcego em questão
-@returns estado do jogo alterado depois do morcego se ter movido 
-aleatóriamente ou atacado o jogador
+@returns estado do jogo alterado depois do morcego se ter movido aleatóriamente ou atacado o jogador
 */
 ESTADO acao_bat(ESTADO e, int i, POSICAO p);
 /**
 \brief Decide se o lobo ataca ou se se mexe pelo mapa
 @param e Estado do jogo
-@param i posição do array onde estão guardadas as coordenadas
-do lobo em questão
+@param i posição do array onde estão guardadas as coordenadas do lobo em questão
 @param p posição do lobo em questão
-@returns estado do jogo alterado depois do lobo se ter movido 
-aleatóriamente ou atacado o jogador
+@returns estado do jogo alterado depois do lobo se ter movido aleatóriamente ou atacado o jogador
 */
 ESTADO acao_wolf (ESTADO e,int i, POSICAO p);
 /**
 \brief Decide se o arqueiro ataca ou se se mexe pelo mapa
 @param e Estado do jogo
-@param i posição do array onde estão guardadas as coordenadas
-do arqueiro em questão
+@param i posição do array onde estão guardadas as coordenadas do arqueiro em questão
 @param p posição do arqueiro em questão
-@returns estado do jogo alterado depois do arqueiro se ter movido 
-aleatóriamente ou atacado o jogador
+@returns estado do jogo alterado depois do arqueiro se ter movido aleatóriamente ou atacado o jogador
 */
 ESTADO acao_archer(ESTADO e, int i, POSICAO p);
 /**
@@ -156,11 +129,9 @@ ESTADO acao_archer(ESTADO e, int i, POSICAO p);
  se colabora com outro monstro para bloquear a passagem do jogador
  se persegue o jogador
 @param e Estado do jogo
-@param i posição do array onde estão guardadas as coordenadas
-do lobo em questão
+@param i posição do array onde estão guardadas as coordenadas do lobo em questão
 @param p posição do lobo em questão 
-@returns estado do jogo alterado depois do lobo se ter movido 
-ou atacado o jogador
+@returns estado do jogo alterado depois do lobo se ter movido ou atacado o jogador
 */
 ESTADO estrat_wolf(ESTADO e, int i, POSICAO p);
 /**
@@ -169,21 +140,17 @@ ESTADO estrat_wolf(ESTADO e, int i, POSICAO p);
  se colabora com outro monstro para bloquear a passagem do jogador
  se persegue o jogador
 @param e Estado do jogo
-@param i posição do array onde estão guardadas as coordenadas
-do morcego em questão
+@param i posição do array onde estão guardadas as coordenadas do morcego em questão
 @param p posição do morcego em questão 
-@returns estado do jogo alterado depois do morcego se ter movido 
-ou atacado o jogador
+@returns estado do jogo alterado depois do morcego se ter movido ou atacado o jogador
 */
 ESTADO estrat_bat(ESTADO e, int i, POSICAO p);
 /**
 \brief Oogre tem como unica função guardar o cofre que está ao seu lado.
 @param e Estado do jogo
-@param i posição do array onde estão guardadas as coordenadas
-do ogre em questão
+@param i posição do array onde estão guardadas as coordenadas do ogre em questão
 @param p posição do ogre em questão 
-@returns estado do jogo alterado depois do ogre se ter movido 
-ou atacado o jogador
+@returns estado do jogo alterado depois do ogre se ter movido ou atacado o jogador
 */
 ESTADO estrat_ogre(ESTADO e, int i, POSICAO p);
 /**
@@ -192,27 +159,22 @@ ESTADO estrat_ogre(ESTADO e, int i, POSICAO p);
  se colabora com outro monstro para bloquear a passagem do jogador
  se persegue o jogador
 @param e Estado do jogo
-@param i posição do array onde estão guardadas as coordenadas
-do arqueiro em questão
+@param i posição do array onde estão guardadas as coordenadas do arqueiro em questão
 @param p posição do arqueiro em questão 
-@returns estado do jogo alterado depois do arqueiro se ter movido 
-ou atacado o jogador
+@returns estado do jogo alterado depois do arqueiro se ter movido ou atacado o jogador
 */
 ESTADO estrat_archer(ESTADO e, int i, POSICAO p);
 /**
-\brief Vê quais os dois monstros que estão mais perto e fa-los cooperar 
-para maximizarem o dano feito ao jogador
+\brief Vê quais os dois monstros que estão mais perto e fa-los cooperar para maximizarem o dano feito ao jogador
 @param e Estado do jogo
-@returns numa posição os indices do dois monstros que vão 
-perseguir/atacar o jogador
+@returns numa posição os indices do dois monstros que vão perseguir/atacar o jogador
 */
 POSICAO quemAtaca(ESTADO e);
 /**
 \brief das duas posições devolvidas pela funão quemAtaca esta função verifica
 o tipo de monstro e chama a função que coordena a estratégia dos dois monstros.
 @param e Estado do jogo
-@param i  posição do array onde estão guardadas as coordenadas
-do monstro em questão
+@param i  posição do array onde estão guardadas as coordenadas do monstro em questão
 @returns o estado do jogo depois de terem sido escolhidos os dois monstros
 que iriam tentar atacar o jogador e depois de estes terem feito os seus
 movimentos
@@ -222,8 +184,7 @@ ESTADO iaMoves (ESTADO e,int i);
 \brief Coordena as funções de movimento aleatório e as de movimentos estratégicos
 dos monstros.
 @param e Estado do jogo.
-@returns o resultado do movimento aleatório dos monstros e dos dois
-que tentam atacar o jogador
+@returns o resultado do movimento aleatório dos monstros e dos dois que tentam atacar o jogador
 */
 ESTADO move_monstros(ESTADO e);
 

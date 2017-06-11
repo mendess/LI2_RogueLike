@@ -1,4 +1,4 @@
-#define DEBUG
+//#define DEBUG
 
 #include "levelMaker.h"
 
@@ -138,7 +138,7 @@ ESTADO inicializar(ESTADO e){
 	e.hp=getClassHp(e.classe);			/* Vida do jogador */
 	e.dmgTaken=0;
 	e.mp=getClassMp(e.classe);			/* Mana do jogador */
-	e.world_lvl=9;						/* Nivel */
+	e.world_lvl=1;						/* Nivel */
 	e.score=0;							/* Score */
 	e.turn=0;							/* Turno */
 	e.direction=0;						/* Lado para que o jogador esta a olhar 0:drt e 1:esq */

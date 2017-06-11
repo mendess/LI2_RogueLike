@@ -64,7 +64,6 @@ Action map:
 	27 -> archer atack NW
 	28 -> archer atack N
 	29 -> archer atack NE
-	30 -> atack boss
 	32 -> mage lesser teleport S
 	34 -> mage lesser teleport W
 	36 -> mage lesser teleport E
@@ -77,7 +76,6 @@ Action map:
 	45 -> Use Item 5
 	50 -> Toggle ScoreBoard Type
 	52 -> Jogar
-	53 -> Go to Help
 	54 -> Go to ScoreBoard
 	61 -> Pick Warrior
 	62 -> Pick Archer

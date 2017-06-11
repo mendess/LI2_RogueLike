@@ -21,8 +21,6 @@ void imprime(ESTADO e){
 				break;
 		case 2: imprimeCharSelect(e.name);
 				break;
-		case 3: imprimeHelp(e.name);
-				break;
 		case 4: imprimeScoreBoard(e.name,e.turn);
 				break;
 		case 5: imprimePlaying(e);

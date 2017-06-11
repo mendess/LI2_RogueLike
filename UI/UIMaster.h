@@ -11,7 +11,6 @@ Definição das funções que controlam a interface
 #include "UI0Form.h"
 #include "UI1Menu.h"
 #include "UI2CharSelect.h"
-#include "UI3Help.h"
 #include "UI4ScoreBoard.h"
 #include "UI5Playing.h"
 #include "UI6Shop.h"

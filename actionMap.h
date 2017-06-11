@@ -7,7 +7,7 @@ Definição do mapa de ações do jogador
 /** \brief Ação para voltar ao menu */
 #define ACT_GOTO_MENU			e.action==0
 /** \brief Ações para aceder aos sub menus de high scores ou ajuda */
-#define ACT_MENU_SCORE_OR_HELP	e.action==54 || e.action==53
+#define ACT_MENU_SCORE			e.action==54
 /** \brief Ação para mudar de scoreboard completa para a filtrada e vice-versa */
 #define ACT_TOGGLE_SB_TYPE		e.action==50
 /** \brief Ação para começar o jogo */
@@ -78,7 +78,6 @@ Definição do mapa de ações do jogador
 	27 -> archer atack NW
 	28 -> archer atack N
 	29 -> archer atack NE
-	30 -> atack boss
 	32 -> mage lesser teleport S
 	34 -> mage lesser teleport W
 	36 -> mage lesser teleport E
@@ -91,7 +90,6 @@ Definição do mapa de ações do jogador
 	45 -> Use Item 5
 	50 -> Toggle ScoreBoard Type
 	52 -> Jogar
-	53 -> Go to Help
 	54 -> Go to ScoreBoard
 	61 -> Pick Warrior
 	62 -> Pick Archer

@@ -1,4 +1,4 @@
-CFLAGS= -Wall -Wextra -pedantic -g
+CFLAGS= -Wall -Wextra -pedantic -O2
 FICHEIROS=(wildcard *.c) (wildcard *.h) makefile
 OBJECTS:=$(patsubst %.c,%.o,$(wildcard *.c))
 OBJ_IA:=$(patsubst %.c,%.o,$(wildcard IA/*.c))

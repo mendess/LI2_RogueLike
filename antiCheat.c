@@ -112,7 +112,7 @@ int validAction(ESTADO e){
 	if(ACT_BOSS_ATTACK){
 		return validBossAtack(e);
 	}
-	if(ACT_MENU_SCORE_OR_HELP || ACT_MENU_PLAY){/* escolha do menu */
+	if(ACT_MENU_SCORE || ACT_MENU_PLAY){/* escolha do menu */
 		return isInMenu(e);
 	}
 	if(ACT_TOGGLE_SB_TYPE){
