@@ -111,6 +111,8 @@ typedef struct estado{
 	int classe;
 	/** Vida do jogador */
 	int hp;
+	/** Dano que o jogador levou neste turno */
+	int dmgTaken;
 	/** Mana do jogador */
 	int mp;
 	/** Nome do Jogador */

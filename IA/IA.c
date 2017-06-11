@@ -20,17 +20,20 @@ int poslivre(ESTADO e, POSICAO p){
 ESTADO ataca_jogador(ESTADO e,int i){
 	if(e.bag.armour==ARMOUR_BRONZE){
 		e.hp-=(i*0.9);
-	}
-	if(e.bag.armour==ARMOUR_IRON){
+		e.dmgTaken+=(i*0.9);
+	}else if(e.bag.armour==ARMOUR_IRON){
 		e.hp-=(i*0.75);
-	}
-	if(e.bag.armour==ARMOUR_STEEL){
+		e.dmgTaken+=(i*0.75);
+	}else if(e.bag.armour==ARMOUR_STEEL){
 		e.hp-=(i*0.65);
-	}
-	if(e.bag.armour==ARMOUR_PALLADIUM){
+		e.dmgTaken+=(i*0.65);
+	}else if(e.bag.armour==ARMOUR_PALLADIUM){
 		e.hp-=(i*0.5);
+		e.dmgTaken+=(i*0.5);
+	}else{
+		e.hp-=i;
+		e.dmgTaken+=i;
 	}
-	else e.hp-=i;
 	return e;
 }
 int existe_jogador(ESTADO e,POSICAO p){
