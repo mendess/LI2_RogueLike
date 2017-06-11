@@ -85,11 +85,13 @@ int hitMonster(ESTADO *e, POSICAO target, int dmg){
 		if(com_boss(*e,target)){
 			e->dragon.hp-=dmg;
 			if(e->dragon.hp<1){
+				POSICAO newExit;
 				dropItemFromDragon(e->lootTable,e->droppedItems,e->dragon.pos);
 				do{
-					e->saida.x= rand() % SIZE;
-					e->saida.y= rand() % SIZE;
-				}while(!pos_completamente_livre(*e,e->saida.x,e->saida.y));
+					newExit.x= rand() % SIZE;
+					newExit.y= rand() % SIZE;
+				}while(!pos_completamente_livre(*e,newExit.x,newExit.y));
+				e->saida = newExit;
 			}
 			isHit=1;
 		}else{

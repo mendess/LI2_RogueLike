@@ -13,7 +13,9 @@ Definição da interface de uso de items complexos
 /** \brief Nome da imagem do spell de fogo */
 #define FIRE_IMAGE		"Spell_Fire.png"
 /** \brief Nome da imagem do feitiço de veneno */
-#define POISON_IMAGE	"Spell_Poison.png"
+#define POISON_IMAGE		"Spell_Poison.png"
+/** \brief Nome da imagem do feitiço de veneno quando jogada no Boss */
+#define POISON_IMAGE_BOSS	"Spell_Poison_Dragon.png"
 
 /**
 \brief Imprime um quadrado sombreado onde o feitiço vai ter efeito
