@@ -48,7 +48,7 @@ Definição das funções que imprimem as ajudas durante o jogo
 /** \brief Descrição do armadura de nivel 2 */
 #define ARMOUR_IRON_DESC		"Standard protection,\nnot amazing\nbut it will\nwork for now."
 /** \brief Descrição do armadura de nivel 3 */
-#define ARMOUR_STEEL_DESC		"I want to see wolfs\ntry and bit through this!"
+#define ARMOUR_STEEL_DESC		"I want to see wolfs\ntry and bite\nthrough this!"
 /** \brief Descrição do armadura de nivel 4 */
 #define ARMOUR_PALLADIUM_DESC	"This is made of the\nmost impenetrable\nmaterial ever.\nEven rain can't\nget through!"
 /** \brief Lista dos tipos de item */

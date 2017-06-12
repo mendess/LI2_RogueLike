@@ -6,10 +6,10 @@ int getDirection(ESTADO e,POSICAO p){
 	int type=0;
 	if(com_monstros(e,e.jog)){
 		type=10;
-	}else if(com_droppedItem(e.droppedItems,e.jog)){
-		type=80;
 	}else if(com_chest(e,e.jog)){
 		type=90;
+	}else if(com_droppedItem(e.droppedItems,e.jog)){
+		type=80;
 	}
 	return 7-3*(p.y+1)+p.x+1+type;
 }
@@ -245,7 +245,7 @@ void imprime_inventory(int mode,char *name,INVT bag){
 void imprime_ingameHelp(ESTADO e){
 	imprime_helpButton(e.name);
 	if(e.isInIngameHelp){
-		if(e.isInBossBattle){
+		if(e.isInBossBattle && e.dragon.hp>0){
 			imprime_helpBoss(e.name,e.dragon.pos);
 		}else{
 			imprime_helpEnemies(e.name, e.monstros, e.num_monstros);

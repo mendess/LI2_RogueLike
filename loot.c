@@ -9,7 +9,7 @@ int generatePotion(){
 	}
 }
 int generateScroll(){
-	int r = rand() % 3;
+	int r = rand() % 4;
 	switch(r){
 		case 0: return SCROLL_FIRE;
 				break;

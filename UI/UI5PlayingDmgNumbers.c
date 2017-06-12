@@ -78,7 +78,7 @@ void i_dmgDealtNormal(ESTADO *e){
 }
 void imprime_dmgNum(ESTADO *e){
 	i_dmgTaken(e->jog,e->dmgTaken);
-	if(e->complexItem.isBeingCast && e->action>9999){
+	if(e->complexItem.isBeingCast && e->action>9999 && !e->isInIngameHelp){
 		i_dmgDealtSpells(e);
 	}else{
 		i_dmgDealtSpells_Poison(e);

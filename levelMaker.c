@@ -1,6 +1,6 @@
-#define TEST_SHOP
+//#define TEST_SHOP
 //#define TEST_BOSS
-#define TEST_ITEMS
+//#define TEST_ITEMS
 
 #include "levelMaker.h"
 
