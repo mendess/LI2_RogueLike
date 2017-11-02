@@ -46,6 +46,7 @@ Definição das funções que geram os items por nivel
 /** \brief Formula para calcular a probabilidade de gerar um item de tier 2 ou 3 */
 #define TIER_SHIFT(i)	0.9/(1+170*exp(-0.25*i))
 
+#define SCROLL_ARRAY {SCROLL_FIRE,SCROLL_LIGHTNING,SCROLL_TELEPORT,SCROLL_POISON}
 /**
 \brief Devolve uma potion gerada aleatoriamente
 @returns O número da poção gerada

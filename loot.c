@@ -10,17 +10,8 @@ int generatePotion(){
 }
 int generateScroll(){
 	int r = rand() % 4;
-	switch(r){
-		case 0: return SCROLL_FIRE;
-				break;
-		case 1: return SCROLL_LIGHTNING;
-				break;
-		case 2: return SCROLL_TELEPORT;
-				break;
-		case 3: return SCROLL_POISON;
-				break;
-	}
-	return SCROLL_FIRE;
+	int a[] = SCROLL_ARRAY;
+	return a[r];
 }
 int generateSword(int world_lvl){
 	int r = rand() % 100000;
