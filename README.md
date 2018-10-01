@@ -1,4 +1,4 @@
-# LI2
+# LI2 (Muitas horas sem dormir para fazer isto)
 
 HP = 100
 
